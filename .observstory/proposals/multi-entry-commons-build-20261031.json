@@ -1,0 +1,40 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "multi-entry-commons-build-20261031",
+  "kind": "proposal",
+  "title": "Build multi-entry Commons with ATProto publication and ingestion",
+  "statement": "Achim clarified and authorized planning a shared community architecture reached through repo navigation, search, CLI/MCP and community links. The attached specification and staged Claude build plan extend the existing local Commons rather than a single-door funnel. ATProto is a concrete adapter work package; external account activation remains separate.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant",
+    "via": "ChatGPT Work selected project handoff"
+  },
+  "submitted_at": "2026-10-31T15:05:41.636291+00:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "58b99426d39921975411ab7a1541c0571c863e35"
+  },
+  "evidence": [
+    {
+      "path": "docs/architecture/MULTI-ENTRY-COMMONS.md"
+    },
+    {
+      "path": "docs/build/MULTI-ENTRY-BUILD.md"
+    },
+    {
+      "path": "docs/build/CLAUDE-MULTI-ENTRY-PROMPT.md"
+    }
+  ],
+  "conditions": [
+    "User agreed the multi-entry/community direction and asked to spec and plan it for Claude; individual schema and deployment choices remain proposed.",
+    "Inspected implementation baseline: PR #8 at e24838fe25a7aa1e4c9648f8dee03ce159883b28; not merged when read.",
+    "Hosted knowledge at 58b9942 is complete but has timetable schema diagnostics, repaired separately in PR #4.",
+    "New work is documentation and planning only; no workers started, account posts, deployment or paid indexing.",
+    "Open activation choices: controlled NSID namespace, public account/provider setup, hosting and moderation ownership.",
+    "Sources: https://github.com/blackmath88/baselhack26-open-presence/pull/8 ; https://atproto.com/specs/lexicon ; https://atproto.com/specs/repository ; https://atproto.com/guides/reads-and-writes",
+    "Affected documents: new specification, build plan and launch prompt. Older first-slice plan remains historical; its ATProto deferral is superseded only for the continuation scope."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
