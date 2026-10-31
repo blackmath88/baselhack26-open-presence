@@ -1,0 +1,35 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "repository-hygiene-20261031",
+  "kind": "finding",
+  "title": "Consolidated build branches and repaired legacy moderation reads",
+  "statement": "Merged memory, planning, base Commons, PDF and Observatory workspace PRs under Achim's explicit merge instruction. Publication repairs were integrated into the multi-entry branch. Reproduced and repaired normal-reader moderation leakage across inherited room/HTTP/MCP/orchestration projections without rewriting stored events.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant",
+    "via": "ChatGPT Work direct execution"
+  },
+  "submitted_at": "2026-10-31T18:28:51.073988+00:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "9ba90708c4cec4e3c5d21b00cfb39a7c09f8ce2c",
+    "context_packet_id": "cp_49910240c91373d872f079ac"
+  },
+  "evidence": [
+    {
+      "path": "evidence/MODERATION-READS-20261031.md"
+    },
+    {
+      "path": "apps/commons/server/test/commons/moderation-reads.test.ts"
+    }
+  ],
+  "conditions": [
+    "The referenced context packet is a dated orientation at 93a5445; current source and branch heads were inspected separately.",
+    "Integration and repair tests are coordinator verification, not independent review or human product acceptance.",
+    "Merging a proposal file does not accept its claims or change source-owned decisions.",
+    "Local moderation does not retract externally published content; public deployment and account activation remain outside this work."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}

@@ -58,3 +58,8 @@ Specification: `docs/architecture/MULTI-ENTRY-COMMONS.md` · plan: `docs/build/M
 
 ## Current state / next action
 Draft PR opened against `feat/commons-brainstorm-integration` (retarget to `main` when PR #8 lands). Next exact action: an independent bounded review of this head (publication/ingestion state machines, moderation leakage, CLI exit codes), then the activation checklist if a real account and namespace are provided.
+
+
+## Codex integration continuation — 31 October
+
+Publication fixes from PR #13 are integrated. The reproduced legacy room/HTTP/MCP moderation read leak is repaired in the accompanying change; normal read projections omit withheld content and dependent reasons while retaining the original event log. Combined local checks against current main: 188 tests, typecheck, index reproduction, build and both server smoke scripts pass. See `evidence/MODERATION-READS-20261031.md`. These are coordinator checks, not independent review or public activation. Earlier milestone and test counts above are historical evidence.
