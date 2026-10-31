@@ -1,0 +1,38 @@
+name: Hackathon Observatory
+on:
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened, closed, ready_for_review, converted_to_draft]
+  issues:
+    types: [opened, closed, reopened]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pull-requests: read
+  issues: read
+concurrency:
+  group: observstory-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build evidence-backed project map
+        uses: blackmath88/observstory@a38a1a203d5b2c9ee599ecdf421ccc595cb57c0d
+        with:
+          config: observstory.config.json
+          coordination: .observstory/coordination.json
+          output: observstory
+      - name: Save private dashboard artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hackathon-observatory
+          path: observstory
+          retention-days: 7
+      - name: Add planning links
+        run: |
+          echo "## Hackathon planning" >> "$GITHUB_STEP_SUMMARY"
+          echo "Read [the plan](https://github.com/blackmath88/baselhack26-open-presence/blob/main/HACKATHON-PLAN.md)." >> "$GITHUB_STEP_SUMMARY"
+          echo "Suggested times remain proposed until confirmed. Download this run's hackathon-observatory artifact and open index.html." >> "$GITHUB_STEP_SUMMARY"
