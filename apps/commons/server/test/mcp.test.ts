@@ -8,6 +8,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { createHarness, structured, structuredError, type Harness } from './harness.js'
 import { TOOL_NAMES } from '../mcp/register-tools.js'
+import { COMMONS_TOOL_NAMES } from '../mcp/commons-tools.js'
 import type { ConflictRecord, ContributionRecord, CurationProposal, ProblemRecord } from '../domain/types.js'
 
 let harness: Harness
@@ -20,10 +21,10 @@ afterEach(async () => {
 })
 
 describe('tool surface', () => {
-  it('exposes exactly the v0.3 tool set', async () => {
+  it('exposes exactly the v0.3 tool set plus the Commons tools where the Commons service exists', async () => {
     const client = await harness.mcp('Achim')
     const { tools } = await client.listTools()
-    expect(tools.map((t) => t.name).sort()).toEqual([...TOOL_NAMES].sort())
+    expect(tools.map((t) => t.name).sort()).toEqual([...TOOL_NAMES, ...COMMONS_TOOL_NAMES].sort())
   })
 
   it('declares an input and an output schema for every tool', async () => {

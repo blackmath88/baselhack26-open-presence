@@ -72,7 +72,10 @@ describe('legacy curation route on Commons rooms', () => {
     const first = await review('person:kai', 'commons:emmc-not-exposed:relation:1', 'accept')
     const again = await review('person:kai', 'commons:emmc-not-exposed:relation:1', 'accept')
     expect([first.status, again.status]).toEqual([200, 200])
-    expect(await again.json()).toEqual(await first.json())
+    // A replay returns the first outcome and says so; the replayed flag is the only difference.
+    const [firstBody, againBody] = [await first.json(), await again.json()] as Array<Record<string, unknown>>
+    expect(againBody).toEqual({ ...firstBody, replayed: true })
+    expect(firstBody.replayed).toBe(false)
   })
 
   it('serializes a legacy accept against a concurrent Commons reject (review B1)', async () => {
@@ -111,7 +114,9 @@ describe('legacy curation route on Commons rooms', () => {
     const { addThought, state } = await start()
     const [a, b] = await Promise.all([addThought('person:kai', 'post-1'), addThought('person:kai', 'post-1')])
     expect([a.status, b.status]).toEqual([201, 201])
-    expect(await b.json()).toEqual(await a.json())
+    const [aBody, bBody] = [await a.json(), await b.json()] as Array<Record<string, unknown>>
+    expect([aBody.replayed, bBody.replayed].sort()).toEqual([false, true])
+    expect({ ...aBody, replayed: undefined }).toEqual({ ...bBody, replayed: undefined })
     expect((await addThought('person:kai', 'post-1', 'Edited thought')).status).toBe(409)
     expect((await state()).contributions.filter(c => c.content === 'Thought from person:kai')).toHaveLength(1)
   })

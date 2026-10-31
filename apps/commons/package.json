@@ -8,6 +8,9 @@
     "dev:server": "tsx server/http/server.ts",
     "dev:cloudflare": "npm run build && npx wrangler@latest dev",
     "mcp": "tsx server/mcp/stdio.ts",
+    "commons": "tsx scripts/commons/cli.ts",
+    "pds:dev": "node tools/local-pds/start.mjs",
+    "test:atproto": "vitest run server/test/atproto",
     "brainstorm": "tsx scripts/brainstorm.ts",
     "build": "npm run typecheck && vite build",
     "deploy": "npm run build && npx wrangler@latest deploy",
@@ -18,6 +21,11 @@
     "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.server.json && tsc --noEmit -p tsconfig.worker.json"
   },
   "dependencies": {
+    "@atproto/api": "^0.30.0",
+    "@atproto/common-web": "^0.5.15",
+    "@atproto/identity": "^0.5.20",
+    "@atproto/lexicon": "^0.7.17",
+    "@atproto/syntax": "^0.7.7",
     "@modelcontextprotocol/node": "2.1.2",
     "@modelcontextprotocol/server": "^2.0.0",
     "@vitejs/plugin-react": "^5.0.0",

@@ -6,7 +6,7 @@
  * synchronisation — they are literally the same objects in the same process.
  */
 import { createServer } from 'node:http'
-import { buildServices } from '../container.js'
+import { buildServices, commonsConfigFromEnv } from '../container.js'
 import { createApi } from './api.js'
 import { createMcpNodeHandler } from '../mcp/http.js'
 import { createCommonsImporter } from '../commons/import.js'
@@ -27,6 +27,11 @@ async function main(): Promise<void> {
   if (services.commons) {
     const result = await createCommonsImporter(services.repository as TransactionalEventRepository)(importedProblems())
     console.log(`Photo Frame Commons: ${result.roomIds.length} imported rooms, ${result.appendedEvents} new import events`)
+    const config = commonsConfigFromEnv()
+    console.log(`Commons ATProto: ${config.atproto ? `configured (${config.atproto.describe().allowedPds.join(', ') || 'no PDS allowlisted'})` : 'not configured — publication and ingestion report that state'}`)
+    // Pending outbox work and opt-in authors are retried at boot, best effort; failures are reported, never hidden.
+    const report = await services.commons.bootstrap({ follow: config.follow })
+    for (const r of report) console.log(`Commons sync ${r.did}: ${r.status}, ${r.records} records${r.error ? ` (${r.error})` : ''}`)
   }
   const api = createApi(services, { enablePrototypeAuth })
   const mcp = createMcpNodeHandler(services)

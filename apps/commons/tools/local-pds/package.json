@@ -1,0 +1,20 @@
+{
+  "name": "commons-local-pds",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Isolated, disposable ATProto PDS + PLC directory for local Commons integration. Not public, not federation.",
+  "scripts": {
+    "start": "node start.mjs"
+  },
+  "devDependencies": {
+    "@atproto/api": "0.30.0",
+    "@atproto/crypto": "^0.5.0",
+    "@atproto/pds": "0.5.52",
+    "@did-plc/lib": "^0.0.4",
+    "@did-plc/server": "0.0.1"
+  },
+  "allowScripts": {
+    "better-sqlite3@12.11.1": true
+  }
+}

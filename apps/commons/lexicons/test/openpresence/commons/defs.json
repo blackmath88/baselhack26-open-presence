@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "test.openpresence.commons.defs",
+  "description": "Shared definitions for Photo Frame Commons contribution records. DEVELOPMENT NAMESPACE: the `.test` top-level domain is reserved (RFC 2606), so this authority is deliberately unownable and must be replaced by a verified-owned NSID authority before any production publication.",
+  "defs": {
+    "problemRef": {
+      "type": "object",
+      "description": "The shared problem this contribution belongs to, named by its canonical app URL and the pinned source repository. Not a claim that the problem was authored on ATProto.",
+      "required": ["appUrl", "localId", "repository"],
+      "properties": {
+        "appUrl": { "type": "string", "format": "uri", "maxLength": 2048, "description": "Canonical deep link to the problem in the publishing app." },
+        "localId": { "type": "string", "maxLength": 200, "description": "The app-local stable problem identifier (Postack record id)." },
+        "repository": { "type": "string", "maxLength": 300, "description": "Source repository the problem's evidence was captured from, e.g. wesbos/photo-frame-dashboard." },
+        "revision": { "type": "string", "maxLength": 128, "description": "Source revision or snapshot identifier the evidence was pinned at." }
+      }
+    },
+    "sourceRef": {
+      "type": "object",
+      "description": "A pointer into deliberately captured public source material. The original author stays the author; this record only references it.",
+      "required": ["objectId", "permalink"],
+      "properties": {
+        "objectId": { "type": "string", "maxLength": 300 },
+        "permalink": { "type": "string", "format": "uri", "maxLength": 2048 },
+        "digest": { "type": "string", "maxLength": 128, "description": "sha256 of the captured text, when known; a changed digest means changed text." }
+      }
+    },
+    "assistance": {
+      "type": "object",
+      "description": "The submitter's declaration of how the text was prepared. A declaration, never a detection of AI use.",
+      "required": ["declared"],
+      "properties": {
+        "declared": { "type": "string", "knownValues": ["none", "ai-assisted", "ai-drafted"], "maxLength": 32 },
+        "preparedBy": { "type": "string", "maxLength": 200, "description": "Model or tool that drafted the text, when declared." }
+      }
+    },
+    "origin": {
+      "type": "object",
+      "description": "The publishing app's own identity for this record, so the app can recognise its own publication when it reads it back.",
+      "required": ["app", "localId", "revision"],
+      "properties": {
+        "app": { "type": "string", "maxLength": 200 },
+        "localId": { "type": "string", "maxLength": 200 },
+        "revision": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}
