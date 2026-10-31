@@ -14,3 +14,12 @@ export interface EventRepository {
   /** Reads the log, optionally filtered to one problem, in append order. */
   read(problemId?: string): Promise<MemoryEvent[]>
 }
+
+/** Events and adapter metadata commit in one atomic document replacement. */
+export interface RepositoryTransaction {
+  repository: EventRepository
+  metadata: Record<string, unknown>
+}
+export interface TransactionalEventRepository extends EventRepository {
+  transaction<T>(work: (tx: RepositoryTransaction) => Promise<T>): Promise<T>
+}

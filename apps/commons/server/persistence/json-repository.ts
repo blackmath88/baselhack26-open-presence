@@ -1,91 +1,84 @@
-/**
- * Local JSON event log.
- *
- * Deliberately disposable: its job is to prove the event/provenance/curation
- * model before infrastructure is introduced. See ADR-003 §4 for the recorded
- * triggers that would move this to Postgres.
- *
- * One thing here is *not* disposable. v0.2 read the whole document, mutated it
- * and wrote it back with no serialisation, so two concurrent contributions
- * raced and one was silently lost — a multi-user correctness bug, in the exact
- * area this milestone is trying to prove. Writes are serialised through a
- * promise chain, and the file is replaced atomically via a temp file + rename
- * so a crash mid-write cannot leave a truncated log.
- */
+/** Local event log; transactions atomically commit events and command receipts. */
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import type { MemoryEvent } from '../domain/events.js'
-import type { EventRepository } from './repository.js'
+import type { RepositoryTransaction, TransactionalEventRepository } from './repository.js'
 
-export interface JsonRepositoryOptions {
-  file: string
-}
-
+export interface JsonRepositoryOptions { file: string }
 interface LogDocument {
   version: 1
   events: MemoryEvent[]
+  metadata?: Record<string, unknown>
 }
-
-export function createJsonRepository(options: JsonRepositoryOptions): EventRepository {
-  const file = resolve(options.file)
-  let cache: MemoryEvent[] | undefined
-  /** Serialises every read-or-write so file access never interleaves. */
-  let queue: Promise<unknown> = Promise.resolve()
-
-  const enqueue = <T>(task: () => Promise<T>): Promise<T> => {
-    const run = queue.then(task, task)
-    queue = run.then(() => undefined, () => undefined)
-    return run
+// All instances addressing the same file share a queue. Reload on every transaction
+// avoids stale-instance overwrites. This is a single-process local backend contract.
+const queues = new Map<string, Promise<unknown>>()
+function enqueue<T>(key: string, work: () => Promise<T>): Promise<T> {
+  const run = (queues.get(key) ?? Promise.resolve()).then(work, work)
+  const settled = run.then(() => undefined, () => undefined)
+  queues.set(key, settled)
+  void settled.then(() => { if (queues.get(key) === settled) queues.delete(key) })
+  return run
+}
+function transactionView(document: LogDocument): RepositoryTransaction {
+  const metadata = document.metadata ??= {}
+  return {
+    metadata,
+    repository: {
+      async append(events) { document.events.push(...structuredClone(events)) },
+      async read(problemId) {
+        return structuredClone(problemId ? document.events.filter(e => e.problemId === problemId) : document.events)
+      },
+    },
   }
-
-  const loadUnsafe = async (): Promise<MemoryEvent[]> => {
-    if (cache) return cache
+}
+export function createJsonRepository(options: JsonRepositoryOptions): TransactionalEventRepository {
+  const file = resolve(options.file)
+  const load = async (): Promise<LogDocument> => {
     try {
-      const raw = await readFile(file, 'utf8')
-      const parsed = JSON.parse(raw) as LogDocument | MemoryEvent[]
-      cache = Array.isArray(parsed) ? parsed : (parsed.events ?? [])
+      const parsed = JSON.parse(await readFile(file, 'utf8')) as LogDocument | MemoryEvent[]
+      return Array.isArray(parsed) ? { version: 1, events: parsed } : parsed
     } catch (error) {
       if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error
-      cache = []
+      return { version: 1, events: [] }
     }
-    return cache
   }
-
-  const saveUnsafe = async (events: MemoryEvent[]): Promise<void> => {
-    await mkdir(dirname(file), { recursive: true })
-    const document: LogDocument = { version: 1, events }
-    const temp = `${file}.${process.pid}.tmp`
-    await writeFile(temp, JSON.stringify(document, null, 2))
-    await rename(temp, file)
-  }
-
+  const transaction: TransactionalEventRepository['transaction'] = work => enqueue(file, async () => {
+    const document = await load()
+    const before = JSON.stringify(document)
+    const result = await work(transactionView(document))
+    const next = JSON.stringify(document, null, 2)
+    if (JSON.stringify(document) !== before) {
+      await mkdir(dirname(file), { recursive: true })
+      const temp = `${file}.${process.pid}.tmp`
+      await writeFile(temp, next)
+      await rename(temp, file)
+    }
+    return structuredClone(result)
+  })
   return {
-    append: (events) =>
-      enqueue(async () => {
-        if (events.length === 0) return
-        const current = await loadUnsafe()
-        const next = [...current, ...events]
-        await saveUnsafe(next)
-        cache = next
-      }),
-
-    read: (problemId) =>
-      enqueue(async () => {
-        const events = await loadUnsafe()
-        return problemId ? events.filter((event) => event.problemId === problemId) : [...events]
-      }),
+    transaction,
+    append: events => transaction(async tx => { await tx.repository.append(events) }),
+    read: problemId => enqueue(file, async () => {
+      const document = await load()
+      return structuredClone(problemId ? document.events.filter(e => e.problemId === problemId) : document.events)
+    }),
   }
 }
 
-/** In-memory log for tests and for the in-process integration harness. */
-export function createMemoryRepository(seed: MemoryEvent[] = []): EventRepository {
-  let events = [...seed]
+export function createMemoryRepository(seed: MemoryEvent[] = []): TransactionalEventRepository {
+  let document: LogDocument = { version: 1, events: structuredClone(seed) }
+  const key = `memory:${++memoryCounter}`
+  const transaction: TransactionalEventRepository['transaction'] = work => enqueue(key, async () => {
+    const next = structuredClone(document)
+    const result = await work(transactionView(next))
+    document = next
+    return structuredClone(result)
+  })
   return {
-    async append(next) {
-      events = [...events, ...next]
-    },
-    async read(problemId) {
-      return problemId ? events.filter((event) => event.problemId === problemId) : [...events]
-    },
+    transaction,
+    append: events => transaction(async tx => { await tx.repository.append(events) }),
+    read: problemId => enqueue(key, async () => structuredClone(problemId ? document.events.filter(e => e.problemId === problemId) : document.events)),
   }
 }
+let memoryCounter = 0
