@@ -26,11 +26,11 @@ async function start() {
   await new Promise<void>(resolve => server!.listen(0, '127.0.0.1', resolve))
   const base = `http://127.0.0.1:${(server.address() as AddressInfo).port}`
   const token = (id: string) => services.auth.issue(id).token
-  const review = (who: string, proposalId: string, decision: 'accept' | 'reject') =>
+  const review = (who: string, proposalId: string, decision: 'accept' | 'reject', reason?: string) =>
     fetch(`${base}/api/curation/${encodeURIComponent(proposalId)}/${decision}`, {
       method: 'POST',
       headers: { 'content-type': 'application/json', authorization: `Bearer ${token(who)}` },
-      body: JSON.stringify({ problemId: 'commons:emmc-not-exposed' }),
+      body: JSON.stringify({ problemId: 'commons:emmc-not-exposed', ...(reason ? { reason } : {}) }),
     })
   const commonsReview = (who: string, proposalId: string, decision: 'accept' | 'reject') =>
     fetch(`${base}/api/commons/reviews`, {
@@ -48,7 +48,7 @@ async function start() {
     (await (await fetch(`${base}/api/problems/${encodeURIComponent('commons:emmc-not-exposed')}`, {
       headers: { authorization: `Bearer ${token('person:kai')}` },
     })).json()) as { contributions: Array<{ kind: string; content: string; status: string }>; relations: unknown[] }
-  return { review, commonsReview, addThought, state }
+  return { review, commonsReview, addThought, state, repository }
 }
 
 describe('legacy curation route on Commons rooms', () => {
@@ -88,5 +88,16 @@ describe('legacy curation route on Commons rooms', () => {
     expect(s.contributions.filter(c => c.content.startsWith('Thought from')).length).toBe(2)
     expect(s.contributions.some(c => c.kind === 'evidence')).toBe(true)
     expect(s.contributions.some(c => c.kind === 'observation')).toBe(false)
+  })
+
+  it('records the rejection reason, and a changed reason under the same key conflicts (re-review E-S3)', async () => {
+    const { review, repository } = await start()
+    const id = 'commons:emmc-not-exposed:relation:1'
+    expect((await review('person:kai', id, 'reject', 'Different failure stage')).status).toBe(200)
+    expect((await review('person:kai', id, 'reject', 'Different failure stage')).status).toBe(200)
+    expect((await review('person:kai', id, 'reject', 'Changed rationale')).status).toBe(409)
+    const rejected = (await repository.read('commons:emmc-not-exposed')).filter(e => e.eventType === 'RelationRejected')
+    expect(rejected).toHaveLength(1)
+    expect(JSON.stringify(rejected[0].payload)).toContain('Different failure stage')
   })
 })

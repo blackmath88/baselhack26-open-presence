@@ -91,7 +91,10 @@ export function createCommonsService(options: CommonsServiceOptions) {
         if (proposal.status !== 'pending') throw conflictError('Proposal has already been reviewed.', { status: proposal.status })
         if (snapshot.expectedVersion !== undefined && snapshot.expectedVersion !== events.length) throw conflictError('Room version changed.', { version: events.length })
         const curation = createCurationService(deps(tx))
-        return curation[snapshot.decision](actor, { problemId: proposed.problemId, proposalId: snapshot.proposalId })
+        if (snapshot.reason !== undefined) text(snapshot.reason, 'reason')
+        return snapshot.decision === 'reject'
+          ? curation.reject(actor, { problemId: proposed.problemId, proposalId: snapshot.proposalId, ...(snapshot.reason ? { reason: snapshot.reason } : {}) })
+          : curation.accept(actor, { problemId: proposed.problemId, proposalId: snapshot.proposalId })
       }))
     },
     /**

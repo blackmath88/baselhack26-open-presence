@@ -85,7 +85,9 @@ function evolve(acc: Accumulator, event: MemoryEvent): Accumulator {
       acc.contributions.set(event.objectId, {
         id: event.objectId,
         problemId: event.problemId,
-        kind: p.kind,
+        // Commons imports written before batch 2 used 'observation', which no view knows.
+        // Read them as the 'evidence' they are; stored events stay untouched.
+        kind: (p.kind as string) === 'observation' ? 'evidence' : p.kind,
         label: p.label,
         content: p.content,
         status: 'active',

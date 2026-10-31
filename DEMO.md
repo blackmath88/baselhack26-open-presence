@@ -12,7 +12,6 @@ npm run dev             # UI on :5173 (proxies /api to :8787), in a second termi
 ```
 Room data: `apps/commons/server/data/memory.json` (gitignored; override with `BRAINSTORM_DATA_FILE`).
 Browser drafts: `localStorage["commons.drafts.v1"]` only.
-If you ran a build before batch 2 (commit e50dc2c or earlier), delete `apps/commons/server/data/memory.json` once: imported evidence was then stored with a kind the State view could not show.
 
 ## Checks
 ```bash
@@ -36,8 +35,9 @@ bash scripts/smoke/e2e.sh   # real server on :8799 with temp data: submit, retry
    Correction: "The frame shows no USB data…" lists a real correction under "Corrections and different outcomes".
 6. Curation: imported relations show as proposals by `postack-agent` with no score; accepting keeps
    "proposed by postack-agent · reviewed by <you>" and the original reason in history.
-   Reviews of imported rooms (UI, `/api/curation/...`, `/api/commons/reviews`) all go through one serialized,
-   idempotent command: concurrent accept/reject → one success, one 409.
+   Each imported edge shows its origin and supporting evidence links.
+   Reviews of imported rooms (UI, `/api/curation/...`, `/api/commons/reviews`, MCP tools) all go through one
+   serialized, idempotent command: concurrent accept/reject → one success, one 409. A rejection reason is recorded.
 7. Stop and restart `npm run dev:server`: state is rediscovered; reimport appends 0 events.
 
 ## Real limitations
@@ -45,10 +45,10 @@ bash scripts/smoke/e2e.sh   # real server on :8799 with temp data: submit, retry
 - Full source text is not committed; evidence shows short excerpts + permalink only.
 - Search explanations are verbose BM25F field lists; ranking is not a confidence score.
 - Stop the API while a draft is pending: submit fails with a clear message and the draft stays.
+- Changing the orchestration mode and free-form "Add a thought" posts are serialized but have no idempotency key.
 - Prototype tokens are in-memory: after a server restart, browsers must pick a participant again.
 - Cross-room relation proposals (record → record) are listed in Curation; the Map view draws only same-room edges.
 - The UI cannot yet tell a replayed (idempotent) submit from a first submit; the server never duplicates either way.
 - The pinned corpus is imported only at server start; there is no HTTP import endpoint.
-- `npm audit`: 10 inherited advisories (MCP SDK, vite, zod, vitest, hono) not yet upgraded; server is loopback-only.
 - JSON log is replaced atomically but not fsync'd: a power loss can drop the latest write.
 - Cloudflare worker/Durable Object path has no Commons service (`services.commons` absent there).

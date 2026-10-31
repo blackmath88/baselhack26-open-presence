@@ -92,6 +92,7 @@ export interface ReviewCommand {
   commandId: string;
   proposalId: string;
   decision: 'accept' | 'reject';
+  reason?: string; // recorded on rejection; part of the idempotency hash
   expectedVersion?: number;
 }
 

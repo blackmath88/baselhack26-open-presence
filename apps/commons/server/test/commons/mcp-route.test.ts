@@ -47,3 +47,15 @@ describe('Commons reviews over MCP', () => {
     expect(await decisions(h)).toHaveLength(1)
   })
 })
+
+describe('stores created before batch 2', () => {
+  it('reads imported "observation" contributions as evidence without rewriting events (re-review E-S1)', async () => {
+    const { project } = await import('../../domain/projections.js')
+    const h = await setup()
+    const events = await h.services.repository.read(problemId)
+    const legacy = events.map(e => (e.eventType === 'ContributionAdded' ? { ...e, payload: { ...(e.payload as object), kind: 'observation' } } : e))
+    const state = project(legacy as typeof events)!
+    expect(state.contributions.length).toBeGreaterThan(0)
+    expect(state.contributions.every(c => c.kind === 'evidence')).toBe(true)
+  })
+})

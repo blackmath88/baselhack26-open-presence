@@ -1,0 +1,55 @@
+{
+  "first": {
+    "status": 200,
+    "body": {
+      "proposal": {
+        "id": "commons:emmc-not-exposed:relation:1",
+        "problemId": "commons:emmc-not-exposed",
+        "kind": "relation",
+        "sourceId": "commons:emmc-not-exposed",
+        "targetId": "commons:gadget-error-71",
+        "relationKind": "relates",
+        "reason": "Unreviewed imported neighbour (machine-proposal): Both stop before any eMMC data reaches the host; the cause may or may not be shared.; see original record and evidence.",
+        "confidence": 0,
+        "proposedBy": "postack-agent",
+        "status": "rejected",
+        "createdAt": "2026-10-31T14:04:01.736Z",
+        "reviewedBy": "person:kai",
+        "reviewedAt": "2026-10-31T14:04:01.877Z"
+      }
+    }
+  },
+  "retry": {
+    "status": 200,
+    "body": {
+      "proposal": {
+        "id": "commons:emmc-not-exposed:relation:1",
+        "problemId": "commons:emmc-not-exposed",
+        "kind": "relation",
+        "sourceId": "commons:emmc-not-exposed",
+        "targetId": "commons:gadget-error-71",
+        "relationKind": "relates",
+        "reason": "Unreviewed imported neighbour (machine-proposal): Both stop before any eMMC data reaches the host; the cause may or may not be shared.; see original record and evidence.",
+        "confidence": 0,
+        "proposedBy": "postack-agent",
+        "status": "rejected",
+        "createdAt": "2026-10-31T14:04:01.736Z",
+        "reviewedBy": "person:kai",
+        "reviewedAt": "2026-10-31T14:04:01.877Z"
+      }
+    }
+  },
+  "rejections": [
+    {
+      "id": "evt_c6fb000f-5acf-482c-bba9-79ddc4835706",
+      "problemId": "commons:emmc-not-exposed",
+      "actorId": "person:kai",
+      "timestamp": "2026-10-31T14:04:01.877Z",
+      "objectId": "commons:emmc-not-exposed:relation:1",
+      "eventType": "RelationRejected",
+      "payload": {
+        "proposalId": "commons:emmc-not-exposed:relation:1"
+      }
+    }
+  ]
+}

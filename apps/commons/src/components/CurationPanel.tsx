@@ -88,6 +88,33 @@ function OrchestrationSwitch({
   )
 }
 
+/** Origin and supporting source evidence for imported Commons edges (absent elsewhere). */
+function EdgeEvidence({ proposal }: { proposal: CurationProposal }) {
+  const extra = proposal as CurationProposal & {
+    origin?: string
+    evidence?: Array<{ id: string; objectId?: string; permalink?: string }>
+  }
+  if (!extra.origin && !extra.evidence?.length) return null
+  return (
+    <span className="curation-meta">
+      origin: {extra.origin ?? 'unknown'}
+      {extra.evidence?.length ? ' · evidence: ' : ''}
+      {extra.evidence?.map((e, i) => (
+        <span key={e.id}>
+          {i > 0 ? ', ' : ''}
+          {e.permalink && /^https:\/\/github\.com\//.test(e.permalink) ? (
+            <a href={e.permalink} target="_blank" rel="noreferrer noopener">
+              {e.objectId ?? e.id}
+            </a>
+          ) : (
+            (e.objectId ?? e.id)
+          )}
+        </span>
+      ))}
+    </span>
+  )
+}
+
 export function CurationPanel({
   proposals,
   contributions,
@@ -154,6 +181,7 @@ export function CurationPanel({
             </div>
 
             <p className="curation-reason">{proposal.reason}</p>
+            <EdgeEvidence proposal={proposal} />
 
             {own ? (
               <p className="hint">Your AI proposed this. Another participant has to review it.</p>
@@ -187,6 +215,7 @@ export function CurationPanel({
                   proposed by {proposerLabel(proposal)} · reviewed by {proposal.reviewedBy?.replace('person:', '') ?? '—'}
                 </span>
                 {proposal.reason && <span className="curation-meta">{proposal.reason}</span>}
+                <EdgeEvidence proposal={proposal} />
               </div>
             ))}
           </div>

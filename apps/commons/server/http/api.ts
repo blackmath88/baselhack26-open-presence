@@ -166,9 +166,25 @@ export function createApi(services: Services, options: ApiOptions): ApiHandler {
         }
         if (method === 'GET' && section === 'curation') {
           const status = url.searchParams.get('status') as 'pending' | 'accepted' | 'rejected' | null
-          return send(res, 200, {
-            proposals: await services.curation.list(problemId, status ? { status } : undefined),
-          })
+          const proposals = await services.curation.list(problemId, status ? { status } : undefined)
+          if (services.commons && problemId.startsWith('commons:')) {
+            // Imported edges keep their origin and the source evidence behind them in the review UI.
+            const room = await services.commons.getRoom(await withActor(req), problemId)
+            const enriched = new Map(room.proposals.map((p) => [p.id, p]))
+            const evidence = new Map((room.source?.evidence ?? []).map((e) => [e.id, e.source]))
+            return send(res, 200, {
+              proposals: proposals.map((p) => {
+                const e = enriched.get(p.id)
+                if (!e) return p
+                return {
+                  ...p,
+                  origin: e.origin,
+                  evidence: e.evidenceIds.map((id) => ({ id, objectId: evidence.get(id)?.objectId, permalink: evidence.get(id)?.permalink })),
+                }
+              }),
+            })
+          }
+          return send(res, 200, { proposals })
         }
         if (method === 'GET' && section === 'events') {
           return send(res, 200, { events: await services.problems.getEvents(problemId) })
@@ -229,7 +245,7 @@ export function createApi(services: Services, options: ApiOptions): ApiHandler {
         if (services.commons && problemId.startsWith('commons:')) {
           const decision = curationMatch[2] as 'accept' | 'reject'
           const commandId = optionalStr(body.commandId, 'commandId') ?? `review:${proposalId}:${decision}:${actor.actorId}`
-          return send(res, 200, await services.commons.review(actor, { commandId, proposalId, decision }))
+          return send(res, 200, await services.commons.review(actor, { commandId, proposalId, decision, ...(reason ? { reason } : {}) }))
         }
         const result =
           curationMatch[2] === 'accept'
