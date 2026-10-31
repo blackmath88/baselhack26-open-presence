@@ -31,6 +31,14 @@ Achim requested building the working loop from **br-ai-nstorm's existing applica
 
 The new plan advances the earlier local-draft-only target to a functioning local shared room with explicit submission and second-session rediscovery. It takes precedence over older static-only implementation suggestions for this build. The historical schedule below remains a proposal, not evidence of completion or a revised deadline. No implementation or worker dispatch is claimed by this documentation update.
 
+## Observatory visual workspace — next implementation
+
+- [Implementation plan](docs/build/OBSERVATORY-VISUAL-WORKSPACE.md) — stable workstreams, timeline, branches, Board and detail; cool premium visual direction.
+- [Codex launch prompt](docs/build/CODEX-VISUAL-WORKSPACE-PROMPT.md).
+- [References and research boundary](docs/design/OBSERVATORY-VISUAL-REFERENCES.md).
+
+This is the agreed next UI direction and a proposed build sequence, not a claim that the redesign is deployed. The reusable frontend lives in `blackmath88/observstory/frontend`; this repository supplies the project declarations and deployment integration.
+
 ## Hackathon project management
 - [Project and time plan](HACKATHON-PLAN.md) — milestones, acceptance criteria, Saturday/Sunday targets and scope cuts.
 - [Observstory dashboard and guide](OBSERVSTORY.md) — evidence-backed activity, overlaps and check-ins.
