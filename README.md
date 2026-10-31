@@ -5,6 +5,21 @@ BaselHack 2026 · Updated 31 October 2026
 
 Start with [the current concept](HUMAN-SIGNAL-CONCEPT.md).
 
+## The value we deliver
+
+**Find experience that fits your situation. Understand its limits. Leave something useful for the next person.**
+
+We help people judge whether someone else's experience applies to their situation, and make their own discoveries available to others. The intended benefit is less repeated investigation and more usable shared experience; it remains to be tested.
+
+Three agreed use cases:
+1. **Has someone encountered my situation?** Find a relevant account and see why it matches.
+2. **Does this advice still apply?** Inspect conditions, disagreement and later corrections before choosing a next step.
+3. **We learned something others could use.** Turn a selected observation into a small, attributable contribution.
+
+The photo-frame corpus is the demonstration case. The value is independent of a particular repository. A local draft demonstrates contribution preparation and personal rediscovery; community value requires another person to discover and use a shared contribution.
+
+See [Value and UX](docs/product/VALUE-AND-UX.md) for proposed interface wording, visible evidence and demo checkpoints. The value framing and use cases were explicitly agreed by Achim; the interface details remain proposals.
+
 ## Hackathon project management
 - [Project and time plan](HACKATHON-PLAN.md) — milestones, acceptance criteria, Saturday/Sunday targets and scope cuts.
 - [Observstory dashboard and guide](OBSERVSTORY.md) — evidence-backed activity, overlaps and check-ins.
