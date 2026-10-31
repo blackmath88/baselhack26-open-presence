@@ -154,7 +154,7 @@ export function CommonsFinder({
       problemId: selected.postackId,
       text: text.trim(),
       circumstances: circumstances.trim() || undefined,
-      sourceRefs: selected.evidence.map((e) => e.source.objectId),
+      sourceRefs: [...new Set(selected.evidence.map((e) => e.source.objectId))],
     })
     setDraft(saved)
     setStatus(
