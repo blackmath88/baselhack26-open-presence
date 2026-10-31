@@ -1,6 +1,6 @@
 # Claim ledger and verification queue
 
-31 October 2026 · All external historical claims below are **unverified in this repository pass**.
+31 October 2026 · Initial research queue, followed by the edition-01 verification update below. The table preserves the pre-build verification tasks.
 
 The imported report is research input, not a verified source ledger. Its inline numbers and annotated bibliography disagree in places; several references have an empty citation ID such as `[, pp. 19–20]`. Do not infer correctness by proximity. Reconcile against the full “Quellen” URL list and original documents. Retain stable IDs below in future sources.json.
 
@@ -38,3 +38,9 @@ For each claim record status (unverified / verified / qualified / omitted), exac
 ## What can proceed now
 
 The semantic skeleton, labelled synthetic manual and comparable visual studies can proceed. Do not put unresolved numbers or dates into hero copy, animated counters, pricing cards or source-backed captions.
+
+## Edition 01 verification update — 31 October 2026
+
+The builder opened Camelot, PDF Reference 1.3, the Wharton Warnock/Wulff interview and W3C PDF3. Relevant passages were located for native-file dependency, the page/content model, conditional embedded fonts, launch/free Reader, electronic distribution and reading order. See [sources.json](../sources.json) for the exact claims used and source locators, and [DESIGN.md](../DESIGN.md) for implementation/QA limitations.
+
+C01–C04 and C14 are used with qualifications. C05–C06 are used only for launch year/free-Reader year as reported in retrospective participant testimony. C12 is explicitly an economic interpretation; no product revenue or causal estimate is claimed. No exact prices, savings metrics, Reader usage series or detailed profile/feature chronology from C07–C11/C13/C15 is displayed. Those tasks remain open. The ATProto closing is a candidate-layer design hypothesis, not an implementation or preservation guarantee. None of this retroactively verifies the full imported dossier.
