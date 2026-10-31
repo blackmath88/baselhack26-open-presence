@@ -1,0 +1,13 @@
+Local consumer verification of Observatory producer 4d107c6cd8b045dce38f2c412712307fd4e25c3c (observstory PR #26, stacked on #24 @ 84c3c0a)
+Run by: Claude Code (assistant), NUC build window 2026-10-31 ~20:25 CET. Self-verified; not CI, not deployed.
+
+Producer extracted with `git archive 4d107c6` from the Observatory worker's repository (worker worktree not touched).
+Consumer: open-presence @ 3002474 (Commons branch head; workflow inputs as in .github/workflows/observstory.yml).
+Steps reproduced from action.yml (composite): scripts/observstory.py build; scripts/publish_workspace.py; frontend=observatory install.
+Output:
+  OBSERVSTORY_KNOWLEDGE_OK snapshot=ks_86a03e9abcb17553e83d commit=3002474d2167 complete=true changes=compared
+  OBSERVSTORY_OK repo=blackmath88/baselhack26-open-presence in_flight=4 areas_active=12 overlap=4 stale=0 waiting=0 burst=1 degraded=0
+  data/knowledge.json: complete=True diagnostics=0 records=25; data/workspace.json present (schema, records, relations, source_commit)
+Headless Chromium (127.0.0.1 static server, 1440x1000): Overview renders "42 of 42 records", category filters
+  All work 42 · Research 7 · Concepts 2 · Planning 4 · Implementation 13 · Other context 16, Find records search box, source revision 3002474.
+Not checked: GitHub Actions run with this pin, phone width, Pages deployment.
