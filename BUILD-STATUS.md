@@ -16,12 +16,12 @@ Branch `feat/commons-brainstorm-integration` · Batch 1 14:20–14:50 CET, Batch
 | --- | --- | --- |
 | A (settled: succeeded, released) | Orca run_8ef2e94f3363 · task_9603e7aa7b03 · dispatch ctx_78ad9139333e · requested agent codex · worktree ~/orca/workspaces/…/commons-packet-a | corpus/, scripts/corpus/, src/commons/source/, src/commons/retrieval/, test/corpus/ |
 | B (settled: succeeded, released) | Orca task_3315c2257e8d · dispatch ctx_27572260aaef (retry of ctx_633c09e3638b) · requested agent codex · worktree …/commons-packet-b | server/commons/, server/application/, server/persistence/, server/test/commons/ |
+| D (settled: succeeded, released) | Orca run_90dca94459a5 · task_0f08a3857d7d · dispatch ctx_0699618af237 · requested codex, observed Codex GPT-6.1-Sol default · read-only, scratch /home/nuc/projects/op-commons-review | none (review only) |
 
 ## Checks
-See evidence/checks.md (136 tests, typecheck, index:check, build, e2e smoke, browser check).
+See evidence/checks.md (batch 2: 140 tests, typecheck, index:check, build, e2e smoke, browser check).
 Observed routes: A worker self-reported Codex GPT-6.1-Sol default; B reported Codex harness (see evidence/orca/B-report.md). Requested: codex for both.
 
-| D (settled: succeeded, released) | Orca run_90dca94459a5 · task_0f08a3857d7d · dispatch ctx_0699618af237 · requested codex, observed Codex GPT-6.1-Sol default · read-only, scratch /home/nuc/projects/op-commons-review |
 
 ## Blockers / incidents
 - B first attempt (agent claude, ctx_633c09e3638b) failed at agent_readiness: Claude TUI stopped at its Bypass-Permissions consent prompt. Coordinator did not accept it; released (already_released) and retried B on codex.
