@@ -8,7 +8,7 @@ Start with [the current concept](HUMAN-SIGNAL-CONCEPT.md).
 ## Hackathon project management
 - [Project and time plan](HACKATHON-PLAN.md) — milestones, acceptance criteria, Saturday/Sunday targets and scope cuts.
 - [Observstory dashboard and guide](OBSERVSTORY.md) — evidence-backed activity, overlaps and check-ins.
-- [Latest dashboard runs](https://github.com/blackmath88/baselhack26-open-presence/actions/workflows/observstory.yml) — download the private dashboard artifact.
+- [Latest dashboard runs](https://github.com/blackmath88/baselhack26-open-presence/actions/workflows/observstory.yml) — download the dashboard and repository-growth replay. Pages deployment is prepared; see the guide for activation.
 
 Suggested schedule times are planning targets; the official submission deadline is not yet established.
 
