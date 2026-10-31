@@ -22,10 +22,11 @@ jobs:
         with:
           fetch-depth: 0
       - name: Build evidence-backed project map
-        uses: blackmath88/observstory@a38a1a203d5b2c9ee599ecdf421ccc595cb57c0d
+        uses: blackmath88/observstory@3e0dc7f24e490b6ee9cdb4795993a5cc12fa1964
         with:
           config: observstory.config.json
           coordination: .observstory/coordination.json
+          knowledge: .observstory/knowledge.json
           output: observstory
       - name: Build repository replay and event log
         run: python3 scripts/build_replay.py

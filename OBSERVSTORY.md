@@ -29,10 +29,20 @@ Run from this repository root so the command reads .observstory/coordination.jso
 For later check-ins, create a short note with markers such as CHECKPOINT, FREEZE, DECISION and @Owner; use checkin propose and then confirm only the agreed items. See the [upstream guide](https://github.com/blackmath88/observstory/blob/a38a1a203d5b2c9ee599ecdf421ccc595cb57c0d/docs/collaboration-delivery/README.md).
 
 ## Pinned source and behaviour
-Action pinned to blackmath88/observstory@a38a1a203d5b2c9ee599ecdf421ccc595cb57c0d.
+Action pinned to blackmath88/observstory@3e0dc7f24e490b6ee9cdb4795993a5cc12fa1964 (landed Project Knowledge integration, Observstory PR #19).
 No upstream code copied. Configuration and workflow authored here.
 Collection permissions: contents/read, pull-requests/read, issues/read. Artifact retained seven days. Public Pages deployment uses a separate job with pages/write and id-token/write. No messaging, transcription, people scoring or agent orchestration.
 A snapshot becoming old does not mean the code is currently blocked. Read its collection timestamp. A merged change does not prove a milestone's acceptance tests passed.
+
+## Project knowledge
+[.observstory/knowledge.json](.observstory/knowledge.json) selects existing documents: the current concept (declared by the README), stated and confirmed decisions, research, open questions and explicitly retired material. It approves nothing; decisions and open questions are imported from coordination.json with their existing IDs. Each run reads those files from the built commit and writes knowledge.html (linked from the Project Map footer) and data/knowledge.json. Missing files are reported as incomplete, never as deleted.
+
+Locally, from an Observstory checkout:
+```bash
+python3 /path/to/observstory/scripts/observstory.py knowledge build --repo . --ref main --out /tmp/k/data/knowledge.json --html /tmp/k/knowledge.html
+python3 /path/to/observstory/scripts/observstory.py knowledge brief --artifact /tmp/k/data/knowledge.json --format text
+```
+Selected files are already public in this repository; the view adds paths, short section excerpts and hashes, nothing private.
 
 ## Pages deployment
 The workflow publishes dashboard output from main, excluding pull-request events. Pages was enabled by the owner on 31 October 2026 while the source repository remained private. The published output includes collected repository activity, planning declarations, file paths and commit titles; source-repository visibility does not restrict access to the published dashboard.
