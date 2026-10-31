@@ -42,13 +42,13 @@ jobs:
           echo "Suggested times remain proposed until confirmed. Download this run's hackathon-observatory artifact and open index.html." >> "$GITHUB_STEP_SUMMARY"
 
       - name: Package public Pages site
-        if: github.event.repository.private == false && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: observstory
   deploy:
     needs: observe
-    if: github.event.repository.private == false && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       pages: write
