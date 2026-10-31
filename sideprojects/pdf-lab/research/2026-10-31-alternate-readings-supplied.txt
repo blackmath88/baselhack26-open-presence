@@ -1,0 +1,234 @@
+Yes—more actual specimens and construction material, fewer incident reports, and no padding the list with another ten Tetris forks.
+
+I dug into three additional veins: **steganography**, demoscene-style playback, and custom viewers that extend what a PDF can contain. These add genuinely different mechanisms to the previous list.
+
+Research date: 31 October 2026. These are source-backed leads, not executions I performed. I distinguish author-reported functionality from proposed experiments.
+
+## 1. A secret message in the font mapping
+
+[thoppe/PDF_steganography](https://github.com/thoppe/PDF_steganography)
+
+This is a small, unusually approachable project: source, a Makefile, an example PDF, font-modification scripts and a presentation from DC Hack && Tell.
+
+The author explicitly invites you to copy and paste the text to see the hidden information. The message lives in the font mapping rather than an obvious attachment. Its build uses pdfLaTeX and traditional font tools including `afm2tfm`, `tftopl`, `t1disasm` and `t1asm`.[1]
+
+### Why it is worth dissecting
+
+You get a concrete bridge between three things:
+
+- What the glyph looks like.
+- What character code the PDF uses.
+- What text a consumer recovers.
+
+The useful starting files are `example.tex`, `replace_sub.py`, `sub_cipher.py` and the Makefile. This is much closer to “take apart a little machine” than a large SDK.[1]
+
+Proposed remix: a poem with a second poem revealed by copying it. Both readings should be intentional and artistically coherent.
+
+Then test whether the second poem survives extraction, rewriting and printing. Do not assume it does.
+
+Status: historical project; build compatibility and viewer behaviour need retesting. No licence was evident in the retrieved README.
+
+## 2. PDF HIDE: a research prototype with samples and tests
+
+[ncanceill/pdf_hide](https://github.com/ncanceill/pdf_hide)
+
+This project grew out of University of Amsterdam research conducted in December 2012. It embeds and extracts data in text-containing PDFs, uses Python 3, and requires qpdf for compressed documents. The repository contains `sample/`, `test/`, the implementation, a changelog and a disclaimer. GPLv3-or-later.[2]
+
+### Why it belongs in the workshop
+
+Not because we should accept its README’s claim that only the recipient will suspect hidden content—that is an assertion, not a demonstrated guarantee.
+
+It belongs because we can investigate:
+
+> Which representational freedoms does the implementation use to carry information, and which transformations destroy that channel?
+
+I have verified the project’s existence, documented dependencies and research origin, but have not inspected enough implementation code to make a precise claim about its encoding mechanism. That is a worthwhile next source-reading task.
+
+Proposed experiment: embed an owned phrase such as “THE DOCUMENT HAS A CELLAR,” then compare survival through:
+
+- A structure-preserving rewrite.
+- Font changes.
+- Rasterisation.
+- OCR reconstruction.
+- Print-to-PDF.
+
+Score recoverability and visible change separately.
+
+## 3. PDFStego: the hidden message that extraction immediately exposes
+
+[aagallag/PDFStego](https://github.com/aagallag/PDFStego)
+
+This 2016 C++ project uses PoDoFo. It encrypts a message with AES-128-GCM, Base64-encodes it, then embeds it in the PDF. The author gives an admirably clear warning: although viewers may not render the hidden text, ordinary extraction can reveal the encrypted material. GPLv3-or-later.[3]
+
+### Why this is a better teaching specimen than “undetectable steganography”
+
+It separates three properties people routinely confuse:
+
+| Property | Question |
+|---|---|
+| Visual concealment | Does a person looking at the page notice it? |
+| Discoverability | Can inspection or extraction reveal that something is there? |
+| Confidentiality | Can someone read the recovered message without the key? |
+
+The project demonstrates why these are different questions.[3]
+
+Proposed artwork: a normal-looking letter whose extracted text contains an encrypted second letter. Give the key somewhere in the visible composition.
+
+The “backdoor” is an intentional alternate reading—not a route into the reader’s device.
+
+## 4. Bad Apple in PDF: the document as a playback engine
+
+[esdmr/badpdf](https://github.com/esdmr/badpdf)
+
+The author describes a “Bad Apple!!” playback experiment in a JavaScript-enabled PDF viewer and reports testing in Chromium/PDFium and Firefox/PDF.js. They warn that initial loading may take time. I could retrieve the search-indexed project description, but the full repository fetch failed. Consequently, I have not verified its detailed implementation or licence.[4]
+
+### What to investigate rather than merely replay
+
+- How are frames represented?
+- How much changes per frame?
+- What is the display primitive?
+- Is timing driven by the viewer?
+- How much of the file is playback logic versus frame data?
+
+Those are open implementation questions here, not findings.
+
+Proposed remix: a ten-second animation made from your own graphics, benchmarked across readers. Treat the PDF runtime as a constrained demo platform: file size, frame rate, loading time and fidelity all matter.
+
+This is distinct from “embed a video player.” Establish the mechanism before putting it in either category.
+
+## 5. Asymptote: the page contains a manipulable object
+
+[Asymptote source](https://github.com/vectorgraphics/asymptote)  
+[Author’s 2026 presentation](https://www.math.ualberta.ca/~bowman/talks/tug26.pdf)
+
+Asymptote is a graphics language with a long history of embedding interactive 3D content in PDFs. Its tutorial describes PRC-based output that can be rotated in Adobe Reader. A 2026 presentation describes V3D as a newer representation, embeddable in PDFs and supported through dedicated viewer projects.[5][6]
+
+### A concrete artefact to inspect
+
+[Scott Pakin’s Blender → Asymptote → interactive PDF example](https://www.pakin.org/~scott/asymptote_export/blender_asymptote.pdf)
+
+The example explains its own pipeline: Blender model, export script, Asymptote-generated PRC, then LaTeX embedding. In supported Adobe viewers it becomes interactive; other viewers show the static poster. That is the author’s historical compatibility statement, not a current universal rule.[7]
+
+Proposed piece:
+
+> A printed blueprint becomes a sculpture when opened in the right interpreter.
+
+The interesting comparison is not just whether rotation works. Compare the static poster with the actual model: what geometry, labels or hidden surfaces exist in one representation but not the other?
+
+## 6. `pdfv3dReader`: stop accepting the viewer as fixed
+
+[vectorgraphics/pdfv3dReader](https://github.com/vectorgraphics/pdfv3dReader)
+
+This is a JavaScript-based viewer for PDFs containing embedded V3D content. The repository uses PDF.js, Node.js and webpack, and links to the V3D specification and Asymptote as the generator.[8]
+
+This opens a different creative route:
+
+> Instead of only asking what current readers permit, build an explicitly named reader that interprets an additional layer.
+
+Proposed experiment: one file, two experiences:
+
+- Ordinary reader: a useful static illustration.
+- V3D-aware reader: an interactive model.
+
+The honest label matters: this is custom-reader functionality, not proof that ordinary PDF viewers support V3D.
+
+That could become a separate PDF LAB track: experimental interpreters, with clear fallback behaviour.
+
+## 7. Okular V3D plugins: real viewer surgery
+
+[vectorgraphics/Okular-v3d-Plugins](https://github.com/vectorgraphics/Okular-v3d-Plugins)
+
+This repository adds rotation, zooming and panning for V3D content, both standalone and embedded inside PDFs. The README says the models must be prerendered and the plugin must match the installed Okular version.[9]
+
+### Why this is unusually useful reverse-engineering material
+
+The documentation exposes the integration points:
+
+- Recognising embedded content.
+- Reading it from rich-media annotations.
+- Tracking model locations on pages.
+- Compositing rendered model images into the page.
+- Handling interaction.
+
+The PDF component modifies Okular’s existing Poppler-based plugin rather than inventing a complete PDF renderer.[9]
+
+Proposed investigation: trace one owned model from embedded bytes to pixels. That is a concrete tour of where “PDF rendering” ends and viewer-specific interpretation begins.
+
+Build burden is significant. Keep this off the first-demo critical path.
+
+## 8. PoC||GTFO as a format-craft zine, not an exploit catalogue
+
+[PoC||GTFO 0x04, June 2014](https://archive.org/details/pocorgtfo04)
+
+This issue contains Ange Albertini’s articles on placing a TrueCrypt volume inside a PDF and adding ZIP “feelies” that Adobe tools recognise as legitimate attachments. Those are described in the issue’s own introduction.[10]
+
+Why it is relevant: the publication is itself part of the experiment. The file’s physical construction participates in what the articles teach.
+
+For PDF LAB, read this as format archaeology. Use harmless text archives when reproducing the structural ideas; legacy encrypted-volume tooling is not necessary.
+
+Proposed editorial direction:
+
+> Every lab report should contain at least one feature it is explaining.
+
+An attachment report carries its source bundle. A revision report contains its earlier draft. A font-mapping report lets you copy out the alternate reading.
+
+## The three I would promote immediately
+
+| Priority | Source | Why |
+|---|---|---|
+| 1 | `thoppe/PDF_steganography` | Small enough to understand completely; direct artistic potential |
+| 2 | Asymptote + the interactive example | Introduces a genuinely different medium: geometry rather than pages alone |
+| 3 | `pdfv3dReader` | Opens the question “what if we build another interpreter?” rather than only testing existing ones |
+
+Keep `pdf_hide` and PDFStego as contrasting specimens about hidden information. Keep Bad Apple as a playback implementation to dissect, pending full source inspection.
+
+The strongest new direction is not another game port. It is this: make a document with several intentional readings, then build the tools that let someone discover how each reading is produced.
+
+Quellen
+[1] Hide information in the font mapping of a PDF. · GitHub https://github.com/thoppe/PDF_steganography
+[2] A steganographic tool in Python for hiding data inside PDF files ... https://github.com/ncanceill/pdf_hide
+[3] aagallag/PDFStego - GitHub https://github.com/aagallag/PDFStego
+[4] esdmr/badpdf: 『東方』Bad Apple in PDF - GitHub https://github.com/esdmr/badpdf
+[5] [PDF] An Asymptote tutorial https://asymptote.sourceforge.io/asymptote_tutorial.pdf
+[6] [PDF] Asymptote: Past, Present, and Future https://www.math.ualberta.ca/~bowman/talks/tug26.pdf
+[7] [PDF] Example of interactive, embedded 3D - pakin.org https://www.pakin.org/~scott/asymptote_export/blender_asymptote.pdf
+[8] vectorgraphics/pdfv3dReader: V3D-aware JavaScript-based PDF ... https://github.com/vectorgraphics/pdfv3dReader
+[9] GitHub - vectorgraphics/Okular-v3d-Plugins: Adds v3d file ... https://github.com/vectorgraphics/Okular-v3d-Plugins
+[10] PoC || GTFO 0x04 : Reverend Doctor Pastor Manul Laphroaig https://archive.org/details/pocorgtfo04
+[11] samidukushalaya/snakepdf: A simple Snake game that ... - GitHub https://github.com/samidukushalaya/snakepdf
+[12] Weekend Ray Tracer - GitHub https://github.com/TheVaffel/weekend-raytracer
+[13] bad-apple-pdffile/main.py at master - daiyosei - GitHub https://github.com/daiyosei/bad-apple-pdffile/blob/master/main.py
+[14] [Android] Remake of the old Nokia Snake game - GitHub https://github.com/pdunker/Snake
+[15] pdf-snake/README.md at main · gogumasprite/pdf-snake · GitHub https://github.com/gogumasprite/pdf-snake/blob/main/README.md
+[16] Project Presentation - The Snake Game.pdf - GitHub https://github.com/VarinThakur/The-Snake-Game/blob/main/Project%20Presentation%20-%20The%20Snake%20Game.pdf
+[17] snake-game/FinalProject.pdf at master · ginowangsh4 ... - GitHub https://github.com/ginowangsh4/snake-game/blob/master/FinalProject.pdf
+[18] GitHub - nkusla/accel-raytracer: A high-performance CPU/GPU path ... https://github.com/nkusla/accel-raytracer
+[19] Play Bad Apple and DOOM on redacted Epstein files and ... - GitHub https://github.com/daiyosei/bad-apple-pdffile
+[20] Falcon-RayTracer/pdf.h at main · Puneeth-A-R/Falcon ... - GitHub https://github.com/Puneeth-A-R/Falcon-RayTracer/blob/main/pdf.h
+[21] UOETianleZhang/Snake_Game: Snake Game written in Verilog https://github.com/UOETianleZhang/Snake_Game
+[22] RayTracer epitech PGE 2nd year OOP project - GitHub https://github.com/3Hards/RayTracer
+[23] AntonKorn/PDF-Snake - GitHub https://github.com/AntonKorn/PDF-Snake
+[24] aromanro/RayTracer: A ray tracing program - GitHub https://github.com/aromanro/RayTracer
+[25] [PDF] JavaScript Library for Comparative MIDI Piano-Roll Visualization https://arxiv.org/pdf/2511.09562.pdf
+[26] Latex+Asymptote: embed 3D figure in pdf file under windows https://www.creatis.insa-lyon.fr/~grenier/?p=211
+[27] 15.9 Create graphics with Asymptote | R Markdown Cookbook https://pkg.yihui.org/rmarkdown-cookbook/eng-asy
+[28] GitHub - Oh-Sheet-Team/oh-sheet: Turn any song into playable ... https://github.com/Oh-Sheet-Team/oh-sheet
+[29] [PDF] Interactive 3D graphics generated by Asymptote software to support ... https://ipmm.polsl.pl/wp-content/uploads/2019/02/FOLTYN-Ladislav.pdf
+[30] GitHub - patriciogonzalezvivo/thebookofshaders: Step-by-step ... https://github.com/patriciogonzalezvivo/thebookofshaders
+[31] Oclef Inc - GitHub https://github.com/OclefInc
+[32] Asymptote: 3D Graphics with TEX Integration | PDF | Te X | Geometry https://www.scribd.com/document/427421344/asyTUG3
+[33] Asymptote 3D graphics - Overleaf, Online LaTeX Editor https://www.overleaf.com/latex/templates/asymptote-3d-graphics/dkkcmszqzvcy
+[34] Magic-Piano - GitHub https://github.com/RaduPelin/Magic-Piano
+[35] Specify interactive rendering mode for asymptotes RPC/PDF export https://tex.stackexchange.com/questions/244771/specify-interactive-rendering-mode-for-asymptotes-rpc-pdf-export
+[36] piano · GitHub Topics https://github.com/topics/piano
+[37] Chapter 5: Address to the Inhabitants of Earth - PoC||GTFO [Book] https://www.oreilly.com/library/view/poc-gtfo/9781492067528/xhtml/ch05.xhtml
+[38] ft-bifrost-bridge/documentation/whitepaperV1.pdf at main - GitHub https://github.com/FluidTokens/ft-bifrost-bridge/blob/main/documentation/whitepaperV1.pdf
+[39] GitHub - borjaRivera/PDF-stego: A Python tool to hide information ... https://github.com/borjaRivera/PDF-stego
+[40] Tetrush/Bifrost: Dual-Port Ethernet Bridge Interface for Raspberry Pi ... https://github.com/Tetrush/Bifrost
+[41] steganography-for-everyone/README-book.pdf at main - GitHub https://github.com/iffybooks/steganography-for-everyone/blob/main/README-book.pdf
+[42] steganography-for-everyone/README.pdf at main - GitHub https://github.com/iffybooks/steganography-for-everyone/blob/main/README.pdf
+[43] README.md - petermgrund/bifrost - GitHub https://github.com/petermgrund/bifrost/blob/main/README.md
+[44] [PDF] Discop: Provably Secure Steganography in Practice Based on ... https://dingjinyang.github.io/uploads/Discop_sp23_paper.pdf
+[45] BIFI/docs/KOR/(KOR)_BiFi_Token_Hexlant_KR_Public.pdf at master https://github.com/bifrost-platform/BIFI/blob/master/docs/KOR/(KOR)_BiFi_Token_Hexlant_KR_Public.pdf
+[46] bifrost-platform/BiFi-staking-protocol · GitHub - GitHub https://github.com/bifrost-platform/BiFi-staking-protocol
+[47] 0x00spor3/PayloadPDF: A Python-based steganography ... - GitHub https://github.com/0x00spor3/PayloadPDF

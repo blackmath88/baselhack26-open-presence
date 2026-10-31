@@ -5,6 +5,10 @@
 
 A cabinet of strange PDFs: pictures made from letters, secret interfaces, visible computers, multiple file identities and readers repairing the same broken bytes.
 
+## New research: alternate readings and experimental interpreters
+
+[Added exploration track](ALTERNATE-READINGS.md): a poem with a second copy/paste reading, steganographic channel studies, owned-animation playback, interactive geometry and custom readers. Includes the [unaltered supplied report](research/2026-10-31-alternate-readings-supplied.txt), eight prior-work leads and six proposed experiment cards. These are queued investigations; Cabinet 003's measured specimen count is unchanged.
+
 ## Current direction
 Achim redirected PDF LAB on 31 October towards format bending, reverse engineering and playful format abuse. **Artefacts onstage, evidence backstage.** Start with [the format-bending brief](FORMAT-BENDING.md) and [current build plan](PLAN.md).
 

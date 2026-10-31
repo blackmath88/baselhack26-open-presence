@@ -3,6 +3,12 @@
 
 Read [the format-bending brief](FORMAT-BENDING.md). Achim's latest direction prioritises demoscene-like artefacts, reverse engineering and playful format limits. This plan replaces the previous extraction-first sequence. Historical methodology remains in [the research review](RESEARCH-REVIEW-2026-10-31.md) and Git history.
 
+## Added exploration track — 31 October 2026
+
+Read [Alternate readings, playback and experimental interpreters](ALTERNATE-READINGS.md). Promote the two-poem font-mapping artwork first, extending the existing glyph bench. Prepare owned 3D geometry and a named custom-reader experiment next; keep PRC and V3D distinct. Add channel-survival and encryption/concealment comparisons after implementation inspection, and an owned-animation demo after identifying the playback mechanism. Six experiment cards define controls, falsifiers and acceptance boundaries.
+
+Editorial principle: reports should contain the feature they explain where practical. Reuse manifests and measured outputs for a transformation notebook. The supplied research is preserved verbatim; its compatibility/licence claims are leads awaiting independent verification. No new specimens or viewer support are claimed by this documentation addition.
+
 ## Implementation checkpoint
 
 **Cabinet 003 delivered:** eight static layer-lock states, a three-engine comparison with observed MuPDF disagreement, an interactive Boolean bitmap half-adder, and a Type 4 colour-program PDF. Nine exhibit families, 23 PDFs. Next: minimise the OCMD discrepancy and add a single-coordinate stack trace to the colour exhibit. Hashquines and symbol-substitution scans are specified, not reproduced; see [WEIRD-MACHINES.md](WEIRD-MACHINES.md).
