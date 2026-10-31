@@ -19,13 +19,17 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Build evidence-backed project map
         uses: blackmath88/observstory@a38a1a203d5b2c9ee599ecdf421ccc595cb57c0d
         with:
           config: observstory.config.json
           coordination: .observstory/coordination.json
           output: observstory
-      - name: Save private dashboard artifact
+      - name: Build repository replay and event log
+        run: python3 scripts/build_replay.py
+      - name: Save dashboard artifact
         uses: actions/upload-artifact@v4
         with:
           name: hackathon-observatory
@@ -36,3 +40,28 @@ jobs:
           echo "## Hackathon planning" >> "$GITHUB_STEP_SUMMARY"
           echo "Read [the plan](https://github.com/blackmath88/baselhack26-open-presence/blob/main/HACKATHON-PLAN.md)." >> "$GITHUB_STEP_SUMMARY"
           echo "Suggested times remain proposed until confirmed. Download this run's hackathon-observatory artifact and open index.html." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Package public Pages site
+        if: github.event.repository.private == false && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: observstory
+  deploy:
+    needs: observe
+    if: github.event.repository.private == false && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Deploy dashboard
+        id: deployment
+        uses: actions/deploy-pages@v4
