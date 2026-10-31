@@ -1,0 +1,129 @@
+# Live check against the dev server (:8787) configured with the isolated local PDS (tools/local-pds), 2026-10-31
+# Two disposable accounts: alice.test (Kai) and bob.test (Lea). Not public federation.
+
+## commons status
+{
+ "schemaVersion": "2026-10-31.1",
+ "atproto": {
+  "namespace": "test.openpresence.commons",
+  "allowedPds": [
+   "http://localhost:44151"
+  ],
+  "plcUrl": "http://localhost:42159",
+  "sessions": {
+   "mode": "credentials",
+   "configured": [
+    "person:kai",
+    "person:lea"
+   ],
+   "note": "Credential sessions for disposable development accounts only. Real-user sign-in is an activation step: OAuth with the official @atproto/oauth-client-node (see server/commons/atproto/README.md)."
+  }
+ },
+ "publications": {
+  "queued": 0,
+  "published": 2,
+  "failed": 0,
+  "conflict": 0,
+  "outbox": 0
+ },
+ "external": {
+  "observed": 2,
+  "unresolved": 0,
+  "invalid": 0
+ }
+}
+
+## commons search teal-osprey-6602
+[('contrib_622b893a-db7d-448a-8d92-a99d8380dfe2', 'person:kai', 'atproto', 'published')]
+
+## commons thread contrib_622b893a-db7d-448a-8d92-a99d8380dfe2
+root {'id': 'person:kai', 'kind': 'participant'} at://did:plc:t4kvo6jwlpzqne5j2qa7fhwf/test.openpresence.commons.contribution/3mz6nm7jths2y
+replies [('person:lea', 'at://did:plc:nejwnu3nevyihcwyqzcjdjok/test.openpresence.commons.contribution/3mz6npjds2k2y', {'kind': 'local', 'id': 'contrib_622b893a-db7d-448a-8d92-a99d8380dfe2', 'revision': 1})]
+participants ['person:kai', 'person:lea']
+
+## commons publication contrib_622b893a-db7d-448a-8d92-a99d8380dfe2
+{'status': 'published', 'did': 'did:plc:t4kvo6jwlpzqne5j2qa7fhwf', 'handle': 'alice.test', 'rkey': '3mz6nm7jths2y', 'uri': 'at://did:plc:t4kvo6jwlpzqne5j2qa7fhwf/test.openpresence.commons.contribution/3mz6nm7jths2y', 'cid': 'bafyreidtimmzg6h6qzjkjx4rcv5atl6yuslpiedy3enwe7gmvvf3apssam', 'attempts': 1, 'publishedAt': '2026-10-31T15:52:03.493Z'}
+
+## com.atproto.repo.listRecords on the PDS for did:plc:t4kvo6jwlpzqne5j2qa7fhwf
+1 record(s)
+{
+ "uri": "at://did:plc:t4kvo6jwlpzqne5j2qa7fhwf/test.openpresence.commons.contribution/3mz6nm7jths2y",
+ "cid": "bafyreidtimmzg6h6qzjkjx4rcv5atl6yuslpiedy3enwe7gmvvf3apssam",
+ "value": {
+  "kind": "observation",
+  "text": "UI check: teal-osprey-6602 my M2 Mac only saw the frame through a USB-A hub, never direct C-to-C.",
+  "$type": "test.openpresence.commons.contribution",
+  "origin": {
+   "app": "open-presence-commons",
+   "localId": "contrib_622b893a-db7d-448a-8d92-a99d8380dfe2",
+   "revision": 1
+  },
+  "problem": {
+   "appUrl": "http://localhost:5173/#/problems/usb-c-no-data",
+   "localId": "usb-c-no-data",
+   "revision": "0bff55ef3fb2a3bfdab05bc8e3bd0c9d69f63189",
+   "repository": "wesbos/photo-frame-dashboard"
+  },
+  "createdAt": "2026-10-31T15:51:35.289Z",
+  "assistance": {
+   "declared": "none",
+   "preparedBy": "browser-draft"
+  },
+  "sourceRefs": [
+   {
+    "digest": "794075ff169ff026cf49e4daa0bd064aa37b0bb29fdc254d3eaa4d2c3d3cb895",
+    "objectId": "doc/docs/pf1007l-start-here.md",
+    "permalink": "https://github.com/wesbos/photo-frame-dashboard/blob/0bff55ef3fb2a3bfdab05bc8e3bd0c9d69f63189/docs/pf1007l-start-here.md#L108-L108"
+   },
+   {
+    "digest": "7d87bc6c8b34503720e1672bad68c000b6ff3dabf5a76f6709e4e2b2d552782a",
+    "objectId": "comment/6113789229",
+    "permalink": "https://github.com/wesbos/photo-frame-dashboard/issues/12#issuecomment-6113789229"
+   },
+   {
+    "digest": "1a0d54a810f2eea820106fd518ac49b9526c113ce1037a07a6b2e01c96468637",
+    "objectId": "issue/148",
+    "permalink": "https://github.com/wesbos/photo-frame-dashboard/issues/148"
+   },
+   {
+    "digest": "88cebd0f7fc28c995ee6e4dc29f0e52629ba81aff1b8464d5ee5323f1e52d811",
+    "objectId": "issue/38",
+    "permalink": "https://github.com/wesbos/photo-frame-dashboard/issues/38"
+   }
+  ]
+ }
+}
+
+## com.atproto.repo.listRecords on the PDS for did:plc:nejwnu3nevyihcwyqzcjdjok
+1 record(s)
+{
+ "uri": "at://did:plc:nejwnu3nevyihcwyqzcjdjok/test.openpresence.commons.contribution/3mz6npjds2k2y",
+ "cid": "bafyreid6mf4bithpzhhknyw2vi7utqovd5q4wii7wfezerr324eokpa2du",
+ "value": {
+  "kind": "question",
+  "text": "Which hub exactly? Mine only works on a powered USB-A hub, bus-powered ones drop out.",
+  "$type": "test.openpresence.commons.contribution",
+  "origin": {
+   "app": "open-presence-commons",
+   "localId": "contrib_b9ac4fa3-fb62-4652-8b00-b14b1784468d",
+   "revision": 1
+  },
+  "parent": {
+   "cid": "bafyreidtimmzg6h6qzjkjx4rcv5atl6yuslpiedy3enwe7gmvvf3apssam",
+   "uri": "at://did:plc:t4kvo6jwlpzqne5j2qa7fhwf/test.openpresence.commons.contribution/3mz6nm7jths2y"
+  },
+  "problem": {
+   "appUrl": "http://localhost:5173/#/problems/usb-c-no-data",
+   "localId": "usb-c-no-data",
+   "revision": "0bff55ef3fb2a3bfdab05bc8e3bd0c9d69f63189",
+   "repository": "wesbos/photo-frame-dashboard"
+  },
+  "createdAt": "2026-10-31T15:53:32.246Z",
+  "assistance": {
+   "declared": "none",
+   "preparedBy": "browser-draft"
+  },
+  "sourceRefs": []
+ }
+}
+

@@ -43,3 +43,16 @@ Dispositions:
 Also in batch 4 (coordinator, before F's result): idempotency key for Add-a-thought in commons rooms (test fails on 8fa3b48, passes now; browser: receipt stored for a UI post); orchestration mode changes on commons rooms serialized (defensive — invariant test does not reproduce a race on the earlier code).
 Gates on batch-4 head after clean npm ci: 0 vulnerabilities; typecheck pass; vitest 12 files / 149 tests; index:check byte-identical; vite build pass; e2e smoke pass. Browser: Add-a-thought and Curation reject in an imported room work.
 G6: batch-4 changes after 8fa3b48 are coordinator-verified only.
+
+# Multi-entry slice (2026-10-31 16:08–18:10 CET), branch feat/commons-multi-entry (stacked on PR #8 @ e24838f)
+Baseline reproduced before changes at e24838f: typecheck pass; vitest 12 files / 149 tests; index:check byte-identical.
+Checks on the branch head (apps/commons, after clean install):
+- `npm run typecheck` (app + server + worker): pass
+- `npx vitest run`: 16 files / 181 tests pass. New: server/test/atproto/adapter.test.ts (12, offline), server/test/atproto/roundtrip.test.ts (8, real in-process PDS), server/test/commons/multi-entry.test.ts (11: M1 cross-interface, M2 repository, M0 migration+moderation, M3 outbox, M4 ingestion with the fake PDS), server/test/commons/two-author-roundtrip.test.ts (1, real in-process PDS, two accounts, fresh index). Both PDS suites RAN (tools/local-pds installed); they skip visibly otherwise.
+- `npm run index:check`: "Record-only index reproduced byte-for-byte"
+- `npx vite build`: pass (chunk-size warning only)
+- `bash scripts/smoke/e2e.sh`: first-slice smoke still passes (submit 201, retry-same 200 replay, retry-different 409, 2nd session sees it, restart keeps it, reimport 0 events, concurrent accept/reject → one 200 one 409)
+- `bash scripts/smoke/multi-entry.sh`: evidence/cli-smoke-multi-entry.txt (search, browse root/thread, inspect, draft writes nothing, submit 201 → replay → 409/exit 3, reply as Lea, thread 2 voices, phrase found with author, context, publish without account → exit 4 "no-account", hide → body withheld, status, restart keeps thread, unreachable server → exit 6)
+- Live ATProto (isolated PDS, disposable accounts): evidence/atproto-live-check.txt — Kai's record and Lea's reply (strongRef parent) on the PDS; receipts published; no duplicates.
+- Browser: evidence/browser-check-multi-entry.txt
+Independent review of this slice: NOT done; coordinator-verified only.

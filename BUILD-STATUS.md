@@ -1,38 +1,60 @@
-# BUILD-STATUS — Photo Frame Commons (br-ai-nstorm integration)
+# BUILD-STATUS — Multi-entry Commons (continuation of PR #8)
 
-Branch `feat/commons-brainstorm-integration` · Batch 1 14:20–14:50 CET, Batch 2 14:46–15:16 CET, Batch 3 14:56–15:26 CET, Batch 4 15:09–15:39 CET, 2026-10-31 (30 min each, enforced).
+Branch `feat/commons-multi-entry`, based on `feat/commons-brainstorm-integration` @ `e24838f` (PR #8, still open when this started) · 2026-10-31, 16:08–18:10 CET · single Claude session as coordinator, one forked worker for Packet B (ATProto adapter + local PDS), sequential otherwise. Orca was not used for this slice.
+
+Specification: `docs/architecture/MULTI-ENTRY-COMMONS.md` · plan: `docs/build/MULTI-ENTRY-BUILD.md` · what was built: `docs/architecture/MULTI-ENTRY-IMPLEMENTATION.md` · how to run: `DEMO.md`.
+
+## Baseline
+- Inputs: main `58b9942`, PR #8 head `e24838f` (149/149 tests, typecheck, index check, build, e2e smoke reproduced locally before any change), planning PR #9 branch `docs/multi-entry-commons-plan` @ `ce32208`.
+- Environment: Node 26.8.1, npm 11.19; Docker socket not accessible, so the isolated PDS runs in-process (`tools/local-pds`), not in a container.
 
 ## Milestones
-- [x] G0 baseline: br-ai-nstorm @a96c2db imported to apps/commons; `npm ci` + 120/120 upstream tests pass.
-- [x] Contracts frozen: `apps/commons/src/commons/contracts.ts`; origins in THIRD_PARTY.md.
-- [x] G1/G2 Packet A (Orca, codex) — 8734be4/e8bc1e4, merged f8dca26. Pinned manifest byte-identical, record-only index reproduces, Mac query + near-match.
-- [x] G3/G4 Packet B (Orca, codex) — 8cc10fd/12955b5, merged 03ee04d. Transactional commands, durable idempotency, conflict-safe review, immutable sources.
-- [x] C wiring (coordinator, not a worker) — finder/draft/submit in existing UI; API + boot import wiring (ca75ffd).
-- [x] G5 — phone width, keyboard-only find/open, backend-down states, injected-HTML probe (browser, coordinator).
-- [x] G6 — Packet D (Orca, codex, ctx_0699618af237) reviewed 2624045: 1 blocker, 4 should-fix, 2 notes. Blocker + all should-fix repaired in batch 2.
-- [x] G6 re-review — Packet E (Orca, codex, ctx_4daa68ab44fa) on 33b97fc: MCP part of B1 still open + 3 should-fix. All repaired in batch 3 (6b616fa + batch-3 head) and verified with E's own race script; batch-3 repairs are coordinator-verified only.
-- [x] Dependencies — npm audit 10 → 0 (6a99383).
-- [x] G6 re-review 2 — Packet F (Orca, codex, ctx_1226a456928c) on 8fa3b48: all E fixes confirmed, 0 blockers, 1 should-fix (room targeting) + 3 notes; should-fix and 2 notes repaired in batch 4, coordinator-verified only.
-- [x] Idempotent Add-a-thought and serialized mode changes in imported rooms (15ea5f3).
+| Gate | State | Commit | Evidence |
+| --- | --- | --- | --- |
+| M0 frozen compatible contracts, migration, adapter map | done | 674b508 | `src/commons/contracts.ts`; migration test "reads a first-slice store without new fields" |
+| M1 service parity HTTP / CLI / MCP | done | 674b508 | `multi-entry.test.ts` "finds the same problem from MCP, contributes over HTTP, replies over MCP…"; `evidence/cli-smoke-multi-entry.txt` |
+| M2 repository navigator, deep links, thread view, contribution search, composer, publication state in UI | done | this branch head | browser pass `evidence/browser-check-multi-entry.txt`; `multi-entry.test.ts` "walks the pinned snapshot…" |
+| M3 Lexicons, durable outbox, publisher, reader, reconciliation | done | 674b508 | `server/test/atproto/*` (20) and `multi-entry.test.ts` M3 block: timeout-after-write recovery with the same key, restart retention, changed payload refused |
+| M4 two-author participation, fresh-index reconstruction | done against the isolated PDS | 674b508 | `two-author-roundtrip.test.ts` (real in-process PDS, not skipped): A publishes, B replies with URI+CID, fresh app rebuilds the thread, upstream edit → revision 2, deletion → unavailable |
+| M5 integrated delivery, evidence, draft PR | done | branch head | this file, `DEMO.md`, `evidence/`, CI workflow `.github/workflows/commons-app.yml`, stacked draft PR |
+
+## Capability matrix (implemented / verified / unavailable)
+| Capability | UI | CLI | MCP | ATProto |
+| --- | --- | --- | --- | --- |
+| Search records + contributions, with match reasons | implemented, browser-checked | verified (smoke) | verified (test) | — |
+| Repository navigation (snapshot metadata → cited problems) | implemented, browser-checked | verified (smoke) | verified (test) | — |
+| Problem / contribution / thread deep links | implemented, browser-checked (reload + back) | verified (smoke) | verified (test) | — |
+| Agent context packet (budget, omissions, freshness) | — | verified (smoke) | verified (test) | — |
+| Prepare (no write) and idempotent submit with replay flag | implemented, browser-checked | verified (smoke: replay 200, changed → 409/exit 3) | verified (test) | — |
+| Reply / correction keeping both voices | implemented, browser-checked | verified (smoke) | verified (test) | — |
+| Local moderation across every projection | hide/unhide buttons, implemented | verified (smoke) | verified (test) | — |
+| Publication preview → explicit publish → receipt | implemented, browser-checked against the isolated PDS | `publish [--yes]` implemented; no-account path verified (exit 4) | verified (fake + real PDS tests) | verified against isolated PDS only |
+| Author sync / resolve URI / self-echo dedupe / edit versions / deletion as unavailability | status surfaced | `sync`, `resolve` implemented | verified (test) | verified against isolated PDS only |
+| Public account, OAuth sign-in, owned NSID, federation beyond the allowlist | unavailable | unavailable | unavailable | unavailable — activation checklist in `apps/commons/server/commons/atproto/README.md` |
+
+## Checks on the branch head
+- `npm run typecheck` (app + server + worker): pass.
+- `npm test`: 16 files, 181 tests pass (149 prior + 12 adapter + 8 adapter round trip + 11 multi-entry + 1 two-author round trip). Both PDS suites ran for real (not skipped) because `tools/local-pds` is installed.
+- `npm run index:check`: byte-identical. `npx vite build`: pass (chunk-size warning only).
+- `bash scripts/smoke/e2e.sh`: first-slice smoke still passes. `bash scripts/smoke/multi-entry.sh`: see `evidence/cli-smoke-multi-entry.txt`.
+- Live run with the isolated PDS configured: `evidence/atproto-live-check.txt` (both records on the PDS, the reply carrying a strong reference to the first).
+- Browser (built-in, one narrow pass): `evidence/browser-check-multi-entry.txt`.
 
 ## Worker ownership
 | Packet | Owner | Paths |
 | --- | --- | --- |
-| A (settled: succeeded, released) | Orca run_8ef2e94f3363 · task_9603e7aa7b03 · dispatch ctx_78ad9139333e · requested agent codex · worktree ~/orca/workspaces/…/commons-packet-a | corpus/, scripts/corpus/, src/commons/source/, src/commons/retrieval/, test/corpus/ |
-| B (settled: succeeded, released) | Orca task_3315c2257e8d · dispatch ctx_27572260aaef (retry of ctx_633c09e3638b) · requested agent codex · worktree …/commons-packet-b | server/commons/, server/application/, server/persistence/, server/test/commons/ |
-| F (settled: succeeded, released) | Orca run_4a563d19dcbd · task_b28642435691 · dispatch ctx_1226a456928c · requested codex, observed Codex GPT-6.1-Sol default · read-only, scratch /home/nuc/projects/op-commons-review-4 | none (review only) |
-| E (settled: succeeded, released) | Orca run_bd1d1d2cdc46 · task_ba93eccd8d09 · dispatch ctx_4daa68ab44fa · requested codex, observed Codex GPT-6.1-Sol default · read-only, scratch /home/nuc/projects/op-commons-review-3 | none (review only) |
-| D (settled: succeeded, released) | Orca run_90dca94459a5 · task_0f08a3857d7d · dispatch ctx_0699618af237 · requested codex, observed Codex GPT-6.1-Sol default · read-only, scratch /home/nuc/projects/op-commons-review | none (review only) |
-
-## Checks
-See evidence/checks.md (batch 4: 149 tests, typecheck, index:check, build, e2e smoke, browser check).
-Observed routes: A worker self-reported Codex GPT-6.1-Sol default; B reported Codex harness (see evidence/orca/B-report.md). Requested: codex for both.
-
+| Coordinator (M0, A, M2, integration, docs) | this session | contracts, `server/commons/{service,queries,projection,search,repository-view,publication,ingestion,routes,import,null-atproto}.ts`, `server/mcp/commons-tools.ts`, `scripts/commons/cli.ts`, `src/**`, docs, CI |
+| B (settled: finished, result integrated) | forked worker, same model | `lexicons/`, `server/commons/atproto/{index.ts,README.md}`, `server/test/atproto/`, `tools/local-pds/`, `scripts/atproto/` |
 
 ## Blockers / incidents
-- B first attempt (agent claude, ctx_633c09e3638b) failed at agent_readiness: Claude TUI stopped at its Bypass-Permissions consent prompt. Coordinator did not accept it; released (already_released) and retried B on codex.
+- None blocking. Docker unavailable → in-process PDS instead (works on Node 26 with prebuilt better-sqlite3).
+- Two concurrent shell writes raced on the working directory once; redone with absolute paths. No data affected.
+
+## Not done / open
+- No independent review of this slice yet (coordinator-verified only). PR #8's own open review notes stand.
+- UI: no report flow or moderation audit view; Map view still draws same-room edges only; the Commons section is above the room views, not a redesign.
+- A shared zod schema per operation across all three adapters would replace today's validator-in-service plus zod-in-MCP.
+- OAuth, public namespace, public hosting and moderation ownership remain activation questions, not reasons to stop (see `DEMO.md` → Real limitations).
 
 ## Current state / next action
-Batch 4 closed within budget. No workers live (run_4a563d19dcbd: 0 reclaimable).
-Next exact action (optional batch 5): independent review of the batch-4 head (room-target check, reason policy, scoped
-back-compat, Add-a-thought keys). Remaining known limits are listed in DEMO.md.
+Draft PR opened against `feat/commons-brainstorm-integration` (retarget to `main` when PR #8 lands). Next exact action: an independent bounded review of this head (publication/ingestion state machines, moderation leakage, CLI exit codes), then the activation checklist if a real account and namespace are provided.
