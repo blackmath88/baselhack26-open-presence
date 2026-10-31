@@ -115,3 +115,22 @@ textarea:disabled{opacity:.6}
 .orchestration-summary{margin:0;font-size:11px;line-height:1.5;color:var(--muted)}
 .orchestration-reason{border:1px solid var(--line);border-radius:10px;background:#fff;padding:7px 9px;font-size:11px;color:var(--ink);outline:none}
 .orchestration-reason:focus{border-color:#91aca8}
+
+/* Photo Frame Commons finder — minimal additions on the existing look. */
+.commons-finder { margin: 0 0 1rem; padding: 1rem; border: 1px solid var(--line, #ddd); border-radius: 12px; }
+.commons-search-row { display: flex; gap: .5rem; flex-wrap: wrap; }
+.commons-search-row input { flex: 1 1 14rem; min-width: 0; padding: .5rem .6rem; font: inherit; }
+.commons-hits { list-style: none; padding: 0; display: grid; gap: .4rem; }
+.commons-hits button { width: 100%; text-align: left; display: grid; gap: .2rem; padding: .6rem; border-radius: 8px; border: 1px solid var(--line, #ddd); background: transparent; font: inherit; cursor: pointer; }
+.commons-hits button.active, .commons-hits button:focus-visible { outline: 2px solid currentColor; }
+.commons-why, .commons-limit { font-size: .85em; opacity: .75; }
+.commons-near { font-weight: 600; }
+.commons-detail { display: grid; gap: 1rem; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+@media (max-width: 760px) { .commons-detail { grid-template-columns: minmax(0, 1fr); } }
+.commons-facts { display: grid; grid-template-columns: max-content 1fr; gap: .2rem .8rem; }
+.commons-evidence blockquote { margin: .3rem 0; padding-left: .6rem; border-left: 3px solid currentColor; }
+.commons-interp { font-size: .9em; }
+.commons-draft { display: grid; gap: .4rem; align-content: start; }
+.commons-draft textarea, .commons-draft input { font: inherit; padding: .4rem; width: 100%; box-sizing: border-box; }
+.commons-actions { display: flex; flex-wrap: wrap; gap: .4rem; }
+.commons-preview { border: 1px dashed currentColor; padding: .6rem; border-radius: 8px; overflow-wrap: anywhere; }

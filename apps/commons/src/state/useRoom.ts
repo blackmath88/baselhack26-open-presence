@@ -40,6 +40,7 @@ export interface Room {
   problems: ProblemRecord[]
   problemId: string | null
   selectProblem: (id: string) => void
+  openProblem: (id: string) => Promise<void>
 
   data: RoomData | null
   refresh: () => Promise<void>
@@ -216,6 +217,19 @@ export function useRoom(): Room {
     if (session && problemId) await loadProblem(session.token, problemId)
   }, [loadProblem, problemId, session])
 
+  /** Re-read the problem list (a Commons submission can open a new problem space) and open one. */
+  const openProblem = useCallback(
+    async (id: string) => {
+      if (!session) return
+      const { problems: list } = await api.problems(session.token)
+      setProblems(list)
+      setProblemId(id)
+      setData(null)
+      await loadProblem(session.token, id)
+    },
+    [loadProblem, session],
+  )
+
   const addContribution: Room['addContribution'] = useCallback(
     async (input) => {
       if (!session || !problemId) return
@@ -284,6 +298,7 @@ export function useRoom(): Room {
   )
 
   return {
+    openProblem,
     phase,
     error,
     busy,

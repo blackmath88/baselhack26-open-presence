@@ -8,7 +8,7 @@
  * State stays canonical. Map and Timeline are projections over the same data.
  */
 import { useMemo, useState } from 'react'
-import { BrainCircuit, GitBranch, History, LayoutList, ListChecks, RefreshCw, Sparkles } from 'lucide-react'
+import { BrainCircuit, GitBranch, History, LayoutList, ListChecks, RefreshCw, Search, Sparkles } from 'lucide-react'
 import { useRoom } from './state/useRoom'
 import { ProblemTabs } from './components/ProblemTabs'
 import { StateView } from './components/StateView'
@@ -20,6 +20,8 @@ import { ApertureModal } from './components/ApertureModal'
 import { ParticipantSwitcher } from './components/ParticipantSwitcher'
 import { createContextPackage, validateContributionPackage } from './lib/aperture'
 import { api } from './lib/api'
+import { CommonsFinder } from './components/commons/CommonsFinder'
+import { commonsReader } from './commons/reader'
 
 type ViewMode = 'state' | 'map' | 'timeline' | 'curation'
 type ModalMode = 'export' | 'import' | null
@@ -32,6 +34,7 @@ export default function App() {
   const [modalMode, setModalMode] = useState<ModalMode>(null)
   const [modalValue, setModalValue] = useState('')
   const [importError, setImportError] = useState<string | null>(null)
+  const [finding, setFinding] = useState(true)
 
   const data = room.data
   const problem = data?.state.problem
@@ -142,6 +145,9 @@ export default function App() {
           <div className="tagline">a living map of collective problem solving</div>
         </div>
         <div className="top-actions">
+          <button className="button" onClick={() => setFinding((v) => !v)} aria-pressed={finding}>
+            <Search size={15} /> {finding ? 'Hide finder' : 'Find an experience'}
+          </button>
           <button className="button" onClick={() => void room.refresh()} disabled={room.busy || !data}>
             <RefreshCw size={15} /> {room.busy ? 'Refreshing…' : 'Refresh'}
           </button>
@@ -182,6 +188,18 @@ export default function App() {
             sign-in is the only fake part of the identity model.
           </p>
         </div>
+      )}
+
+      {room.actor && finding && (
+        <CommonsFinder
+          reader={commonsReader}
+          token={room.token}
+          onSubmitted={(id) => {
+            setSelectedId(undefined)
+            setView('state')
+            void room.openProblem(id)
+          }}
+        />
       )}
 
       {room.actor && room.problems.length > 0 && (

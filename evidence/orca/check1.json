@@ -1,0 +1,108 @@
+{"_keepalive":true,"_heartbeat":true,"elapsedMs":15006,"deadlineMs":480000}
+{"_keepalive":true,"_heartbeat":true,"elapsedMs":30016,"deadlineMs":480000}
+{"_keepalive":true,"_heartbeat":true,"elapsedMs":45021,"deadlineMs":480000}
+{"_keepalive":true,"_heartbeat":true,"elapsedMs":60026,"deadlineMs":480000}
+{"_keepalive":true,"_heartbeat":true,"elapsedMs":75035,"deadlineMs":480000}
+{"_keepalive":true,"_heartbeat":true,"elapsedMs":90038,"deadlineMs":480000}
+{"_keepalive":true,"_heartbeat":true,"elapsedMs":105039,"deadlineMs":480000}
+{"_keepalive":true,"_heartbeat":true,"elapsedMs":120039,"deadlineMs":480000}
+{"_keepalive":true,"_heartbeat":true,"elapsedMs":135043,"deadlineMs":480000}
+{"_keepalive":true,"_heartbeat":true,"elapsedMs":150049,"deadlineMs":480000}
+{
+  "id": "db9c9f8e-0ca7-4bfa-acac-137f89b1ad71",
+  "ok": true,
+  "result": {
+    "runId": "run_8ef2e94f3363",
+    "deliveryId": "delivery_e674e208906c",
+    "messages": [
+      {
+        "id": "msg_0f74ebcebc46",
+        "run_id": "run_8ef2e94f3363",
+        "delivery_contract": "current_delivery",
+        "from_handle": "term_43770907-ca37-4c65-99cf-611b021d3491",
+        "to_handle": "run:run_8ef2e94f3363",
+        "subject": "alive",
+        "body": "",
+        "type": "heartbeat",
+        "priority": "normal",
+        "thread_id": null,
+        "payload": "{\"taskId\":\"task_3315c2257e8d\",\"dispatchId\":\"ctx_27572260aaef\",\"phase\":\"implementing\"}",
+        "created_at": "2026-10-31T13:25:41Z",
+        "delivered_at": null
+      },
+      {
+        "id": "msg_99f00b77a908",
+        "run_id": "run_8ef2e94f3363",
+        "delivery_contract": "current_delivery",
+        "from_handle": "term_854dc656-cbf8-474a-97eb-a701dc8ef064",
+        "to_handle": "run:run_8ef2e94f3363",
+        "subject": "A tests green; coordinator config integration needed",
+        "body": "Corpus index reproduces and 7 corpus tests pass with npx vitest run test/corpus --config test/corpus/vitest.corpus.ts. Frozen root vitest.config.ts includes only server/test/**/*.test.ts, so coordinator must add test/corpus/**/*.test.ts for the exact plain acceptance command; --dir . does not override include. Reader export is src/commons/retrieval/index.ts createCommonsReader(), with source exports at src/commons/source/index.ts; no contracts changed.",
+        "type": "status",
+        "priority": "normal",
+        "thread_id": null,
+        "payload": "{\"taskId\":\"task_9603e7aa7b03\",\"dispatchId\":\"ctx_78ad9139333e\"}",
+        "created_at": "2026-10-31T13:27:03Z",
+        "delivered_at": null
+      },
+      {
+        "id": "msg_2dca5e22d21b",
+        "run_id": "run_8ef2e94f3363",
+        "delivery_contract": "current_delivery",
+        "from_handle": "term_43770907-ca37-4c65-99cf-611b021d3491",
+        "to_handle": "run:run_8ef2e94f3363",
+        "subject": "alive",
+        "body": "",
+        "type": "heartbeat",
+        "priority": "normal",
+        "thread_id": null,
+        "payload": "{\"taskId\":\"task_3315c2257e8d\",\"dispatchId\":\"ctx_27572260aaef\",\"phase\":\"implementing\"}",
+        "created_at": "2026-10-31T13:27:22Z",
+        "delivered_at": null
+      },
+      {
+        "id": "msg_d4a221e38d0c",
+        "run_id": "run_8ef2e94f3363",
+        "delivery_contract": "current_delivery",
+        "from_handle": "term_43770907-ca37-4c65-99cf-611b021d3491",
+        "to_handle": "run:run_8ef2e94f3363",
+        "subject": "Packet B integration interface ready",
+        "body": "New createCommonsService({repository, clock?}) requires a TransactionalEventRepository returned by createJsonRepository/createMemoryRepository and exposes importProblems(actor, ImportedProblem[]), submitContribution(actor, command), review(actor, command), getRoom(actor, roomId or postackId). commonsRoutes({commons: service, auth: TokenVerifier}) returns async (req,res): Promise<boolean>; call before existing API fallback and return when true. POST /api/commons/import body is {problems: ImportedProblem[]}; contribution.problemId is Postack ID; GET accepts mapped room ID or Postack ID; first test run is 129/129 green, repairing two test-only unknown JSON typing errors in the single allowed repair attempt.",
+        "type": "status",
+        "priority": "normal",
+        "thread_id": null,
+        "payload": "{\"taskId\":\"task_3315c2257e8d\",\"dispatchId\":\"ctx_27572260aaef\"}",
+        "created_at": "2026-10-31T13:28:17Z",
+        "delivered_at": null
+      },
+      {
+        "id": "msg_6d6b3ce322c3",
+        "run_id": "run_8ef2e94f3363",
+        "delivery_contract": "current_delivery",
+        "from_handle": "term_854dc656-cbf8-474a-97eb-a701dc8ef064",
+        "to_handle": "run:run_8ef2e94f3363",
+        "subject": "Packet A implemented and committed; corpus checks pass",
+        "body": "Implemented pinned byte-identical corpus, source resolution and record-only CommonsReader in 8734be44c13b1f54f14ba25098f5a3537eb3cb6c, with report commit e8bc1e476e527fbaaea68cf08bb8305af9dc1135 and clean worktree. Index reproduction, three upstream byte comparisons, seven corpus tests and both requested typechecks pass; observed Orca route is Codex GPT-6.1-Sol default, and evidence/orca/A-report.md records all paths, origins, commands and repaired failures. Coordinator must add test/corpus/**/*.test.ts to the owned root Vitest include because plain and --dir acceptance commands discover zero tests, while npx vitest run test/corpus --config test/corpus/vitest.corpus.ts passes all seven tests.",
+        "type": "worker_done",
+        "priority": "normal",
+        "thread_id": null,
+        "payload": "{\"taskId\":\"task_9603e7aa7b03\",\"dispatchId\":\"ctx_78ad9139333e\",\"outcome\":\"succeeded\",\"filesModified\":[\"apps/commons/corpus/ORIGIN.md\",\"apps/commons/corpus/index/record-index.json\",\"apps/commons/corpus/records/corrections.json\",\"apps/commons/corpus/records/problems.json\",\"apps/commons/corpus/snapshots/001/manifest.json\",\"apps/commons/scripts/corpus/build-index.mjs\",\"apps/commons/scripts/corpus/check-index.mjs\",\"apps/commons/src/commons/retrieval/bm25.ts\",\"apps/commons/src/commons/retrieval/index.ts\",\"apps/commons/src/commons/retrieval/records.ts\",\"apps/commons/src/commons/source/index.ts\",\"apps/commons/test/corpus/reader.test.ts\",\"apps/commons/test/corpus/vitest.corpus.ts\",\"evidence/orca/A-report.md\"],\"reportPath\":\"evidence/orca/A-report.md\"}",
+        "created_at": "2026-10-31T13:29:41Z",
+        "delivered_at": null
+      }
+    ],
+    "count": 5,
+    "replayed": false,
+    "acknowledged": null,
+    "timedOut": false,
+    "cancelled": false,
+    "connectionLost": false,
+    "mutation": {
+      "requestId": "f18d105e-4d02-4f1e-8fea-1b2397fe2449",
+      "replayed": false
+    }
+  },
+  "_meta": {
+    "runtimeId": "5c11751c-5a08-4dac-8366-7809de174acf"
+  }
+}
