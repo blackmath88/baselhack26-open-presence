@@ -21,6 +21,7 @@ const http=require('node:http'),fs=require('node:fs/promises'),path=require('nod
     if(process.argv.includes('--minimal')){
       await page.locator('#minimal-mapping > summary').click();
       await page.waitForFunction(()=>document.getElementById('minimal-text').textContent.includes('Source extraction:'));
+      await page.waitForFunction(()=>document.getElementById('minimal-audit-text').textContent.includes('Static inference'))
       const evidence=JSON.parse(await fs.readFile(path.join(root,'evidence/mapping-minimal.json'),'utf8'));
       for(const engine of ['mupdf','poppler']){
         await page.selectOption('#minimal-engine',engine);
@@ -36,12 +37,18 @@ const http=require('node:http'),fs=require('node:fs/promises'),path=require('nod
             assert.equal(require('node:crypto').createHash('sha256').update(await response.body()).digest('hex'),row.states[state].sha256);
           }
           assert.match(await page.locator('#minimal-cmaps').textContent(),/begincmap/);
+          const audit=await page.locator('#minimal-audit-text').textContent();
+          assert.ok(audit.includes('Input UTF-16BE bytes: '+(caseName==='multiple'?6:2)));
+          assert.ok(audit.includes('Simple-font writer gate: '+(caseName==='multiple'?'omit entry':'add entry')));
+          assert.equal(await page.locator('#minimal-audit-links a').count(),4);
         }
       }
       await page.locator('#minimal-case').focus();await page.keyboard.press('Home');
       assert.equal(await page.locator('#minimal-case').inputValue(),'identity');
       await page.keyboard.press('End');assert.equal(await page.locator('#minimal-case').inputValue(),'multiple');
       await page.selectOption('#minimal-engine','mupdf');
+      await page.locator('#mapping-audit > summary').click();
+      assert.equal(await page.locator('#minimal-audit-text').isVisible(),true);
       await page.waitForFunction(()=>document.getElementById('minimal-rewrite-image').complete);
       for(const [name,width,height] of [['desktop',1440,1000],['mobile',390,844]]){
         await page.setViewportSize({width,height});
@@ -52,7 +59,7 @@ const http=require('node:http'),fs=require('node:fs/promises'),path=require('nod
         await fs.rm(stem+'.png');
       }
       assert.deepEqual(errors,[]);
-      const result={browser:await browser.version(),checks:{three_controls_in_both_engines:true,source_and_rewrite_served_hashes:true,decoded_map_display:true,keyboard_selection:true,desktop_mobile_within_viewport:true,no_page_errors:true},native_viewer:'not-run: HTML notebook and artifact bytes only'};
+      const result={browser:await browser.version(),checks:{three_controls_in_both_engines:true,source_and_rewrite_served_hashes:true,decoded_map_display:true,source_audit_matches_selected_case:true,pinned_source_links:true,keyboard_selection:true,desktop_mobile_within_viewport:true,no_page_errors:true},native_viewer:'not-run: HTML notebook and artifact bytes only'};
       await fs.writeFile(path.join(root,'evidence/mapping-minimal-browser.json'),JSON.stringify(result,null,2)+'\n');
       console.log(JSON.stringify(result,null,2));return;
     }

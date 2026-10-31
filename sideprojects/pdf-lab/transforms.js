@@ -48,7 +48,7 @@ fetch('evidence/poems-transforms.json').then(r=>{if(!r.ok)throw Error('HTTP '+r.
 }).catch(err=>{document.getElementById('journey-version').textContent='Could not load measurements. Serve this folder locally, or open evidence/poems-transforms.json. '+err.message;});
 // The minimized fixture stays a small drawer in the existing notebook.
 const minimalCase=document.getElementById('minimal-case'),minimalEngine=document.getElementById('minimal-engine');
-let minimal=null;
+let minimal=null,sourceAudit=null;
 function updateMinimal(){
   if(!minimal)return;
   const row=minimal.rows.find(r=>r.case===minimalCase.value),engine=minimalEngine.value;
@@ -62,8 +62,25 @@ function updateMinimal(){
     img.alt='Actual '+engine+' '+state+' rendering, map '+row.mapping;
     document.getElementById('minimal-'+state+'-file').href=row.states[state].file;
   }
+  if(sourceAudit){
+    const audit=sourceAudit.rows.find(r=>r.case===minimalCase.value);
+    document.getElementById('minimal-audit-text').textContent='Static inference / '+sourceAudit.source_tag+'\n'+
+      'Input UTF-16BE bytes: '+audit.input_utf16be_bytes+'\n'+
+      'Inferred reader return bytes: '+audit.inferred_reader_return_bytes+'\n'+
+      'Simple-font writer gate: '+(audit.inferred_writer_accepts_entry?'add entry':'omit entry')+'\n'+
+      'Observed output map entries: '+audit.observed_output_map_entries;
+  }
   document.getElementById('minimal-cmaps').textContent=['source','rewrite'].map(state=>state.toUpperCase()+' / '+row.states[state].sha256+'\n'+row.states[state].structure.fonts[0].tounicode_stream).join('\n\n');
 }
 minimalCase.addEventListener('change',updateMinimal);minimalEngine.addEventListener('change',updateMinimal);
 fetch('evidence/mapping-minimal.json').then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();}).then(data=>{minimal=data;updateMinimal();}).catch(err=>{document.getElementById('minimal-status').textContent='Minimized evidence unavailable: '+err.message;});
+fetch('evidence/mapping-source-audit.json').then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();}).then(data=>{
+  sourceAudit=data;
+  const links=document.getElementById('minimal-audit-links');
+  for(const source of data.sources){
+    const link=document.createElement('a');link.href=source.url;link.textContent=source.path+':'+source.lines[0];
+    links.append(link,document.createTextNode(' · '));
+  }
+  updateMinimal();
+}).catch(err=>{document.getElementById('minimal-audit-text').textContent='Source audit unavailable: '+err.message;});
 })();

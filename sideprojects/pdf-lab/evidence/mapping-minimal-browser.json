@@ -4,6 +4,8 @@
     "three_controls_in_both_engines": true,
     "source_and_rewrite_served_hashes": true,
     "decoded_map_display": true,
+    "source_audit_matches_selected_case": true,
+    "pinned_source_links": true,
     "keyboard_selection": true,
     "desktop_mobile_within_viewport": true,
     "no_page_errors": true

@@ -29,6 +29,10 @@ python3 minimize-mapping.py
 
 [One glyph, three maps](MAPPING-MINIMAL.md) reduces the rewrite observation to seven-object PDFs. Ghostscript 10.08.0 preserves the A and nonidentity Z controls, while SEA becomes A in both extractors. Raw source/output CMaps and two-engine render measurements are recorded separately; six small experimental PDFs live in `output/mapping-minimal/`. Existing cabinet and transformation artifacts are unchanged. Open the minimization drawer in `#poem-journey`. This is a bounded observation, not a universal mapping-length rule or bug verdict.
 
+## A01 — pinned source audit
+
+`audit-mapping.py --source-dir /path/to/pinned/files` checks the already recorded minimized results against hashes and a byte-length path from upstream Ghostscript 10.08.0 source. It does not run a PDF tool. See [download recipe and confidence limits](MAPPING-SOURCE-AUDIT.md). The notebook's minimization drawer shows the inferred byte gate beside observed CMap entries. This is static inference matched to observations, not binary tracing or a universal character-count limit.
+
 ## Start here
 From `sideprojects/pdf-lab`:
 

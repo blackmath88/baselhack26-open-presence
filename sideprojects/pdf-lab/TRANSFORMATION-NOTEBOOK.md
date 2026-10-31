@@ -86,4 +86,4 @@ The raw structure listing includes decoded ToUnicode streams and their hashes. A
 
 No OCR, physical printing, screen-reader testing, interactive native viewer selection, font substitution or other rewrite settings are measured. No security defect, historical reproduction or universal tool behavior is claimed. All results are assistant self-verification, not independent review or human acceptance.
 
-Next useful increment: qualify one actual viewer's selection/copy/paste and pasted line order. The one-glyph minimization is now recorded; source/spec inspection is needed before making a causal or conformance claim about Ghostscript. Keep the existing paired poem artwork as the artistic reference.
+Next useful increment: qualify one actual viewer's selection/copy/paste and pasted line order. The one-glyph minimization and [pinned source audit](MAPPING-SOURCE-AUDIT.md) are now recorded; the source byte-length gate is a static explanation, without runtime tracing or a full conformance verdict. Keep the existing paired poem artwork as the artistic reference.

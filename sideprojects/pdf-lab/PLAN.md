@@ -11,6 +11,8 @@ Editorial principle: reports should contain the feature they explain where pract
 
 ## Implementation checkpoint
 
+**A01 source audit delivered:** a pinned upstream 10.08.0 reader/writer path explains the minimized observations as a static inference: a four-byte decoder ceiling precedes a two-byte simple-font insertion gate. Existing measurements and PDFs are unchanged; no binary trace or generalized character-count rule is claimed. See [MAPPING-SOURCE-AUDIT.md](MAPPING-SOURCE-AUDIT.md).
+
 **A01 minimization delivered:** one vector glyph, with A and Z one-character controls versus SEA, narrows the Ghostscript rewrite observation. A/Z survive, SEA becomes A in both extractors; source/output CMaps and pixel differences are recorded. See [MAPPING-MINIMAL.md](MAPPING-MINIMAL.md). No generalized threshold, conformance verdict or native viewer support claimed.
 
 **A01 transformation notebook delivered:** object-clone versus Ghostscript pdfwrite now has parent/output hashes, two-engine extraction, measured pixel differences and an actual-file reveal control. pypdf preserves the readings; Ghostscript 10.08.0 collapses both maps to byte-identical A–D outputs while Poppler pixels remain unchanged. See [TRANSFORMATION-NOTEBOOK.md](TRANSFORMATION-NOTEBOOK.md); no physical print or native copy/paste support is implied.
