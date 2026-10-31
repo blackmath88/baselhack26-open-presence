@@ -18,7 +18,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.server.json && tsc --noEmit -p tsconfig.worker.json"
   },
   "dependencies": {
-    "@modelcontextprotocol/node": "2.0.0",
+    "@modelcontextprotocol/node": "2.1.2",
     "@modelcontextprotocol/server": "^2.0.0",
     "@vitejs/plugin-react": "^5.0.0",
     "d3": "^7.9.0",
