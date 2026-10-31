@@ -230,12 +230,19 @@ export function useRoom(): Room {
     [loadProblem, session],
   )
 
+  // One idempotency key per pending post: a retry of the same content after a failure
+  // reuses it, so the server can replay instead of recording the thought twice.
+  const pendingPost = useRef<{ key: string; commandId: string } | null>(null)
+
   const addContribution: Room['addContribution'] = useCallback(
     async (input) => {
       if (!session || !problemId) return
       setBusy(true)
+      const key = `${problemId}\u0000${JSON.stringify(input)}`
+      if (pendingPost.current?.key !== key) pendingPost.current = { key, commandId: crypto.randomUUID() }
       try {
-        const result = await api.addContribution(session.token, problemId, input as never)
+        const result = await api.addContribution(session.token, problemId, { ...input, commandId: pendingPost.current.commandId } as never)
+        pendingPost.current = null
         const n = result.proposals.length
         const dropped = result.dropped.length
         setNotice(

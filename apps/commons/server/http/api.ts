@@ -216,8 +216,10 @@ export function createApi(services: Services, options: ApiOptions): ApiHandler {
           const source = optionalStr(body.source, 'source')
           const sourceDetail = optionalStr(body.sourceDetail, 'sourceDetail')
           const preparedBy = optionalStr(body.preparedBy, 'preparedBy')
-          const add = services.commons && problemId.startsWith('commons:')
-            ? services.commons.addToRoom.bind(services.commons)
+          const commandId = optionalStr(body.commandId, 'commandId')
+          const commons = services.commons
+          const add: typeof services.contributions.add = commons && problemId.startsWith('commons:')
+            ? (a, input) => commons.addToRoom(a, input, commandId)
             : services.contributions.add
           const result = await add(actor, {
             problemId,

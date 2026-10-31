@@ -78,6 +78,7 @@ export async function buildServices(options: BuildOptions = {}): Promise<Service
     : undefined
   const contributions = createContributionService(deps)
   const curation = createCurationService(deps)
+  const orchestration = createOrchestrationService(deps)
 
   return {
     problems: createProblemService(deps),
@@ -98,7 +99,15 @@ export async function buildServices(options: BuildOptions = {}): Promise<Service
             : curation.reject(actor, input)),
         }
       : curation,
-    orchestration: createOrchestrationService(deps),
+    orchestration: commons
+      ? {
+          ...orchestration,
+          // Mode changes read the current mode; serialize them with other commons:* writes.
+          setMode: (actor, input) => (input.problemId.startsWith('commons:')
+            ? (repository as TransactionalEventRepository).transaction(tx => createOrchestrationService({ ...deps, repository: tx.repository }).setMode(actor, input))
+            : orchestration.setMode(actor, input)),
+        }
+      : orchestration,
     imports: createImportService(deps),
     auth,
     curator,

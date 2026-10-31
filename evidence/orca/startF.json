@@ -1,0 +1,92 @@
+{
+  "id": "2149250b-7231-4c5a-ac8f-6d9964495e8e",
+  "ok": true,
+  "result": {
+    "runId": "run_4a563d19dcbd",
+    "taskId": "task_b28642435691",
+    "dispatchId": "ctx_1226a456928c",
+    "state": "ready",
+    "stage": "input_accepted",
+    "turnStart": "observed",
+    "setup": {
+      "requested": "skip",
+      "effective": "skip",
+      "source": "explicit_request",
+      "hookFound": false,
+      "startupPolicy": "start-immediately",
+      "state": "not_configured"
+    },
+    "launch": {
+      "requested": {
+        "agent": "codex",
+        "model": null,
+        "effort": null
+      },
+      "effective": {
+        "agent": "codex",
+        "model": null,
+        "effort": null
+      }
+    },
+    "mode": {
+      "mode": "terminal",
+      "preferred": "terminal",
+      "reason": "user_default",
+      "detail": "Started a terminal agent worker, the default for new agent tabs in your settings."
+    },
+    "timeoutMs": 60000,
+    "effects": [
+      {
+        "kind": "worktree",
+        "action": "created_top_level",
+        "id": "a8d5ad05-4c98-471f-ba89-cff2d7de8ea9::/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/commons-packet-f"
+      },
+      {
+        "kind": "terminal",
+        "role": "agent",
+        "action": "created",
+        "id": "term_bbb3b88e-1921-4784-8516-686bcd09b609",
+        "tabId": "bb5ffd03-65e2-4311-bbd4-62da24ed2250",
+        "leafId": "3f901d4b-3482-4305-a48e-50074bd8fe2f"
+      },
+      {
+        "kind": "setup",
+        "action": "skip",
+        "requested": "skip",
+        "effective": "skip",
+        "source": "explicit_request",
+        "hookFound": false,
+        "startupPolicy": "start-immediately",
+        "state": "not_configured"
+      },
+      {
+        "kind": "dispatch_input",
+        "role": "agent",
+        "id": "term_bbb3b88e-1921-4784-8516-686bcd09b609",
+        "state": "accepted"
+      }
+    ],
+    "prompt": {
+      "requestId": "932892c9-6a84-43e9-ab77-654fd0a0c6cc",
+      "stages": [
+        "input_accepted",
+        "turn_started"
+      ],
+      "provider": "codex",
+      "observation": "supported",
+      "processIncarnation": "bd3acb9d-6bf2-4969-9b12-9ab819be2cfe",
+      "generation": 13,
+      "baselineWorkingSequence": 1,
+      "baselineExplicitWorkingStartedAt": null,
+      "baselinePermissionSequence": 0
+    },
+    "residualResources": [],
+    "mutation": {
+      "requestId": "932892c9-6a84-43e9-ab77-654fd0a0c6cc",
+      "replayed": false
+    }
+  },
+  "_meta": {
+    "runtimeId": "5c11751c-5a08-4dac-8366-7809de174acf"
+  }
+}

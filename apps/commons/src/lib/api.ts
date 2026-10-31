@@ -141,6 +141,8 @@ export const api = {
       sourceDetail?: string
       preparedBy?: string
       proposals?: ParticipantProposalInput[]
+      /** Idempotency key; imported Commons rooms replay a retried post instead of duplicating it. */
+      commandId?: string
     },
   ) =>
     request<AddContributionResult>(

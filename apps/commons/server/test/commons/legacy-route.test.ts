@@ -38,17 +38,23 @@ async function start() {
       headers: { 'content-type': 'application/json', authorization: `Bearer ${token(who)}` },
       body: JSON.stringify({ commandId: `c-${who}-${decision}`, proposalId, decision }),
     })
-  const addThought = (who: string) =>
+  const addThought = (who: string, commandId?: string, content = `Thought from ${who}`) =>
     fetch(`${base}/api/problems/${encodeURIComponent('commons:emmc-not-exposed')}/contributions`, {
       method: 'POST',
       headers: { 'content-type': 'application/json', authorization: `Bearer ${token(who)}` },
-      body: JSON.stringify({ content: `Thought from ${who}` }),
+      body: JSON.stringify({ content, ...(commandId ? { commandId } : {}) }),
+    })
+  const setMode = (who: string, mode: string) =>
+    fetch(`${base}/api/problems/${encodeURIComponent('commons:emmc-not-exposed')}/orchestration`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${token(who)}` },
+      body: JSON.stringify({ mode }),
     })
   const state = async () =>
     (await (await fetch(`${base}/api/problems/${encodeURIComponent('commons:emmc-not-exposed')}`, {
       headers: { authorization: `Bearer ${token('person:kai')}` },
     })).json()) as { contributions: Array<{ kind: string; content: string; status: string }>; relations: unknown[] }
-  return { review, commonsReview, addThought, state, repository }
+  return { review, commonsReview, addThought, setMode, state, repository }
 }
 
 describe('legacy curation route on Commons rooms', () => {
@@ -99,5 +105,27 @@ describe('legacy curation route on Commons rooms', () => {
     const rejected = (await repository.read('commons:emmc-not-exposed')).filter(e => e.eventType === 'RelationRejected')
     expect(rejected).toHaveLength(1)
     expect(JSON.stringify(rejected[0].payload)).toContain('Different failure stage')
+  })
+
+  it('replays a retried thought with the same key, and conflicts on changed content', async () => {
+    const { addThought, state } = await start()
+    const [a, b] = await Promise.all([addThought('person:kai', 'post-1'), addThought('person:kai', 'post-1')])
+    expect([a.status, b.status]).toEqual([201, 201])
+    expect(await b.json()).toEqual(await a.json())
+    expect((await addThought('person:kai', 'post-1', 'Edited thought')).status).toBe(409)
+    expect((await state()).contributions.filter(c => c.content === 'Thought from person:kai')).toHaveLength(1)
+  })
+
+  it('serializes concurrent orchestration mode changes so each records the true previous mode', async () => {
+    const { setMode, repository } = await start()
+    for (let round = 0; round < 10; round++) {
+      const results = await Promise.all([setMode('person:kai', 'deterministic'), setMode('person:lea', 'participant')])
+      expect(results.map(r => r.status)).toEqual([200, 200])
+    }
+    const changes = (await repository.read('commons:emmc-not-exposed'))
+      .filter(e => e.eventType === 'OrchestrationModeChanged')
+      .map(e => e.payload as { from: string; to: string })
+    expect(changes).toHaveLength(20)
+    for (let i = 1; i < changes.length; i++) expect(changes[i].from).toBe(changes[i - 1].to)
   })
 })

@@ -102,10 +102,15 @@ export function createCommonsService(options: CommonsServiceOptions) {
      * Runs the existing contribution service inside the same serialized transaction
      * as Commons commands, so it validates and appends against current state.
      */
-    async addToRoom(actor: ActorContext, input: Parameters<ReturnType<typeof createContributionService>['add']>[1]) {
+    async addToRoom(actor: ActorContext, input: Parameters<ReturnType<typeof createContributionService>['add']>[1], commandId?: string) {
       authorize(actor, SCOPE_CONTRIBUTE)
       if (!input.problemId.startsWith('commons:')) throw invalid('Not a Commons room.')
-      return repository.transaction(tx => createContributionService(deps(tx)).add(actor, input))
+      const snapshot = structuredClone(input)
+      return repository.transaction(tx => {
+        const work = () => createContributionService(deps(tx)).add(actor, snapshot)
+        // With a key, a retried post replays its first outcome; the same key with other content conflicts.
+        return commandId === undefined ? work() : command(tx, actor, commandId, { type: 'add', input: snapshot }, work)
+      })
     },
     async getRoom(actor: ActorContext, id: string) {
       authorize(actor, SCOPE_READ)
