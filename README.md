@@ -20,6 +20,15 @@ The photo-frame corpus is the demonstration case. The value is independent of a 
 
 See [Value and UX](docs/product/VALUE-AND-UX.md) for proposed interface wording, visible evidence and demo checkpoints. The value framing and use cases were explicitly agreed by Achim; the interface details remain proposals.
 
+## Current build direction — 31 October
+
+Achim requested building the working loop from **br-ai-nstorm's existing application** using the already captured Wes Bos photo-frame corpus. Reuse State / Map / Timeline / Curation first; visual redesign follows a functioning integration.
+
+- [Claude / Orca build plan](docs/build/CLAUDE-ORCA-BUILD.md): pinned inputs, parallel task packets, ownership and acceptance gates.
+- [Launch prompt](docs/build/CLAUDE-ORCA-PROMPT.md): coordinator instructions.
+
+The new plan advances the earlier local-draft-only target to a functioning local shared room with explicit submission and second-session rediscovery. It takes precedence over older static-only implementation suggestions for this build. The historical schedule below remains a proposal, not evidence of completion or a revised deadline. No implementation or worker dispatch is claimed by this documentation update.
+
 ## Hackathon project management
 - [Project and time plan](HACKATHON-PLAN.md) — milestones, acceptance criteria, Saturday/Sunday targets and scope cuts.
 - [Observstory dashboard and guide](OBSERVSTORY.md) — evidence-backed activity, overlaps and check-ins.
