@@ -77,6 +77,16 @@ export function createCommonsService(options: CommonsServiceOptions) {
       authorize(actor, SCOPE_REVIEW)
       if (!input || typeof input !== 'object') throw invalid('Invalid review command.')
       const snapshot = structuredClone(input)
+      // One reason policy for every transport, applied before the receipt hash:
+      // trimmed, blank means absent, at most 1000 characters.
+      if (snapshot.reason !== undefined) {
+        if (typeof snapshot.reason !== 'string') throw invalid('reason must be a string.')
+        const reason = snapshot.reason.trim()
+        if (reason.length > 1000) throw invalid('reason must be at most 1000 characters.')
+        if (reason) snapshot.reason = reason
+        else delete snapshot.reason
+      }
+      if (snapshot.problemId !== undefined) text(snapshot.problemId, 'problemId')
       return repository.transaction(tx => command(tx, actor, snapshot.commandId, { type: 'review', command: snapshot }, async () => {
         text(snapshot.proposalId, 'proposalId')
         if (!['accept', 'reject'].includes(snapshot.decision)) throw invalid('decision must be accept or reject.')
@@ -84,6 +94,8 @@ export function createCommonsService(options: CommonsServiceOptions) {
         const all = await tx.repository.read()
         const proposed = all.find(e => e.objectId === snapshot.proposalId && (e.eventType === 'RelationProposed' || e.eventType === 'ConflictProposed'))
         if (!proposed) throw notFound('Proposal', snapshot.proposalId)
+        // The caller names the room it is reviewing in; never act on a proposal in another room.
+        if (snapshot.problemId !== undefined && snapshot.problemId !== proposed.problemId) throw notFound('Proposal', `${snapshot.proposalId} in ${snapshot.problemId}`)
         const events = all.filter(e => e.problemId === proposed.problemId)
         const state = project(events)
         const proposal = state?.proposals.find(p => p.id === snapshot.proposalId)
@@ -91,9 +103,8 @@ export function createCommonsService(options: CommonsServiceOptions) {
         if (proposal.status !== 'pending') throw conflictError('Proposal has already been reviewed.', { status: proposal.status })
         if (snapshot.expectedVersion !== undefined && snapshot.expectedVersion !== events.length) throw conflictError('Room version changed.', { version: events.length })
         const curation = createCurationService(deps(tx))
-        if (snapshot.reason !== undefined) text(snapshot.reason, 'reason')
         return snapshot.decision === 'reject'
-          ? curation.reject(actor, { problemId: proposed.problemId, proposalId: snapshot.proposalId, ...(snapshot.reason ? { reason: snapshot.reason } : {}) })
+          ? curation.reject(actor, { problemId: proposed.problemId, proposalId: snapshot.proposalId, ...(snapshot.reason !== undefined ? { reason: snapshot.reason } : {}) })
           : curation.accept(actor, { problemId: proposed.problemId, proposalId: snapshot.proposalId })
       }))
     },

@@ -247,7 +247,7 @@ export function createApi(services: Services, options: ApiOptions): ApiHandler {
         if (services.commons && problemId.startsWith('commons:')) {
           const decision = curationMatch[2] as 'accept' | 'reject'
           const commandId = optionalStr(body.commandId, 'commandId') ?? `review:${proposalId}:${decision}:${actor.actorId}`
-          return send(res, 200, await services.commons.review(actor, { commandId, proposalId, decision, ...(reason ? { reason } : {}) }))
+          return send(res, 200, await services.commons.review(actor, { commandId, proposalId, problemId, decision, ...(reason ? { reason } : {}) }))
         }
         const result =
           curationMatch[2] === 'accept'

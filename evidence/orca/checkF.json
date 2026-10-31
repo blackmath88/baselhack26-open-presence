@@ -1,0 +1,38 @@
+{
+  "id": "22747785-484e-4d40-b207-08809b2c4095",
+  "ok": true,
+  "result": {
+    "runId": "run_4a563d19dcbd",
+    "deliveryId": "delivery_6840cb2820e8",
+    "messages": [
+      {
+        "id": "msg_47636e56b659",
+        "run_id": "run_4a563d19dcbd",
+        "delivery_contract": "current_delivery",
+        "from_handle": "term_bbb3b88e-1921-4784-8516-686bcd09b609",
+        "to_handle": "run:run_4a563d19dcbd",
+        "subject": "Packet F complete: E fixes verified, room-target regression",
+        "body": "Independently reviewed exact commit 8fa3b48c3c91abe9648f31bdd309e063f991cb0b using observed Codex-in-Orca GPT-6.1-Sol default, completing 36 fresh real-JSON transport races, upgrade and rendering probes, audit, typecheck, 144 tests, index verification and restart smoke. All four requested E repairs are fixed in their reported scope, with 0 BLOCKER, 1 SHOULD-FIX and 3 NOTE findings; the verified should-fix is that the new MCP curation wrapper ignores the supplied room and can review another room’s proposal. The repository remains clean and pinned, review servers are stopped, and the remaining work is to repair room matching and consider the documented projection, reason-validation and read-cost notes.",
+        "type": "worker_done",
+        "priority": "normal",
+        "thread_id": null,
+        "payload": "{\"taskId\":\"task_b28642435691\",\"dispatchId\":\"ctx_1226a456928c\",\"outcome\":\"succeeded\",\"reportPath\":\"/home/nuc/projects/op-commons-review-4/F-report.md\"}",
+        "created_at": "2026-10-31T14:15:23Z",
+        "delivered_at": null
+      }
+    ],
+    "count": 1,
+    "replayed": false,
+    "acknowledged": null,
+    "timedOut": false,
+    "cancelled": false,
+    "connectionLost": false,
+    "mutation": {
+      "requestId": "9f49c08a-5caa-4a6d-aa55-e5ae313a7e5d",
+      "replayed": false
+    }
+  },
+  "_meta": {
+    "runtimeId": "5c11751c-5a08-4dac-8366-7809de174acf"
+  }
+}

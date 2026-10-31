@@ -45,7 +45,8 @@ bash scripts/smoke/e2e.sh   # real server on :8799 with temp data: submit, retry
 - Full source text is not committed; evidence shows short excerpts + permalink only.
 - Search explanations are verbose BM25F field lists; ranking is not a confidence score.
 - Stop the API while a draft is pending: submit fails with a clear message and the draft stays.
-- Changing the orchestration mode and free-form "Add a thought" posts are serialized but have no idempotency key.
+- Changing the orchestration mode is serialized in imported rooms but has no idempotency key.
+- Original br-ai-nstorm rooms (not `commons:*`) keep their upstream write paths and concurrency behaviour.
 - Prototype tokens are in-memory: after a server restart, browsers must pick a participant again.
 - Cross-room relation proposals (record → record) are listed in Curation; the Map view draws only same-room edges.
 - The UI cannot yet tell a replayed (idempotent) submit from a first submit; the server never duplicates either way.

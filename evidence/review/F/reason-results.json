@@ -1,0 +1,43 @@
+{
+  "first": {
+    "status": 200,
+    "body": {
+      "proposal": {
+        "id": "commons:emmc-not-exposed:relation:1",
+        "problemId": "commons:emmc-not-exposed",
+        "kind": "relation",
+        "sourceId": "commons:emmc-not-exposed",
+        "targetId": "commons:gadget-error-71",
+        "relationKind": "relates",
+        "reason": "Unreviewed imported neighbour (machine-proposal): Both stop before any eMMC data reaches the host; the cause may or may not be shared.; see original record and evidence.",
+        "confidence": 0,
+        "proposedBy": "postack-agent",
+        "status": "rejected",
+        "createdAt": "2026-10-31T14:10:14.203Z",
+        "reviewedBy": "person:kai",
+        "reviewedAt": "2026-10-31T14:10:14.662Z"
+      }
+    }
+  },
+  "retry": {
+    "status": 409,
+    "body": {
+      "error": "conflict",
+      "message": "commandId was already used with different input."
+    }
+  },
+  "rejections": [
+    {
+      "id": "evt_69910db6-a09b-4c28-b764-812a18ff6dae",
+      "problemId": "commons:emmc-not-exposed",
+      "actorId": "person:kai",
+      "timestamp": "2026-10-31T14:10:14.662Z",
+      "objectId": "commons:emmc-not-exposed:relation:1",
+      "eventType": "RelationRejected",
+      "payload": {
+        "proposalId": "commons:emmc-not-exposed:relation:1",
+        "reason": "My explicit rejection rationale"
+      }
+    }
+  ]
+}

@@ -31,3 +31,15 @@ Independent re-review: Orca packet E (codex, dispatch ctx_4daa68ab44fa) on exact
 - E-N2 / N2 dependency audit → FIXED in 6a99383: npm audit 10 → 0 (npm audit fix + @modelcontextprotocol/node 2.1.2), clean npm ci, all gates pass.
 Gates on batch-3 head: typecheck pass; vitest 12 files / 144 tests; index:check byte-identical; vite build pass; e2e smoke pass.
 G6: batch-3 repairs (after 33b97fc) are coordinator-verified only; no independent re-review of them yet.
+
+# Batch 4 (2026-10-31 15:09–15:39 CET)
+Independent re-review: Orca packet F (codex, dispatch ctx_1226a456928c) on exact commit 8fa3b48 → evidence/review/F-report-8fa3b48.md.
+F verdict: E-B1, E-S1, E-S2, E-S3 all FIXED (36/36 fresh real-JSON races, one persisted decision each: MCP-vs-MCP, MCP-vs-HTTP, legacy-vs-Commons); 0 BLOCKER, 1 SHOULD-FIX, 3 NOTE. npm ci / npm audit: 0 vulnerabilities.
+Dispositions:
+- F-S1 review wrapper ignored the named room (MCP could review another room's proposal) → FIXED: ReviewCommand.problemId is validated against the proposal's room inside the transaction; MCP, legacy HTTP bridge pass it. Test fails on 15ea5f3, passes now.
+- F-N1 back-compat rule applied to any 'observation' → FIXED: only events by repo:postack-underflow. Test.
+- F-N2 reason policy differed per transport → FIXED: one policy in the Commons review (trim, blank = absent, ≤1000 chars) before the receipt hash. Test (blank MCP reason).
+- F-N3 enriched curation GET reads the room twice → NOTE kept (no latency issue observed).
+Also in batch 4 (coordinator, before F's result): idempotency key for Add-a-thought in commons rooms (test fails on 8fa3b48, passes now; browser: receipt stored for a UI post); orchestration mode changes on commons rooms serialized (defensive — invariant test does not reproduce a race on the earlier code).
+Gates on batch-4 head after clean npm ci: 0 vulnerabilities; typecheck pass; vitest 12 files / 149 tests; index:check byte-identical; vite build pass; e2e smoke pass. Browser: Add-a-thought and Curation reject in an imported room work.
+G6: batch-4 changes after 8fa3b48 are coordinator-verified only.

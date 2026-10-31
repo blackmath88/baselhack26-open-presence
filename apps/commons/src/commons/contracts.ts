@@ -91,6 +91,7 @@ export interface SubmitContributionCommand {
 export interface ReviewCommand {
   commandId: string;
   proposalId: string;
+  problemId?: string; // room the caller is reviewing in; must contain the proposal
   decision: 'accept' | 'reject';
   reason?: string; // recorded on rejection; part of the idempotency hash
   expectedVersion?: number;

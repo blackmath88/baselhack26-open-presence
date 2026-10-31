@@ -86,8 +86,8 @@ function evolve(acc: Accumulator, event: MemoryEvent): Accumulator {
         id: event.objectId,
         problemId: event.problemId,
         // Commons imports written before batch 2 used 'observation', which no view knows.
-        // Read them as the 'evidence' they are; stored events stay untouched.
-        kind: (p.kind as string) === 'observation' ? 'evidence' : p.kind,
+        // Read only those imports as the 'evidence' they are; stored events stay untouched.
+        kind: (p.kind as string) === 'observation' && event.actorId === 'repo:postack-underflow' ? 'evidence' : p.kind,
         label: p.label,
         content: p.content,
         status: 'active',

@@ -92,10 +92,10 @@ export async function buildServices(options: BuildOptions = {}): Promise<Service
       ? {
           ...curation,
           accept: (actor, input) => (input.problemId.startsWith('commons:')
-            ? commons.review(actor, { commandId: `review:${input.proposalId}:accept:${actor.actorId}`, proposalId: input.proposalId, decision: 'accept' }) as ReturnType<CurationService['accept']>
+            ? commons.review(actor, { commandId: `review:${input.proposalId}:accept:${actor.actorId}`, proposalId: input.proposalId, problemId: input.problemId, decision: 'accept' }) as ReturnType<CurationService['accept']>
             : curation.accept(actor, input)),
           reject: (actor, input) => (input.problemId.startsWith('commons:')
-            ? commons.review(actor, { commandId: `review:${input.proposalId}:reject:${actor.actorId}`, proposalId: input.proposalId, decision: 'reject', ...(input.reason ? { reason: input.reason } : {}) }) as ReturnType<CurationService['reject']>
+            ? commons.review(actor, { commandId: `review:${input.proposalId}:reject:${actor.actorId}`, proposalId: input.proposalId, problemId: input.problemId, decision: 'reject', ...(input.reason !== undefined ? { reason: input.reason } : {}) }) as ReturnType<CurationService['reject']>
             : curation.reject(actor, input)),
         }
       : curation,

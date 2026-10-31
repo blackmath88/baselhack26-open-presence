@@ -59,3 +59,31 @@ describe('stores created before batch 2', () => {
     expect(state.contributions.every(c => c.kind === 'evidence')).toBe(true)
   })
 })
+
+describe('review room targeting and reason policy (re-review F)', () => {
+  it('refuses to review a proposal through a room that does not contain it, without appending', async () => {
+    const h = await setup()
+    const kai = await h.mcp('Kai')
+    for (const room of ['commons:no-such-room', 'commons:gadget-error-71']) {
+      const result = (await kai.callTool({ name: 'review_curation_proposal', arguments: { problemId: room, proposalId, accept: false, reason: 'wrong room' } })) as { isError?: boolean }
+      expect(result.isError).toBe(true)
+    }
+    expect(await decisions(h)).toHaveLength(0)
+  })
+
+  it('treats a blank MCP reason as absent on every transport', async () => {
+    const h = await setup()
+    const kai = await h.mcp('Kai')
+    const result = (await kai.callTool({ name: 'review_curation_proposal', arguments: { problemId, proposalId, accept: false, reason: '   ' } })) as { isError?: boolean }
+    expect(result.isError).toBeFalsy()
+    expect(await decisions(h)).toHaveLength(1)
+  })
+
+  it('leaves a participant-written "observation" alone; only imports are read as evidence', async () => {
+    const { project } = await import('../../domain/projections.js')
+    const h = await setup()
+    const events = await h.services.repository.read(problemId)
+    const legacy = events.map(e => (e.eventType === 'ContributionAdded' ? { ...e, actorId: 'person:kai', payload: { ...(e.payload as object), kind: 'observation' } } : e))
+    expect(project(legacy as typeof events)!.contributions.every(c => (c.kind as string) === 'observation')).toBe(true)
+  })
+})
