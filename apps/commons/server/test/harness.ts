@@ -46,7 +46,7 @@ export interface Harness {
   close(): Promise<void>
 }
 
-export async function createHarness(options: { curator?: Curator; seed?: boolean } = {}): Promise<Harness> {
+export async function createHarness(options: { curator?: Curator; seed?: boolean; atproto?: import('../commons/atproto/contract.js').AtprotoAdapter } = {}): Promise<Harness> {
   const services = await buildServices({
     repository: createMemoryRepository(),
     clock: fixedClock(),
@@ -55,6 +55,8 @@ export async function createHarness(options: { curator?: Curator; seed?: boolean
     curator: options.curator ?? nullCurator,
     // Tests never inherit BRAINSTORM_DEFAULT_ORCHESTRATION from the shell.
     defaultOrchestration: null,
+    atproto: options.atproto ?? null,
+    appUrl: 'http://localhost:5173',
     ...(options.seed === false ? { seed: false } : {}),
   })
 

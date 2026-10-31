@@ -98,3 +98,152 @@ export interface ReviewCommand {
 }
 
 export type EdgeOrigin = 'participant' | 'machine-proposal' | 'source-assertion' | 'postack-agent';
+
+// ---------------------------------------------------------------------------
+// Multi-entry extension — frozen 2026-10-31 (M0). Compatible additions only:
+// every field above keeps its meaning; new fields are optional on input and
+// defaulted on read. See docs/architecture/MULTI-ENTRY-IMPLEMENTATION.md.
+// ---------------------------------------------------------------------------
+
+/** Bumped only when a persisted shape changes; `commonsMetadata` migrates forward. */
+export const COMMONS_SCHEMA_VERSION = '2026-10-31.1';
+
+/** Kinds a participant can give a new Commons contribution. */
+export type CommonsContributionKind = 'question' | 'observation' | 'attempt' | 'outcome' | 'correction';
+export const COMMONS_CONTRIBUTION_KINDS: CommonsContributionKind[] = ['question', 'observation', 'attempt', 'outcome', 'correction'];
+
+/**
+ * How the text was prepared. A declaration by the submitter, never a detection:
+ * `none` means typed directly, `ai-assisted` means a model helped, `ai-drafted`
+ * means a model wrote the draft the person submitted.
+ */
+export type AssistanceDeclaration = 'none' | 'ai-assisted' | 'ai-drafted';
+export const ASSISTANCE_DECLARATIONS: AssistanceDeclaration[] = ['none', 'ai-assisted', 'ai-drafted'];
+
+/** Discriminated references. A local ID is never an AT URI and a source object is neither. */
+export type LocalRef = { kind: 'local'; id: string; revision?: number };
+export type SourcePointer = { kind: 'source'; objectId: string; snapshotId?: string; digest?: string | null };
+/** `cid` pins one exact version; without it the reference names the logical record. */
+export type AtRef = { kind: 'atproto'; uri: string; cid?: string };
+export type Ref = LocalRef | SourcePointer | AtRef;
+
+export type PublicationStatus = 'local' | 'queued' | 'publishing' | 'published' | 'failed' | 'conflict' | 'stale' | 'unavailable';
+
+/** Transport receipt. Independent of the local contribution: queued is not published. */
+export interface PublicationReceipt {
+  intentId: string;
+  contributionId: string;
+  revision: number;
+  status: PublicationStatus;
+  did: string;
+  handle?: string;
+  collection: string;
+  rkey: string;
+  uri?: string;
+  cid?: string;
+  payloadDigest: string;
+  attempts: number;
+  queuedAt: string;
+  lastAttemptAt?: string;
+  publishedAt?: string;
+  lastError?: string;
+}
+
+/** A content-bound intent: changing text, account or revision invalidates it. */
+export interface PublicationIntent {
+  intentId: string;
+  contributionId: string;
+  revision: number;
+  actorId: string;
+  did: string;
+  handle?: string;
+  service: string;
+  collection: string;
+  rkey: string;
+  payloadDigest: string;
+  record: Record<string, unknown>;
+  createdAt: string;
+  expiresAt: string;
+}
+
+export type ExternalAvailability = 'available' | 'stale' | 'unavailable' | 'deleted' | 'invalid';
+
+/** Where an ingested contribution lives: the author's repository, observed by us. */
+export interface ExternalOrigin {
+  kind: 'atproto';
+  uri: string;
+  cid: string;
+  did: string;
+  handle?: string;
+  pdsEndpoint?: string;
+  retrievedAt: string;
+  availability: ExternalAvailability;
+  /** Set when the record's declared origin matched a contribution this app published. */
+  selfPublicationOf?: string;
+}
+
+export interface CommonsActor {
+  id: string; // person:<x> | did:… | repo:<owner/name>
+  displayName?: string;
+  kind: 'participant' | 'atproto' | 'import';
+}
+
+/** One attributable contribution as every entrance sees it. */
+export interface CommonsContribution {
+  id: string;
+  revision: number;
+  problemId: string; // Postack ID
+  roomId: string; // commons:<problemId>
+  kind: CommonsContributionKind;
+  text: string;
+  circumstances?: string;
+  sourceRefs: SourceRef[];
+  actor: CommonsActor;
+  submittedBy: string;
+  assistance: { declared: AssistanceDeclaration; preparedBy?: string };
+  createdAt: string;
+  observedAt?: string;
+  parent?: Ref;
+  supersedes?: Ref;
+  contradicts?: Ref;
+  origin: { kind: 'local' } | ExternalOrigin;
+  publication: PublicationReceipt | null;
+  links: { app: string };
+}
+
+/** What a hidden or blocked record returns on every projection: no body, no author text. */
+export interface ModeratedContribution {
+  id: string;
+  problemId: string;
+  roomId: string;
+  moderated: true;
+  reason: 'hidden' | 'blocked-author' | 'deleted' | 'invalid';
+  createdAt?: string;
+}
+
+export const isModerated = (c: CommonsContribution | ModeratedContribution): c is ModeratedContribution => 'moderated' in c;
+
+/** Submit body, extended compatibly. Unknown new fields default: kind=observation, assistance from preparedBy. */
+export interface SubmitContributionCommandV2 extends SubmitContributionCommand {
+  kind?: CommonsContributionKind;
+  assistance?: AssistanceDeclaration;
+  /** Reply target: a local contribution id in the same problem, or an at:// URI already ingested. */
+  parentId?: string;
+  supersedesId?: string;
+  contradictsId?: string;
+  observedAt?: string;
+}
+
+export interface CommandReceipt {
+  commandId: string;
+  replayed: boolean;
+}
+
+/** Canonical deep links. Hash routes so a static UI resolves them after reload. */
+export const appLinks = {
+  problem: (problemId: string) => `#/problems/${encodeURIComponent(problemId)}`,
+  contribution: (contributionId: string) => `#/contributions/${encodeURIComponent(contributionId)}`,
+  thread: (contributionId: string) => `#/threads/${encodeURIComponent(contributionId)}`,
+  repository: (path = '') => `#/repo${path ? `/${path.split('/').map(encodeURIComponent).join('/')}` : ''}`,
+  search: (query: string) => `#/search?q=${encodeURIComponent(query)}`,
+};

@@ -7,7 +7,7 @@
  *
  * State stays canonical. Map and Timeline are projections over the same data.
  */
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { BrainCircuit, GitBranch, History, LayoutList, ListChecks, RefreshCw, Search, Sparkles } from 'lucide-react'
 import { useRoom } from './state/useRoom'
 import { ProblemTabs } from './components/ProblemTabs'
@@ -20,8 +20,10 @@ import { ApertureModal } from './components/ApertureModal'
 import { ParticipantSwitcher } from './components/ParticipantSwitcher'
 import { createContextPackage, validateContributionPackage } from './lib/aperture'
 import { api } from './lib/api'
-import { CommonsFinder } from './components/commons/CommonsFinder'
+import { CommonsHub } from './components/commons/CommonsHub'
 import { commonsReader } from './commons/reader'
+import { useRoute } from './commons/client/router'
+import { importedProblemSpaceId } from './commons/contracts'
 
 type ViewMode = 'state' | 'map' | 'timeline' | 'curation'
 type ModalMode = 'export' | 'import' | null
@@ -35,6 +37,15 @@ export default function App() {
   const [modalValue, setModalValue] = useState('')
   const [importError, setImportError] = useState<string | null>(null)
   const [finding, setFinding] = useState(true)
+  const route = useRoute()
+
+  // A problem deep link (from search, the repository or a shared URL) opens that room, once the session exists.
+  const routedProblem = route.view === 'problem' ? importedProblemSpaceId(route.problemId) : null
+  useEffect(() => {
+    if (!routedProblem || !room.token || room.problemId === routedProblem) return
+    void room.openProblem(routedProblem)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [routedProblem, room.token])
 
   const data = room.data
   const problem = data?.state.problem
@@ -146,7 +157,7 @@ export default function App() {
         </div>
         <div className="top-actions">
           <button className="button" onClick={() => setFinding((v) => !v)} aria-pressed={finding}>
-            <Search size={15} /> {finding ? 'Hide finder' : 'Find an experience'}
+            <Search size={15} /> {finding ? 'Hide Commons' : 'Commons: search, repository, threads'}
           </button>
           <button className="button" onClick={() => void room.refresh()} disabled={room.busy || !data}>
             <RefreshCw size={15} /> {room.busy ? 'Refreshing…' : 'Refresh'}
@@ -190,10 +201,13 @@ export default function App() {
         </div>
       )}
 
-      {room.actor && finding && (
-        <CommonsFinder
-          reader={commonsReader}
+      {room.actor && room.token && finding && (
+        <CommonsHub
+          route={route}
           token={room.token}
+          actorId={room.actor.actorId}
+          canReview={room.actor.scopes.includes('memory:review')}
+          reader={commonsReader}
           onSubmitted={(id) => {
             setSelectedId(undefined)
             setView('state')

@@ -19,6 +19,7 @@ const sources = fixtures as ImportedProblem[]
 const actor = (name = 'kai'): ActorContext => ({ actorId: `person:${name}`, displayName: name, scopes: DEFAULT_SCOPES })
 const clock = { now: () => '2026-10-31T13:30:00.000Z' }
 const roomId = importedProblemSpaceId(sources[0].postackId)
+const sansReplay = <T extends { replayed?: boolean }>(value: T) => ({ ...value, replayed: undefined })
 const proposalId = `commons:${sources[0].postackId}:relation:1`
 const submission = { commandId: 'submit-1', problemId: sources[0].postackId, text: 'My frame also fails on a direct USB port.', sourceRefs: [sources[0].evidence[0].source.objectId], preparedBy: 'browser-draft', circumstances: 'macOS' }
 const dirs: string[] = []
@@ -57,7 +58,8 @@ describe('Commons memory', () => {
     const beforeSources = structuredClone(sources)
     const before = (await repository.read()).length
     const results = await Promise.all([service.submitContribution(actor(), submission), service.submitContribution(actor(), structuredClone(submission))])
-    expect(results[0]).toEqual(results[1])
+    expect(sansReplay(results[0])).toEqual(sansReplay(results[1]))
+    expect(results.map(r => r.replayed).sort()).toEqual([false, true])
     const after = await repository.read()
     expect(after.filter(e => e.eventType === 'ContributionAdded' && e.actorId === 'person:kai')).toHaveLength(1)
     expect(after.length).toBeGreaterThan(before)
@@ -88,7 +90,7 @@ describe('Commons memory', () => {
     const input = { commandId: 'yes', proposalId, decision: 'accept' as const, expectedVersion: (await repository.read(roomId)).length }
     const result = await service.review(actor(), input)
     const count = (await repository.read()).length
-    expect(await service.review(actor(), input)).toEqual(result)
+    expect(await service.review(actor(), input)).toEqual({ ...result, replayed: true })
     expect((await repository.read()).length).toBe(count)
     await expect(service.review(actor(), { ...input, decision: 'reject' })).rejects.toMatchObject({ code: 'conflict' })
     await expect(service.review(actor(), { commandId: 'stale', proposalId: `commons:${sources[0].postackId}:relation:0`, decision: 'reject', expectedVersion: 0 })).rejects.toMatchObject({ code: 'conflict' })
@@ -114,8 +116,8 @@ describe('Commons memory', () => {
     const events = await repository.read()
     const restartedRepository = createJsonRepository({ file })
     const restarted = createCommonsService({ repository: restartedRepository, clock })
-    expect(await restarted.submitContribution(actor(), submission)).toEqual(submitted)
-    expect(await restarted.review(actor(), review)).toEqual(reviewed)
+    expect(await restarted.submitContribution(actor(), submission)).toEqual({ ...submitted, replayed: true })
+    expect(await restarted.review(actor(), review)).toEqual({ ...reviewed, replayed: true })
     expect((await restarted.importProblems(actor(), sources)).appendedEvents).toBe(0)
     expect(await restartedRepository.read()).toEqual(events)
     expect((await restarted.getRoom(actor(), roomId)).source).toEqual(sources[0])
@@ -129,7 +131,7 @@ describe('Commons memory', () => {
     const second = createCommonsService({ repository: createJsonRepository({ file }), clock })
     await first.importProblems(actor(), sources)
     const results = await Promise.all([first.submitContribution(actor(), submission), second.submitContribution(actor(), submission)])
-    expect(results[0]).toEqual(results[1])
+    expect(sansReplay(results[0])).toEqual(sansReplay(results[1]))
     expect((await second.getRoom(actor(), roomId)).contributions.filter(c => c.provenance.authoredBy === 'person:kai')).toHaveLength(1)
   })
   it('rolls back failed imports and validation without events or receipts', async () => {

@@ -1,55 +1,95 @@
-# DEMO — Photo Frame Commons on br-ai-nstorm (local only)
+# DEMO — Photo Frame Commons, many entrances (local only)
 
-Local shared room for the find → inspect → contribute → rediscover loop over the pinned
-Wes Bos photo-frame corpus. Prototype demo sign-in; **never expose this server publicly.**
+One shared Commons over the pinned Wes Bos photo-frame corpus, entered through **search**, the **repository
+snapshot**, **direct links**, the **CLI** or **MCP**, and connected to **ATProto** for author-owned publication and
+ingestion. Prototype demo sign-in; **never expose this server publicly.** Branch `feat/commons-multi-entry`
+(stacked on PR #8).
 
 ## Install and run
 ```bash
 cd apps/commons
 npm ci
-npm run dev:server      # API on 127.0.0.1:8787 (HOST=... to change); first boot imports 18 records (idempotent later)
-npm run dev             # UI on :5173 (proxies /api to :8787), in a second terminal
+npm run dev:server      # API + MCP on 127.0.0.1:8787; first boot imports 18 records (idempotent later)
+npm run dev             # UI on :5173 (proxies /api and /mcp to :8787), in a second terminal
 ```
 Room data: `apps/commons/server/data/memory.json` (gitignored; override with `BRAINSTORM_DATA_FILE`).
 Browser drafts: `localStorage["commons.drafts.v1"]` only.
+
+### Optional: isolated ATProto network (disposable accounts, not public)
+```bash
+cd apps/commons/tools/local-pds && npm ci && cd ../..
+npm run pds:dev         # boots a PDS + PLC in-process, creates alice.test / bob.test, prints COMMONS_* lines
+```
+Start the API with the printed variables so Kai publishes as `alice.test` and Lea as `bob.test`:
+```bash
+COMMONS_ATPROTO_ALLOWED_PDS=http://localhost:<pds-port> COMMONS_PLC_URL=http://localhost:<plc-port> \
+COMMONS_ATPROTO_ACCOUNTS='{"person:kai":{"service":"http://localhost:<pds-port>","identifier":"alice.test","password":"alice-dev-pass"},"person:lea":{"service":"http://localhost:<pds-port>","identifier":"bob.test","password":"bob-dev-pass"}}' \
+npm run dev:server
+```
+Without these variables every publication and sync operation reports "not configured" instead of pretending.
+Other knobs: `COMMONS_ATPROTO_NAMESPACE` (default `test.openpresence.commons`, development-only),
+`COMMONS_ATPROTO_FOLLOW` (comma-separated DIDs/handles synced at boot), `COMMONS_APP_URL` (links inside published records).
 
 ## Checks
 ```bash
 cd apps/commons
 npm run typecheck
-npm test                # server + corpus tests
-npm run index:check     # rebuilds the record-only index, byte-compares, no cache/network
-bash scripts/smoke/e2e.sh   # real server on :8799 with temp data: submit, retry, 2nd session, restart, concurrent review
+npm test                         # 181 tests; the PDS round-trip suites skip visibly if tools/local-pds is not installed
+npm run index:check              # record-only index reproduces byte for byte
+npx vite build
+bash scripts/smoke/e2e.sh        # first-slice smoke (submit, retry, restart, concurrent review)
+bash scripts/smoke/multi-entry.sh # CLI entrance against a real server: search, browse, draft, submit, reply, thread, context, moderation, status
 ```
 
-## Two-session demonstration
-1. Window A: pick a demo participant (e.g. Kai). The finder is open at the top.
-2. Search `My Mac cannot see my frame` → open "The frame shows no USB data…". Read evidence: quote vs
-   record-writer reading, original author, permalink, "full conversation not stored here".
-3. Type an observation, **Save draft**, reload the page — the draft comes back (browser-only).
-4. **Preview submission** shows exact content and destination (`commons:<id>`, local room, not GitHub).
-   **Submit to shared room** opens the room's existing State / Map / Timeline / Curation views.
-5. Window B (private window, another participant, e.g. Lea): open the same problem tab — the contribution is
-   there, attributed to Kai, `preparedBy: browser-draft`, linked to the source refs.
-   Near-match: search `backup disk disappears on my Mac` — the Windows/WSL record is flagged "near-match" and sorted last.
-   Correction: "The frame shows no USB data…" lists a real correction under "Corrections and different outcomes".
-6. Curation: imported relations show as proposals by `postack-agent` with no score; accepting keeps
-   "proposed by postack-agent · reviewed by <you>" and the original reason in history.
-   Each imported edge shows its origin and supporting evidence links.
-   Reviews of imported rooms (UI, `/api/curation/...`, `/api/commons/reviews`, MCP tools) all go through one
-   serialized, idempotent command: concurrent accept/reject → one success, one 409. A rejection reason is recorded.
-7. Stop and restart `npm run dev:server`: state is rediscovered; reimport appends 0 events.
+## Three entrances, one Commons
+**1. Repository → problem → contribution (UI).** Sign in as Kai. Click **Repository**: the pinned snapshot of
+`wesbos/photo-frame-dashboard` at `0bff55ef3fb2` with what it covers and excludes. Open `docs/pf1007l-start-here.md`
+or the thread `issue/148`: each lists the problem records that cite it. Follow one to `#/problems/<id>`: the
+agent-written record (quotes vs. the record writer's reading, original authors, permalinks) and the conversation.
+Write an experience → **Preview** (the server says exactly what will be recorded and where: local room, not GitHub,
+not ATProto) → **Submit to shared room**. Reload: the URL still opens the same problem.
+
+**2. Agent → MCP, person → CLI.** Point an MCP client at `http://localhost:8787/mcp` with a session token
+(or run `BRAINSTORM_PARTICIPANT=Kai npm run mcp`). Tools: `commons_search`, `commons_browse_repository`,
+`commons_get_problem`, `commons_get_contribution`, `commons_get_thread`, `commons_get_context`,
+`commons_prepare_contribution`, `commons_submit_contribution`, `commons_moderate`, `commons_prepare_publication`,
+`commons_publish_contribution`, `commons_get_publication`, `commons_sync_author`, `commons_resolve_external`,
+`commons_status`. From a terminal, the same operations:
+```bash
+cd apps/commons && export BRAINSTORM_PARTICIPANT=Lea
+npm run commons -- search "backup disk disappears on my Mac"
+npm run commons -- browse --object issue/99
+npm run commons -- inspect emmc-not-exposed
+npm run commons -- draft --problem emmc-not-exposed --text "..." --kind attempt --ref issue/99     # validates, writes nothing
+npm run commons -- submit --problem emmc-not-exposed --text "..." --kind attempt --ref issue/99 --command-id my-key-1
+npm run commons -- submit ... --command-id my-key-1      # same key, same content → replayed, no duplicate; changed content → exit 3
+npm run commons -- thread <contributionId> · context <id> --budget 4000 · status
+```
+Exit codes: 0 ok · 2 validation · 3 conflict · 4 forbidden/not ready · 5 not found · 6 server unreachable.
+The contribution made here appears once in the UI (State view and Commons card), attributed to the session's
+participant, and `commons_search` finds its distinctive words with author and source refs.
+
+**3. Community link and ATProto.** Any contribution has `#/contributions/<id>` and `#/threads/<id>`; opening one
+restores the problem, highlights the contribution and shows the conversation with both voices. **Reply** and
+**Correct** attach to a parent without touching it. With the isolated PDS configured, a participant's own card offers
+**Publish publicly…**: preview the exact record and destination account, then **Publish exactly this record**. The
+receipt moves `queued → published` with the `at://` URI and CID; a failed attempt is retryable and never duplicates.
+Lea's reply publishes with a strong reference (URI + CID) to Kai's record. A second, fresh app instance can
+`commons_sync_author alice.test` / `bob.test` and rebuild the same thread from the two repositories alone
+(`server/test/commons/two-author-roundtrip.test.ts` does exactly this; `evidence/atproto-live-check.txt` shows the
+records on the PDS).
 
 ## Real limitations
-- Problem records are agent-written (`agent:claude-opus-5-5`) and not reviewed by a person; marked in the UI.
-- Full source text is not committed; evidence shows short excerpts + permalink only.
-- Search explanations are verbose BM25F field lists; ranking is not a confidence score.
-- Stop the API while a draft is pending: submit fails with a clear message and the draft stays.
-- Changing the orchestration mode is serialized in imported rooms but has no idempotency key.
-- Original br-ai-nstorm rooms (not `commons:*`) keep their upstream write paths and concurrency behaviour.
+- Problem records are agent-written (`agent:claude-opus-5-5`) and not reviewed by a person; marked everywhere.
+- Full source text is not committed; evidence shows short excerpts + permalink; the repository view is snapshot
+  metadata, not a live GitHub browser.
+- Ranking is lexical (BM25F) over records and contributions; not a confidence score.
+- ATProto here is an **isolated development network** (`tools/local-pds`), a development-only namespace
+  (`test.openpresence.commons`) and credential sessions for disposable accounts. No public account, no OAuth sign-in,
+  no production NSID, no Bluesky feed visibility. Activation steps: `apps/commons/server/commons/atproto/README.md`.
+- Publication receipts are transport state: `queued`/`failed` is not published. A `conflict` (different record at the
+  key) is reported, never overwritten.
+- Ingestion is bounded to allowlisted PDS endpoints and opted-in authors; completeness is never claimed beyond them.
+- Moderation is local hide/unhide and block/unblock; it affects every projection here and nothing elsewhere.
 - Prototype tokens are in-memory: after a server restart, browsers must pick a participant again.
-- Cross-room relation proposals (record → record) are listed in Curation; the Map view draws only same-room edges.
-- The UI cannot yet tell a replayed (idempotent) submit from a first submit; the server never duplicates either way.
-- The pinned corpus is imported only at server start; there is no HTTP import endpoint.
-- JSON log is replaced atomically but not fsync'd: a power loss can drop the latest write.
-- Cloudflare worker/Durable Object path has no Commons service (`services.commons` absent there).
+- The Map view draws only same-room edges; the Cloudflare worker path has no Commons service; the JSON log is not fsync'd.

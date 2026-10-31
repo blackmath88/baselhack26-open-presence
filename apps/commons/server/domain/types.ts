@@ -83,6 +83,7 @@ export type ContributionSource =
   | 'mcp'             // arrived through an MCP client
   | 'seed'            // imported from the pre-backend prototype data
   | 'repo_import'     // extracted deterministically from a source repository's documents
+  | 'atproto'         // observed in the author's own ATProto repository and ingested read-only
 
 export type Endorsement = 'participant_review_required' | 'human_endorsed'
 

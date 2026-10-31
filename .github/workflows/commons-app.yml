@@ -1,0 +1,36 @@
+name: Commons app
+
+# Application gates for apps/commons: typecheck, tests (including the ATProto
+# round trip against an isolated in-process PDS), the record-index check and
+# the production build. No deployment, no network writes beyond npm.
+on:
+  push:
+    branches: [main, 'feat/**']
+    paths: ['apps/commons/**', '.github/workflows/commons-app.yml']
+  pull_request:
+    paths: ['apps/commons/**', '.github/workflows/commons-app.yml']
+
+concurrency:
+  group: commons-app-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run: { working-directory: apps/commons }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: apps/commons/package-lock.json }
+      - run: npm ci
+      - name: Install the isolated local PDS tooling (so the round-trip tests run instead of skipping)
+        run: npm ci
+        working-directory: apps/commons/tools/local-pds
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run index:check
+      - run: npx vite build
+      - name: CLI smoke (real local server, temp data)
+        run: bash scripts/smoke/multi-entry.sh

@@ -1,0 +1,46 @@
+# CLI multi-entry smoke — scripts/smoke/multi-entry.sh (2026-10-31, branch feat/commons-multi-entry)
+# Real local server on :8798 with temp data; prototype auth; ATProto not configured in this run.
+
+Photo Frame Commons: 18 imported rooms, 111 new import events
+Commons ATProto: not configured — publication and ingestion report that state
+== search (Kai)
+problems: [('usb-c-no-data', False), ('reset-after-uboot', False), ('ums-drops-during-backup', False)] contributions: 0
+== browse root
+dir ['.github', 'dashboard', 'docs', 'scripts', 'README.md'] issues 57 linked 32
+== browse thread issue/99
+issue/99 patrickmiltner cited by ['emmc-not-exposed']
+== inspect problem
+problem commons:usb-c-no-data evidence 7 contributions 0
+== draft (writes nothing)
+ok True destination commons:usb-c-no-data warnings []
+== submit
+id contrib_cfe19ba0-15f9-40d5-b49e-baf347d5a88b replayed False author person:kai
+== submit again (same key)
+id contrib_cfe19ba0-15f9-40d5-b49e-baf347d5a88b replayed True
+== submit again (same key, changed text) → exit code:
+exit 3
+{
+  "error": "POST /api/commons/contributions → HTTP 409 conflict",
+  "detail": {
+    "error": "conflict",
+    "messag
+== reply as Lea
+reply contrib_8ae49551-4d4d-4afe-9e72-fb0038729082 author person:lea
+== thread
+root person:kai replies ['person:lea'] participants ['person:kai', 'person:lea']
+== search the phrase (Lea)
+[('contrib_cfe19ba0-15f9-40d5-b49e-baf347d5a88b', 'person:kai')]
+== context
+contributions 1 omissions 2 limitations 4 sources 4
+== publish without an account → exit code:
+exit 4
+False no-account none
+== hide (Lea reviews) then inspect
+moderated True hidden text present False
+== status
+schema 2026-10-31.1 atproto none publications {'queued': 0, 'published': 0, 'failed': 0, 'conflict': 0, 'outbox': 0} problems 18
+== restart keeps everything
+after restart: replies 1
+== unreachable server → exit code:
+exit 6
+

@@ -1,0 +1,36 @@
+# Browser check — multi-entry Commons (built-in browser, coordinator, 2026-10-31 ~17:50–18:05 CET)
+Dev UI http://localhost:5173 (vite) → API :8787 configured with the isolated local PDS (tools/local-pds; accounts alice.test=Kai, bob.test=Lea).
+One narrow pass as required by the plan; not a screenshot campaign.
+
+Search entrance
+- Opened #/search?q=My%20Mac%20cannot%20see%20my%20frame before sign-in: the route survived the prototype sign-in; the query was pre-filled and the problem records listed with match reasons ("The frame shows no USB data…" first, near-match flags where applicable).
+- Later, #/search?q=powered%20hub listed both problem records and contributions ("question by lea", "observation by kai").
+- Keyboard: Tab from the page start focuses the search input (#commons-q); results are native links/buttons; Enter submits the form.
+
+Deep link / problem view
+- Clicking a result navigated to #/problems/usb-c-no-data: the imported record (quotes vs. "Record writer's reading", original authors, permalinks, "full conversation not stored here"), the composer, and the room (State/Map/Timeline/Curation) opened for commons:usb-c-no-data.
+- Typed an observation ("UI check: teal-osprey-6602 …") → Preview showed destination "local shared room on this server…; not GitHub", exact content, kind, assistance, cited sources → Submit → card appeared once, attributed to kai, and the same text appeared in the room's State view as a claim by kai.
+
+Publication (isolated PDS)
+- "Publish publicly…" → "Preview the public record" → destination @alice.test did:plc:t4kvo6jwlpzqne5j2qa7fhwf on http://localhost:44151, collection test.openpresence.commons.contribution, key 3mz6nm7jths2y, exact record shown → "Publish exactly this record" → heading "2 … published to ATProto" after both publications; card shows "ATProto · available · own", "owned by @alice.test (did:plc:…); observed …; at://…".
+- CLI `publication` for the same id: status published, attempts 1, uri/cid recorded; `com.atproto.repo.listRecords` on the PDS shows exactly one record for alice with problem/source/origin fields (evidence/atproto-live-check.txt).
+
+Reply, thread, second author
+- Switched participant to Lea → "Reply" under Kai's card → composer "Reply to observation by kai" → Preview showed "in reply to contrib_622b…" → Submit → card "question · lea · replies to contrib_622b…".
+- Lea's "Publish publicly…" → destination @bob.test → published; the record on the PDS carries parent {uri, cid} of Kai's record (evidence/atproto-live-check.txt).
+- #/threads/contrib_622b… rendered "Conversation · 2 voices: kai, lea" with the reply nested under the root; "All contributions to this problem" link back.
+
+Repository entrance
+- #/repo: snapshot header (wesbos/photo-frame-dashboard @ 0bff55ef3fb2, captured 2026-10-29, 18 problem records), coverage/exclusions disclosure, tree (.github, dashboard, docs, scripts, README.md), thread counts (57 issues, 206 pulls, 2 discussions; 32 cited).
+- #/repo/docs lists pf1007l-start-here.md with its citing problems; #/repo?object=issue%2F148 shows the thread (author @Gazer, 1 comment, original link) and "Cited by" two problem records. Browser back returned to #/repo with the snapshot header.
+
+Phone width (375×812 emulation)
+- Before the fix: horizontal overflow (scrollWidth 449) caused by the upstream room's problem tabs/view switcher/state summary, not by the new Commons section. Added a 720px media rule (wrap the view switcher, min-width 0 on grid children, wrap the state summary).
+- After: #/problems/usb-c-no-data, #/search?q=…, #/repo?object=issue%2F148 all report scrollWidth 375 = clientWidth (no horizontal scroll). Repository thread view readable at that width (screenshot taken during the pass).
+
+Not covered in this pass: Map view, Timeline, Curation on the new data; moderation buttons (covered by tests and CLI smoke); failure-with-draft (see the addendum below if present).
+
+Addendum — failure with a draft (same pass, ~18:15 CET)
+- On #/problems/emmc-not-exposed as Kai: typed "Failure check: ivory-badger-7715 …" → Save draft → status "Draft saved in this browser only." localStorage["commons.drafts.v1"] holds it.
+- Stopped the API process. Preview → alert "The local shared room did not answer (HTTP 500). Your draft is still saved in this browser."; the textarea and localStorage still hold the text.
+- Restarted the API (prototype tokens are in-memory, so the hub first showed "Unknown or expired session token." until a participant was picked again). Reloaded, re-signed in as Kai: the composer came back pre-filled with the draft on the same route.

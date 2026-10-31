@@ -31,6 +31,7 @@ import { MAX_CONTRIBUTIONS_PER_FETCH } from '../application/problem-service.js'
 import { PARTICIPANT_PROPOSAL_LIMIT } from '../domain/policies.js'
 import { PARTICIPANT_PROPOSAL_KINDS } from '../curation/participant.js'
 import { CONFLICT_KIND_MEANING } from '../domain/conflicts.js'
+import { registerCommonsTools } from './commons-tools.js'
 
 type ToolResult = {
   content: Array<{ type: 'text'; text: string }>
@@ -86,9 +87,12 @@ const mutating = { readOnlyHint: false, idempotentHint: false, openWorldHint: fa
  * purpose: the Cloudflare Worker builds its own service set (different auth
  * and persistence adapters) and must be able to serve the same tools.
  */
-export type ToolServices = Pick<Services, 'problems' | 'contributions' | 'curation' | 'orchestration'>
+export type ToolServices = Pick<Services, 'problems' | 'contributions' | 'curation' | 'orchestration'> & Partial<Pick<Services, 'commons'>>
 
 export function registerTools(server: McpServer, services: ToolServices, actor: ActorContext): void {
+  // Commons entrances exist wherever the Commons service does (local Node runtime), on every transport.
+  if (services.commons) registerCommonsTools(server, services.commons, actor)
+
   server.registerTool(
     'list_problems',
     {

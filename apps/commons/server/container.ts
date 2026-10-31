@@ -18,6 +18,9 @@ import { createOrchestrationService, type OrchestrationService } from './applica
 import { createImportService, type ImportService } from './application/import-service.js'
 import { createPrototypeAuth, type PrototypeAuth } from './auth/prototype-auth.js'
 import { createCommonsService, type CommonsService } from './commons/service.js'
+import { createModerationAwareReads } from './commons/read-view.js'
+import { createAtprotoAdapter } from './commons/atproto/index.js'
+import type { AtprotoAdapter } from './commons/atproto/contract.js'
 import type { ServiceDeps } from './application/support.js'
 import type { OrchestrationMode } from './domain/types.js'
 import { ORCHESTRATION_MODES } from './domain/types.js'
@@ -48,6 +51,32 @@ export interface BuildOptions {
    * `null` means "the domain default, and do not read the environment" — what tests use.
    */
   defaultOrchestration?: OrchestrationMode | null
+  /** ATProto adapter for the Commons service. `null` means "none, and do not read the environment" — what tests use. */
+  atproto?: AtprotoAdapter | null
+  /** Canonical app base URL for links inside published records. */
+  appUrl?: string
+}
+
+/** Everything the Commons needs from the environment, in one place and with no secrets echoed. */
+export function commonsConfigFromEnv(env: NodeJS.ProcessEnv = process.env) {
+  const list = (value: string | undefined) => (value ?? '').split(',').map(s => s.trim()).filter(Boolean)
+  let accounts: Record<string, { service: string; identifier: string; password: string }> = {}
+  if (env.COMMONS_ATPROTO_ACCOUNTS) {
+    try { accounts = JSON.parse(env.COMMONS_ATPROTO_ACCOUNTS) } catch { console.error('[commons] COMMONS_ATPROTO_ACCOUNTS is not valid JSON; ignoring it.') }
+  }
+  const allowedPds = list(env.COMMONS_ATPROTO_ALLOWED_PDS)
+  const configured = allowedPds.length > 0 || Object.keys(accounts).length > 0
+  return {
+    appUrl: env.COMMONS_APP_URL ?? 'http://localhost:5173',
+    appId: env.COMMONS_APP_ID ?? 'open-presence-commons',
+    follow: list(env.COMMONS_ATPROTO_FOLLOW),
+    atproto: configured
+      ? createAtprotoAdapter({
+          ...(env.COMMONS_ATPROTO_NAMESPACE ? { namespace: env.COMMONS_ATPROTO_NAMESPACE } : {}),
+          allowedPds, ...(env.COMMONS_PLC_URL ? { plcUrl: env.COMMONS_PLC_URL } : {}), accounts, appId: env.COMMONS_APP_ID ?? 'open-presence-commons',
+        })
+      : undefined,
+  }
 }
 
 /**
@@ -73,15 +102,23 @@ export async function buildServices(options: BuildOptions = {}): Promise<Service
     options.defaultOrchestration === undefined ? defaultOrchestrationFromEnv(curator) : options.defaultOrchestration
   const deps: ServiceDeps = { repository, clock, ids, curator, ...(defaultOrchestration ? { defaultOrchestration } : {}) }
 
+  const envConfig = options.atproto === undefined || options.appUrl === undefined ? commonsConfigFromEnv() : undefined
+  const atproto = options.atproto === undefined ? envConfig?.atproto : options.atproto ?? undefined
+  const appUrl = options.appUrl ?? envConfig?.appUrl
   const commons = 'transaction' in repository
-    ? createCommonsService({ repository: repository as TransactionalEventRepository, clock })
+    ? createCommonsService({ repository: repository as TransactionalEventRepository, clock, ...(atproto ? { atproto } : {}), ...(appUrl ? { appUrl } : {}), ...(envConfig ? { appId: envConfig.appId } : {}) })
     : undefined
   const contributions = createContributionService(deps)
   const curation = createCurationService(deps)
   const orchestration = createOrchestrationService(deps)
+  // Reads must respect Commons moderation even through inherited REST/MCP
+  // endpoints. Commands retain the full log and its existing transaction rules.
+  const readDeps = commons ? { ...deps, repository: createModerationAwareReads(repository as TransactionalEventRepository) } : deps
+  const readCuration = createCurationService(readDeps)
+  const readOrchestration = createOrchestrationService(readDeps)
 
   return {
-    problems: createProblemService(deps),
+    problems: createProblemService(readDeps),
     // Every transport (REST, MCP) gets these services. Writes to imported commons:* rooms
     // go through the serialized Commons transaction, so no transport can validate against
     // stale state; a retry by the same participant replays its prior review outcome.
@@ -91,6 +128,7 @@ export async function buildServices(options: BuildOptions = {}): Promise<Service
     curation: commons
       ? {
           ...curation,
+          list: readCuration.list,
           accept: (actor, input) => (input.problemId.startsWith('commons:')
             ? commons.review(actor, { commandId: `review:${input.proposalId}:accept:${actor.actorId}`, proposalId: input.proposalId, problemId: input.problemId, decision: 'accept' }) as ReturnType<CurationService['accept']>
             : curation.accept(actor, input)),
@@ -102,6 +140,8 @@ export async function buildServices(options: BuildOptions = {}): Promise<Service
     orchestration: commons
       ? {
           ...orchestration,
+          get: readOrchestration.get,
+          context: readOrchestration.context,
           // Mode changes read the current mode; serialize them with other commons:* writes.
           setMode: (actor, input) => (input.problemId.startsWith('commons:')
             ? (repository as TransactionalEventRepository).transaction(tx => createOrchestrationService({ ...deps, repository: tx.repository }).setMode(actor, input))
@@ -151,5 +191,7 @@ export const buildTestServices = (options: BuildOptions = {}) =>
     auth: createPrototypeAuth({ deterministicTokens: true }),
     curator: nullCurator,
     defaultOrchestration: null,
+    atproto: null,
+    appUrl: 'http://localhost:5173',
     ...options,
   })

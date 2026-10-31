@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "test.openpresence.commons.contribution",
+  "description": "One attributable experience about a shared problem: a question, observation, attempt, outcome or correction. Published by its author into their own repository. Schema version 1 (development namespace; see defs).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["kind", "text", "problem", "assistance", "createdAt"],
+        "properties": {
+          "kind": { "type": "string", "knownValues": ["question", "observation", "attempt", "outcome", "correction"], "maxLength": 32 },
+          "text": { "type": "string", "maxGraphemes": 8000, "maxLength": 32000, "minLength": 1 },
+          "circumstances": { "type": "string", "maxGraphemes": 1000, "maxLength": 4000, "description": "The author's reported conditions (device, OS, cable…)." },
+          "problem": { "type": "ref", "ref": "test.openpresence.commons.defs#problemRef" },
+          "sourceRefs": { "type": "array", "maxLength": 50, "items": { "type": "ref", "ref": "test.openpresence.commons.defs#sourceRef" } },
+          "assistance": { "type": "ref", "ref": "test.openpresence.commons.defs#assistance" },
+          "createdAt": { "type": "string", "format": "datetime" },
+          "observedAt": { "type": "string", "format": "datetime", "description": "When the experience happened, if different from when it was written." },
+          "parent": { "type": "ref", "ref": "com.atproto.repo.strongRef", "description": "The contribution this one replies to, pinned to an exact version." },
+          "supersedes": { "type": "ref", "ref": "com.atproto.repo.strongRef", "description": "An earlier contribution by the same author that this one replaces; the earlier record is not mutated." },
+          "contradicts": { "type": "ref", "ref": "com.atproto.repo.strongRef", "description": "A contribution this one disagrees with. Both voices stay." },
+          "origin": { "type": "ref", "ref": "test.openpresence.commons.defs#origin" }
+        }
+      }
+    }
+  }
+}
