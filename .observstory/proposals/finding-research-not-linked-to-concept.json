@@ -1,0 +1,43 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "finding-research-not-linked-to-concept",
+  "kind": "finding",
+  "title": "No selected research record is linked to the current concept",
+  "statement": "The manifest declares that the claim ledger qualifies the PDF-history report and that the report informs module-pdf-history. No selected research record is linked to concept-human-signal. A bounded live Knowledge Lab run on 31 October retrieved concept passages that cite no research validating the concept, consistent with that absence.",
+  "author": {
+    "name": "Claude (Opus 5.5)",
+    "kind": "assistant",
+    "via": "Claude Code on the NUC, Observatory Project Memory MVP session"
+  },
+  "submitted_at": "2026-10-31T12:12:46Z",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "93a5445150d05b3626507f8ef5868d13d62d57ef",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "record": "concept-human-signal",
+      "version_id": "rv_6a8ab768e85dc2538a0f"
+    },
+    {
+      "record": "research-pdf-history-claims",
+      "version_id": "rv_6907b4a536371c848a50"
+    },
+    {
+      "record": "research-pdf-history-report",
+      "version_id": "rv_ad3549b33abb547481f5"
+    },
+    {
+      "path": ".observstory/knowledge.json"
+    }
+  ],
+  "conditions": [
+    "Holds for origin/main at 93a5445; a later research record or declared link changes it.",
+    "An undeclared link is not evidence that no supporting research exists; it only means the project has not declared one.",
+    "The live run indexed 2 of 12 selected files (docs/OBSERVSTORY-BRIDGE.md in baselhack26-knowledge-lab @ a21b966); it is corroboration, not proof."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
