@@ -1,0 +1,132 @@
+{
+  "schema": "observstory.knowledge-manifest/v1",
+  "title": "Open Presence · Project Knowledge",
+  "selection_policy": "explicit-declaration/v1",
+  "audience": "public",
+  "note": "Selects existing documents; it does not approve them. A record's status is what the cited source declares, or a manifest classification where marked. Decisions and open questions are imported from .observstory/coordination.json, not duplicated here.",
+  "imports": [
+    {"adapter": "observstory.coordination/v1", "path": ".observstory/coordination.json", "include": ["decisions", "open_questions"]}
+  ],
+  "records": [
+    {
+      "id": "concept-human-signal",
+      "type": "concept",
+      "path": "HUMAN-SIGNAL-CONCEPT.md",
+      "status": "current",
+      "declared_in": [{"path": "README.md", "quote": "Start with [the current concept](HUMAN-SIGNAL-CONCEPT.md)."}]
+    },
+    {
+      "id": "concept-earlier-business-presence",
+      "type": "concept",
+      "path": "EARLIER-BUSINESS-PRESENCE.md",
+      "status": "superseded",
+      "declared_in": [
+        {"path": "README.md", "quote": "Its hotel/booking scenario is not the current build direction."},
+        {"path": "EARLIER-BUSINESS-PRESENCE.md", "quote": "Historical brief — superseded as the weekend build direction"}
+      ]
+    },
+    {
+      "id": "decision-concept-current-decision",
+      "type": "decision",
+      "path": "HUMAN-SIGNAL-CONCEPT.md",
+      "section": "Current decision",
+      "status": "stated",
+      "note": "Stated by the concept document. No separate confirmation record exists; see coordination D1-D3 for confirmed decisions."
+    },
+    {
+      "id": "decision-build-pilot-here",
+      "type": "decision",
+      "path": "README.md",
+      "section": "Our two repos for these two days",
+      "status": "stated",
+      "declared_in": [{"path": "README.md", "quote": "**Build the new pilot here**, superseding the earlier suggestion to put it in Postack."}]
+    },
+    {
+      "id": "plan-hackathon",
+      "type": "plan",
+      "path": "HACKATHON-PLAN.md",
+      "status": "current",
+      "declared_in": [{"path": "README.md", "quote": "[Project and time plan](HACKATHON-PLAN.md)"}],
+      "note": "Suggested times are assistant-proposed targets, not commitments; due times live in coordination.json."
+    },
+    {
+      "id": "plan-current-state",
+      "type": "plan",
+      "path": "HACKATHON-PLAN.md",
+      "section": "Current state",
+      "status": "current"
+    },
+    {
+      "id": "questions-what-we-want-to-learn",
+      "type": "question",
+      "path": "HUMAN-SIGNAL-CONCEPT.md",
+      "section": "What we want to learn",
+      "status": "open"
+    },
+    {
+      "id": "module-pdf-history",
+      "type": "module",
+      "path": "modules/pdf-history/README.md",
+      "status": "optional",
+      "declared_in": [{"path": "README.md", "quote": "The concept and tool must stand without this framing."}]
+    },
+    {
+      "id": "research-pdf-history-report",
+      "type": "research",
+      "path": "modules/pdf-history/research/perplexity-report.md",
+      "status": "input",
+      "declared_in": [{"path": "modules/pdf-history/research/perplexity-report.md", "quote": "Historical sources have not been independently verified in this repository pass."}]
+    },
+    {
+      "id": "research-pdf-history-claims",
+      "type": "research",
+      "path": "modules/pdf-history/research/CLAIMS.md",
+      "status": "reference"
+    },
+    {
+      "id": "research-perplexity-prompt-2026-10-30",
+      "type": "research",
+      "path": "docs/research/PERPLEXITY-PROMPT.md",
+      "status": "historical",
+      "declared_in": [{"path": "docs/research/PERPLEXITY-PROMPT.md", "quote": "This file is an instruction brief, not completed research."}],
+      "note": "Manifest classification: prepared 30 October for the earlier business-presence direction."
+    },
+    {
+      "id": "historical-domain-brief",
+      "type": "research",
+      "path": "docs/domain/DOMAIN-BRIEF.md",
+      "status": "historical",
+      "note": "Manifest classification: hotel-domain material from the superseded hotel/booking scenario. No source line names this file as superseded."
+    },
+    {
+      "id": "historical-build-cases",
+      "type": "research",
+      "path": "docs/domain/BUILD-CASES.md",
+      "status": "historical",
+      "note": "Manifest classification: hotel booking acceptance cases from the superseded scenario."
+    },
+    {
+      "id": "historical-implementation-inputs",
+      "type": "research",
+      "path": "docs/domain/IMPLEMENTATION-INPUTS.md",
+      "status": "historical",
+      "note": "Manifest classification: hotel implementation inputs from the superseded scenario."
+    }
+  ],
+  "links": [
+    {
+      "from": "concept-human-signal", "rel": "supersedes", "to": "concept-earlier-business-presence",
+      "declared_in": [{"path": "HUMAN-SIGNAL-CONCEPT.md", "quote": "The earlier hotel/booking and fictional repair-workshop ideas are superseded as build scenarios."}]
+    },
+    {
+      "from": "research-pdf-history-claims", "rel": "qualifies", "to": "research-pdf-history-report",
+      "declared_in": [{"path": "modules/pdf-history/research/CLAIMS.md", "quote": "The imported report is research input, not a verified source ledger."}]
+    },
+    {
+      "from": "research-pdf-history-report", "rel": "informs", "to": "module-pdf-history",
+      "declared_in": [{"path": "modules/pdf-history/README.md", "quote": "[Original supplied research dossier](research/perplexity-report.md)"}]
+    },
+    {"from": "plan-hackathon", "rel": "plans", "to": "concept-human-signal"},
+    {"from": "coordination:D1", "rel": "applies_to", "to": "concept-human-signal"}
+  ]
+}
