@@ -1,0 +1,410 @@
+{
+ "$schema": "postack.commons.problems/1",
+ "version": "commons-v1",
+ "snapshot": "2026-10-29T16:19:22.411Z",
+ "revision": "0bff55ef3fb2a3bfdab05bc8e3bd0c9d69f63189",
+ "authoredBy": "agent:claude-opus-5-5",
+ "authoredAt": "2026-10-29",
+ "review": "not reviewed by a person",
+ "method": "Each record was written after reading the cited threads and documents in the snapshot cache. Quotes are verbatim substrings of their source (checked by commons:check-records). Everything outside a quote is an authored description, not the source's words. Aliases are search vocabulary added by the record writer and are marked as such in the interface.",
+ "problems": [
+  {
+   "id": "emmc-not-exposed",
+   "title": "The eMMC never appears in U-Boot, so there is nothing to back up",
+   "device": ["PF1007L (Allwinner A33)"],
+   "environment": ["Route U (U-Boot over FEL)", "Route S (U-Boot from SD)", "larger 30,777,344-sector eMMC"],
+   "symptoms": ["ums shows only the SD card", "mmc dev 1 fails", "emmc_dev=FAIL", "unable to select a mode: -1"],
+   "aliases": ["internal storage missing", "only the sd card shows up", "emmc not detected", "backup disk never appears"],
+   "status": "partly-solved",
+   "statusNote": "Fixed on several units by two different changes, each of which failed on at least one other unit. #99 and #36 are still open.",
+   "evidence": [
+    {"id": "e1", "ref": {"thread": "issue/99"}, "role": "report", "quote": "Here it never initialises, so there is nothing to read.", "says": "A January unit fails at `mmc dev 1` in both Route U and Route S, so the host is not the cause."},
+    {"id": "e2", "ref": {"thread": "issue/99", "comment": 6175633958}, "role": "fix-report", "quote": "The no-HS patch, as you suggested, fixed it here.", "says": "Another January larger-eMMC unit with the same symptom recovered with the no-HS patch."},
+    {"id": "e3", "ref": {"thread": "pull/113"}, "role": "fix-report", "quote": "fixed by `docs/patches/pf1007l-v2025.10-no-mmc-hs.patch` (4-bit, 26 MHz, no HS) plus the START STOP correction.", "says": "A merged unit report documents the no-HS fix together with START STOP and the warm-up SPL."},
+    {"id": "e4", "ref": {"thread": "issue/98", "comment": 6182698073}, "role": "maintainer", "quote": "it rules high-speed timing out on your unit, which narrows it down.", "says": "On a May 20260519 unit the no-HS patch did not help; the maintainer points to the 12 MHz low-power build instead."},
+    {"id": "e5", "ref": {"thread": "issue/98", "comment": 6276236728}, "role": "fix-report", "quote": "Result: rooted on PF1007L 20260519 (larger eMMC).", "says": "The same unit later rooted with the 12 MHz build and a one-sector edit."},
+    {"id": "e6", "ref": {"thread": "issue/189"}, "role": "fix-report", "quote": "Rebuilt with start-stop + linux-12mhz patches (4-bit, 12 MHz, NO_PMIC, 408 MHz): UMS appeared read-only.", "says": "A second May unit exposed the eMMC with the 12 MHz build."},
+    {"id": "e7", "ref": {"thread": "issue/99", "comment": 6270081219}, "role": "maintainer", "quote": "Still unsolved, so leaving this open.", "says": "The original report remains open; neither fix has been tried there."},
+    {"id": "e8", "ref": {"doc": "docs/pf1007l-start-here.md", "lines": [386, 386]}, "role": "synthesis", "quote": "U-Boot never initialises the eMMC", "says": "The maintainer's symptom table lists this row as Unsolved on #99 and names both fixes with their reports."}
+   ],
+   "approaches": [
+    {"id": "a1", "label": "No-HS patch: legacy eMMC timing, 4-bit at 26 MHz", "scope": "January 20260113 larger-eMMC units; May 20260529", "reports": [{"evidence": "e2", "result": "worked"}, {"evidence": "e3", "result": "worked"}, {"evidence": "e4", "result": "failed"}]},
+    {"id": "a2", "label": "12 MHz low-power build (SUNXI_NO_PMIC, CPU 408 MHz)", "scope": "May 20260519 units where no-HS did not help", "reports": [{"evidence": "e5", "result": "worked"}, {"evidence": "e6", "result": "worked"}]}
+   ],
+   "openQuestions": ["Why does no-HS fix some larger-eMMC units and not others with the same symptom?", "Does #99's unit respond to either change? It has not tried them."],
+   "related": [
+    {"to": "ums-drops-during-backup", "kind": "neighbour", "basis": "source-declared", "evidence": "e1", "note": "#99 names #16, #17 and #18 and calls its own failure different."},
+    {"to": "gadget-error-71", "kind": "neighbour", "basis": "machine-proposal", "note": "Both stop before any eMMC data reaches the host; the cause may or may not be shared."}
+   ],
+   "indexing": {
+    "decisions": ["Split from ums-drops-during-backup because the reporter of #99 explicitly distinguishes 'never initialises' from 'reads drop'.", "Status is partly-solved, not solved: a fix that worked elsewhere is not a fix for #99."],
+    "uncertainty": ["Which hardware variable separates the two fixes is not established in any source."]
+   }
+  },
+  {
+   "id": "ums-drops-during-backup",
+   "title": "The backup disk appears, then drops or errors partway through reading",
+   "device": ["PF1007L (Allwinner A33)"],
+   "environment": ["Route U", "larger 30,777,344-sector eMMC", "macOS, Linux, Windows hosts"],
+   "symptoms": ["ums disk disappears during backup", "read errors", "fs_devread read error", "frame leaves the USB bus"],
+   "aliases": ["backup keeps failing", "usb disconnects while copying", "dump stops halfway"],
+   "status": "documented",
+   "statusNote": "Several fixes are documented with reports; which one a unit needs is found by trying them in order.",
+   "evidence": [
+    {"id": "e1", "ref": {"thread": "issue/18"}, "role": "report", "quote": "the drops traced to an eMMC read error inside U-Boot, with no USB traffic involved.", "says": "The drops were eMMC read errors in U-Boot, not a USB problem; 25 MHz read cleanly."},
+    {"id": "e2", "ref": {"thread": "issue/16"}, "role": "fix-report", "quote": "Route U worked on macOS after two changes to the U-Boot build and moving the frame off a bus-powered hub.", "says": "Low-power build plus a direct port fixed drops on one unit."},
+    {"id": "e3", "ref": {"thread": "issue/110"}, "role": "fix-report", "quote": "reads succeeded in **all** speed modes: legacy, HS, and HS52 capped at 12 MHz.", "says": "At 26 MHz every read failed; capping the eMMC at 12 MHz fixed all reads on a January unit."},
+    {"id": "e4", "ref": {"thread": "issue/116"}, "role": "fix-report", "quote": "because the default build cannot read this eMMC.", "says": "A May 20260529 unit on Linux also needed the 12 MHz low-power build."},
+    {"id": "e5", "ref": {"doc": "docs/pf1007l-start-here.md", "lines": [375, 375]}, "role": "synthesis", "quote": "Read errors, `ums` drops, slow or failing backup", "says": "The maintainer's table row lists 4-bit 26 MHz or 8-bit 25 MHz with its reports."},
+    {"id": "e6", "ref": {"doc": "docs/pf1007l-start-here.md", "lines": [382, 382]}, "role": "synthesis", "quote": "Bulk eMMC reads fail even at 4-bit 26 MHz", "says": "When 26 MHz is not enough, the table points to the 12 MHz cap with the low-power build."},
+    {"id": "e7", "ref": {"doc": "docs/pf1007l-start-here.md", "lines": [377, 377]}, "role": "synthesis", "quote": "Drops through a bus-powered hub", "says": "Power is a separate cause: direct port or powered hub."}
+   ],
+   "approaches": [
+    {"id": "a1", "label": "Lower the eMMC to 4-bit 26 MHz (or 8-bit 25 MHz)", "scope": "larger eMMC, most firmware", "reports": [{"evidence": "e1", "result": "worked"}, {"evidence": "e3", "result": "failed"}]},
+    {"id": "a2", "label": "Cap the eMMC at 12 MHz with the low-power build", "scope": "units where 26 MHz still fails", "reports": [{"evidence": "e3", "result": "worked"}, {"evidence": "e4", "result": "worked"}]},
+    {"id": "a3", "label": "Direct port or powered hub; low-power build", "scope": "drops that follow a bus-powered hub", "reports": [{"evidence": "e2", "result": "worked"}]}
+   ],
+   "openQuestions": ["Is the larger eMMC itself, or its board wiring, the reason full speed fails?"],
+   "related": [
+    {"to": "reset-after-uboot", "kind": "neighbour", "basis": "editorial", "evidence": "e5", "note": "The maintainer's table lists START STOP and clock changes as separate rows with overlapping reports."},
+    {"to": "wsl-usbipd-ums", "kind": "neighbour", "basis": "editorial", "note": "Same symptom with a host-side cause, listed in the same table."}
+   ],
+   "indexing": {
+    "decisions": ["One record for the read-failure family; the maintainer's table splits it into several rows by which fix applied."],
+    "uncertainty": ["Reports differ in host, cable and firmware at once, so no single variable is isolated."]
+   }
+  },
+  {
+   "id": "reset-after-uboot",
+   "title": "The disk vanishes about 45 seconds after U-Boot starts, or when the computer ejects it",
+   "device": ["PF1007L (Allwinner A33)"],
+   "environment": ["Route U", "macOS automount"],
+   "symptoms": ["frame resets to FEL ~45-50 s after Starting U-Boot", "disk disappears on eject", "backup cannot start"],
+   "aliases": ["disconnects after 45 seconds", "frame reboots during backup", "eject kills the device"],
+   "status": "documented",
+   "statusNote": "The reporter confirmed the START STOP patch fixed it; the maintainer moved the fix into the table.",
+   "evidence": [
+    {"id": "e1", "ref": {"thread": "issue/19"}, "role": "report", "quote": "the frame resets", "says": "Both disks enumerate, then the frame drops back to FEL 45 to 50 seconds later, every time."},
+    {"id": "e2", "ref": {"thread": "issue/19", "comment": 6136932225}, "role": "fix-report", "quote": "Confirmed fix: the START STOP patch from #28 solved the 45–50 s reset on my unit.", "says": "The reporter confirms the fix and a full verified backup."},
+    {"id": "e3", "ref": {"thread": "issue/19", "comment": 6147856500}, "role": "maintainer", "quote": "look like a different problem and are listed separately there.", "says": "Resets without ums, on April and May units, are kept apart as a different problem."},
+    {"id": "e4", "ref": {"doc": "docs/pf1007l-start-here.md", "lines": [376, 376]}, "role": "synthesis", "quote": "The disk disappears when the computer sends \"eject\" or \"stop\"", "says": "The table's fix: ignore START STOP UNIT unless it is a real unload."}
+   ],
+   "approaches": [
+    {"id": "a1", "label": "START STOP patch: ignore eject and stop unless it is a real unload", "scope": "Route U ums on any host that ejects", "reports": [{"evidence": "e2", "result": "worked"}]}
+   ],
+   "openQuestions": [],
+   "related": [
+    {"to": "ums-drops-during-backup", "kind": "neighbour", "basis": "source-declared", "evidence": "e3", "note": "The maintainer separates resets with and without ums."}
+   ],
+   "indexing": {"decisions": ["Merged 'resets at 45 s' and 'eject' into one record because one patch fixed both."], "uncertainty": ["Why a stop command makes the frame reset, rather than only unmount, is not explained in the sources."]}
+  },
+  {
+   "id": "gadget-error-71",
+   "title": "U-Boot's USB gadget never enumerates: the host logs error -71",
+   "device": ["PF1007L (Allwinner A33)"],
+   "environment": ["Route U", "January 20260113 and May 20260519 firmware"],
+   "symptoms": ["error -71", "ums gadget never enumerates", "FEL and Android ADB still work"],
+   "aliases": ["usb device not recognised after uboot", "protocol error", "uboot usb fails"],
+   "status": "unsolved",
+   "statusNote": "Unsolved in the maintainer's table. Its scope there, one May unit, is narrower than the reports (see the correction).",
+   "evidence": [
+    {"id": "e1", "ref": {"doc": "docs/pf1007l-start-here.md", "lines": [390, 390]}, "role": "synthesis", "quote": "fail with error `-71`, while FEL and Android ADB work", "says": "The table lists this as Unsolved on one May 20260519 unit, citing #62 and #36."},
+    {"id": "e2", "ref": {"thread": "issue/12", "comment": 6137133782}, "role": "correction", "quote": "**Route U didn't work on this January (`20260113`, boot `d71c313d`) unit.**", "says": "Posted the day after the issue was closed: on a January unit the gadget never enumerated, with error -71 twice."},
+    {"id": "e3", "ref": {"thread": "issue/12", "comment": 6117554951}, "role": "report", "quote": "I can't say whether it is a power issue or a patch issue.", "says": "The reporter did not try a powered hub, so the cause is open."},
+    {"id": "e4", "ref": {"thread": "issue/36"}, "role": "report", "quote": "Route U U-Boot starts but ums never enumerates", "says": "A May unit on macOS with the same gadget failure."}
+   ],
+   "approaches": [],
+   "openQuestions": ["Is -71 a power, cable or U-Boot USB driver problem?", "Is it tied to May firmware, as the table's scope suggests, or does the January report widen it?"],
+   "related": [
+    {"to": "emmc-not-exposed", "kind": "neighbour", "basis": "machine-proposal", "note": "Proposed by the record writer; not stated by any source."},
+    {"to": "usb-c-no-data", "kind": "precondition", "basis": "editorial", "note": "The start-here test sequence checks the cable before any U-Boot step."}
+   ],
+   "indexing": {"decisions": ["Kept separate from emmc-not-exposed because the host never sees a gadget at all here."], "uncertainty": ["#36's own thread never mentions error -71; the table groups it with #62, which does."]}
+  },
+  {
+   "id": "boot-hash-mismatch",
+   "title": "The compatibility check stops: the boot image hash is not the tested one",
+   "device": ["PF1007L (Allwinner A33)"],
+   "environment": ["T6 compatibility gate", "Route S", "firmware newer than January 20260113"],
+   "symptoms": ["T6 hash mismatch", "boot SHA-256 differs from d71c313d", "Route S refuses"],
+   "aliases": ["hash doesnt match", "newer firmware not supported", "boot image different"],
+   "status": "documented",
+   "statusNote": "By design: Route S only accepts the January image. Other routes exist. #208 is still open on GitHub although its reporter says they succeeded.",
+   "evidence": [
+    {"id": "e1", "ref": {"thread": "issue/208"}, "role": "report", "quote": "T6, hash bef19d67… instead of d71c313d…", "says": "An April 20260416 unit stopped at T6 on Route S; nothing was written."},
+    {"id": "e2", "ref": {"thread": "issue/208", "comment": 6371663159}, "role": "maintainer", "quote": "Route S refuses it by design.", "says": "The hash is a known 20260416 image, not new firmware; try the gentler routes first."},
+    {"id": "e3", "ref": {"thread": "issue/208", "comment": 6371724333}, "role": "fix-report", "quote": "I finally succeeded by creating a USB drive and booting my PC via Linux to set up a Wi-Fi hotspot, etc.", "says": "The reporter succeeded another way; the thread does not say which route, and the issue stays open."},
+    {"id": "e4", "ref": {"thread": "issue/17", "comment": 6116631973}, "role": "fix-report", "quote": "rooted successfully with the SD-only flow from #14, which already targets this exact boot hash", "says": "An April 20260410 unit with a different hash used a flow written for that hash."},
+    {"id": "e5", "ref": {"doc": "docs/pf1007l-start-here.md", "lines": [79, 79]}, "role": "synthesis", "quote": "checks the boot image's structure, not a fixed hash", "says": "Route U checks structure rather than a hash, so it has worked on every firmware tried except 20260416."}
+   ],
+   "approaches": [
+    {"id": "a1", "label": "Use a route written for your hash, or Route U, which checks structure", "scope": "firmware other than January", "reports": [{"evidence": "e4", "result": "worked"}]},
+    {"id": "a2", "label": "Try T3c first, with no boot write", "scope": "April and May firmware", "reports": [{"evidence": "e3", "result": "untested"}]}
+   ],
+   "openQuestions": ["What exactly did #208's reporter do? 'Wi-Fi hotspot' suggests T3c, but the thread does not say."],
+   "related": [
+    {"to": "aimor-temporary-adb", "kind": "alternative", "basis": "source-declared", "evidence": "e2", "note": "The maintainer points #208 to T3c before any boot write."}
+   ],
+   "indexing": {"decisions": ["Status is documented, not unsolved: the stop is intended behaviour."], "uncertainty": ["e3's result is recorded as untested for T3c because the thread does not name the route."]}
+  },
+  {
+   "id": "usb-c-no-data",
+   "title": "The frame shows no USB data, or no power, on the computer",
+   "device": ["PF1007L", "DPF ZC002 (Frameo)", "other USB-C-only frames"],
+   "environment": ["T3 USB data test", "any host"],
+   "symptoms": ["no USB event at all", "frame does not power on from a USB-C hub", "empty adb devices", "no 1f3a device"],
+   "aliases": ["computer doesnt see the frame", "usb c cable not working", "nothing happens when plugged in"],
+   "status": "documented",
+   "statusNote": "Documented as a rule, with a qualification the maintainer added: the rule is a reliable start, not proof.",
+   "evidence": [
+    {"id": "e1", "ref": {"doc": "docs/pf1007l-start-here.md", "lines": [108, 108]}, "role": "synthesis", "quote": "A USB-C to USB-C cable gave unit C **no power and no data**.", "says": "The frame appears to lack the USB-C CC pull-downs, so use a USB-A to USB-C data cable."},
+    {"id": "e2", "ref": {"doc": "docs/pf1007l-start-here.md", "lines": [116, 117]}, "role": "correction", "quote": "Treat the cable recommendation as a reliable starting point, rather than proof", "says": "A May Mac report saw intermittent C-to-C data through a hub; CC wiring was not measured."},
+    {"id": "e3", "ref": {"thread": "issue/12", "comment": 6113789229}, "role": "fix-report", "quote": "Update: it was the cable.", "says": "A 'no USB data' report turned out to be a C-to-C cable; with another cable the frame enumerated."},
+    {"id": "e4", "ref": {"thread": "issue/148"}, "role": "report", "quote": "The cable bundled with the frame carried no data", "says": "The cable in the box was charge-only."},
+    {"id": "e5", "ref": {"thread": "issue/38"}, "role": "report", "quote": "a USB-C to USB-C cable direct to the Mac gave **no power and no USB data at all**", "says": "A Frameo ZC002, a different brand, behaved the same way."}
+   ],
+   "approaches": [
+    {"id": "a1", "label": "USB-A to USB-C cable known to carry data, into a USB-A port", "scope": "USB-C-only frames", "reports": [{"evidence": "e3", "result": "worked"}, {"evidence": "e4", "result": "worked"}]}
+   ],
+   "openQuestions": ["Do these boards really lack CC pull-down resistors? Nobody has measured it."],
+   "related": [],
+   "indexing": {"decisions": ["Cross-device: the same symptom was reported on a Frameo board."], "uncertainty": ["The CC explanation is the maintainer's inference, stated as 'appears to'."]}
+  },
+  {
+   "id": "stock-root-adb",
+   "title": "Some frames already ship with root ADB switched on",
+   "device": ["PF1007L (Allwinner A33)"],
+   "environment": ["T3 USB data test", "January, April and May firmware"],
+   "symptoms": ["1f3a:1002 listed as device", "adb shell is uid=0 with no prompt"],
+   "aliases": ["adb works out of the box", "no patch needed", "already rooted"],
+   "status": "documented",
+   "statusNote": "Not a problem but a shortcut: the docs say to test ADB before any write.",
+   "evidence": [
+    {"id": "e1", "ref": {"thread": "issue/148"}, "role": "report", "quote": "1f3a:1002, listed as `device` (root ADB, no key and no prompt).", "says": "A May 20260519 unit had persistent root ADB over USB."},
+    {"id": "e2", "ref": {"thread": "issue/240"}, "role": "report", "quote": "Note the product ID differs from the `1f3a:1002` in #148.", "says": "A second May unit, also on out of the box, with a different product ID."},
+    {"id": "e3", "ref": {"doc": "docs/pf1007l-start-here.md", "lines": [74, 75]}, "role": "synthesis", "quote": "Some units ship with root ADB on", "says": "Even with the same firmware and boot image as units that don't, so test first."}
+   ],
+   "approaches": [{"id": "a1", "label": "Run T3 and T3b before anything else", "scope": "every PF1007L", "reports": [{"evidence": "e1", "result": "worked"}, {"evidence": "e2", "result": "worked"}]}],
+   "openQuestions": ["Why do units with identical firmware and boot image differ in ADB state?"],
+   "related": [{"to": "test-app-adb", "kind": "alternative", "basis": "machine-proposal", "note": "Both avoid a boot write; proposed by the record writer."}],
+   "indexing": {"decisions": ["Indexed as a problem ('how do I get ADB?') because that is how a visitor arrives."], "uncertainty": []}
+  },
+  {
+   "id": "aimor-temporary-adb",
+   "title": "Root ADB without writing anything, through the vendor app's own connection",
+   "device": ["PF1007L", "PF1006"],
+   "environment": ["T3c", "DNS redirect of the vendor host", "April and May firmware"],
+   "symptoms": ["no stock ADB", "no wish to write the boot partition"],
+   "aliases": ["adb over wifi without flashing", "network route", "dns trick"],
+   "status": "documented",
+   "statusNote": "Works on several firmwares, then one property makes it persistent. It relies on a vendor backdoor the docs call a security issue.",
+   "evidence": [
+    {"id": "e1", "ref": {"doc": "docs/pf1007l-start-here.md", "lines": [229, 236]}, "role": "synthesis", "quote": "This is an alternative before a boot patch on that", "says": "T3c: a temporary DNS redirect and one vendor command give root ADB, with owner approval."},
+    {"id": "e2", "ref": {"thread": "issue/163"}, "role": "fix-report", "quote": "one persisted property made root ADB over USB survive reboots, with no boot partition write", "says": "On May 20260529 from Windows, T3c then one property gave permanent USB ADB."},
+    {"id": "e3", "ref": {"thread": "issue/187"}, "role": "report", "quote": "**Temporary Wi-Fi ADB dropped about a minute after T3c**, twice: the frame left the network.", "says": "The window is short, so set the property right away."},
+    {"id": "e4", "ref": {"doc": "docs/aimor-remote-root-shell.md", "lines": [14, 14]}, "role": "caution", "quote": "Thus, the vendor server can run any command as root on the frame.", "says": "The same mechanism is a standing remote root shell for the vendor."}
+   ],
+   "approaches": [{"id": "a1", "label": "T3c, then persist.sys.usb.config for USB ADB", "scope": "April 20260410, 20260416, May 20260519 and 20260529, PF1006", "reports": [{"evidence": "e2", "result": "worked"}]}],
+   "openQuestions": ["Does it keep working if the vendor changes its server or app?"],
+   "related": [],
+   "indexing": {"decisions": ["The security caution is attached to the record, not filed separately, because the route depends on it."], "uncertainty": []}
+  },
+  {
+   "id": "test-app-adb",
+   "title": "Switching ADB on from a hidden test app on the About screen",
+   "device": ["PF1007L", "PF1506"],
+   "environment": ["About screen", "no tools"],
+   "symptoms": ["password prompt after tapping Model", "no stock ADB"],
+   "aliases": ["open test app", "hidden menu", "tap model number"],
+   "status": "in-review",
+   "statusNote": "Confirmed by several owners in #135; the documentation PR #200 is still open. The thread publishes the password; this index does not repeat it.",
+   "evidence": [
+    {"id": "e1", "ref": {"thread": "issue/135", "comment": 6201780962}, "role": "report", "quote": "tapping Model Number several times until the modal appears", "says": "The prompt opens from the About screen."},
+    {"id": "e2", "ref": {"thread": "issue/135", "comment": 6201996652}, "role": "fix-report", "quote": "Confirmed, this works for both PF1007 and PF1506", "says": "A second owner confirms it on two models."},
+    {"id": "e3", "ref": {"thread": "issue/135", "comment": 6371664976}, "role": "maintainer", "quote": "The test-app route is in review in #200.", "says": "Not yet in the reviewed docs."},
+    {"id": "e4", "ref": {"thread": "pull/200"}, "role": "proposal", "quote": "", "says": "An open PR that would document the route."}
+   ],
+   "approaches": [{"id": "a1", "label": "Open the test app and switch ADB on", "scope": "PF1007L and PF1506, firmware not listed", "reports": [{"evidence": "e2", "result": "worked"}]}],
+   "openQuestions": ["On which firmware versions does it work?"],
+   "related": [{"to": "launcher-lockout", "kind": "neighbour", "basis": "machine-proposal", "note": "A possible way back into a PF1506; nobody has reported trying it there."}],
+   "indexing": {"decisions": ["The password is omitted on purpose: republishing a device credential is not needed to find the thread."], "uncertainty": []}
+  },
+  {
+   "id": "windows-crlf-scripts",
+   "title": "On Windows, the boot-fix scripts pass every check and still break Wi-Fi",
+   "device": ["PF1007L"],
+   "environment": ["Git Bash on Windows", "core.autocrlf=true"],
+   "symptoms": ["Wi-Fi broken after install.sh apply", "SHA-256 checks pass", "frame paths rewritten"],
+   "aliases": ["line endings", "git bash breaks scripts", "windows wifi lockout"],
+   "status": "fixed-in-code",
+   "statusNote": "Fixed on main by the maintainer: LF endings enforced, CRLF refused before any push.",
+   "evidence": [
+    {"id": "e1", "ref": {"thread": "issue/185"}, "role": "report", "quote": "the first one breaks Wi-Fi with every check passing.", "says": "CRLF copies of the scripts reached the frame; the hashes matched the CRLF files."},
+    {"id": "e2", "ref": {"thread": "issue/185", "comment": 6270078935}, "role": "maintainer", "quote": "`install.sh apply` refuses CRLF files before any backup or push.", "says": "Merged fix, plus a .gitattributes that keeps LF endings. The MSYS setting is untested."}
+   ],
+   "approaches": [{"id": "a1", "label": "Re-checkout after the .gitattributes fix", "scope": "existing Windows clones", "reports": [{"evidence": "e2", "result": "untested"}]}],
+   "openQuestions": [],
+   "related": [],
+   "indexing": {"decisions": ["Kept because a passing check that hides a failure is the kind of finding search rarely surfaces."], "uncertainty": []}
+  },
+  {
+   "id": "wsl-usbipd-ums",
+   "title": "On Windows with WSL, the backup disk vanishes once it is attached to WSL",
+   "device": ["PF1007L"],
+   "environment": ["Windows + WSL2", "usbipd-win"],
+   "symptoms": ["1f3a:1010 resets after attach", "MediaLoaded=False", "first raw read fails"],
+   "aliases": ["usbipd disconnects", "wsl usb disk", "windows backup fails"],
+   "status": "documented",
+   "statusNote": "Documented rule. #208 shows the same symptom without citing the rule (a deterministic match, not a confirmed cause).",
+   "evidence": [
+    {"id": "e1", "ref": {"doc": "docs/pf1007l-start-here.md", "lines": [383, 383]}, "role": "synthesis", "quote": "Never attach `1010` to WSL", "says": "Read it from Windows with the Windows script instead."},
+    {"id": "e2", "ref": {"thread": "issue/208", "comment": 6278428787}, "role": "report", "quote": "Windows shows MediaLoaded=False", "says": "A Route U attempt through WSL and usbipd: the eMMC disk appears, then the first read fails."}
+   ],
+   "approaches": [{"id": "a1", "label": "Read 1f3a:1010 from Windows with emmc-windows.ps1", "scope": "Windows hosts", "reports": []}],
+   "openQuestions": ["Was #208's failure the WSL attach, or the eMMC problem itself?"],
+   "related": [{"to": "ums-drops-during-backup", "kind": "neighbour", "basis": "editorial", "note": "Listed in the same maintainer table."}],
+   "indexing": {"decisions": [], "uncertainty": ["Linking #208 here is a proposal from matching identifiers (1f3a:1010, usbipd), not the reporter's diagnosis."]}
+  },
+  {
+   "id": "frameo-adb-unauthorized",
+   "title": "A Frameo frame lists ADB as unauthorized and never shows the prompt",
+   "device": ["DPF ZC002 / Pastigio (Allwinner A33, Frameo)"],
+   "environment": ["Frameo v1.29.14", "no SystemUI"],
+   "symptoms": ["adb devices shows unauthorized", "no Allow USB debugging prompt", "official ADB toggle does nothing"],
+   "aliases": ["adb unauthorized", "no rsa prompt", "frameo adb"],
+   "status": "documented",
+   "statusNote": "Solved and documented through a userdata key route; closed by the maintainer.",
+   "evidence": [
+    {"id": "e1", "ref": {"thread": "issue/38"}, "role": "report", "quote": "**no \"Allow USB debugging\" prompt ever appears on screen**.", "says": "The frame has no SystemUI to show the prompt."},
+    {"id": "e2", "ref": {"thread": "issue/38", "comment": 6146460117}, "role": "fix-report", "quote": "using the conservative userdata-only approach", "says": "Rooted by adding a host key in userdata, no boot change."},
+    {"id": "e3", "ref": {"thread": "pull/73"}, "role": "synthesis", "quote": "", "says": "Merged report of the userdata-key route."},
+    {"id": "e4", "ref": {"thread": "issue/231"}, "role": "fix-report", "quote": "", "says": "A later ZC002 owner reports the stock-su route working end to end."}
+   ],
+   "approaches": [{"id": "a1", "label": "Add the host key to userdata from a verified backup", "scope": "ZC002_20260313", "reports": [{"evidence": "e2", "result": "worked"}]}],
+   "openQuestions": [],
+   "related": [{"to": "frameo-159k-no-adb", "kind": "neighbour", "basis": "machine-proposal", "note": "Both are Frameo frames without a usable ADB prompt; different chips."}],
+   "indexing": {"decisions": [], "uncertainty": []}
+  },
+  {
+   "id": "frameo-159k-no-adb",
+   "title": "A Frameo 159K (Rockchip RK3326) never appears in adb at all",
+   "device": ["Frameo 'Digital Photo Frame 159K' (RK3326)"],
+   "environment": ["Frameo beta ADB toggle", "Loader mode"],
+   "symptoms": ["adb devices empty", "only loader mode VID_2207&PID_330D", "Wi-Fi ADB fails"],
+   "aliases": ["frameo 15.6 adb", "rockchip frame no adb", "loader mode only"],
+   "status": "no-reviewed-route",
+   "statusNote": "Owners report success with boot writes and with an external repository; the maintainer has reviewed none of them and asks people not to copy them.",
+   "evidence": [
+    {"id": "e1", "ref": {"thread": "issue/126"}, "role": "report", "quote": "The device will not show when doing `adb devices`", "says": "ADB toggle on, several cables, still nothing."},
+    {"id": "e2", "ref": {"thread": "issue/126", "comment": 6270079755}, "role": "caution", "quote": "please don't run boot writes copied from this thread.", "says": "Reported boot-ramdisk patches were never reviewed."},
+    {"id": "e3", "ref": {"thread": "issue/126", "comment": 6371672225}, "role": "maintainer", "quote": "A builder is under review in #213", "says": "A builder is proposed in an open PR; wait for it."},
+    {"id": "e4", "ref": {"thread": "issue/126", "comment": 6446743407}, "role": "fix-report", "quote": "with no boot or loader writes", "says": "An owner reports a working route without writes, after the maintainer's last status."},
+    {"id": "e5", "ref": {"thread": "issue/126", "comment": 6460047808}, "role": "proposal", "quote": "I've made public my repo", "says": "A contributor publishes an approach in their own repository rather than here."}
+   ],
+   "approaches": [
+    {"id": "a1", "label": "Patch the boot ramdisk from Loader mode", "scope": "159K, unreviewed", "reports": [{"evidence": "e2", "result": "unreviewed"}]},
+    {"id": "a2", "label": "Boot-ramdisk builder (PR #213)", "scope": "159K", "reports": [{"evidence": "e3", "result": "in-review"}]},
+    {"id": "a3", "label": "A route with no boot or loader writes", "scope": "159K, Frameo v1.32.16", "reports": [{"evidence": "e4", "result": "worked"}]}
+   ],
+   "openQuestions": ["Has anyone reviewed the no-write route?", "Should a contribution published in another repository count as part of this commons?"],
+   "related": [],
+   "indexing": {"decisions": ["Status is 'no reviewed route', not 'solved': individual success is reported, review is absent."], "uncertainty": ["e4 is newer than the maintainer's last status comment."]}
+  },
+  {
+   "id": "launcher-lockout",
+   "title": "After choosing a new Home app, a PF1506 stays on its boot animation",
+   "device": ["PF1506 (Allwinner A133)"],
+   "environment": ["Home HQ set as default Home", "no USB data"],
+   "symptoms": ["stuck on LOVE IS SHARING", "boot animation never finishes", "no USB access"],
+   "aliases": ["stuck on boot screen", "bricked after launcher change", "boot animation forever"],
+   "status": "unsolved",
+   "statusNote": "Open. A lead suggests the frame is booted under the animation; a proposed change would stop it happening.",
+   "evidence": [
+    {"id": "e1", "ref": {"thread": "issue/118"}, "role": "report", "quote": "remains on its final screen after selecting a locally built Home HQ APK as the default Home app and restarting.", "says": "The dashboard worked before the restart."},
+    {"id": "e2", "ref": {"thread": "issue/118", "comment": 6182699072}, "role": "maintainer", "quote": "there is no published way back for a PF1506 with no USB and no vendor channel.", "says": "Honest status: no route."},
+    {"id": "e3", "ref": {"thread": "issue/104"}, "role": "report", "quote": "allowed that animation to finish.", "says": "On another PF1506, starting AiMOR's NavigationActivity ended the animation."},
+    {"id": "e4", "ref": {"thread": "issue/118", "comment": 6270080512}, "role": "maintainer", "quote": "So the frame is probably fully booted, with Home HQ running underneath.", "says": "The maintainer's inference from #104."},
+    {"id": "e5", "ref": {"thread": "pull/263"}, "role": "proposal", "quote": "so #118 can't happen.", "says": "An open PR would start the kiosk at boot without replacing Home."}
+   ],
+   "approaches": [{"id": "a1", "label": "Start the kiosk at boot and leave AiMOR as Home", "scope": "prevention, PF1506", "reports": [{"evidence": "e5", "result": "in-review"}]}],
+   "openQuestions": ["Can a locked unit be reached blind, with keyboard input, as the maintainer suggests?"],
+   "related": [],
+   "indexing": {"decisions": ["Recorded as unsolved even though a preventive fix is proposed: it would not help the unit already locked."], "uncertainty": []}
+  },
+  {
+   "id": "animation-cpu",
+   "title": "One animated icon keeps the WebView busy on nearly two cores",
+   "device": ["A33 frames (Frameo 114K, PF1007L)", "Android 6, WebView 106"],
+   "environment": ["kiosk dashboard", "Home Assistant dashboards"],
+   "symptoms": ["clock falls behind", "about 1.8 of 4 cores busy", "never-ending SMIL or CSS animation"],
+   "aliases": ["dashboard slow", "high cpu", "animated weather icons lag"],
+   "status": "documented",
+   "statusNote": "Measured by two people and written into the frame's build guide.",
+   "evidence": [
+    {"id": "e1", "ref": {"thread": "issue/143"}, "role": "report", "quote": "Swapping the weather icons for static copies dropped it to ~0.05 cores.", "says": "Static icons removed the cost entirely."},
+    {"id": "e2", "ref": {"thread": "issue/143", "comment": 6214990682}, "role": "report", "quote": "One SMIL icon was about 2.1 cores.", "says": "Repeated on a PF1007L: CSS animations cost about 1.1 cores, on the compositor."},
+    {"id": "e3", "ref": {"doc": "docs/building-for-the-frame.md", "lines": [113, 113]}, "role": "synthesis", "quote": "**Heavy content:**", "says": "Never-ending animations are listed as heavy content."}
+   ],
+   "approaches": [{"id": "a1", "label": "Use static icons, or animations that end", "scope": "WebView on A33-class frames", "reports": [{"evidence": "e1", "result": "worked"}]}],
+   "openQuestions": [],
+   "related": [],
+   "indexing": {"decisions": [], "uncertainty": ["Measured on two devices, one WebView version."]}
+  },
+  {
+   "id": "compromised-ca-roots",
+   "title": "The frames still trust certificate roots whose intermediates were compromised",
+   "device": ["Android 6 frames (PF1007L and others)"],
+   "environment": ["Android WebView", "system CA store"],
+   "symptoms": ["no CRLSet or CT enforcement", "AAA Certificate Services present in the store"],
+   "aliases": ["https security", "certificate store", "emudhra"],
+   "status": "documented",
+   "statusNote": "A fix tested on two frames; the maintainer added it to the guides.",
+   "evidence": [
+    {"id": "e1", "ref": {"thread": "issue/229"}, "role": "report", "quote": "An attacker with one of the keys can impersonate any HTTPS site.", "says": "WebView checks only the system store, so the frames trust the intermediates."},
+    {"id": "e2", "ref": {"thread": "issue/229", "comment": 6319562312}, "role": "fix-report", "quote": "Fix: disable the root the way Android Settings does.", "says": "Tested on two PF1007L frames."},
+    {"id": "e3", "ref": {"thread": "issue/229", "comment": 6371670838}, "role": "maintainer", "quote": "Thank you, this checks out.", "says": "Added to the setup guides."}
+   ],
+   "approaches": [{"id": "a1", "label": "Disable the affected roots as root", "scope": "rooted frames", "reports": [{"evidence": "e2", "result": "worked"}]}],
+   "openQuestions": [],
+   "related": [],
+   "indexing": {"decisions": ["The external disclosure date is the reporter's; it was not checked."], "uncertainty": ["The disclosure itself was not verified for this index."]}
+  },
+  {
+   "id": "erased-emmc",
+   "title": "An owner erased the whole eMMC and asks for another unit's dump",
+   "device": ["Pastigio FRAME156 (Rockchip)"],
+   "environment": ["Rockchip Erase Flash", "no backup"],
+   "symptoms": ["eMMC reads back as zeros", "loader mode still works"],
+   "aliases": ["bricked frame", "restore firmware", "erased flash"],
+   "status": "declined",
+   "statusNote": "The maintainer declines to host or broker dumps; a recovery catalog is proposed in an open PR.",
+   "evidence": [
+    {"id": "e1", "ref": {"thread": "issue/209"}, "role": "report", "quote": "The whole eMMC (61,063,168 sectors) now reads back as zeros.", "says": "Erased by accident, with no backup."},
+    {"id": "e2", "ref": {"thread": "issue/209", "comment": 6371665284}, "role": "caution", "quote": "We can't host or broker firmware dumps here", "says": "Another unit's dump carries that unit's IDs and licence files."},
+    {"id": "e3", "ref": {"thread": "pull/211"}, "role": "proposal", "quote": "", "says": "An open PR proposing a recovery catalog by model and firmware."}
+   ],
+   "approaches": [{"id": "a1", "label": "Recovery catalog of metadata, not dumps (PR #211)", "scope": "proposed", "reports": [{"evidence": "e3", "result": "in-review"}]}],
+   "openQuestions": ["Where does a commons stop? Some knowledge here cannot be shared without sharing someone's device identity."],
+   "related": [],
+   "indexing": {"decisions": ["Kept because a refusal is also knowledge: it tells the next person what this place will not do."], "uncertainty": []}
+  },
+  {
+   "id": "today-view-fifth-person",
+   "title": "The dashboard draws a fifth person's events hours too late",
+   "device": ["dashboard (any frame)"],
+   "environment": ["Today view", "Chrome 106 WebView"],
+   "symptoms": ["events 8.5 hours below their label", "fifth lane wraps"],
+   "aliases": ["calendar wrong time", "events shifted", "five people calendar"],
+   "status": "fixed-in-code",
+   "statusNote": "Fixed on main by the maintainer.",
+   "evidence": [
+    {"id": "e1", "ref": {"thread": "issue/105"}, "role": "report", "quote": "their events land about 8.5 hours below the time printed on the block.", "says": "The grid hardcodes four columns."},
+    {"id": "e2", "ref": {"thread": "issue/105", "comment": 6371658518}, "role": "maintainer", "quote": "Fixed on main", "says": "Lanes now get one column per person."}
+   ],
+   "approaches": [{"id": "a1", "label": "One grid column per person", "scope": "dashboard", "reports": [{"evidence": "e2", "result": "worked"}]}],
+   "openQuestions": [],
+   "related": [],
+   "indexing": {"decisions": ["The one ordinary software bug in the set, kept as a contrast to device-specific findings."], "uncertainty": []}
+  }
+ ]
+}
