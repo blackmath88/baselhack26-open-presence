@@ -12,6 +12,21 @@ Postack Underflow and br-ai-nstorm supply research and reusable mechanisms. They
 
 A future name may play on PDF. Do not rename either repository or settle the expansion yet. “Human Signal” and “Photo Frame Commons” are working labels, not final brands.
 
+## The value we deliver
+
+**Find experience that fits your situation. Understand its limits. Leave something useful for the next person.**
+
+We help people judge whether someone else's experience applies to their situation, and make their own discoveries available to others. The intended benefit is less repeated investigation and more usable shared experience; it remains to be tested.
+
+Three agreed use cases:
+1. **Has someone encountered my situation?** Find a relevant account and see why it matches.
+2. **Does this advice still apply?** Inspect conditions, disagreement and later corrections before choosing a next step.
+3. **We learned something others could use.** Turn a selected observation into a small, attributable contribution.
+
+The photo-frame corpus is the demonstration case. The value is independent of a particular repository. A local draft demonstrates contribution preparation and personal rediscovery; community value requires another person to discover and use a shared contribution.
+
+See [Value and UX](docs/product/VALUE-AND-UX.md) for proposed interface wording, visible evidence and demo checkpoints. The value framing and use cases were explicitly agreed by Achim; the interface details remain proposals.
+
 ## Begin with the experience
 You search a few words about a Photoshop problem, find a Reddit thread, and recognise: “Yes, exactly my situation.” Or you land on a relevant Stack Overflow discussion about an Adobe development problem.
 
