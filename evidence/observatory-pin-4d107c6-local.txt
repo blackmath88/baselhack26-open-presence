@@ -11,3 +11,12 @@ Output:
 Headless Chromium (127.0.0.1 static server, 1440x1000): Overview renders "42 of 42 records", category filters
   All work 42 · Research 7 · Concepts 2 · Planning 4 · Implementation 13 · Other context 16, Find records search box, source revision 3002474.
 Not checked: GitHub Actions run with this pin, phone width, Pages deployment.
+
+Update ~20:35 CET: pin moved to f45775c2e163c1b3a097ed2569765f3977cba7d3 (observstory #26 turn 2 head, verified equal to the remote branch head).
+Same local procedure (producer via git archive; consumer at open-presence 280de64):
+  OBSERVSTORY_KNOWLEDGE_OK snapshot=ks_949aeb4377a74a4cb8a9 commit=280de645ae1b complete=true changes=compared
+  OBSERVSTORY_OK repo=blackmath88/baselhack26-open-presence in_flight=5 areas_active=12 overlap=4 stale=0 waiting=0 burst=1 degraded=0
+  data/knowledge.json: complete=True diagnostics=0 records=25
+Headless Chromium: desktop DOM shows 44 of 44 records with category filters; 390px phone screenshot renders the header,
+  Overview/Board toggle, wrapped category chips and search without horizontal overflow (visual inspection only).
+Still not checked: GitHub Actions run with this pin, Pages deployment.

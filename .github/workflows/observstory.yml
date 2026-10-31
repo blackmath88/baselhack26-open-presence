@@ -22,7 +22,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Build evidence-backed project map
-        uses: blackmath88/observstory@4d107c6cd8b045dce38f2c412712307fd4e25c3c
+        uses: blackmath88/observstory@f45775c2e163c1b3a097ed2569765f3977cba7d3
         with:
           frontend: observatory
           config: observstory.config.json
