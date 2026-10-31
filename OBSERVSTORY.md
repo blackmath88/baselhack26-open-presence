@@ -35,9 +35,9 @@ Collection permissions: contents/read, pull-requests/read, issues/read. Artifact
 A snapshot becoming old does not mean the code is currently blocked. Read its collection timestamp. A merged change does not prove a milestone's acceptance tests passed.
 
 ## Pages deployment
-The workflow packages and deploys only when this repository is public, the ref is main, and the event is not a pull request. On inspection on 31 October 2026 GitHub reported this repo as **private**, with Pages disabled; the public deployment job therefore stays skipped.
+The workflow publishes dashboard output from main, excluding pull-request events. Pages was enabled by the owner on 31 October 2026 while the source repository remained private. The published output includes collected repository activity, planning declarations, file paths and commit titles; source-repository visibility does not restrict access to the published dashboard.
 
-After deliberately making the repository public, select **Settings → Pages → Build and deployment → Source: GitHub Actions**, then run Hackathon Observatory. The expected URL is https://blackmath88.github.io/baselhack26-open-presence/ (not verified live yet). This is an event-refreshed static dashboard, not a streaming backend. Pushes, issue/PR events and manual runs rebuild it; reload the page to see the new build.
+Pages source must be **GitHub Actions**. Dashboard URL: https://blackmath88.github.io/baselhack26-open-presence/ . Pushes, issue/PR events and manual runs rebuild this static dashboard; reload to see the latest build. This is not a streaming backend.
 
 ## Repository growth replay
 Open replay.html from the artifact or deployed site. Play/pause, pace and scrub controls reconstruct the files at each commit, highlight changes, and link each frame to its commit. repo-events.jsonl is the downloadable log. Data comes from up to 200 first-parent Git commits, not AI-generated activity. The first frame is a baseline; deletions are shown. Git history supplies durable evidence, so this log is rebuilt each time rather than persisted by a bot commit. Rewritten history can change it.
