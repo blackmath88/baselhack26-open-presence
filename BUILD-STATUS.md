@@ -53,8 +53,22 @@ Specification: `docs/architecture/MULTI-ENTRY-COMMONS.md` · plan: `docs/build/M
 ## Not done / open
 - No independent review of this slice yet (coordinator-verified only). PR #8's own open review notes stand.
 - UI: no report flow or moderation audit view; Map view still draws same-room edges only; the Commons section is above the room views, not a redesign.
-- A shared zod schema per operation across all three adapters would replace today's validator-in-service plus zod-in-MCP.
+- Shared operation schemas are now implemented in the NUC continuation below.
 - OAuth, public namespace, public hosting and moderation ownership remain activation questions, not reasons to stop (see `DEMO.md` → Real limitations).
 
 ## Current state / next action
 Draft PR opened against `feat/commons-brainstorm-integration` (retarget to `main` when PR #8 lands). Next exact action: an independent bounded review of this head (publication/ingestion state machines, moderation leakage, CLI exit codes), then the activation checklist if a real account and namespace are provided.
+
+
+## NUC continuation — adapter consistency and moderation repair (2026-10-31)
+
+Base: latest PR #11 head `dacc9741877040836d103992e8861c36f29ae167`, including PR #13's publication destination/retry repairs. This differs from the takeover document's `0175fa9`; the original M0–M5 build is preserved. Continuation branch: `blackmath88/commons-adapter-consistency`, stacked on `feat/commons-multi-entry` (PR #11), which remains stacked on PR #8.
+
+Ownership checked before edits: Claude's original checkout was clean at `0175fa9`; its multi-entry transcript ended at a usage limit. Orca reported no attached or unverifiable terminals for that checkout or its packet worktrees. Claude processes in the parent clones directory were preserved; its existing Vite preview on :5173 was left running. Work took place in a separate Orca-created continuation worktree, directly in foreground Codex, with no workers dispatched and no paid API calls.
+
+Repairs and consistency:
+- Reproduced legacy room/body leakage with a failing regression before the repair. Ordinary legacy problem, history, compact overview, update, curation and orchestration reads now fold a moderation-filtered event view. Commons room reads use the same filter. Hidden/blocked/deleted/invalid contributions and dependent proposal/edge/evaluation events are omitted; persisted events remain intact. Submission replay refuses a saved outcome that references withheld objects. Moderation command replay remains idempotent.
+- MCP discovery uses the same runtime operation schemas enforced by the Commons service. HTTP rejects invalid JSON types instead of silently converting them; numeric/enumeration bounds apply to HTTP/CLI as well as MCP. Preview retains its existing `ok:false` validation response; invalid commands use domain `invalid` (HTTP 422, CLI exit 2; MCP uses its protocol's error result).
+- Session attribution remains authoritative; untrusted extra identity fields are stripped before receipt hashing. Operation names, tool names, room/contribution identifiers and underlying log are preserved. Existing valid durable command receipts are retained.
+
+Validation and exact handoff: `evidence/CODEX-NUC-ADAPTER-CONSISTENCY.md`. No public account writes, merge, deployment, OAuth, namespace activation or original-build restart. Remaining review is bounded independent review of this continuation; activation/product follow-ups above remain separate.

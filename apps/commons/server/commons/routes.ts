@@ -5,8 +5,9 @@
  * CLI and MCP. There is deliberately no import endpoint: the pinned corpus is
  * imported only by trusted startup code.
  */
+import { parseOperation } from './operation-schemas.js'
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import type { ReviewCommand, SubmitContributionCommandV2 } from '../../src/commons/contracts.js'
+import type { ReviewCommand } from '../../src/commons/contracts.js'
 import { resolveActor, type TokenVerifier } from '../auth/actor-context.js'
 import { invalid, isDomainError } from '../domain/errors.js'
 import type { CommonsService } from './service.js'
@@ -36,8 +37,7 @@ function send(res: ServerResponse, status: number, body: unknown) {
   res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', ...CORS })
   res.end(JSON.stringify(body))
 }
-const num = (value: string | null): number | undefined => (value === null || value === '' ? undefined : Number(value))
-const str = (value: unknown): string | undefined => (typeof value === 'string' && value ? value : undefined)
+const num = (value: string | null): number | undefined => (value === null ? undefined : Number(value))
 
 export function commonsRoutes(deps: CommonsRouteDeps): (req: IncomingMessage, res: ServerResponse) => Promise<boolean> {
   return async (req, res) => {
@@ -55,7 +55,7 @@ export function commonsRoutes(deps: CommonsRouteDeps): (req: IncomingMessage, re
       if (get && head === 'status' && !id) send(res, 200, await deps.commons.status(actor))
       else if (get && head === 'search' && !id) send(res, 200, await deps.commons.search(actor, {
         query: q.get('q') ?? '', ...(num(q.get('limit')) !== undefined ? { limit: num(q.get('limit'))! } : {}),
-        ...(q.get('include') ? { include: q.get('include')!.split(',').filter((v): v is 'problems' | 'contributions' => v === 'problems' || v === 'contributions') } : {}),
+        ...(q.get('include') ? { include: q.get('include')!.split(',') as Array<'problems' | 'contributions'> } : {}),
       }))
       else if (get && head === 'repository') send(res, 200, await deps.commons.browseRepository(actor, {
         ...(seg.length > 1 ? { path: seg.slice(1).join('/') } : q.get('path') ? { path: q.get('path')! } : {}),
@@ -63,7 +63,7 @@ export function commonsRoutes(deps: CommonsRouteDeps): (req: IncomingMessage, re
         ...(q.get('type') ? { type: q.get('type') as 'issue' | 'pull' | 'discussion' } : {}),
         ...(q.get('cursor') ? { cursor: q.get('cursor')! } : {}),
         ...(num(q.get('limit')) !== undefined ? { limit: num(q.get('limit'))! } : {}),
-        ...(q.get('linked') ? { linkedOnly: true } : {}),
+        ...(q.has('linked') ? { linkedOnly: q.get('linked') === 'true' ? true : q.get('linked') === 'false' ? false : q.get('linked') as unknown as boolean } : {}),
       }))
       else if (get && head === 'problems' && !id) send(res, 200, { problems: await deps.commons.listProblems(actor) })
       else if (get && head === 'problems' && id && !tail) send(res, 200, await deps.commons.getProblem(actor, id))
@@ -78,24 +78,17 @@ export function commonsRoutes(deps: CommonsRouteDeps): (req: IncomingMessage, re
       else if (get && head === 'rooms' && id && !tail) send(res, 200, await deps.commons.getRoom(actor, id))
       else if (post && head === 'contributions' && id === 'prepare') send(res, 200, await deps.commons.prepareContribution(actor, await readJson(req)))
       else if (post && head === 'contributions' && !id) {
-        const result = await deps.commons.submitContribution(actor, (await readJson(req)) as unknown as SubmitContributionCommandV2)
+        const result = await deps.commons.submitContribution(actor, await readJson(req))
         send(res, result.replayed ? 200 : 201, result)
       } else if (post && head === 'reviews' && !id) send(res, 200, await deps.commons.review(actor, (await readJson(req)) as unknown as ReviewCommand))
-      else if (post && head === 'moderation' && !id) {
-        const body = await readJson(req)
-        send(res, 200, await deps.commons.moderate(actor, {
-          commandId: String(body.commandId ?? ''), action: body.action as 'hide', ...(str(body.contributionId) ? { contributionId: str(body.contributionId)! } : {}),
-          ...(str(body.authorId) ? { authorId: str(body.authorId)! } : {}), ...(str(body.reason) ? { reason: str(body.reason)! } : {}),
-        }))
-      } else if (post && head === 'publications' && id === 'prepare') send(res, 200, await deps.commons.preparePublication(actor, { contributionId: String((await readJson(req)).contributionId ?? '') }))
+      else if (post && head === 'moderation' && !id) send(res, 200, await deps.commons.moderate(actor, parseOperation('moderate', await readJson(req)) as never))
+      else if (post && head === 'publications' && id === 'prepare') send(res, 200, await deps.commons.preparePublication(actor, parseOperation('prepare_publication', await readJson(req)) as never))
       else if (post && head === 'publications' && id === 'retry') send(res, 200, await deps.commons.retryPublications(actor))
       else if (post && head === 'publications' && !id) {
-        const result = await deps.commons.publishContribution(actor, { intentId: String((await readJson(req)).intentId ?? '') })
+        const result = await deps.commons.publishContribution(actor, parseOperation('publish_contribution', await readJson(req)) as never)
         send(res, result.receipt.status === 'published' ? 200 : 202, result)
-      } else if (post && head === 'sync' && !id) {
-        const body = await readJson(req)
-        send(res, 200, await deps.commons.syncAuthor(actor, { did: String(body.did ?? ''), ...(typeof body.maxPages === 'number' ? { maxPages: body.maxPages } : {}) }))
-      } else if (post && head === 'resolve' && !id) send(res, 200, await deps.commons.resolveExternal(actor, { uri: String((await readJson(req)).uri ?? '') }))
+      } else if (post && head === 'sync' && !id) send(res, 200, await deps.commons.syncAuthor(actor, parseOperation('sync_author', await readJson(req)) as never))
+      else if (post && head === 'resolve' && !id) send(res, 200, await deps.commons.resolveExternal(actor, parseOperation('resolve_external', await readJson(req)) as never))
       else send(res, 404, { error: 'not_found', message: 'Unknown Commons route.' })
     } catch (error) {
       if (isDomainError(error)) {

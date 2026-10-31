@@ -34,7 +34,7 @@ Other knobs: `COMMONS_ATPROTO_NAMESPACE` (default `test.openpresence.commons`, d
 ```bash
 cd apps/commons
 npm run typecheck
-npm test                         # 181 tests; the PDS round-trip suites skip visibly if tools/local-pds is not installed
+npm test                         # install tools/local-pds first so both real-PDS suites execute
 npm run index:check              # record-only index reproduces byte for byte
 npx vite build
 bash scripts/smoke/e2e.sh        # first-slice smoke (submit, retry, restart, concurrent review)
@@ -93,3 +93,10 @@ records on the PDS).
 - Moderation is local hide/unhide and block/unblock; it affects every projection here and nothing elsewhere.
 - Prototype tokens are in-memory: after a server restart, browsers must pick a participant again.
 - The Map view draws only same-room edges; the Cloudflare worker path has no Commons service; the JSON log is not fsync'd.
+
+
+### NUC continuation behavior
+
+The continuation branch `blackmath88/commons-adapter-consistency` runs with the same install/run commands above and is stacked on PR #11. No migration or public-account configuration is required. Malformed operation types, bounds and enums are rejected across the service/HTTP/CLI/MCP entrances; CLI validation exits with code 2. Contribution previews continue to report `ok:false` plus errors without writing.
+
+Local moderation also withholds bodies and dependent proposal reasons from legacy room/history/overview/updates/curation and agent-context reads. The raw event log is preserved internally; unhide/unblock restores availability. Replaying a submission after its contribution becomes withheld returns forbidden rather than an old saved body. Moderation command retries remain idempotent. Already published remote records are not retracted by local moderation.

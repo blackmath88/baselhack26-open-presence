@@ -6,6 +6,7 @@
  * MCP-over-HTTP or a test, which is what lets the integration test drive one
  * service instance through two transports at once.
  */
+import { commonsReadRepository } from './commons/read-boundary.js'
 import { createIdSource, highWaterMark, systemClock, type Clock, type IdSource } from './domain/events.js'
 import { createJsonRepository, createMemoryRepository } from './persistence/json-repository.js'
 import { ensureSeedData } from './persistence/seed.js'
@@ -107,12 +108,14 @@ export async function buildServices(options: BuildOptions = {}): Promise<Service
   const commons = 'transaction' in repository
     ? createCommonsService({ repository: repository as TransactionalEventRepository, clock, ...(atproto ? { atproto } : {}), ...(appUrl ? { appUrl } : {}), ...(envConfig ? { appId: envConfig.appId } : {}) })
     : undefined
+  const readDeps = commons ? { ...deps, repository: commonsReadRepository(repository as TransactionalEventRepository) } : deps
+  const readOrchestration = createOrchestrationService(readDeps)
   const contributions = createContributionService(deps)
   const curation = createCurationService(deps)
   const orchestration = createOrchestrationService(deps)
 
   return {
-    problems: createProblemService(deps),
+    problems: createProblemService(readDeps),
     // Every transport (REST, MCP) gets these services. Writes to imported commons:* rooms
     // go through the serialized Commons transaction, so no transport can validate against
     // stale state; a retry by the same participant replays its prior review outcome.
@@ -122,6 +125,7 @@ export async function buildServices(options: BuildOptions = {}): Promise<Service
     curation: commons
       ? {
           ...curation,
+          list: createCurationService(readDeps).list,
           accept: (actor, input) => (input.problemId.startsWith('commons:')
             ? commons.review(actor, { commandId: `review:${input.proposalId}:accept:${actor.actorId}`, proposalId: input.proposalId, problemId: input.problemId, decision: 'accept' }) as ReturnType<CurationService['accept']>
             : curation.accept(actor, input)),
@@ -133,6 +137,8 @@ export async function buildServices(options: BuildOptions = {}): Promise<Service
     orchestration: commons
       ? {
           ...orchestration,
+          get: readOrchestration.get,
+          context: readOrchestration.context,
           // Mode changes read the current mode; serialize them with other commons:* writes.
           setMode: (actor, input) => (input.problemId.startsWith('commons:')
             ? (repository as TransactionalEventRepository).transaction(tx => createOrchestrationService({ ...deps, repository: tx.repository }).setMode(actor, input))
