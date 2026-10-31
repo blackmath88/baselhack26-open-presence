@@ -8,6 +8,9 @@ Author: Claude Code (claude-opus-5-5, assistant), implementation coordinator for
 | commons (this) | claude, effective model claude-opus-5-5 | 26ded163-c6b4-4d47-ad59-26c166b59a23 | nuc-build-20261031-commons-1-6661fe.service | 19:10:06 |
 | pdf | codex, model unknown | 01a1935e-7338-7421-a7be-aea4d7d868ed | nuc-build-20261031-pdf-1-62feaf.service | 19:10:03 |
 | observatory | codex, model unknown | 01a1935e-730a-7250-b29d-dda94bea6648 | nuc-build-20261031-observatory-1-9136e6.service | 19:10:03 |
+| memory | codex, model unknown | 01a1936d-e786-7f01-9291-ab7e1f803635 | nuc-build-20261031-memory-1-48dd81.service | 19:26:56 |
+| commons turn 2 | claude, claude-opus-5-5 | same session | nuc-build-20261031-commons-2-9e3ac4.service | 19:27:12 |
+
 Supervisor pid 13205 started 19:10:02 UTC; `OWNERSHIP_RECONCILED` reported no conflicting agents/processes.
 
 ## Project-memory MCP read (opening, read-only tools)
@@ -24,9 +27,13 @@ Draft PR: https://github.com/blackmath88/baselhack26-open-presence/pull/18 (feat
 ## Observatory consumer pin (coordinator, separate branch)
 Draft PR https://github.com/blackmath88/baselhack26-open-presence/pull/19, branch `blackmath88/nuc-20261031-observatory-pin`: workflow pin `84c3c0a` → `4d107c6`. Verified locally by running the action's build/publish/install steps with the producer extracted via `git archive` (worker worktree untouched): knowledge complete, 0 diagnostics; headless Chromium renders 42 records with category filters. Not CI-run; land after observstory #26/#24 review.
 
+## Commons turn 2 (20:27–20:37)
+Evidence items now list the contributions citing their source, including those from other problems sharing the same issue or doc. Reply reach is shown on every citing entry, and context packets carry `citedBy` per evidence item. Checks: typecheck, 190 tests, index, build, e2e, multi-entry smoke, plus a browser pass on real `issue/148` shared by `usb-c-no-data` and `stock-root-adb`. Head `280de64`.
+Pin PR #19 was bumped to producer `f45775c` (observstory #26 turn 2) and re-verified locally: knowledge complete, 0 diagnostics; desktop and 390px phone render.
+
 ## Worker reports (read, not re-verified by the coordinator)
-- PDF: PR #17, head `9ecbabd`, two-poem ToUnicode artwork, 27 PDFs; report `reports/pdf.md`.
-- Observatory: observstory PR #26, producer head `4d107c6`, stacked on #24 (`84c3c0a`); consumer pin update left to coordinator.
+- PDF: PR #17, head `9ecbabd` → turn 2 `4aa8fad` (transformation notebook over A01), two-poem ToUnicode artwork, 27 PDFs; report `reports/pdf.md`.
+- Observatory: observstory PR #26, producer head `4d107c6` → turn 2 `f45775c`, stacked on #24 (`84c3c0a`); consumer pin update left to coordinator.
 
 ## Limitations / next
 See `BUILD-STATUS.md` (NUC window section) and the runtime report `reports/commons.md`.
