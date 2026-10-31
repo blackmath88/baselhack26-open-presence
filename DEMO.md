@@ -2,8 +2,7 @@
 
 One shared Commons over the pinned Wes Bos photo-frame corpus, entered through **search**, the **repository
 snapshot**, **direct links**, the **CLI** or **MCP**, and connected to **ATProto** for author-owned publication and
-ingestion. Prototype demo sign-in; **never expose this server publicly.** Branch `feat/commons-multi-entry`
-(stacked on PR #8).
+ingestion. Prototype demo sign-in; **never expose this server publicly.** Integrated on `main` through PR #11, including publication and moderation-read repairs (#13/#14).
 
 ## Install and run
 ```bash
@@ -34,7 +33,7 @@ Other knobs: `COMMONS_ATPROTO_NAMESPACE` (default `test.openpresence.commons`, d
 ```bash
 cd apps/commons
 npm run typecheck
-npm test                         # 181 tests; the PDS round-trip suites skip visibly if tools/local-pds is not installed
+npm test                         # 188 tests; the PDS round-trip suites skip visibly if tools/local-pds is not installed
 npm run index:check              # record-only index reproduces byte for byte
 npx vite build
 bash scripts/smoke/e2e.sh        # first-slice smoke (submit, retry, restart, concurrent review)

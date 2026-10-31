@@ -8,7 +8,7 @@ Achim requested building the working loop from **br-ai-nstorm's existing applica
 - [Claude / Orca build plan](docs/build/CLAUDE-ORCA-BUILD.md): pinned inputs, parallel task packets, ownership and acceptance gates.
 - [Launch prompt](docs/build/CLAUDE-ORCA-PROMPT.md): coordinator instructions.
 
-The new plan advances the earlier local-draft-only target to a functioning local shared room with explicit submission and second-session rediscovery. It takes precedence over older static-only implementation suggestions for this build. The historical schedule below remains a proposal, not evidence of completion or a revised deadline. No implementation or worker dispatch is claimed by this documentation update.
+The new plan advances the earlier local-draft-only target to a functioning local shared room with explicit submission and second-session rediscovery. It takes precedence over older static-only implementation suggestions for this build. The historical schedule below remains a proposal, not evidence of completion or a revised deadline. The original brief did not claim implementation or dispatch; the Current state section below records the subsequent integrated build.
 
 ## Finish line
 One person can ask a real photo-frame question, inspect relevant experiences and their limits, follow original sources, explore attributable connections, and draft a small follow-up without publishing it.
@@ -16,9 +16,9 @@ One person can ask a real photo-frame question, inspect relevant experiences and
 Alongside that, explore a passage-grounded graph in Knowledge Lab. The user experience must remain usable from a local snapshot if the lab is unavailable. Adobe/PDF is an optional presentation, not a prerequisite.
 
 ## Current state
-Concept and repo scope are established. Implementation, corpus import and live graph results are not marked complete. Knowledge Lab has prior work on continuation branches; its runtime must be checked rather than inferred from its older main README.
+The local Commons implementation and multi-entry continuation are merged: 18 imported problem rooms, evidence inspection, repository browsing, search, shared contribution history, CLI/MCP and ATProto against an isolated local PDS. Publication and legacy moderation-read repairs are included. Combined checks: 188 tests, typecheck, index reproduction, build and both server smoke scripts pass. See [DEMO.md](DEMO.md) and [integration evidence](evidence/MODERATION-READS-20261031.md).
 
-NOW: select the bounded corpus for “My Mac cannot see my frame,” check Knowledge Lab's active state, and agree the export boundary.
+NOW: build on the consolidated main branch; run the real user journey and address usability gaps. Existing app UI remains the starting point. Knowledge Lab integration, cross-room Map edges, production identity and public activation are separate unfinished work; no live graph-service state or human UX acceptance is claimed.
 
 ## Event timetable and project view
 
