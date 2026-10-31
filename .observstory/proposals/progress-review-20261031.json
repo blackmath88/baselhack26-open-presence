@@ -3,7 +3,7 @@
   "id": "progress-review-20261031",
   "kind": "proposal",
   "title": "Integrate reviewed Commons slice and reconcile project memory",
-  "statement": "Commons PR #8 reports a working local find-inspect-draft-submit-rediscover flow and 149 passing tests at e24838f. Final batch-4 repairs still lack independent review. Published knowledge at main 58b9942 was complete but carried invalid_status and invalid_relation errors for the timetable. This branch integrates main and repairs both schema values; a real producer build yields 25 records, 15/15 sources and zero diagnostics. Knowledge Lab #1 has been retargeted from its merged dependency branch to main; conflicts now require reconciliation.",
+  "statement": "Commons PR #8 reports a working local find-inspect-draft-submit-rediscover flow and 149 passing tests at e24838f. Final batch-4 repairs still lack independent review. Published knowledge at main 58b9942 was complete but carried invalid_status and invalid_relation errors for the timetable. This branch integrates main and repairs both schema values; a real producer build yields 25 records, 15/15 sources and zero diagnostics. Knowledge Lab #1 has been retargeted from its merged dependency branch to main; GitHub subsequently reports it mergeable against main; combined tests still need revalidation.",
   "author": {
     "name": "Codex",
     "kind": "assistant",
