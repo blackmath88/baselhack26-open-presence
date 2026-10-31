@@ -1,6 +1,15 @@
 # Hackathon plan — Photo Frame Commons
 31 October–1 November 2026 · Europe/Zurich (UTC+01:00)
 
+## Current build direction — 31 October
+
+Achim requested building the working loop from **br-ai-nstorm's existing application** using the already captured Wes Bos photo-frame corpus. Reuse State / Map / Timeline / Curation first; visual redesign follows a functioning integration.
+
+- [Claude / Orca build plan](docs/build/CLAUDE-ORCA-BUILD.md): pinned inputs, parallel task packets, ownership and acceptance gates.
+- [Launch prompt](docs/build/CLAUDE-ORCA-PROMPT.md): coordinator instructions.
+
+The new plan advances the earlier local-draft-only target to a functioning local shared room with explicit submission and second-session rediscovery. It takes precedence over older static-only implementation suggestions for this build. The historical schedule below remains a proposal, not evidence of completion or a revised deadline. No implementation or worker dispatch is claimed by this documentation update.
+
 ## Finish line
 One person can ask a real photo-frame question, inspect relevant experiences and their limits, follow original sources, explore attributable connections, and draft a small follow-up without publishing it.
 
