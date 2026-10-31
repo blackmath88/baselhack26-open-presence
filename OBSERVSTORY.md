@@ -5,7 +5,7 @@
 3. Extract it and open index.html. radar.html is the alternate view.
 4. Agents can read data/snapshot.json and data/scene.json from that artifact.
 
-This is the real upstream Observstory renderer, configured for the weekend. No custom dashboard fork or public Pages site is introduced.
+This is the real upstream Observstory renderer, configured for the weekend. A separate repository replay is available at replay.html; the native Observstory renderer is retained.
 
 ## What it observes
 Pushes, PR events and issue events trigger a new snapshot; Run workflow offers manual refresh. No permanent scheduled job is installed for a two-day event.
@@ -31,5 +31,20 @@ For later check-ins, create a short note with markers such as CHECKPOINT, FREEZE
 ## Pinned source and behaviour
 Action pinned to blackmath88/observstory@a38a1a203d5b2c9ee599ecdf421ccc595cb57c0d.
 No upstream code copied. Configuration and workflow authored here.
-Permissions: contents/read, pull-requests/read, issues/read. Artifact retained seven days. No deployment, messaging, transcription, people scoring or agent orchestration.
+Collection permissions: contents/read, pull-requests/read, issues/read. Artifact retained seven days. Public Pages deployment uses a separate job with pages/write and id-token/write. No messaging, transcription, people scoring or agent orchestration.
 A snapshot becoming old does not mean the code is currently blocked. Read its collection timestamp. A merged change does not prove a milestone's acceptance tests passed.
+
+## Pages deployment
+The workflow packages and deploys only when this repository is public, the ref is main, and the event is not a pull request. On inspection on 31 October 2026 GitHub reported this repo as **private**, with Pages disabled; the public deployment job therefore stays skipped.
+
+After deliberately making the repository public, select **Settings → Pages → Build and deployment → Source: GitHub Actions**, then run Hackathon Observatory. The expected URL is https://blackmath88.github.io/baselhack26-open-presence/ (not verified live yet). This is an event-refreshed static dashboard, not a streaming backend. Pushes, issue/PR events and manual runs rebuild it; reload the page to see the new build.
+
+## Repository growth replay
+Open replay.html from the artifact or deployed site. Play/pause, pace and scrub controls reconstruct the files at each commit, highlight changes, and link each frame to its commit. repo-events.jsonl is the downloadable log. Data comes from up to 200 first-parent Git commits, not AI-generated activity. The first frame is a baseline; deletions are shown. Git history supplies durable evidence, so this log is rebuilt each time rather than persisted by a bot commit. Rewritten history can change it.
+
+Inspired by [Crawler Theatre](https://github.com/blackmath88/accessibility-red-team/tree/main/theatre): recorded events → deterministic state → replay. This is a new file-map UI; no crawler renderer or source code was copied. Playback is opt-in, with no automatic motion.
+
+## Graph events: next integration
+Repository history and knowledge growth have distinct meanings. The graph is not connected to this replay yet. Knowledge Lab should emit durable JSONL events at ingestion boundaries: source ingested, node added, relationship proposed, relationship confirmed, correction and removal. Every event needs a stable id, timestamp, run id, subject id, evidence references and producer (code/model/human); producer identity is a declaration, not proof of humanity. Store only export-approved fields; raw prompts and private chat logs do not belong in a public dashboard.
+
+Then expose two replay views over their respective logs: repository files in the Observatory, and evidence-linked nodes/edges in the graph. Replay must apply corrections and removals as well as additions. Label model-proposed edges distinctly from source-declared relationships; counts are activity, not truth or quality. Keep private lab runtime logs outside the public export.
