@@ -1,7 +1,16 @@
 # PDF LAB
 31 October 2026 · BaselHack side project · documentation stage
 
-**One file. Many interpreters. Show where their realities diverge.**
+**How far can you bend a document before it becomes something else?**
+
+A cabinet of strange PDFs: pictures made from letters, secret interfaces, visible computers, multiple file identities and readers repairing the same broken bytes.
+
+## Current direction
+Achim redirected PDF LAB on 31 October towards format bending, reverse engineering and playful format abuse. **Artefacts onstage, evidence backstage.** Start with [the format-bending brief](FORMAT-BENDING.md) and [current build plan](PLAN.md).
+
+Proposed opening: **B01 This picture is one letter → B02 The backstage machine → B03 What did the reader repair?** These replace the earlier extraction-first sequence. No specimens are implemented yet. Exact exhibit choices remain proposals.
+
+The following evidence model and P-series are retained as supporting research, not the primary experience. The earlier [research prompt](RESEARCH-PROMPT.md) and [review](RESEARCH-REVIEW-2026-10-31.md) reflect the foundational forensic framing; use FORMAT-BENDING.md for current creative priorities.
 
 ## Status and agreed scope
 Achim explicitly requested housing this project in a subfolder of the hackathon repository, with concept, build plan and research/sparring prompt, before moving it to a separate repository after the hackathon. That location and later separation are agreed; the technical choices and experiment ordering below are proposals. No implementation, measured result or new repository is claimed.
@@ -37,7 +46,7 @@ Keep these layers separate:
 
 A model may explain evidence, but never replace it. A signed document is not proof that its statements are true. An unchanged hash establishes byte identity, not identical interpretation.
 
-## The workbench
+## Supporting workbench mechanics
 Question → specimen → prediction → instrument → observation → comparison → explanation → next question.
 
 Five connected surfaces:
@@ -49,7 +58,7 @@ Five connected surfaces:
 
 Explore, guided learning and case investigation can share the same underlying records. Teaching mode asks for a prediction before revealing evidence. Design should be clean and precise: cool white, restrained colour, strong typography, no fictional hacker cockpit or unsupported threat score.
 
-## Proposed specimen families
+## Supporting P-series specimen families
 | ID | Question | Track |
 | --- | --- | --- |
 | P000 | Do rendering and extraction agree on a simple baseline? | Baseline |
@@ -88,7 +97,8 @@ No cross-viewer compatibility, attack success or tool effectiveness has been mea
 ## Repository handoff
 - Finding: XL LAB's specimen/instrument/notebook and consumer-comparison model transfers well to a PDF laboratory.
 - Agreed: incubate in this subfolder; separate repository after the hackathon.
-- Proposed: start with baseline plus page/extraction differential, then redaction and one creative form.
+- Current user direction: format bending and creative reverse engineering; strange artefacts lead.
+- Proposed: B01 Type 3 illustration, B02 backstage machine, B03 bounded repair bench. Earlier P-series remains supporting research.
 - Open: exact generators/parsers, viewer access, first creative specimen, future repository name and licence.
 - Affected documents: this README, PLAN.md, RESEARCH-PROMPT.md and the root navigation link.
 - Current-state boundary: source tree inspected at 70d1cfb07647a08756e53fbaef9098700087bd18, complete Git tree listing; source knowledge manifest and coordination declarations read. Published data/knowledge.json and data/snapshot.json could not be fetched. Generated snapshot completeness and diagnostics remain unverified.
