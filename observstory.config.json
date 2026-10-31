@@ -1,0 +1,80 @@
+{
+  "title": "Photo Frame Commons · Hackathon Observatory",
+  "window_hours": 48,
+  "lanes": [
+    {
+      "id": "intent",
+      "label": "Intent & plan",
+      "description": "Concept, decisions, project management",
+      "paths": [
+        "README",
+        "HUMAN-SIGNAL",
+        "HACKATHON",
+        "OBSERVSTORY",
+        ".observstory/",
+        "docs/"
+      ]
+    },
+    {
+      "id": "sources",
+      "label": "Sources & index",
+      "description": "Bounded source corpus and indexing",
+      "paths": [
+        "corpus/",
+        "data/",
+        "scripts/",
+        "lib/"
+      ]
+    },
+    {
+      "id": "experience",
+      "label": "Experience",
+      "description": "Find, inspect, connect, contribute",
+      "paths": [
+        "src/",
+        "app/",
+        "public/"
+      ]
+    },
+    {
+      "id": "verify",
+      "label": "Verify & demo",
+      "description": "Acceptance evidence and presentation",
+      "paths": [
+        "tests/",
+        "test/",
+        "evals/",
+        "DEMO",
+        "evidence/"
+      ]
+    },
+    {
+      "id": "delivery",
+      "label": "Delivery",
+      "description": "Build and workflow configuration",
+      "paths": [
+        ".github/",
+        "package",
+        "vite",
+        "observstory.config"
+      ]
+    }
+  ],
+  "signals": {
+    "overlap_min_work_items": 2,
+    "stale_hours": 4,
+    "burst_min_commits": 8,
+    "burst_window_minutes": 30
+  },
+  "ignore": [
+    "observstory/",
+    "node_modules/",
+    "dist/",
+    "*.snap"
+  ],
+  "max_commits": 60,
+  "max_pull_requests": 40,
+  "max_open_pull_requests": 30,
+  "max_branches": 20,
+  "max_issues": 40
+}
