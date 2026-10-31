@@ -11,9 +11,9 @@ problem commons:usb-c-no-data evidence 7 contributions 0
 == draft (writes nothing)
 ok True destination commons:usb-c-no-data warnings []
 == submit
-id contrib_51ba3d4f-5adc-4c49-8256-d3c1612cb96a replayed False author person:kai
+id contrib_86a05f15-e79d-4223-8653-75ffba93d6af replayed False author person:kai
 == submit again (same key)
-id contrib_51ba3d4f-5adc-4c49-8256-d3c1612cb96a replayed True
+id contrib_86a05f15-e79d-4223-8653-75ffba93d6af replayed True
 == submit again (same key, changed text) → exit code:
 exit 3
 {
@@ -22,17 +22,19 @@ exit 3
     "error": "conflict",
     "messag
 == reply as Lea
-reply contrib_2e642850-26b0-466b-9c55-2542959dd741 author person:lea
+reply contrib_57807f65-498f-4867-830f-2f36fe957971 author person:lea
 == thread
 root person:kai replies ['person:lea'] participants ['person:kai', 'person:lea']
 == search the phrase (Lea)
-[('contrib_51ba3d4f-5adc-4c49-8256-d3c1612cb96a', 'person:kai')]
+[('contrib_86a05f15-e79d-4223-8653-75ffba93d6af', 'person:kai')]
 == rediscover from the repository (Lea): which threads/docs cite the CLI contribution
 doc docs/pf1007l-start-here.md [('person:kai', 'cli', 'replies', 1, ['person:kai', 'person:lea'])]
 == problem evidence → citing contributions (Lea)
 {'e1': [('person:kai', 'cli', 'replies', 1, 'same problem')], 'e2': [('person:kai', 'cli', 'replies', 1, 'same problem')], 'c-cable-qualified': [('person:kai', 'cli', 'replies', 1, 'same problem')], 'c-cable-qualified:qualifies': [('person:kai', 'cli', 'replies', 1, 'same problem')]}
+== passage citation (Lea, --evidence e2) attaches to that passage only
+{'e1': [], 'e2': [('Lea', ['e2'])], 'c-cable-qualified': [], 'c-cable-qualified:qualifies': []}
 == search the cited object (Lea)
-[('contrib_51ba3d4f-5adc-4c49-8256-d3c1612cb96a', 'person:kai', 'cli', ['doc/docs/pf1007l-start-here.md'])]
+[('contrib_86a05f15-e79d-4223-8653-75ffba93d6af', 'person:kai', 'cli', ['doc/docs/pf1007l-start-here.md'])]
 == context
 contributions 1 omissions 2 limitations 4 sources 4
 == publish without an account → exit code:

@@ -23,6 +23,7 @@ function parseArgs(argv: string[]): { positional: string[]; flags: Flags } {
     if (!a.startsWith('--')) { positional.push(a); continue }
     const [key, inline] = a.slice(2).split(/=(.*)/s)
     const value = inline ?? (argv[i + 1] !== undefined && !argv[i + 1].startsWith('--') ? argv[++i] : true)
+    if (key === 'evidence') { flags.evidenceIds = [...((flags.evidenceIds as string[] | undefined) ?? []), String(value)]; continue }
     if (key === 'ref' || key === 'source-ref') { flags.sourceRefs = [...((flags.sourceRefs as string[] | undefined) ?? []), String(value)]; continue }
     flags[key] = flags[key] !== undefined && typeof flags[key] === 'string' ? [flags[key] as string, String(value)] : value
   }
@@ -85,6 +86,7 @@ function draftFromFlags(flags: Flags): Record<string, unknown> {
   set('observedAt', flagStr(flags, 'observed-at'))
   set('commandId', flagStr(flags, 'command-id'))
   if (flags.sourceRefs) base.sourceRefs = flags.sourceRefs
+  if (flags.evidenceIds) base.evidenceIds = flags.evidenceIds
   return base
 }
 
@@ -97,7 +99,7 @@ const USAGE = `commons — the Photo Frame Commons from the terminal (JSON out)
   commons thread <contributionId>
   commons context <problemId | contributionId> [--budget chars]
   commons draft --problem <id> --text "..." [--kind observation|question|attempt|outcome|correction]
-                [--circumstances "..."] [--ref objectId ...] [--parent id] [--assistance none|ai-assisted|ai-drafted]
+                [--circumstances "..."] [--ref objectId ...] [--evidence e2 ...] [--parent id] [--assistance none|ai-assisted|ai-drafted]
                 [--prepared-by name] [--command-id id]        → validates; prints the exact command; writes nothing
   commons submit (--file draft.json | draft flags) [--command-id id]   → records it in the local shared room
   commons publish <contributionId> [--yes]       → preview the ATProto record; --yes publishes through the outbox

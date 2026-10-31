@@ -20,6 +20,8 @@ export interface CitingContribution {
   cited: string[]; excerpt: string; createdAt: string; link: string
   /** Visible replies and corrections below it (any depth), who took part, when it last moved. */
   replies: number; participants: string[]; lastActivityAt: string
+  /** Exact evidence passages of its own problem record it cites, when the contributor named them. */
+  evidenceIds?: string[]
 }
 
 export interface RepoCoverage {
@@ -63,6 +65,7 @@ export function contributionCitationIndex(contributions: CommonsContribution[], 
           entry = {
             contributionId: c.id, problemId: c.problemId, kind: c.kind, actor: c.actor, entrance: c.entrance, cited: [],
             excerpt: c.text.length > 160 ? `${c.text.slice(0, 157)}…` : c.text, createdAt: c.createdAt, link: c.links.app,
+            ...(c.evidenceIds ? { evidenceIds: c.evidenceIds } : {}),
             replies: stats.get(c.id)?.replies ?? 0, participants: stats.get(c.id)?.participants ?? [c.actor.id], lastActivityAt: stats.get(c.id)?.lastActivityAt ?? c.createdAt,
           }
           list.push(entry)

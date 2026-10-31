@@ -112,7 +112,7 @@ export function ContributionCard({ c, token, actorId, canReview, onReply, onCorr
       {c.supersedes && <div className="commons-limit">supersedes {refLabel(c.supersedes).text}</div>}
       <p className="commons-text">{c.text}</p>
       {c.circumstances && <p className="commons-limit"><strong>Conditions:</strong> {c.circumstances}</p>}
-      <div className="commons-limit"><SourceRefs refs={c.sourceRefs} /></div>
+      <div className="commons-limit"><SourceRefs refs={c.sourceRefs} />{c.evidenceIds?.length ? <> · passage {c.evidenceIds.join(', ')} of the record</> : null}</div>
       {c.origin.kind === 'atproto' && (
         <div className="commons-limit"><Globe size={12} /> owned by {c.origin.handle ? `@${c.origin.handle} (${c.origin.did})` : c.origin.did}; observed {c.origin.retrievedAt.slice(0, 16).replace('T', ' ')} · <code>{c.origin.uri}</code></div>
       )}

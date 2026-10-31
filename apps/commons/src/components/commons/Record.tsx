@@ -31,6 +31,9 @@ export function SourceLine({ source }: { source: SourceRef }) {
 }
 
 export function Record({ problem, hit, citations = {} }: { problem: ImportedProblem; hit?: SearchHit; citations?: Record<string, Citing[]> }) {
+  // A later passage of an already-listed object repeats the list only when exactly the same contributions cite it.
+  const key = (id: string) => (citations[id] ?? []).map((c) => c.contributionId).join(' ')
+  const sameAsEarlier = (id: string, i: number) => problem.evidence.slice(0, i).some((x) => x.source.objectId === problem.evidence[i]!.source.objectId && key(x.id) === key(id))
   return (
     <article className="commons-record" aria-label={problem.title}>
       <div className="section-kicker">
@@ -75,8 +78,8 @@ export function Record({ problem, hit, citations = {} }: { problem: ImportedProb
               </p>
             )}
             <SourceLine source={e.source} />
-            {citations[e.id]?.length && problem.evidence.findIndex((x) => x.source.objectId === e.source.objectId) < i ? (
-              <p className="commons-limit">Cited by the same {citations[e.id]!.length} contribution{citations[e.id]!.length === 1 ? '' : 's'} as above: contributions cite the whole source object, not one passage.</p>
+            {citations[e.id]?.length && sameAsEarlier(e.id, i) ? (
+              <p className="commons-limit">Cited by the same {citations[e.id]!.length} contribution{citations[e.id]!.length === 1 ? '' : 's'} as above: they cite the whole source object, not one passage.</p>
             ) : citations[e.id]?.length ? (
               <details className="commons-cited-by">
                 <summary>{citations[e.id]!.length} contribution{citations[e.id]!.length === 1 ? '' : 's'} cite this source</summary>

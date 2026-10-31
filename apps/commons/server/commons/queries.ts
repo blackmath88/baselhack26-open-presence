@@ -162,7 +162,9 @@ export function problemView(loaded: LoadedCommons, metadata: CommonsMetadata, id
 function evidenceCitations(problem: ImportedProblem, community: Map<string, CitingContribution[]>) {
   const out: ProblemView['evidenceCitations'] = {}
   for (const e of problem.evidence) {
-    const list = community.get(citationKeys(e.source.objectId)[0]!) ?? []
+    // A contribution that named exact passages of this record attaches only to those; otherwise to every passage of the object.
+    const list = (community.get(citationKeys(e.source.objectId)[0]!) ?? [])
+      .filter(c => c.problemId !== problem.postackId || !c.evidenceIds?.length || c.evidenceIds.includes(e.id))
     if (list.length) out[e.id] = list.map(c => ({ ...c, otherProblem: c.problemId !== problem.postackId }))
   }
   return out
@@ -320,8 +322,17 @@ export function prepareContribution(loaded: LoadedCommons, metadata: CommonsMeta
   if (!(COMMONS_CONTRIBUTION_KINDS as unknown[]).includes(kind)) errors.push(`kind must be one of ${COMMONS_CONTRIBUTION_KINDS.join(', ')}.`)
   const assistance = input.assistance === undefined ? (typeof input.preparedBy === 'string' && input.preparedBy && input.preparedBy !== 'browser-draft' ? 'ai-drafted' : 'none') : input.assistance
   if (!(ASSISTANCE_DECLARATIONS as unknown[]).includes(assistance)) errors.push(`assistance must be one of ${ASSISTANCE_DECLARATIONS.join(', ')}.`)
-  const sourceRefs = Array.isArray(input.sourceRefs) ? input.sourceRefs : []
+  const sourceRefs: unknown[] = Array.isArray(input.sourceRefs) ? [...input.sourceRefs] : []
   if (!Array.isArray(input.sourceRefs) && input.sourceRefs !== undefined) errors.push('sourceRefs must be an array of object ids.')
+  // Passage citations: each evidence id must belong to this record; its source object is cited too.
+  const evidenceIds: string[] = []
+  if (input.evidenceIds !== undefined && !Array.isArray(input.evidenceIds)) errors.push('evidenceIds must be an array of evidence ids.')
+  for (const eid of Array.isArray(input.evidenceIds) ? input.evidenceIds : []) {
+    const passage = typeof eid === 'string' ? source?.evidence.find(e => e.id === eid) : undefined
+    if (!passage) { errors.push(`Evidence ${JSON.stringify(eid)} is not a passage of this problem record.`); continue }
+    if (!evidenceIds.includes(passage.id)) evidenceIds.push(passage.id)
+    if (!sourceRefs.includes(passage.source.objectId)) sourceRefs.push(passage.source.objectId)
+  }
   const known = new Set((source?.evidence ?? []).map(e => e.source.objectId))
   for (const ref of sourceRefs) if (typeof ref !== 'string' || !known.has(ref)) errors.push(`Source reference ${JSON.stringify(ref)} does not belong to this problem.`)
   if (source && sourceRefs.length === 0) warnings.push('No source references selected; the contribution will not cite any evidence.')
@@ -348,8 +359,8 @@ export function prepareContribution(loaded: LoadedCommons, metadata: CommonsMeta
   if (input.observedAt !== undefined && (typeof input.observedAt !== 'string' || Number.isNaN(Date.parse(input.observedAt)))) errors.push('observedAt must be an ISO-8601 time.')
   if (input.circumstances !== undefined && typeof input.circumstances !== 'string') errors.push('circumstances must be a string.')
   const command: SubmitContributionCommandV2 | undefined = errors.length ? undefined : {
-    commandId: typeof input.commandId === 'string' && input.commandId.trim() ? input.commandId : `prepared:${stableHash({ problemId, text, kind, sourceRefs, circumstances: input.circumstances, parentId: input.parentId })}`,
-    problemId, text, sourceRefs: sourceRefs as string[], kind: kind as CommonsContributionKind, assistance: assistance as AssistanceDeclaration,
+    commandId: typeof input.commandId === 'string' && input.commandId.trim() ? input.commandId : `prepared:${stableHash({ problemId, text, kind, sourceRefs, evidenceIds, circumstances: input.circumstances, parentId: input.parentId })}`,
+    problemId, text, sourceRefs: sourceRefs as string[], ...(evidenceIds.length ? { evidenceIds } : {}), kind: kind as CommonsContributionKind, assistance: assistance as AssistanceDeclaration,
     ...(typeof input.circumstances === 'string' && input.circumstances.trim() ? { circumstances: input.circumstances.trim() } : {}),
     ...(typeof input.preparedBy === 'string' && input.preparedBy ? { preparedBy: input.preparedBy } : {}),
     ...(typeof input.parentId === 'string' ? { parentId: input.parentId } : {}),

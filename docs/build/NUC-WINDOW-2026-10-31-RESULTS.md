@@ -18,6 +18,11 @@ Supervisor pid 13205 started 19:10:02 UTC; `OWNERSHIP_RECONCILED` reported no co
 - `ingestion_status`: ingestion current at 19:10:01Z; semantic index job `372f2467…` pending, 0 attempts; history answered from the ledger only.
 - Packet in the launch prompt: `cp_2212467273a1e0bb3e2a0847`, cutoff `b1af012` — matches main. The hosted `knowledge.json` in the runtime is complete at `77b1845` (behind). `context_for_task` was not called.
 
+### Follow-up read-only MCP calls (turn 3, ~20:35 CET, at the memory worker's request)
+- `record_history plan-hackathon`: 4 versions (rv_2e8e52da… blob bf720973 @80050a4 → rv_2b893f43… blob 5a540af0 @4a2c8d2 → rv_dbf949d8… blob 6c368025 @58b9942 → rv_be2fc740… blob 3eb229a5 @77b1845), 8 events through seq 56, recorded_at 18:33:00Z for the latest.
+- `state_at commit=77b1845`: snapshot ks_a7cd46440f17d8eccb4d, complete, diagnostics [], through_seq 56, direction concept-human-signal; 4 proposals unreviewed.
+These are reads against the currently serving memory (producer c630916 per the memory worker), not against the worker's updated producer branch.
+
 ## Commons (turn 1, branch `blackmath88/nuc-20261031-commons`, base main `b1af012`)
 Implemented and tested: repository rediscovery of contributions (navigator lists citing contributions with author, entrance and cited objects across HTTP/CLI/MCP/UI), adapter-declared `entrance` on every contribution, search over cited objects with source refs in results. Demonstrated cross-entrance path: CLI-style submit citing a comment of `issue/99` → MCP `commons_browse_repository issue/99` shows it with `person:kai`, `cli`, `[comment/…]` → MCP reply labelled `mcp` → HTTP search by the comment id finds it with permalink → hide removes it everywhere; imported record byte-identical (`cross-entrance-rediscovery.test.ts`). Live CLI against a real local server: `evidence/cli-smoke-rediscovery-20261031.txt`. Isolated-PDS protocol roundtrip: a fresh instance rediscovers Alice's ingested record from the cited thread with entrance `atproto` — isolated development network only, not public federation.
 Checks: typecheck · 189/189 tests (PDS suites real) · index byte-identical · build · e2e.sh · multi-entry.sh. Browser: one headless Chromium desktop pass via a minimal CDP script (`evidence/browser-check-rediscovery-20261031.txt`, screenshot); phone/keyboard not run.
@@ -30,6 +35,9 @@ Draft PR https://github.com/blackmath88/baselhack26-open-presence/pull/19, branc
 ## Commons turn 2 (20:27–20:37)
 Evidence items now list the contributions citing their source, including those from other problems sharing the same issue or doc. Reply reach is shown on every citing entry, and context packets carry `citedBy` per evidence item. Checks: typecheck, 190 tests, index, build, e2e, multi-entry smoke, plus a browser pass on real `issue/148` shared by `usb-c-no-data` and `stock-root-adb`. Head `280de64`.
 Pin PR #19 was bumped to producer `f45775c` (observstory #26 turn 2) and re-verified locally: knowledge complete, 0 diagnostics; desktop and 390px phone render.
+
+## Commons turn 3 (20:35–20:41)
+Passage-level citations (`evidenceIds`, CLI `--evidence`) and server-resolved participant display names on every entrance. Checks: 191 tests, typecheck, index, build, e2e, multi-entry smoke, browser pass (`evidence/browser-check-passage-citation-20261031.txt`).
 
 ## Worker reports (read, not re-verified by the coordinator)
 - PDF: PR #17, head `9ecbabd` → turn 2 `4aa8fad` (transformation notebook over A01), two-poem ToUnicode artwork, 27 PDFs; report `reports/pdf.md`.

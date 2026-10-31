@@ -33,7 +33,7 @@ Other knobs: `COMMONS_ATPROTO_NAMESPACE` (default `test.openpresence.commons`, d
 ```bash
 cd apps/commons
 npm run typecheck
-npm test                         # 190 tests; the PDS round-trip suites skip visibly if tools/local-pds is not installed
+npm test                         # 191 tests; the PDS round-trip suites skip visibly if tools/local-pds is not installed
 npm run index:check              # record-only index reproduces byte for byte
 npx vite build
 bash scripts/smoke/e2e.sh        # first-slice smoke (submit, retry, restart, concurrent review)
@@ -79,7 +79,10 @@ result shows source refs (permalink, original author) and entrance. The problem 
 evidence item lists the contributions citing its source object (including those made in *other* problems whose
 evidence cites the same issue or doc, flagged "in another problem"), with entrance and how far the conversation went
 ("1 reply · 2 people", linking to the thread). `inspect <problem>` / `commons_get_problem` return this as
-`evidenceCitations`, and context packets list `citedBy` per evidence item. Hidden or blocked contributions disappear from
+`evidenceCitations`, and context packets list `citedBy` per evidence item. To cite one exact passage rather than the
+whole source object, pass evidence ids (`submit … --evidence e2`, MCP/HTTP `evidenceIds`); the passage's object joins
+`sourceRefs` and the citation attaches to that passage only. Participants appear under the display name the server
+resolved at submission ("Kai"), on every entrance. Hidden or blocked contributions disappear from
 the navigator like everywhere else; imported records are never changed. See
 `evidence/cli-smoke-rediscovery-20261031.txt`, `evidence/browser-check-evidence-citations-20261031.txt` and `server/test/commons/cross-entrance-rediscovery.test.ts`.
 

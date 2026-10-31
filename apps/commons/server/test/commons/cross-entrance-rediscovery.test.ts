@@ -108,4 +108,27 @@ describe('cross-entrance rediscovery from the repository', () => {
     const own = await h.http<{ evidenceCitations: Record<string, Array<{ otherProblem: boolean }>> }>('GET', '/api/commons/problems/gadget-error-71', { token: h.token('Kai') })
     expect(own.body.evidenceCitations.e1?.map(c => c.otherProblem)).toEqual([false])
   })
+
+  it('lets a contributor cite one exact passage, attaches it only there, and shows real participant names everywhere', async () => {
+    harness = await createHarness({ seed: false })
+    await createCommonsImporter(harness.services.repository as TransactionalEventRepository)(sources)
+    const h = harness
+    const kaiMcp = await h.mcp('Kai')
+    // Passage e2 (a comment inside issue/99) only; its source object joins sourceRefs on the server.
+    const prepared = structured<{ ok: boolean; command: { sourceRefs: string[]; evidenceIds: string[] } }>(await kaiMcp.callTool({ name: 'commons_prepare_contribution', arguments: { problemId: PROBLEM, text: 'heliotrope-22: the mmc dev 1 failure in that comment matches my unit exactly', evidenceIds: ['e2'] } }))
+    expect(prepared.command).toMatchObject({ sourceRefs: [COMMENT], evidenceIds: ['e2'] })
+    const bad = structured<{ ok: boolean; errors: string[] }>(await kaiMcp.callTool({ name: 'commons_prepare_contribution', arguments: { problemId: PROBLEM, text: 'x', evidenceIds: ['e99'] } }))
+    expect(bad.ok).toBe(false)
+    const submitted = structured<{ contributionId: string }>(await kaiMcp.callTool({ name: 'commons_submit_contribution', arguments: { commandId: 'mcp-passage-1', problemId: PROBLEM, text: 'heliotrope-22: the mmc dev 1 failure in that comment matches my unit exactly', evidenceIds: ['e2'] } }))
+    const id = submitted.contributionId
+    const view = await h.http<{ evidenceCitations: Record<string, Array<{ contributionId: string; evidenceIds?: string[]; actor: { displayName?: string } }>>; contributions: Array<{ id: string; evidenceIds?: string[]; actor: { id: string; displayName?: string } }> }>('GET', `/api/commons/problems/${PROBLEM}`, { token: h.token('Lea') })
+    expect(view.body.evidenceCitations.e2).toEqual([expect.objectContaining({ contributionId: id, evidenceIds: ['e2'], actor: expect.objectContaining({ displayName: 'Kai' }) })])
+    expect(view.body.evidenceCitations.e1).toBeUndefined() // same thread, different passage: not attached
+    expect(view.body.contributions.find(c => c.id === id)).toMatchObject({ evidenceIds: ['e2'], actor: { id: 'person:kai', displayName: 'Kai' } })
+    // The navigator still finds it from the thread, and search shows the real name.
+    const thread = await h.http<{ thread: { contributions: Array<{ contributionId: string; evidenceIds?: string[] }> } }>('GET', '/api/commons/repository?object=issue%2F99', { token: h.token('Lea') })
+    expect(thread.body.thread.contributions).toEqual([expect.objectContaining({ contributionId: id, evidenceIds: ['e2'] })])
+    const found = await h.http<{ contributions: Array<{ contributionId: string; summary: { actor: { displayName?: string } } }> }>('GET', '/api/commons/search?q=heliotrope', { token: h.token('Lea') })
+    expect(found.body.contributions[0]).toMatchObject({ contributionId: id, summary: { actor: { displayName: 'Kai' } } })
+  })
 })

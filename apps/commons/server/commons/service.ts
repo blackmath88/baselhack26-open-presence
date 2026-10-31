@@ -110,7 +110,7 @@ export function createCommonsService(options: CommonsServiceOptions) {
         const postackId = text(snapshot.problemId, 'problemId')
         const ctx = await loaded(tx)
         if (!ctx.metadata.sources[postackId]) throw notFound('Imported problem', postackId)
-        if (!Array.isArray(snapshot.sourceRefs) || snapshot.sourceRefs.some(s => typeof s !== 'string')) throw invalid('sourceRefs must be a string array.')
+        if (snapshot.sourceRefs !== undefined && (!Array.isArray(snapshot.sourceRefs) || snapshot.sourceRefs.some(s => typeof s !== 'string'))) throw invalid('sourceRefs must be a string array.')
         if (snapshot.preparedBy !== undefined) text(snapshot.preparedBy, 'preparedBy')
         const prepared = prepareContribution(ctx.loaded, ctx.metadata, snapshot)
         if (!prepared.ok || !prepared.command) throw invalid(prepared.errors.join(' '), { errors: prepared.errors })
@@ -130,6 +130,8 @@ export function createCommonsService(options: CommonsServiceOptions) {
           ...(parent ? { parent } : {}), ...(supersedes ? { supersedes } : {}), ...(contradicts ? { contradicts } : {}),
           ...(cmd.observedAt ? { observedAt: cmd.observedAt } : {}),
           ...(entrance ? { entrance } : {}),
+          ...(cmd.evidenceIds?.length ? { evidenceIds: [...cmd.evidenceIds] } : {}),
+          ...(actor.displayName ? { authorName: actor.displayName } : {}),
         }
         return { ...result, problemId: importedProblemSpaceId(postackId), contributionId: result.contribution.id, links: { app: `#/contributions/${encodeURIComponent(result.contribution.id)}` } }
       }))

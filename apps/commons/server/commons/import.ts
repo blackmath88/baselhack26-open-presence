@@ -24,6 +24,9 @@ export interface SubmissionMeta {
   contradicts?: Ref
   observedAt?: string
   entrance?: SubmitEntrance
+  evidenceIds?: string[]
+  /** Server-resolved display name of the submitting participant at submission time; never client-supplied. */
+  authorName?: string
 }
 /** One observed remote record. Our copy is an attributed observation, never authority over the author's content. */
 export interface ExternalObservation {
