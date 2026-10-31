@@ -1,7 +1,11 @@
 # PDF LAB — build the strange objects first
-31 October 2026 · current plan; implementation not started
+31 October 2026 · current roadmap; first implementation delivered
 
 Read [the format-bending brief](FORMAT-BENDING.md). Achim's latest direction prioritises demoscene-like artefacts, reverse engineering and playful format limits. This plan replaces the previous extraction-first sequence. Historical methodology remains in [the research review](RESEARCH-REVIEW-2026-10-31.md) and Git history.
+
+## Implementation checkpoint
+
+See [RUNNING.md](RUNNING.md) for reproduction and limits. B01 is implemented with two-engine render equality and extraction checks. B02 has generated fields/actions and tested logic, but live viewer qualification remains pending. B03 extraction runs are recorded; no divergent rendering or minimized failure is claimed. A local cabinet and eight PDFs are committed. Remaining acceptance items below stay open.
 
 ## 1. Deliver B01: this picture is one letter
 Inspect applicable repository instructions and locally available tools. Select a small generator capable of exposing exact PDF objects; pin versions and review licences. Verify Type 3 font requirements in primary documentation.
