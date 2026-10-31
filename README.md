@@ -5,6 +5,13 @@ BaselHack 2026 · Updated 31 October 2026
 
 Start with [the current concept](HUMAN-SIGNAL-CONCEPT.md).
 
+## Hackathon project management
+- [Project and time plan](HACKATHON-PLAN.md) — milestones, acceptance criteria, Saturday/Sunday targets and scope cuts.
+- [Observstory dashboard and guide](OBSERVSTORY.md) — evidence-backed activity, overlaps and check-ins.
+- [Latest dashboard runs](https://github.com/blackmath88/baselhack26-open-presence/actions/workflows/observstory.yml) — download the private dashboard artifact.
+
+Suggested schedule times are planning targets; the official submission deadline is not yet established.
+
 ## What we are building
 A real **Photo Frame Commons** pilot around [wesbos/photo-frame-dashboard](https://github.com/wesbos/photo-frame-dashboard): find a relevant experience, inspect its circumstances and original conversation, explore connections, and contribute a short observation back through a reviewable local draft.
 
