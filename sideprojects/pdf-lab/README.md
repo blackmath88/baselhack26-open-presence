@@ -1,5 +1,5 @@
 # PDF LAB
-31 October 2026 · BaselHack side project · documentation stage
+31 October 2026 · BaselHack side project · first working cabinet
 
 **How far can you bend a document before it becomes something else?**
 
@@ -8,12 +8,19 @@ A cabinet of strange PDFs: pictures made from letters, secret interfaces, visibl
 ## Current direction
 Achim redirected PDF LAB on 31 October towards format bending, reverse engineering and playful format abuse. **Artefacts onstage, evidence backstage.** Start with [the format-bending brief](FORMAT-BENDING.md) and [current build plan](PLAN.md).
 
-Proposed opening: **B01 This picture is one letter → B02 The backstage machine → B03 What did the reader repair?** These replace the earlier extraction-first sequence. No specimens are implemented yet. Exact exhibit choices remain proposals.
+Proposed opening: **B01 This picture is one letter → B02 The backstage machine → B03 What did the reader repair?** These replace the earlier extraction-first sequence. The first cabinet is implemented: B01 is render/extraction-verified, B02 is a prototype awaiting interactive-viewer qualification, and B03 has recorded extractor results. Exact exhibit choices remain proposals.
 
 The following evidence model and P-series are retained as supporting research, not the primary experience. The earlier [research prompt](RESEARCH-PROMPT.md) and [review](RESEARCH-REVIEW-2026-10-31.md) reflect the foundational forensic framing; use FORMAT-BENDING.md for current creative priorities.
 
+## Open the working cabinet
+
+- [First PDF: this picture is one letter](output/pdf/01-one-letter.pdf)
+- [Alternate extraction: same picture, LOST](output/pdf/01-alternate-reading.pdf)
+- [Local gallery](index.html) — serve this folder locally; see [run instructions and measured limits](RUNNING.md).
+- [Raw evidence](evidence/results.json) and [generator](build.py).
+
 ## Status and agreed scope
-Achim explicitly requested housing this project in a subfolder of the hackathon repository, with concept, build plan and research/sparring prompt, before moving it to a separate repository after the hackathon. That location and later separation are agreed; the technical choices and experiment ordering below are proposals. No implementation, measured result or new repository is claimed.
+Achim explicitly requested housing this project in a subfolder of the hackathon repository, with concept, build plan and research/sparring prompt, before moving it to a separate repository after the hackathon. That location and later separation are agreed; the technical choices and experiment ordering below are proposals. Implementation and measured results are documented in [RUNNING.md](RUNNING.md); no separate repository has been created.
 
 - [Build plan](PLAN.md)
 - [Research review and corrections — 31 October](RESEARCH-REVIEW-2026-10-31.md)
@@ -92,7 +99,7 @@ Primary-source leads located in that session (verify details during research):
 - [PDF Association: AI and PDF](https://pdfa.org/faq-ai-and-pdf/) — ingestion considerations.
 - [PDF Insecurity](https://www.pdf-insecurity.org/) — primary security-research lead; historical findings must not be presented as current unpatched behaviour.
 
-No cross-viewer compatibility, attack success or tool effectiveness has been measured here.
+Current measurements are bounded to the engines and checks in RUNNING.md. Interactive PDF-viewer compatibility remains unqualified.
 
 ## Repository handoff
 - Finding: XL LAB's specimen/instrument/notebook and consumer-comparison model transfers well to a PDF laboratory.
