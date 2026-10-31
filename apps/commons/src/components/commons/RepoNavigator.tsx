@@ -7,27 +7,10 @@ import { useEffect, useState } from 'react'
 import { ExternalLink, FileText, Folder, MessageSquare } from 'lucide-react'
 import { appLinks } from '../../commons/contracts'
 import { commonsApi, type RepoView } from '../../commons/client/api'
-import { actorLabel, safeHref } from './ContributionCard'
+import { safeHref } from './ContributionCard'
+import { CitingList, citingCount } from './CitingList'
 
 type Linked = { problemId: string; title: string; evidenceIds: string[]; locators: string[]; link: string }
-type Citing = { contributionId: string; problemId: string; kind: string; actor: Parameters<typeof actorLabel>[0]; entrance: string; cited: string[]; excerpt: string; createdAt: string; link: string }
-
-/** Community contributions citing this object: the rediscovery path back from the repository to what people added. */
-function Contributions({ contributions }: { contributions: Citing[] }) {
-  if (!contributions.length) return null
-  return (
-    <ul className="commons-citing" aria-label="Contributions citing this">
-      {contributions.map((c) => (
-        <li key={c.contributionId}>
-          <a href={c.link}>{c.kind} by {actorLabel(c.actor)}</a>
-          <span className="commons-limit"> · via {c.entrance} · {c.createdAt.slice(0, 10)} · cites {c.cited.join(', ')} · problem {c.problemId}</span>
-          <div className="commons-limit">“{c.excerpt}”</div>
-        </li>
-      ))}
-    </ul>
-  )
-}
-const citingCount = (n: number) => (n ? <span className="badge" title="community contributions citing this">{n} contribution{n === 1 ? '' : 's'}</span> : null)
 
 function Problems({ problems }: { problems: Linked[] }) {
   if (!problems.length) return <span className="commons-limit">no problem record cites this</span>
@@ -98,7 +81,7 @@ export function RepoNavigator({ token, path, object, type }: { token: string; pa
           <h3><FileText size={15} /> {view.doc.path}</h3>
           <p className="commons-limit">{view.doc.bytes} bytes · sha256 {view.doc.sha256?.slice(0, 16)}… · {safeHref(view.doc.url ?? '') ? <a href={view.doc.url} target="_blank" rel="noreferrer noopener">original at this revision <ExternalLink size={11} /></a> : 'no safe link'}. Full text is not stored here.</p>
           <p>Cited by: <Problems problems={view.doc.problems} /></p>
-          <Contributions contributions={view.doc.contributions} />
+          <CitingList contributions={view.doc.contributions} />
         </div>
       )}
       {(view.view === 'threads') && (
@@ -122,10 +105,10 @@ export function RepoNavigator({ token, path, object, type }: { token: string; pa
           <p className="commons-limit">{view.thread.author ? `@${view.thread.author}` : 'author unknown'} · opened {view.thread.createdAt.slice(0, 10)} · {view.thread.comments} comments by {view.thread.commentAuthors.map((a) => `@${a}`).join(', ') || 'nobody'} · {safeHref(view.thread.url) ? <a href={view.thread.url} target="_blank" rel="noreferrer noopener">original <ExternalLink size={11} /></a> : null}</p>
           <p>Cited by: <Problems problems={view.thread.problems} /></p>
           {view.thread.contributions.length > 0 && <p>Community contributions citing this thread or its comments:</p>}
-          <Contributions contributions={view.thread.contributions} />
+          <CitingList contributions={view.thread.contributions} />
           <ul className="commons-tree">
-            {view.thread.commentList.filter((c) => c.problems.length > 0).map((c) => (
-              <li key={c.object}>{c.object} <span className="commons-limit">@{c.author} · {c.createdAt.slice(0, 10)}</span> → <Problems problems={c.problems} /></li>
+            {view.thread.commentList.filter((c) => c.problems.length > 0 || c.contributions.length > 0).map((c) => (
+              <li key={c.object}>{c.object} <span className="commons-limit">@{c.author} · {c.createdAt.slice(0, 10)}</span> → <Problems problems={c.problems} /> {citingCount(c.contributions.length)}</li>
             ))}
           </ul>
           <p className="commons-limit">Comment bodies are not stored here; only authors, times and hashes. Follow the original to read them.</p>

@@ -28,8 +28,9 @@ echo "== rediscover from the repository (Lea): which threads/docs cite the CLI c
 import sys,json
 for t in json.load(sys.stdin)['threads']:
     for c in t['contributions']:
-        if c['contributionId']=='$CID': print(t['object'],'←',c['kind'],'by',c['actor']['id'],'via',c['entrance'],'cites',c['cited'])"; done
-case "$REF" in issue/*|pull/*|discussion/*|comment/*) ;; *) BRAINSTORM_PARTICIPANT=Lea cli browse "${REF#doc/}" | python3 -c "import sys,json;d=json.load(sys.stdin);print('doc',d.get('doc',{}).get('path'),[(c['actor']['id'],c['entrance']) for c in d.get('doc',{}).get('contributions',[])])";; esac
+        if c['contributionId']=='$CID': print(t['object'],'←',c['kind'],'by',c['actor']['id'],'via',c['entrance'],'cites',c['cited'],'replies',c['replies'],c['participants'])"; done
+case "$REF" in issue/*|pull/*|discussion/*|comment/*) ;; *) BRAINSTORM_PARTICIPANT=Lea cli browse "${REF#doc/}" | python3 -c "import sys,json;d=json.load(sys.stdin);print('doc',d.get('doc',{}).get('path'),[(c['actor']['id'],c['entrance'],'replies',c['replies'],c['participants']) for c in d.get('doc',{}).get('contributions',[])])";; esac
+echo "== problem evidence → citing contributions (Lea)"; BRAINSTORM_PARTICIPANT=Lea cli inspect usb-c-no-data | python3 -c "import sys,json;d=json.load(sys.stdin);print({k:[(c['actor']['id'],c['entrance'],'replies',c['replies'],'other problem' if c['otherProblem'] else 'same problem') for c in v] for k,v in d['evidenceCitations'].items()})"
 echo "== search the cited object (Lea)"; BRAINSTORM_PARTICIPANT=Lea cli search "$REF" | python3 -c "import sys,json;d=json.load(sys.stdin);print([(c['contributionId'],c['summary']['actor']['id'],c['summary']['entrance'],[r['objectId'] for r in c['summary']['sourceRefs']]) for c in d['contributions'] if c['contributionId']=='$CID'])"
 echo "== context"; cli context "$CID" --budget 3000 | python3 -c "import sys,json;d=json.load(sys.stdin);print('contributions',len(d['contributions']),'omissions',len(d['omissions']),'limitations',len(d['limitations']),'sources',len(d['sources']))"
 echo "== publish without an account → exit code:"; cli publish "$CID" > $S/pub.txt; echo "exit $?"; python3 -c "import json;d=json.load(open('$S/pub.txt'));print(d['ready'],d['reason'],d['activation']['mode'])"

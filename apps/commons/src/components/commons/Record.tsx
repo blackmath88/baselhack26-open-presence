@@ -5,6 +5,7 @@
 import { ExternalLink } from 'lucide-react'
 import type { ImportedProblem, SearchHit, SourceRef } from '../../commons/contracts'
 import { appLinks } from '../../commons/contracts'
+import { CitingList, type Citing } from './CitingList'
 
 /** Only link out to the original public host; never render source HTML. */
 const safeHref = (url: string) => (/^https:\/\/github\.com\//.test(url) ? url : undefined)
@@ -29,7 +30,7 @@ export function SourceLine({ source }: { source: SourceRef }) {
   )
 }
 
-export function Record({ problem, hit }: { problem: ImportedProblem; hit?: SearchHit }) {
+export function Record({ problem, hit, citations = {} }: { problem: ImportedProblem; hit?: SearchHit; citations?: Record<string, Citing[]> }) {
   return (
     <article className="commons-record" aria-label={problem.title}>
       <div className="section-kicker">
@@ -60,7 +61,7 @@ export function Record({ problem, hit }: { problem: ImportedProblem; hit?: Searc
       </dl>
       <h3>Evidence</h3>
       <ol className="commons-evidence">
-        {problem.evidence.map((e) => (
+        {problem.evidence.map((e, i) => (
           <li key={e.id}>
             <span className="badge">{e.role}</span>
             {e.quote && (
@@ -74,6 +75,14 @@ export function Record({ problem, hit }: { problem: ImportedProblem; hit?: Searc
               </p>
             )}
             <SourceLine source={e.source} />
+            {citations[e.id]?.length && problem.evidence.findIndex((x) => x.source.objectId === e.source.objectId) < i ? (
+              <p className="commons-limit">Cited by the same {citations[e.id]!.length} contribution{citations[e.id]!.length === 1 ? '' : 's'} as above: contributions cite the whole source object, not one passage.</p>
+            ) : citations[e.id]?.length ? (
+              <details className="commons-cited-by">
+                <summary>{citations[e.id]!.length} contribution{citations[e.id]!.length === 1 ? '' : 's'} cite this source</summary>
+                <CitingList contributions={citations[e.id]!} label={`Contributions citing evidence ${e.id}`} />
+              </details>
+            ) : null}
           </li>
         ))}
       </ol>

@@ -155,3 +155,34 @@ export const threadParticipants = (node: ThreadNode): string[] => {
 
 export const problemLink = (problemId: string) => appLinks.problem(problemId)
 export const roomOf = importedProblemSpaceId
+
+export interface ReplyStats { replies: number; participants: string[]; lastActivityAt: string }
+
+/**
+ * Per visible contribution: how many visible replies/corrections hang below it
+ * (any depth), who took part and when the conversation last moved. Lets every
+ * entrance say "3 replies from 2 people" without fetching the thread.
+ */
+export function replyStats(all: CommonsContribution[], external: CommonsMetadata['external']): Map<string, ReplyStats> {
+  const children = new Map<string, CommonsContribution[]>()
+  for (const c of all) {
+    const targets = new Set([...refTargets(c.parent, external), ...refTargets(c.supersedes, external), ...refTargets(c.contradicts, external)])
+    for (const t of targets) if (t !== c.id) children.set(t, [...(children.get(t) ?? []), c])
+  }
+  const stats = new Map<string, ReplyStats>()
+  for (const root of all) {
+    const seen = new Set<string>([root.id])
+    const people = new Set<string>([root.actor.id])
+    let last = root.createdAt
+    const queue = [...(children.get(root.id) ?? [])]
+    while (queue.length) {
+      const c = queue.shift()!
+      if (seen.has(c.id)) continue
+      seen.add(c.id); people.add(c.actor.id)
+      if (c.createdAt > last) last = c.createdAt
+      queue.push(...(children.get(c.id) ?? []))
+    }
+    stats.set(root.id, { replies: seen.size - 1, participants: [...people], lastActivityAt: last })
+  }
+  return stats
+}

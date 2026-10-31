@@ -59,6 +59,18 @@ describe('cross-entrance rediscovery from the repository', () => {
     const replyView = await h.http<{ entrance: string; actor: { id: string } }>('GET', `/api/commons/contributions/${reply.contributionId}`, { token: h.token('Kai') })
     expect(replyView.body).toMatchObject({ entrance: 'mcp', actor: { id: 'person:lea' } })
 
+    // Problem → evidence → contribution → reply: the record's evidence items name who cites them and how far it went.
+    type Cite = Citing & { replies: number; participants: string[]; otherProblem: boolean }
+    const problemView = structured<{ evidenceCitations: Record<string, Cite[]> }>(await leaMcp.callTool({ name: 'commons_get_problem', arguments: { problemId: PROBLEM } }))
+    for (const evidenceId of ['e1', 'e2']) { // issue/99 (thread containing the comment) and the comment itself
+      expect(problemView.evidenceCitations[evidenceId]).toEqual([expect.objectContaining({ contributionId: id, replies: 1, participants: ['person:kai', 'person:lea'], otherProblem: false })])
+    }
+    expect(problemView.evidenceCitations.e3).toBeUndefined()
+    const thread99 = structured<ThreadView>(await leaMcp.callTool({ name: 'commons_browse_repository', arguments: { object: 'issue/99' } }))
+    expect(thread99.thread.contributions[0]).toMatchObject({ replies: 1, participants: ['person:kai', 'person:lea'] })
+    const packet = structured<{ evidence: Array<{ id: string; citedBy: string[] }> }>(await leaMcp.callTool({ name: 'commons_get_context', arguments: { problemId: PROBLEM, budget: 6000 } }))
+    expect(packet.evidence.find(e => e.id === 'e2')?.citedBy).toEqual([id])
+
     // Search by the cited object id rediscovers the contribution with source refs and entrance.
     const byObject = await h.http<{ contributions: Array<{ contributionId: string; matches: Array<{ field: string }>; explanation: string; summary: { entrance: string; sourceRefs: Array<{ objectId: string; permalink: string; author: string }> } }> }>('GET', `/api/commons/search?q=${encodeURIComponent(COMMENT)}`, { token: h.token('Lea') })
     const hit = byObject.body.contributions.find(c => c.contributionId === id)!
@@ -80,5 +92,20 @@ describe('cross-entrance rediscovery from the repository', () => {
     expect(JSON.stringify(hidden)).not.toContain('larkspur')
     const hiddenHttp = await h.http<unknown>('GET', '/api/commons/repository?object=issue%2F99', { token: h.token('Kai') })
     expect(JSON.stringify(hiddenHttp.body)).not.toContain('larkspur')
+  })
+
+  it('shows a contribution citing a shared source on every problem whose evidence cites it, flagged as another problem', async () => {
+    harness = await createHarness({ seed: false })
+    await createCommonsImporter(harness.services.repository as TransactionalEventRepository)(sources)
+    const h = harness
+    const DOC = 'docs/pf1007l-start-here.md' // e8 of emmc-not-exposed, e1 of gadget-error-71
+    const submitted = await h.http<{ contributionId: string }>('POST', '/api/commons/contributions', {
+      token: h.token('Lea'), body: { commandId: 'browser-doc-1', problemId: 'gadget-error-71', text: 'The start-here guide skips the gadget reset step on PF1007L.', kind: 'observation', sourceRefs: [DOC], entrance: 'browser' },
+    })
+    expect(submitted.status).toBe(201)
+    const other = await h.http<{ evidenceCitations: Record<string, Array<{ contributionId: string; otherProblem: boolean; problemId: string; entrance: string }>> }>('GET', `/api/commons/problems/${PROBLEM}`, { token: h.token('Kai') })
+    expect(other.body.evidenceCitations.e8).toEqual([expect.objectContaining({ contributionId: submitted.body.contributionId, otherProblem: true, problemId: 'gadget-error-71', entrance: 'browser' })])
+    const own = await h.http<{ evidenceCitations: Record<string, Array<{ otherProblem: boolean }>> }>('GET', '/api/commons/problems/gadget-error-71', { token: h.token('Kai') })
+    expect(own.body.evidenceCitations.e1?.map(c => c.otherProblem)).toEqual([false])
   })
 })

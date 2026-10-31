@@ -43,7 +43,7 @@ export function ProblemPanel({ token, problemId, actorId, canReview, focus, mode
     <div className="commons-problem">
       <div className="commons-detail">
         <div>
-          <Record problem={view.problem} />
+          <Record problem={view.problem} citations={view.evidenceCitations} />
           <section aria-label="Conversation" className="commons-conversation">
             <h3>
               Experiences and conversation · {view.contributions.length}

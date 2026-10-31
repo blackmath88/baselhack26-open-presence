@@ -16,9 +16,9 @@ import type { ProblemState } from '../domain/types.js'
 import { invalid, notFound } from '../domain/errors.js'
 import type { CommonsMetadata } from './import.js'
 import { stableHash } from './import.js'
-import { buildThread, isImportedEvidence, revisionsFrom, roomToProblemId, threadParticipants, toCommonsContribution, type ThreadNode } from './projection.js'
+import { buildThread, isImportedEvidence, replyStats, revisionsFrom, roomToProblemId, threadParticipants, toCommonsContribution, type ThreadNode } from './projection.js'
 import { buildContributionIndex, searchContributions, type ContributionHit } from './search.js'
-import { contributionCitationIndex, coverage, getThreadObject, listPath, listThreads } from './repository-view.js'
+import { citationKeys, contributionCitationIndex, coverage, getThreadObject, listPath, listThreads, type CitingContribution } from './repository-view.js'
 import { MAX_CONTRIBUTION_LENGTH } from '../domain/policies.js'
 
 export const recordReader = createCommonsReader()
@@ -124,6 +124,11 @@ export interface ProblemView {
   version: number
   links: { app: string; thread: string }
   evidence: ImportedProblem['evidence']
+  /**
+   * evidenceId → visible contributions citing that evidence's source object (a comment cited
+   * inside a cited thread counts), from this problem and — flagged `otherProblem` — from others.
+   */
+  evidenceCitations: Record<string, Array<CitingContribution & { otherProblem: boolean }>>
   contributions: Array<CommonsContribution | ModeratedContribution>
   related: Array<{ problemId: string; title?: string; relation: string; origin: string; link: string }>
   moderatedCount: number
@@ -142,6 +147,7 @@ export function problemView(loaded: LoadedCommons, metadata: CommonsMetadata, id
     problem, roomId, version: room.events.length,
     links: { app: appLinks.problem(problemId), thread: appLinks.thread(roomId) },
     evidence: problem.evidence,
+    evidenceCitations: evidenceCitations(problem, communityCitations(loaded, metadata)),
     contributions,
     related: problem.related.map(r => ({ problemId: r.problemId, ...(metadata.sources[r.problemId] ? { title: metadata.sources[r.problemId].title } : {}), relation: r.relation, origin: r.origin, link: appLinks.problem(r.problemId) })),
     moderatedCount: contributions.filter(isModerated).length,
@@ -151,6 +157,15 @@ export function problemView(loaded: LoadedCommons, metadata: CommonsMetadata, id
       failed: receipts.filter(r => r.status === 'failed' || r.status === 'conflict').length,
     },
   }
+}
+
+function evidenceCitations(problem: ImportedProblem, community: Map<string, CitingContribution[]>) {
+  const out: ProblemView['evidenceCitations'] = {}
+  for (const e of problem.evidence) {
+    const list = community.get(citationKeys(e.source.objectId)[0]!) ?? []
+    if (list.length) out[e.id] = list.map(c => ({ ...c, otherProblem: c.problemId !== problem.postackId }))
+  }
+  return out
 }
 
 export interface ThreadView { root: ThreadNode; participants: string[]; problemId: string; roomId: string; links: { app: string } }
@@ -183,7 +198,7 @@ export interface ContextPacket {
   freshness: { snapshotAt: string; snapshotRevision: string; recordsOriginCommit: string; roomVersion: number; lastSync: Array<{ did: string; status: string; completedAt?: string }> }
   problem: Pick<ImportedProblem, 'postackId' | 'title' | 'device' | 'environment' | 'symptoms' | 'status' | 'statusNote' | 'outcomes' | 'provenance'>
   sources: SourceRef[]
-  evidence: Array<{ id: string; role: string; quote: string | null; interpretation: string | null; objectId: string; permalink: string }>
+  evidence: Array<{ id: string; role: string; quote: string | null; interpretation: string | null; objectId: string; permalink: string; citedBy: string[] }>
   contributions: Array<Omit<ContributionSummary, 'sourceRefs'> & { text: string; truncated: boolean; sourceRefs: string[]; parent?: string; assistance: CommonsContribution['assistance'] }>
   corrections: ImportedProblem['corrections']
   related: ProblemView['related']
@@ -200,7 +215,7 @@ export function contextPacket(loaded: LoadedCommons, metadata: CommonsMetadata, 
   const budget = Math.min(Math.max(input.budget ?? 12000, 1000), 60000)
   const omissions: string[] = []
   const sources = [...new Map(view.evidence.map(e => [e.source.objectId, e.source])).values()]
-  const evidence = view.evidence.map(e => ({ id: e.id, role: e.role, quote: e.quote, interpretation: e.interpretation, objectId: e.source.objectId, permalink: e.source.permalink }))
+  const evidence = view.evidence.map(e => ({ id: e.id, role: e.role, quote: e.quote, interpretation: e.interpretation, objectId: e.source.objectId, permalink: e.source.permalink, citedBy: (view.evidenceCitations[e.id] ?? []).map(c => c.contributionId) }))
   const ordered = view.contributions.filter((c): c is CommonsContribution => !isModerated(c)).sort((a, b) => a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id))
   if (input.contributionId) {
     const target = ordered.findIndex(c => c.id === input.contributionId)
@@ -243,13 +258,19 @@ export function contextPacket(loaded: LoadedCommons, metadata: CommonsMetadata, 
   }
 }
 
+/** Navigator key → visible contributions citing it, with reply stats. Moderated contributions never appear. */
+export function communityCitations(loaded: LoadedCommons, metadata: CommonsMetadata) {
+  const shown = visible(loaded)
+  return contributionCitationIndex(shown, replyStats(shown, metadata.external))
+}
+
 // --- browse --------------------------------------------------------------------
 
 export function browse(loaded: LoadedCommons, metadata: CommonsMetadata, input: { path?: string; object?: string; type?: 'issue' | 'pull' | 'discussion'; cursor?: string; limit?: number; linkedOnly?: boolean }) {
   const problems = Object.values(metadata.sources)
   // Moderated contributions are never visible here, so a hidden citation leaves no trace on the navigator.
+  const community = communityCitations(loaded, metadata)
   const shown = visible(loaded)
-  const community = contributionCitationIndex(shown)
   const base = { coverage: coverage(), problems: problems.length, contributions: shown.length, link: appLinks.repository(input.path ?? '') }
   if (input.object) {
     const thread = getThreadObject(input.object, problems, community)

@@ -7,6 +7,7 @@
 import { manifest } from '../../src/commons/source/index.js'
 import type { CommonsContribution, CommonsEntrance, ImportedProblem } from '../../src/commons/contracts.js'
 import { appLinks } from '../../src/commons/contracts.js'
+import type { ReplyStats } from './projection.js'
 
 type Thread = (typeof manifest.threads)[number]
 type Doc = (typeof manifest.docs)[number]
@@ -17,6 +18,8 @@ export interface CitingContribution {
   contributionId: string; problemId: string; kind: string; actor: CommonsContribution['actor']; entrance: CommonsEntrance
   /** The exact objectIds the contribution cited (a comment cited inside a thread is listed under the thread too). */
   cited: string[]; excerpt: string; createdAt: string; link: string
+  /** Visible replies and corrections below it (any depth), who took part, when it last moved. */
+  replies: number; participants: string[]; lastActivityAt: string
 }
 
 export interface RepoCoverage {
@@ -49,7 +52,7 @@ export function citationKeys(objectId: string): string[] {
 }
 
 /** objectId → visible contributions whose source references cite it, oldest first. */
-export function contributionCitationIndex(contributions: CommonsContribution[]): Map<string, CitingContribution[]> {
+export function contributionCitationIndex(contributions: CommonsContribution[], stats: Map<string, ReplyStats> = new Map()): Map<string, CitingContribution[]> {
   const index = new Map<string, CitingContribution[]>()
   for (const c of [...contributions].sort((a, b) => a.createdAt.localeCompare(b.createdAt))) {
     for (const ref of c.sourceRefs) {
@@ -60,6 +63,7 @@ export function contributionCitationIndex(contributions: CommonsContribution[]):
           entry = {
             contributionId: c.id, problemId: c.problemId, kind: c.kind, actor: c.actor, entrance: c.entrance, cited: [],
             excerpt: c.text.length > 160 ? `${c.text.slice(0, 157)}…` : c.text, createdAt: c.createdAt, link: c.links.app,
+            replies: stats.get(c.id)?.replies ?? 0, participants: stats.get(c.id)?.participants ?? [c.actor.id], lastActivityAt: stats.get(c.id)?.lastActivityAt ?? c.createdAt,
           }
           list.push(entry)
         }

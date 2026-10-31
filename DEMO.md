@@ -33,7 +33,7 @@ Other knobs: `COMMONS_ATPROTO_NAMESPACE` (default `test.openpresence.commons`, d
 ```bash
 cd apps/commons
 npm run typecheck
-npm test                         # 189 tests; the PDS round-trip suites skip visibly if tools/local-pds is not installed
+npm test                         # 190 tests; the PDS round-trip suites skip visibly if tools/local-pds is not installed
 npm run index:check              # record-only index reproduces byte for byte
 npx vite build
 bash scripts/smoke/e2e.sh        # first-slice smoke (submit, retry, restart, concurrent review)
@@ -75,9 +75,13 @@ never authorization. A contribution's source refs feed back into the repository 
 **Repository** view in the browser) lists it under the thread — and under the exact comment if it cited one — with
 author, entrance and cited objects. `--threads issue --linked` now includes threads cited only by contributions.
 Searching the cited object id (`npm run commons -- search issue/99`) finds it through a `source` match, and the
-result shows source refs (permalink, original author) and entrance. Hidden or blocked contributions disappear from
+result shows source refs (permalink, original author) and entrance. The problem record closes the same loop from the other side: each
+evidence item lists the contributions citing its source object (including those made in *other* problems whose
+evidence cites the same issue or doc, flagged "in another problem"), with entrance and how far the conversation went
+("1 reply · 2 people", linking to the thread). `inspect <problem>` / `commons_get_problem` return this as
+`evidenceCitations`, and context packets list `citedBy` per evidence item. Hidden or blocked contributions disappear from
 the navigator like everywhere else; imported records are never changed. See
-`evidence/cli-smoke-rediscovery-20261031.txt` and `server/test/commons/cross-entrance-rediscovery.test.ts`.
+`evidence/cli-smoke-rediscovery-20261031.txt`, `evidence/browser-check-evidence-citations-20261031.txt` and `server/test/commons/cross-entrance-rediscovery.test.ts`.
 
 **3. Community link and ATProto.** Any contribution has `#/contributions/<id>` and `#/threads/<id>`; opening one
 restores the problem, highlights the contribution and shows the conversation with both voices. **Reply** and
