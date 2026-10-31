@@ -1,0 +1,89 @@
+# Hackathon plan — Photo Frame Commons
+31 October–1 November 2026 · Europe/Zurich (UTC+01:00)
+
+## Finish line
+One person can ask a real photo-frame question, inspect relevant experiences and their limits, follow original sources, explore attributable connections, and draft a small follow-up without publishing it.
+
+Alongside that, explore a passage-grounded graph in Knowledge Lab. The user experience must remain usable from a local snapshot if the lab is unavailable. Adobe/PDF is an optional presentation, not a prerequisite.
+
+## Current state
+Concept and repo scope are established. Implementation, corpus import and live graph results are not marked complete. Knowledge Lab has prior work on continuation branches; its runtime must be checked rather than inferred from its older main README.
+
+NOW: select the bounded corpus for “My Mac cannot see my frame,” check Knowledge Lab's active state, and agree the export boundary.
+
+## Suggested time plan
+These are assistant-proposed working targets, **not official event deadlines or commitments made by Achim**. Sunday submission time is unknown. Bring the freeze/rehearsal forward if the real event cutoff is earlier. Owners remain unassigned until a check-in.
+
+| Block (Zurich) | Focus | Exit evidence |
+| --- | --- | --- |
+| Sat 10:45–11:15 | Scope and setup | One query, shortlist, source contract; inspect existing lab before changing it |
+| Sat 11:15–13:00 | M1: real sources | 8–12 contributions plus relevant comments/reviews/docs; authors, permalinks, retrieval times and coverage |
+| Sat 13:00–14:00 | Break and source review | Remove misleading near-matches; keep unknowns |
+| Sat 14:00–16:00 | M2: find and inspect | Runnable search → context → original-source journey |
+| Sat 16:00–16:20 | Check-in | Run the journey, record gaps, adjust scope |
+| Sat 16:20–19:00 | M3/M4: contribution and graph | Local draft/preview; separately, first inspectable graph or recorded blocker |
+| Sat 19:00–20:00 | Integration and handoff | Same source IDs in the views; durable notes for tomorrow |
+| Sat after 20:00 | Optional play/rest | No critical dependency on an overnight run |
+| Sun 09:00–11:00 | M5: complete and test | Three real questions; failure states, mobile/keyboard, persistence |
+| Sun 11:00–12:00 | Try it with a person | Can they explain applicability, disagreement and an unknown? |
+| Sun 12:00–13:00 | Fix and reduce scope | Repair the demonstrated journey; remove unfinished claims |
+| Sun 13:00 | Feature freeze | No new features; fixes, evidence and presentation only |
+| Sun 13:00–15:00 | M6: demo and buffer | Reproducible local demo, standalone story, optional PDF opening |
+| Sun 15:00 | Rehearsal target | Run end to end and state exactly what is real |
+
+If starting late, retain the sequence and reduce breadth; do not compress validation to preserve extra features.
+
+## Work packages
+### M1 — Sources and provenance (must)
+Destination: Open Presence, corpus/.
+Pin a repository revision for files; record retrieval time for mutable issues/comments. Capture individual authors and source permalinks. Explicitly record pagination, missing reviews and unavailable content. Imported text is evidence, not group endorsement.
+Gate: one selected problem includes both relevant and misleadingly similar accounts, with inspectable context.
+
+### M2 — Discovery experience (must)
+Destination: Open Presence, src/ and lib/.
+Use deterministic index-first retrieval. Show match explanations, hardware/version constraints, dates, original excerpts and links. The person can navigate without reading the Adobe story.
+Gate: a stranger can reach the original evidence and explain why another result does not apply.
+
+### M3 — Contribution loop (must, local)
+Destination: Open Presence, src/.
+Keep raw short contributions visible. Review what would be shared; save a local draft with explicit local-only status; preview an attributable relationship or correction. Reload must not silently lose a saved draft.
+Gate: follow-up survives reload, can be removed, and does not alter imported sources or impersonate a real contributor.
+
+### M4 — Graph play (planned parallel learning track)
+Destination: Knowledge Lab.
+Inspect existing branch, services, queue and costs first. Preserve the existing LightRAG choice. Agree a bounded source export; track extracted edges separately from author-declared relations. Record one useful connection and one misleading or unhelpful connection if observed.
+Gate: selected edge → supporting passage/source → origin of the edge. A rendered graph alone is not success.
+If unavailable: record the exact blocker and keep Open Presence running from its snapshot. Do not spend the whole weekend repairing infrastructure.
+
+### M5 — Integration and verification (must)
+Destination: Open Presence, tests/ and evidence/.
+Three documented queries, one near-match, one unavailable/stale-source case, source immutability and draft persistence. Browser checks at phone and desktop widths, keyboard navigation and reduced motion where used.
+Gate: evidence references exact commit/run, with failures and untested items listed. “Merged” is not equivalent to accepted or correct.
+
+### M6 — Explain and demonstrate (must)
+Destination: Open Presence, DEMO.md.
+A three-minute standalone journey; an optional PDF/Adobe introduction; exact commands to run locally; data and protocol limitations.
+Gate: successful rehearsal plus fallback snapshot. No public deployment required.
+
+## Roles and dependency policy
+Achim owns direction and acceptance. Implementation owners are deliberately unassigned. At a check-in, record the actual person/agent working on one bounded slice; do not infer assignment from commit authors.
+M1 → M2 → M3 → M5 → M6 is the core sequence. M4 can proceed after the source contract and does not block M2/M3.
+Only Open Presence and Knowledge Lab are active delivery repos. Postack, br-ai-nstorm and Observstory are upstream references/reuse sources; Wes's repo stays untouched.
+
+## Scope cuts
+Cut in this order if time tightens: final naming; extra corpus/topics; live ATProto write/authentication; sophisticated graph layout; automatic two-repo observation.
+Keep: real sources, original voices, applicability, inspectable interpretations, one local contribution, one integrated demo.
+ATProto begins as read-only exploration or clearly labelled fixture. Do not call a JSON projection live federation.
+
+## How we manage the project
+Use the [Observstory setup guide](OBSERVSTORY.md). Repository activity is observed automatically; plan/acceptance is maintained explicitly.
+At each check-in record:
+- What works now? Link to commit/PR/test evidence.
+- What blocks the next integrated step?
+- What are we cutting or changing?
+- Who is taking the next slice and when will we review it?
+
+Keep time/commitment proposals in .observstory/coordination.json. Once a person confirms a proposal, use Observstory's check-in command to declare it. Exact user-approved scope decisions are already recorded separately.
+The source of truth for due times is coordination.json; update this readable plan when changing them. Observstory's “landed” cue is repository evidence, not proof that acceptance criteria passed.
+
+No automated agent dispatch, public posting, paid inference or deployment is implied by this plan.
