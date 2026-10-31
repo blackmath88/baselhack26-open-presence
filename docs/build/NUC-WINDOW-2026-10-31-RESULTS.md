@@ -42,6 +42,9 @@ Passage-level citations (`evidenceIds`, CLI `--evidence`) and server-resolved pa
 ## Commons turn 4 (20:40–20:45)
 Browser composer cites exact passages; "Respond to this passage" on every evidence item. Real browser round trip, browser → CLI rediscovery with name, entrance and source ref; phone-width pass. Checks: typecheck, 191 tests, index, build (UI-only change, server smokes not rerun).
 
+## Commons turn 5 (20:44–20:50)
+Committed `scripts/smoke/browser.sh`: a CLI → browser → CLI journey (repository → contribution → reply → passage → rediscovery) with assertions; it passes (`evidence/browser-smoke-cross-entrance-20261031.txt`). No product code changed.
+
 ## Worker reports (read, not re-verified by the coordinator)
 - PDF: PR #17, head `9ecbabd` → turn 2 `4aa8fad` (transformation notebook over A01), two-poem ToUnicode artwork, 27 PDFs; report `reports/pdf.md`.
 - Observatory: observstory PR #26, producer head `4d107c6` → turn 2 `f45775c`, stacked on #24 (`84c3c0a`); consumer pin update left to coordinator.

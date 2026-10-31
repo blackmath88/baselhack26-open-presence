@@ -38,6 +38,7 @@ npm run index:check              # record-only index reproduces byte for byte
 npx vite build
 bash scripts/smoke/e2e.sh        # first-slice smoke (submit, retry, restart, concurrent review)
 bash scripts/smoke/multi-entry.sh # CLI entrance against a real server: search, browse, draft, submit, reply, thread, repository rediscovery, context, moderation, status
+bash scripts/smoke/browser.sh     # CLI → browser → CLI: repository view, reply and passage response in Chromium, rediscovered by the CLI (needs Chromium; skips without)
 ```
 
 ## Three entrances, one Commons

@@ -1,0 +1,20 @@
+bash apps/commons/scripts/smoke/browser.sh — run 2026-10-31 ~20:49 CET by Claude Code (self-run), Chromium Chromium 154.0.8037.97 Arch Linux, Node v26.8.1
+
+== CLI (Kai): attempt citing issue/148
+contribution contrib_b2bed89b-6dd5-4477-be1f-7795fb1251e7
+== browser (Lea)
+ok   citing entry shows author and entrance — attempt by Kai · via cli · 2026-10-31 · cites issue/148 · problem usb-c-no-data “smoke-cli-marjoram: issue 148 workaround only works through a USB-A hub” — no replies yet
+ok   problem record is shown with the contribution
+ok   reply composer opens
+ok   reply preview requested
+ok   reply submitted
+ok   respond to passage e2
+ok   passage preview requested
+ok   passage response submitted
+ok   draft count settles
+info problem usb-c-no-data, passage e2, signed in as Lea
+== CLI (Kai) rediscovers the browser contributions
+thread replies: [('Lea', 'browser', 'smoke-reply-quillwort: which hub')]
+passage citations: {'e2': [('Lea', 'browser', ['e2'])], 'e4': []}
+search: Lea browser ['doc/docs/pf1007l-start-here.md']
+PASS browser smoke · evidence in /tmp/commons-browser-smoke
