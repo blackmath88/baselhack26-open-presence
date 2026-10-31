@@ -12,7 +12,7 @@ import type { ActorContext } from '../auth/actor-context.js'
 import { conflictError, forbidden, invalid, notFound } from '../domain/errors.js'
 import type { Clock } from '../domain/events.js'
 import type { TransactionalEventRepository } from '../persistence/repository.js'
-import type { AtprotoAdapter, AtprotoSession, RecordBuildInput } from './atproto/contract.js'
+import type { AtprotoAdapter, AtprotoSession, PublishOutcome, RecordBuildInput } from './atproto/contract.js'
 import { commonsIds, commonsMetadata, type CommonsMetadata } from './import.js'
 import { loadCommons, type LoadedCommons } from './queries.js'
 
@@ -129,12 +129,22 @@ export function createOutboxDrainer(repository: TransactionalEventRepository, de
     const batch = await repository.transaction(async tx => {
       const metadata = commonsMetadata(tx)
       const now = deps.clock.now()
+      const loaded = loadCommons(await tx.repository.read(), metadata)
       const picked: Array<{ intent: PublicationIntent; receipt: PublicationReceipt }> = []
       for (const intentId of [...metadata.outbox]) {
         const intent = metadata.intents[intentId]
         const receipt = intent && metadata.publications[intent.contributionId]
         if (!intent || !receipt || receipt.intentId !== intentId) { metadata.outbox = metadata.outbox.filter(id => id !== intentId); continue }
         if (!['queued', 'failed', 'publishing'].includes(receipt.status)) { metadata.outbox = metadata.outbox.filter(id => id !== intentId); continue }
+        // A queued write is not permanent permission to publish. Keep blocked
+        // entries pending, but never contact the publisher while they are withheld.
+        const contribution = loaded.contributions.get(intent.contributionId)
+        if (!contribution || isModerated(contribution)) continue
+        if (contribution.revision !== intent.revision || build(deps, contribution, metadata, []).digest !== intent.payloadDigest) {
+          receipt.status = 'failed'
+          receipt.lastError = 'Contribution changed since the publication preview; the queued payload was not sent.'
+          continue
+        }
         receipt.status = 'publishing'
         receipt.attempts += 1
         receipt.lastAttemptAt = now
@@ -144,7 +154,21 @@ export function createOutboxDrainer(repository: TransactionalEventRepository, de
     })
     const receipts: PublicationReceipt[] = []
     for (const { intent } of batch) {
-      const outcome = await deps.adapter.publisher.reconcileOrCreate({ actorId: intent.actorId, collection: intent.collection, rkey: intent.rkey, record: intent.record, digest: intent.payloadDigest })
+      let outcome: PublishOutcome
+      try {
+        const session = await deps.adapter.sessions.sessionFor(intent.actorId)
+        if (!session || session.did !== intent.did || new URL(session.service).href !== new URL(intent.service).href) {
+          outcome = { outcome: 'unreachable', error: 'Publication account changed since the preview; restore the previewed account before retrying.' }
+        } else {
+          outcome = await deps.adapter.publisher.reconcileOrCreate({ actorId: intent.actorId,
+            expectedSession: { did: intent.did, service: intent.service },
+            collection: intent.collection, rkey: intent.rkey, record: intent.record, digest: intent.payloadDigest })
+        }
+      } catch (error) {
+        // A throwing session provider/transport must not strand the whole batch
+        // in publishing or prevent unrelated queued contributions from settling.
+        outcome = { outcome: 'unreachable', error: error instanceof Error ? error.message : String(error) }
+      }
       receipts.push(await repository.transaction(async tx => {
         const metadata = commonsMetadata(tx)
         const receipt = metadata.publications[intent.contributionId]!

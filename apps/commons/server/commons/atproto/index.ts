@@ -243,6 +243,10 @@ export function createAtprotoAdapter(config: AtprotoAdapterConfig): AtprotoAdapt
       try { agent = await agentFor(request.actorId) } catch (error) { return { outcome: 'unreachable', error: `login failed: ${errorText(error)}` } }
       if (!agent?.session) return { outcome: 'unreachable', error: `no connected account for ${request.actorId}` }
       const did = agent.session.did
+      if (request.expectedSession && (did !== request.expectedSession.did ||
+        new URL(config.accounts[request.actorId]!.service).href !== new URL(request.expectedSession.service).href)) {
+        return { outcome: 'unreachable', error: 'Publication account changed since the preview; restore the previewed account before retrying.' }
+      }
       const expected = canonicalJson(request.record)
       // 1. Read first: an earlier attempt may have succeeded past a timeout.
       try {

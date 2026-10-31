@@ -73,6 +73,8 @@ export interface AtprotoSessionProvider {
 
 export interface PublishRequest {
   actorId: string
+  /** Persisted preview destination. Check against the actual session before any record I/O. */
+  expectedSession?: Pick<AtprotoSession, 'did' | 'service'>
   collection: string
   rkey: string
   record: Record<string, unknown>

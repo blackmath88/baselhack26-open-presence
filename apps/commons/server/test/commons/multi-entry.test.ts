@@ -194,6 +194,43 @@ describe('M0 — migration and moderation', () => {
 
 describe('M3 — publication outbox (fake PDS, real records)', () => {
   const alice = { did: 'did:plc:alicefake000000000000000', handle: 'alice.test' }
+  it('does not retry a queued publication while its contribution is hidden or its author blocked', async () => {
+    const fake = createFakeAtproto({ appId: 'open-presence-commons-test', accounts: { 'person:kai': alice } })
+    const { service } = await setupService({ atproto: fake.adapter })
+    const { contributionId } = await service.submitContribution(kai, { commandId: 'moderated-publish', problemId: PROBLEM, text: 'Withheld observation', sourceRefs: [] })
+    const prepared = await service.preparePublication(kai, { contributionId })
+    if (!prepared.ready) throw new Error('expected ready')
+    fake.faults.timeoutAfterWrite = 1
+    await service.publishContribution(kai, { intentId: prepared.intent.intentId })
+    const callsBefore = fake.calls.length
+    await service.moderate(lea, { commandId: 'hide-pending', action: 'hide', contributionId })
+    expect((await service.retryPublications(kai)).attempted).toBe(0)
+    expect(fake.calls).toHaveLength(callsBefore)
+    await service.moderate(lea, { commandId: 'unhide-pending', action: 'unhide', contributionId })
+    await service.moderate(lea, { commandId: 'block-pending', action: 'block', authorId: kai.actorId })
+    expect((await service.retryPublications(kai)).attempted).toBe(0)
+    expect(fake.calls).toHaveLength(callsBefore)
+    await service.moderate(lea, { commandId: 'unblock-pending', action: 'unblock', authorId: kai.actorId })
+    expect((await service.retryPublications(kai)).receipts[0].status).toBe('published')
+    expect(fake.count(alice.did)).toBe(1)
+  })
+
+  it('keeps a pending publication bound to the previewed account after a restart', async () => {
+    const fake = createFakeAtproto({ appId: 'open-presence-commons-test', accounts: { 'person:kai': alice } })
+    const { service, repository } = await setupService({ atproto: fake.adapter })
+    const { contributionId } = await service.submitContribution(kai, { commandId: 'bound-publish', problemId: PROBLEM, text: 'Account-bound observation', sourceRefs: [] })
+    const prepared = await service.preparePublication(kai, { contributionId })
+    if (!prepared.ready) throw new Error('expected ready')
+    const bob = { did: 'did:plc:bobfake00000000000000000', handle: 'bob.test' }
+    const changed = createFakeAtproto({ appId: 'open-presence-commons-test', accounts: { 'person:kai': bob } })
+    const restarted = createCommonsService({ repository, clock, atproto: changed.adapter, appUrl: 'http://localhost:5173', appId: 'open-presence-commons-test' })
+    const result = await restarted.publishContribution(kai, { intentId: prepared.intent.intentId })
+    expect(result.receipt.status).toBe('failed')
+    expect(result.receipt.did).toBe(alice.did)
+    expect(result.receipt.lastError).toMatch(/account.*changed/i)
+    expect(changed.store.size).toBe(0)
+  })
+
   it('reports an actionable state without an account, previews with one, and never writes until told to', async () => {
     const fake = createFakeAtproto({ appId: 'open-presence-commons-test', accounts: { 'person:kai': alice } })
     const { service } = await setupService({ atproto: fake.adapter })
