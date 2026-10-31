@@ -30,7 +30,7 @@
     }
   ],
   "conditions": [
-    "Evidence paths exist on PR #17 head 9ecbabd0a2272b86736cf6ef5d0d2bb66687b3ca, not on main.",
+    "Evidence paths exist on PR #17 (turn 1 head 9ecbabd0a2272b86736cf6ef5d0d2bb66687b3ca; latest head 24ae9312bcbda4e95b10b483fee4fcb5b6a3431c adds a transformation notebook and a minimised Ghostscript multi-character mapping loss), not on main.",
     "Authored shortened ASCII fixtures and the named engine versions only; equality is within each engine.",
     "Native interactive viewers, OCR and print/rewrite survival are unqualified.",
     "Worker self-verification; the coordinator did not rerun these checks."

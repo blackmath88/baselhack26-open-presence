@@ -2,23 +2,51 @@
   "schema": "observstory.proposal/v1",
   "id": "commons-repository-rediscovery-20261031",
   "kind": "finding",
-  "title": "Commons contributions now come back from the repository objects they cite",
-  "statement": "In the merged multi-entry Commons (main b1af012) the repository navigator linked source objects only to imported problem records; a participant's contribution citing issue/99 was not visible to anyone browsing issue/99, search could not find it by the cited object, and no entrance was recorded. On branch blackmath88/nuc-20261031-commons the navigator joins visible contributions' source refs to docs, threads and comments across HTTP, CLI, MCP and the browser, each contribution carries an adapter-declared entrance, and search matches cited objects and returns source refs. Verified by tests and a live CLI smoke; isolated-PDS roundtrip only, not public federation; UI checked in one headless desktop browser pass.",
-  "author": { "name": "Claude Code (claude-opus-5-5)", "kind": "assistant", "via": "NUC build window 2026-10-31, Commons coordinator" },
+  "title": "Commons contributions now come back from the repository objects, evidence passages and search results they relate to",
+  "statement": "In the merged multi-entry Commons (main b1af012) the repository navigator linked source objects only to imported problem records; a contribution citing issue/99 was not visible to anyone browsing issue/99, evidence items did not show who cited them, search could not find contributions by cited object, no entrance was recorded and participants appeared as ids. On branch blackmath88/nuc-20261031-commons (draft PR #18): the navigator, problem evidence items (including contributions from other problems citing the same source) and problem search hits show community contributions with author name, entrance, reply reach and source refs across HTTP, CLI, MCP and the browser; contributions can cite exact evidence passages from every entrance including the browser ('Respond to this passage'). A committed browser smoke (scripts/smoke/browser.sh) walks CLI → browser repository view → reply → passage response → CLI rediscovery. Isolated-PDS roundtrip only, not public federation.",
+  "author": {
+    "name": "Claude Code (claude-opus-5-5)",
+    "kind": "assistant",
+    "via": "NUC build window 2026-10-31, Commons coordinator"
+  },
   "submitted_at": "2026-10-31T20:25:00+01:00",
-  "base": { "repository": "blackmath88/baselhack26-open-presence", "commit": "b1af0128bfd48e5d6e8b8579f790858636b7d087", "context_packet_id": "cp_2212467273a1e0bb3e2a0847" },
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "b1af0128bfd48e5d6e8b8579f790858636b7d087",
+    "context_packet_id": "cp_2212467273a1e0bb3e2a0847"
+  },
   "evidence": [
-    { "path": "apps/commons/server/test/commons/cross-entrance-rediscovery.test.ts" },
-    { "path": "evidence/cli-smoke-rediscovery-20261031.txt" },
-    { "path": "BUILD-STATUS.md" },
-    { "path": "evidence/browser-check-rediscovery-20261031.txt" },
-    { "record": "decision-agreed-value-and-use-cases", "version_id": "rv_168e3f8c6aaf0cadfdba" }
+    {
+      "path": "apps/commons/server/test/commons/cross-entrance-rediscovery.test.ts"
+    },
+    {
+      "path": "apps/commons/scripts/smoke/browser.sh"
+    },
+    {
+      "path": "evidence/browser-smoke-cross-entrance-20261031.txt"
+    },
+    {
+      "path": "evidence/cli-smoke-rediscovery-20261031.txt"
+    },
+    {
+      "path": "evidence/browser-check-respond-to-passage-20261031.txt"
+    },
+    {
+      "path": "BUILD-STATUS.md"
+    },
+    {
+      "record": "decision-agreed-value-and-use-cases",
+      "version_id": "rv_168e3f8c6aaf0cadfdba"
+    }
   ],
   "conditions": [
     "Self-reviewed by the implementing assistant; no independent or human review.",
     "Entrance is declared by the adapter (browser and CLI over HTTP, MCP server-side); it is not detection or authorization.",
     "ATProto evidence is an isolated in-process PDS, not public federation.",
-    "Browser UI checked in one headless Chromium desktop pass only."
+    "Browser checks are headless Chromium driven over CDP at desktop width plus one 390px visual inspection; no keyboard-only or screen-reader certification.",
+    "Participant display names are stored only for submissions made after this change; older local records show ids."
   ],
-  "proposed_change": { "op": "none" }
+  "proposed_change": {
+    "op": "none"
+  }
 }

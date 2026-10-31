@@ -3,7 +3,7 @@
   "id": "observatory-category-navigation-20261031",
   "kind": "finding",
   "title": "Category navigation and recursive expansion make implementation artifacts inspectable in the Observatory workspace",
-  "statement": "The Observatory worker reports that this project's 39 heterogeneous projected records were partly hidden by one-level expansion: implementation artifacts sat below derived areas. Producer 4d107c6 (observstory PR #26, stacked on #24) adds category filters, shared search and ancestor-preserving recursive display. It keeps provenance and leaves lifecycle as unknown. A local consumer build with that producer renders 42 records with the filters (PR #19).",
+  "statement": "The Observatory worker reports that this project's 39 heterogeneous projected records were partly hidden by one-level expansion: implementation artifacts sat below derived areas. Producer 4d107c6 (observstory PR #26, stacked on #24; later heads f45775c, f0cbde8 and ae4f814 add timeline windows and a Sources and provenance drawer) adds category filters, shared search and ancestor-preserving recursive display. It keeps provenance and leaves lifecycle as unknown. Local consumer builds with each pinned producer rendered the workspace; the final pin ae4f814 renders 44 records and opens records with the provenance drawer (PR #19).",
   "author": {
     "name": "Codex (Observatory worker); filed by Claude Code coordinator",
     "kind": "assistant",
@@ -24,7 +24,7 @@
     }
   ],
   "conditions": [
-    "Producer evidence lives in blackmath88/observstory at 4d107c6 (frontend/docs/visual-workspace/REVIEW.md); the local pin evidence lives on branch blackmath88/nuc-20261031-observatory-pin.",
+    "Producer evidence lives in blackmath88/observstory at ae4f814 (frontend/docs/visual-workspace/REVIEW.md and worker reports); the local pin evidence lives on branch blackmath88/nuc-20261031-observatory-pin (evidence/observatory-pin-4d107c6-local.txt).",
     "Worker self-verification on captured inputs plus a coordinator local build; no CI run, no deployment.",
     "Does not establish implementation progress, owners or dates."
   ],

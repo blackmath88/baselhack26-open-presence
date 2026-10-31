@@ -51,11 +51,13 @@ The supervisor mistakenly capped every lane at five turns. Commons finished turn
 ## Commons turn 6 (22:18–22:25) and final consumer pin
 - Search results for problem records carry `community`: own experiences, replies, participant names, last activity, and contributions in other problems citing the same sources. Shown in the browser and covered in the browser smoke. Checks on head: typecheck, 192 tests, index, build, e2e, multi-entry, browser.sh PASS.
 - PR #19 pinned to producer `f0cbde8` (observstory #26 turn 5, equal to the fetched remote head at 22:19 CET). Local consumption verified: knowledge complete, 0 diagnostics; installed `index.html` byte-identical to the producer release; 44 records with new timeline-window controls render at 1440px; 390px captured. No CI run with this pin, no deployment.
+- Then re-pinned to `ae4f814` (observstory #26 recovery head, announced READY in messages/commons.txt at 22:22; pin commit `bf466a1`): knowledge complete, 0 diagnostics, 44 records; opening a record shows the new Sources and provenance and Captured input revisions drawer sections. The Observatory worker was told via messages/observatory.txt that the pin is final unless a new READY head arrives before 22:40.
 - Commons #18 CI passed on an earlier head (reported by the supervisor). It was not re-observed by me for the latest push.
 
 ## Worker reports (read, not re-verified by the coordinator)
-- PDF: PR #17, head `9ecbabd` → turn 2 `4aa8fad` (transformation notebook over A01), two-poem ToUnicode artwork, 27 PDFs; report `reports/pdf.md`.
-- Observatory: observstory PR #26, producer head `4d107c6` → turn 2 `f45775c`, stacked on #24 (`84c3c0a`); consumer pin update left to coordinator.
+- Memory (knowledge-lab draft PR #4, head `011a360` at its 20:38 report): producer pin c23c35a in the feature worktree, trustworthy backup/restore-check (90 payloads verified on a real-data copy). Live services were not switched; the activation remains owner-controlled.
+- PDF: PR #17, head `9ecbabd` → turn 2 `4aa8fad` (transformation notebook over A01) → recovery `24ae931` (one glyph, three maps: Ghostscript keeps 1-char A/Z maps, drops the 3-char SEA map), two-poem ToUnicode artwork, 27 PDFs; report `reports/pdf.md`.
+- Observatory: observstory PR #26, producer head `4d107c6` → turn 2 `f45775c` → turn 5 `f0cbde8` → recovery `ae4f814` (Sources and provenance drawer), stacked on #24 (`84c3c0a`); consumer pin update left to coordinator.
 
 ## Limitations / next
 See `BUILD-STATUS.md` (NUC window section) and the runtime report `reports/commons.md`.
