@@ -1,5 +1,5 @@
 {
-  "edition": 1,
+  "edition": 2,
   "accessed": "2026-10-31",
   "sources": [
     {
@@ -45,6 +45,28 @@
       "type": "primary technical guidance",
       "status": "read; relevant passages located",
       "limits": "Technique for tagged PDFs, not an evaluation of all PDF readers."
+    },
+    {
+      "id": "signature-validation",
+      "title": "Validate digital signatures",
+      "author": "Adobe",
+      "date": "2025-09-23",
+      "url": "https://helpx.adobe.com/acrobat/desktop/e-sign-documents/manage-digital-signatures/validate-digital-sign.html",
+      "locator": "Validate signatures; signer certificate and timestamp trust",
+      "type": "primary product documentation",
+      "status": "read; relevant passages located",
+      "limits": "Product-specific validation guidance, not legal advice or proof of factual truth."
+    },
+    {
+      "id": "signature-workflow",
+      "title": "Digital Signatures Workflow Guide",
+      "author": "Adobe",
+      "date": "2012-09-28",
+      "url": "https://www.adobe.com/devnet-docs/acrobatetk/tools/DigSigDC/Acrobat_DigSig_WorkflowGuide.pdf",
+      "locator": "§2.2.2 signature appearance; §3.1.1–3.1.1.2, printed pp. 33–34; §3.5.2.2–3.5.2.3, pp. 54–55",
+      "type": "primary technical guide",
+      "status": "read; relevant passages located",
+      "limits": "Older Acrobat-family implementation; later changes and trust configuration matter. An imported graphic is an appearance option, not cryptographic verification by itself. No legal-effect assertions."
     }
   ],
   "claims": [
@@ -116,6 +138,41 @@
       "scene": "next",
       "sources": [],
       "status": "project hypothesis, not proven capability"
+    },
+    {
+      "id": "reassurance",
+      "text": "A familiar receiving format can feel reassuring and reduce negotiation about receiving a document.",
+      "scene": "survives",
+      "sources": [],
+      "status": "Achim’s situated experience and design hypothesis; no public-trust measurement"
+    },
+    {
+      "id": "signature-scope",
+      "text": "Cryptographic signature validation concerns certificate trust and integrity of signed content; a visual mark alone provides no such check.",
+      "scene": "survives",
+      "sources": [
+        "signature-validation",
+        "signature-workflow"
+      ],
+      "status": "supported with mechanism/software/trust and later-change caveats",
+      "qualification": "Does not establish factual truth, universal identity assurance, immutability or legal equivalence."
+    },
+    {
+      "id": "glyph-simulation",
+      "text": "Font substitution/reflow and missing glyphs or encoding/mapping failures are distinct failure modes.",
+      "scene": "story",
+      "sources": [
+        "reference"
+      ],
+      "status": "qualified; illustrative simulation",
+      "qualification": "Explicit boxes, not an assertion that Courier lacks umlauts. Original specimen remains semantic text. PDF is not immune to missing resources or extraction failures."
+    },
+    {
+      "id": "two-gaps",
+      "text": "Search context may help assess applicability; AI-mediated context and private contributions returning to shared knowledge are separate questions.",
+      "scene": "next",
+      "sources": [],
+      "status": "Achim’s observations/hypotheses to investigate, not measured platform findings"
     }
   ],
   "illustrations": [
@@ -134,6 +191,18 @@
     {
       "id": "context-record",
       "label": "Proposed record, not published or federated"
+    },
+    {
+      "id": "travelling-manual",
+      "label": "Same synthetic title, revision, diagram, marked paragraph, specimen and page count at sender, receiver and print; successful rendering conditional, no byte-identity claim"
+    },
+    {
+      "id": "signature-field",
+      "label": "Sample-only field; no person’s signature, live signing or validation"
+    },
+    {
+      "id": "two-page-overflow",
+      "label": "Same paragraph is moved between actual DOM sheets; original text restored; page break explicitly simulated"
     }
   ],
   "build": {

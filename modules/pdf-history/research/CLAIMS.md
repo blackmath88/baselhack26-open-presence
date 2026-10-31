@@ -44,3 +44,12 @@ The semantic skeleton, labelled synthetic manual and comparable visual studies c
 The builder opened Camelot, PDF Reference 1.3, the Wharton Warnock/Wulff interview and W3C PDF3. Relevant passages were located for native-file dependency, the page/content model, conditional embedded fonts, launch/free Reader, electronic distribution and reading order. See [sources.json](../sources.json) for the exact claims used and source locators, and [DESIGN.md](../DESIGN.md) for implementation/QA limitations.
 
 C01–C04 and C14 are used with qualifications. C05–C06 are used only for launch year/free-Reader year as reported in retrospective participant testimony. C12 is explicitly an economic interpretation; no product revenue or causal estimate is claimed. No exact prices, savings metrics, Reader usage series or detailed profile/feature chronology from C07–C11/C13/C15 is displayed. Those tasks remain open. The ATProto closing is a candidate-layer design hypothesis, not an implementation or preservation guarantee. None of this retroactively verifies the full imported dossier.
+
+
+## Edition 02 verification update — 31 October 2026
+
+- **Signature validation — qualified:** Adobe’s “Validate digital signatures” (updated 23 September 2025), “Validate signatures” section, describes signer/parent-certificate trust. Adobe’s *Digital Signatures Workflow Guide* (28 September 2012), §3.1.1–3.1.1.2, printed pp. 33–34, distinguishes certificate trust and document integrity; §3.5.2.2–3.5.2.3, pp. 54–55, explains signed versions and later modifications. §2.2.2 separates visual appearance options from these mechanisms. These support the bounded mechanism wording, not legal effect or factual truth. Exact links and limitations are in sources.json.
+- **Reassurance — attributed interpretation:** Achim’s experience/design hypothesis, not a measured population-trust claim.
+- **Search and LLM examples — hypotheses:** inspectable context and contribution backflow are separate questions; no universal platform diagnosis or proof of humanity is claimed.
+- **Pagination and glyphs — authored simulations:** same real paragraph changes sheets; selected glyph boxes are decorative, with original semantic text preserved. Courier is not asserted to lack umlauts. Font resources/mappings remain conditional in PDF.
+- Unused historical research and unresolved queue entries above remain untouched and unverified by this pass.

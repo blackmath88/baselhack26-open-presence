@@ -1,6 +1,6 @@
 # PDF history — It looked fine on my computer.
 
-Working edition 01 · 31 October 2026 · Working title, not a project rename
+Working edition 02 · 31 October 2026 · Working title, not a project rename
 
 **Explain what PDF made portable, why that mattered, and how making documents easy to receive created business value.**
 
@@ -12,11 +12,11 @@ Open [index.html](index.html) in a browser after downloading it. GitHub's blob v
 
 [Design and browser validation](DESIGN.md) · [Source and claim ledger](sources.json)
 
-## Next iteration — VS Code / Claude
+## Edition 02 — reassurance and human signals
 
 [Issue #1: reassurance, missing characters and human-signal provenance](https://github.com/blackmath88/baselhack26-open-presence/issues/1) · [Implementation handoff](prompts/CLAUDE-002-REASSURANCE.md).
 
-The current HTML remains edition 01. The next task adds the reassurance of a travelling document, visible two-page manual overflow, missing-character examples, signature distinctions and a short search/LLM context teaser. The implementation is delegated to the receiving VS Code agent.
+Edition 02 implements the travelling-document reassurance beat, a real second illustrated sheet carrying the marked instruction, labelled character-loss simulation, signature distinctions, and concise search/LLM examples. Achim’s framing remains a design hypothesis. See DESIGN.md for checks and remaining limits.
 
 ## Start here
 
@@ -25,7 +25,7 @@ The current HTML remains edition 01. The next task adds the reassurance of a tra
 - [Original supplied research dossier](research/perplexity-report.md)
 - [Claim ledger and source verification queue](research/CLAIMS.md)
 
-**Status:** first self-contained explainer implemented. Six acts, two experiments and reversible desktop scroll states; mobile, reduced-motion and no-JavaScript reading paths. Browser checks completed; see DESIGN.md for coverage and limits. No deployment. Core used sources were checked in this build pass; unused report claims remain unverified.
+**Status:** edition 02 implemented as a self-contained explainer. Six acts, two experiments and reversible desktop scroll states; mobile, reduced-motion and no-JavaScript reading paths. Browser checks completed; see DESIGN.md for coverage and limits. No deployment. Core used sources were checked in this build pass; unused report claims remain unverified.
 
 ## Intended deliverable
 
