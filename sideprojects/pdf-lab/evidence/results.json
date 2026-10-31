@@ -1,0 +1,151 @@
+{
+  "versions": {
+    "python": "3.12.14",
+    "mupdf_binding": "1.26.6",
+    "poppler": "pdftotext version 24.02.0"
+  },
+  "limits": {
+    "seconds": 10,
+    "cpu_seconds": 8,
+    "memory_MiB": 768,
+    "output_MiB": 2
+  },
+  "checks": {
+    "deterministic_generation": true,
+    "type3_structure": true,
+    "pixel_identity_in_mupdf_and_poppler": true,
+    "alternate_extraction": true,
+    "canonical_form_tree_and_appearances": true
+  },
+  "interactive_pdf_viewer": "not-run: no interactive PDF viewer in this environment",
+  "runs": [
+    {
+      "file": "01-alternate-reading.pdf",
+      "sha256": "d5bc6b882297c6e67f3b2a19177968b5c2e72051bff5208167aed7a31842a80d",
+      "poppler": {
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "LOST\n\nPDF LAB / 01\n\nThis picture is one letter.\nFind the way through. Then select the picture and copy it.\n\nA picture to your eyes. A character to the extractor.\n\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 01\\nThis picture is one letter.\\nFind the way through. Then select the picture and copy it.\\nLOST\\nA picture to your eyes. A character to the extractor.\\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "01-direct-drawing.pdf",
+      "sha256": "9f6ddfdfdd557b4c3abe1ace8a4744ead9d576951fae2203800cb776158b77cc",
+      "poppler": {
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "PDF LAB / 01\n\nThis picture is one letter.\nFind the way through. Then select the picture and copy it.\n\nA picture to your eyes. A character to the extractor.\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 01\\nThis picture is one letter.\\nFind the way through. Then select the picture and copy it.\\nA picture to your eyes. A character to the extractor.\\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "01-one-letter.pdf",
+      "sha256": "f1cfed684194c506b8b96d903f3177bfa02d06454bcfef41bf79cece18952ea1",
+      "poppler": {
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "A\n\nPDF LAB / 01\n\nThis picture is one letter.\nFind the way through. Then select the picture and copy it.\n\nA picture to your eyes. A character to the extractor.\n\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 01\\nThis picture is one letter.\\nFind the way through. Then select the picture and copy it.\\nA\\nA picture to your eyes. A character to the extractor.\\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "02-backstage.pdf",
+      "sha256": "cfb2a5fb0ceddf7fb2537defbae1ce207f897aa302747606ddf9f0af29c155df",
+      "poppler": {
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "PDF LAB / 02\n\nAn ordinary instruction sheet.\nSome documents have another side. Find the entrance.\n\nACCESS PHRASE\n\nSTATE / PROGRAM COUNTER\n\nLOCKED - enter the word that names the other side of a stage.\nMEMORY / EIGHT CELLS\n\nPROGRAM: LOAD 1 / DRAW / ADD 1 / DRAW / REPEAT / HALT\nThe machine fills eight cells, one instruction at a time.\nIf buttons do nothing, this viewer may not support PDF JavaScript.\nReverse-engineer: inspect the document JavaScript and field actions.\n\nNo network. No host access. An intentionally authored secret interface.\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 02\\nAn ordinary instruction sheet.\\nSome documents have another side. Find the entrance.\\nACCESS PHRASE\\nSTATE / PROGRAM COUNTER\\nMEMORY / EIGHT CELLS\\nPROGRAM: LOAD 1 / DRAW / ADD 1 / DRAW / REPEAT / HALT\\nThe machine fills eight cells, one instruction at a time.\\nIf buttons do nothing, this viewer may not support PDF JavaScript.\\nReverse-engineer: inspect the document JavaScript and field actions.\\nNo network. No host access. An intentionally authored secret interface.\\nEnter\\nLOCKED - enter the word that names the other side of a stage.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "03-baseline.pdf",
+      "sha256": "f1cfed684194c506b8b96d903f3177bfa02d06454bcfef41bf79cece18952ea1",
+      "poppler": {
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "A\n\nPDF LAB / 01\n\nThis picture is one letter.\nFind the way through. Then select the picture and copy it.\n\nA picture to your eyes. A character to the extractor.\n\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 01\\nThis picture is one letter.\\nFind the way through. Then select the picture and copy it.\\nA\\nA picture to your eyes. A character to the extractor.\\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "03-truncated-update.pdf",
+      "sha256": "6b709c31c63c0146cf868e48deaedc824e4addf9062df2efeb7b24af5c0a8f7b",
+      "poppler": {
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "A\n\nPDF LAB / 01\n\nThis picture is one letter.\nFind the way through. Then select the picture and copy it.\n\nA picture to your eyes. A character to the extractor.\n\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 01\\nThis picture is one letter.\\nFind the way through. Then select the picture and copy it.\\nA\\nA picture to your eyes. A character to the extractor.\\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "03-wrong-length.pdf",
+      "sha256": "68a31b9f01184f126cfa97724e137b3c15237813a52cd4918f0d802cfefa9f11",
+      "poppler": {
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "A\n\nPDF LAB / 01\n\nThis picture is one letter.\nFind the way through. Then select the picture and copy it.\n\nA picture to your eyes. A character to the extractor.\n\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 01\\nThis picture is one letter.\\nFind the way through. Then select the picture and copy it.\\nA\\nA picture to your eyes. A character to the extractor.\\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\\n\", \"repaired\": false, \"warnings\": \"PDF stream Length incorrect\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "03-wrong-xref.pdf",
+      "sha256": "d52dd1acaa82c921b1729b73877281da8dc128c6176ed060a4763d9cd803b8e8",
+      "poppler": {
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "A\n\nPDF LAB / 01\n\nThis picture is one letter.\nFind the way through. Then select the picture and copy it.\n\nA picture to your eyes. A character to the extractor.\n\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 01\\nThis picture is one letter.\\nFind the way through. Then select the picture and copy it.\\nA\\nA picture to your eyes. A character to the extractor.\\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\\n\", \"repaired\": true, \"warnings\": \"format error: cannot recognize xref format\\ntrying to repair broken xref\\nrepairing PDF document\"}\n",
+        "stderr": ""
+      }
+    }
+  ]
+}
