@@ -74,10 +74,32 @@ export function findContribution(loaded: LoadedCommons, id: string) {
 
 export interface SearchResponse {
   query: string
-  problems: Array<SearchHit & { title: string; link: string; roomId: string }>
+  problems: Array<SearchHit & { title: string; link: string; roomId: string; community: CommunitySummary }>
   contributions: Array<ContributionHit & { summary: ContributionSummary }>
   coverage: { records: number; contributions: number; snapshotAt: string; recordsAuthoredBy: string; lastSync: Array<{ did: string; status: string; completedAt?: string }> }
   note: string
+}
+
+/** What people added around a problem record: its own conversation plus contributions elsewhere citing the same sources. */
+export interface CommunitySummary {
+  contributions: number; replies: number; participants: string[]; latestAt: string | null
+  /** Visible contributions in other problems whose sources are also evidence of this record. */
+  citingFromOtherProblems: number
+}
+
+export function communitySummary(loaded: LoadedCommons, metadata: CommonsMetadata, problemId: string, community = communityCitations(loaded, metadata)): CommunitySummary {
+  const own = (loaded.byRoom.get(importedProblemSpaceId(problemId)) ?? []).map(id => loaded.contributions.get(id)!).filter((c): c is CommonsContribution => !isModerated(c))
+  // Roots are contributions without a local/ingested parent in this room; everything else counts as a reply.
+  const replies = own.filter(c => c.parent && c.parent.kind !== 'source').length
+  const others = new Set<string>()
+  for (const e of metadata.sources[problemId]?.evidence ?? []) {
+    for (const c of community.get(citationKeys(e.source.objectId)[0]!) ?? []) if (c.problemId !== problemId) others.add(c.contributionId)
+  }
+  const times = own.map(c => c.createdAt).sort()
+  return {
+    contributions: own.length - replies, replies, participants: [...new Set(own.map(c => c.actor.displayName ?? c.actor.id))],
+    latestAt: times[times.length - 1] ?? null, citingFromOtherProblems: others.size,
+  }
 }
 
 export interface ContributionSummary {
@@ -97,8 +119,9 @@ export const summarize = (c: CommonsContribution): ContributionSummary => ({
 export function searchAll(loaded: LoadedCommons, metadata: CommonsMetadata, input: { query: string; limit?: number; include?: Array<'problems' | 'contributions'> }): SearchResponse {
   const limit = Math.min(Math.max(input.limit ?? 10, 1), 50)
   const include = input.include?.length ? input.include : ['problems', 'contributions'] as const
+  const community = communityCitations(loaded, metadata)
   const problems = include.includes('problems')
-    ? recordReader.search(input.query, limit).map(h => ({ ...h, title: recordReader.problem(h.problemId)?.title ?? h.problemId, link: appLinks.problem(h.problemId), roomId: importedProblemSpaceId(h.problemId) }))
+    ? recordReader.search(input.query, limit).map(h => ({ ...h, title: recordReader.problem(h.problemId)?.title ?? h.problemId, link: appLinks.problem(h.problemId), roomId: importedProblemSpaceId(h.problemId), community: communitySummary(loaded, metadata, h.problemId, community) }))
     : []
   const all = visible(loaded)
   const contributions = include.includes('contributions')

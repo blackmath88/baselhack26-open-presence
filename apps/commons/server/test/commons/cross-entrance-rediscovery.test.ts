@@ -131,4 +131,17 @@ describe('cross-entrance rediscovery from the repository', () => {
     const found = await h.http<{ contributions: Array<{ contributionId: string; summary: { actor: { displayName?: string } } }> }>('GET', '/api/commons/search?q=heliotrope', { token: h.token('Lea') })
     expect(found.body.contributions[0]).toMatchObject({ contributionId: id, summary: { actor: { displayName: 'Kai' } } })
   })
+
+  it('tells a searcher which problem records people have already worked on', async () => {
+    harness = await createHarness({ seed: false })
+    await createCommonsImporter(harness.services.repository as TransactionalEventRepository)(sources)
+    const h = harness
+    const root = await h.http<{ contributionId: string }>('POST', '/api/commons/contributions', { token: h.token('Kai'), body: { commandId: 'sum-1', problemId: PROBLEM, text: 'emmc-sum: my unit fails mmc dev 1 too', sourceRefs: ['issue/99'], entrance: 'cli' } })
+    await h.http('POST', '/api/commons/contributions', { token: h.token('Lea'), body: { commandId: 'sum-2', problemId: PROBLEM, text: 'Which firmware?', kind: 'question', parentId: root.body.contributionId, sourceRefs: [] } })
+    await h.http('POST', '/api/commons/contributions', { token: h.token('Lea'), body: { commandId: 'sum-3', problemId: 'gadget-error-71', text: 'Start-here doc again.', sourceRefs: ['docs/pf1007l-start-here.md'] } })
+    const kaiMcp = await h.mcp('Kai')
+    const found = structured<{ problems: Array<{ problemId: string; community: { contributions: number; replies: number; participants: string[]; latestAt: string | null; citingFromOtherProblems: number } }> }>(await kaiMcp.callTool({ name: 'commons_search', arguments: { query: 'emmc never appears' } }))
+    expect(found.problems.find(p => p.problemId === PROBLEM)?.community).toMatchObject({ contributions: 1, replies: 1, participants: ['Kai', 'Lea'], citingFromOtherProblems: 1 })
+    expect(found.problems.find(p => p.problemId === PROBLEM)?.community.latestAt).toMatch(/^2026|^20/)
+  })
 })
