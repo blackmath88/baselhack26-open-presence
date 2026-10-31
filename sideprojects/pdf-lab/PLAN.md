@@ -4,6 +4,17 @@
 ## Outcome
 A person can choose a PDF experiment, predict what a reader will see, compare actual representations and inspect evidence explaining a discrepancy. The first demo must work locally without an LLM or a proprietary viewer.
 
+## Research refinement — 31 October
+Read [the reviewed research and corrections](RESEARCH-REVIEW-2026-10-31.md). This refines the proposed sequence below; it does not claim implementation or a newly agreed audience.
+
+Start with two extraction engines and one OCR engine as an additional observation, not a prerequisite six-engine benchmark. P001 becomes a staged family: first a legitimate ActualText control and a deliberately contradictory counterpart; then ToUnicode, invisible text, colour, crop/media boundaries and optional-content variants one at a time. Each fixture changes one mechanism. Add a small interactive P005 experiment early alongside the comparison work.
+
+Every comparison records its purpose, semantic expectation, engine family, wrapper, settings, preprocessing, raw output and normalization rules. OCR is not ground truth. Compatible behaviour in a game is not evidence that all form APIs work.
+
+For P002, distinguish underlying content remaining from a particular extractor exposing it; do not assume every extractor returns covered text. For P003, compare incremental save, rewrite without cleanup and rewrite with explicit cleanup. Use validated revision boundaries/xref chains or known generator snapshots, not blind splitting at every %%EOF. Full save alone is not a sanitization guarantee.
+
+The seven-variant/six-parser matrix is an expansion roadmap. Creative exploration and educational reproduction remain valuable without discovering a new vulnerability.
+
 ## 1. Research and choose instruments
 Use [the research prompt](RESEARCH-PROMPT.md). Produce a claim ledger with source, date/version, evidence category and remaining uncertainty. Evaluate existing tools before writing wrappers.
 
