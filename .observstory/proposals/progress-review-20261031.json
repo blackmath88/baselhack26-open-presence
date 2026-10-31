@@ -1,0 +1,39 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "progress-review-20261031",
+  "kind": "proposal",
+  "title": "Integrate reviewed Commons slice and reconcile project memory",
+  "statement": "Commons PR #8 reports a working local find-inspect-draft-submit-rediscover flow and 149 passing tests at e24838f. Final batch-4 repairs still lack independent review. Published knowledge at main 58b9942 was complete but carried invalid_status and invalid_relation errors for the timetable. This branch integrates main and repairs both schema values; a real producer build yields 25 records, 15/15 sources and zero diagnostics. Knowledge Lab #1 has been retargeted from its merged dependency branch to main; conflicts now require reconciliation.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant",
+    "via": "ChatGPT Work progress review"
+  },
+  "submitted_at": "2026-10-31T14:55:17.268815+00:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "58b99426d39921975411ab7a1541c0571c863e35",
+    "context_packet_id": "cp_49910240c91373d872f079ac"
+  },
+  "evidence": [
+    {
+      "path": ".observstory/knowledge.json"
+    },
+    {
+      "path": "docs/memory/README.md"
+    }
+  ],
+  "conditions": [
+    "The context packet is dated at 93a5445; current deployed knowledge was independently read at 58b9942.",
+    "Commons tests and browser results are coordinator/reviewer reports, not rerun during this progress review.",
+    "No NUC service state was inspected; previous runtime results do not establish current deployment.",
+    "No product or architecture decisions are accepted by this proposal.",
+    "next_steps: [\"Review Commons e24838f final delta; run app gates and two-session demo, then merge #8 if accepted. Keep local-only.\", \"Reconcile Knowledge Lab #1 with main and rerun tests; review Observstory #20 before integrating its host consumer.\", \"Merge memory write-back #4 after CI and content review. Preserve all proposals as unreviewed and proposed architecture as proposed.\", \"PDF #6 is an independent optional narrative change; review visually before merging.\", \"Refresh published snapshot after integration and verify knowledge diagnostics are empty.\", \"Add app CI so green Observatory workflow cannot be mistaken for application verification.\"]",
+    "open_decisions: [\"Prioritize Commons demo and usability now versus further memory infrastructure (recommend Commons).\", \"Keep demo local through Sunday noon; public deployment needs a separate auth/hosting implementation.\", \"Select one real question and near-match for human acceptance; retain PDF as optional framing.\", \"Enable persistent NUC memory only after reconciled integration; paid indexing remains separately bounded and unauthorized.\"]",
+    "source_links: [\"https://github.com/blackmath88/baselhack26-open-presence/pull/8\", \"https://github.com/blackmath88/baselhack26-open-presence/pull/4\", \"https://github.com/blackmath88/baselhack26-open-presence/pull/6\", \"https://github.com/blackmath88/observstory/pull/20\", \"https://github.com/blackmath88/baselhack26-knowledge-lab/pull/1\"]",
+    "affected_documents: [\".observstory/knowledge.json\", \"BUILD-STATUS.md\", \"DEMO.md\", \"HACKATHON-PLAN.md\", \"docs/memory/README.md\"]"
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}

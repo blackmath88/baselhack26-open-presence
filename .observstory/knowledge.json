@@ -1,6 +1,6 @@
 {
   "schema": "observstory.knowledge-manifest/v1",
-  "title": "Open Presence · Project Knowledge",
+  "title": "Open Presence \u00b7 Project Knowledge",
   "selection_policy": "explicit-declaration/v1",
   "audience": "public",
   "note": "Selects existing documents; it does not approve them. A record's status is what the cited source declares, or a manifest classification where marked. Decisions and open questions are imported from .observstory/coordination.json, not duplicated here.",
@@ -39,7 +39,7 @@
         },
         {
           "path": "EARLIER-BUSINESS-PRESENCE.md",
-          "quote": "Historical brief — superseded as the weekend build direction"
+          "quote": "Historical brief \u2014 superseded as the weekend build direction"
         }
       ]
     },
@@ -180,6 +180,13 @@
         }
       ],
       "note": "Under review in issue #3. Concerns community problem memory for the product, not Observatory project memory."
+    },
+    {
+      "id": "plan-event-timetable",
+      "type": "plan",
+      "path": "EVENT-TIMETABLE.md",
+      "status": "current",
+      "note": "User-supplied event programme, not independently verified. Distinct from proposed internal work targets."
     }
   ],
   "links": [
@@ -230,6 +237,11 @@
       "from": "decision-agreed-value-and-use-cases",
       "rel": "applies_to",
       "to": "concept-human-signal"
+    },
+    {
+      "from": "plan-event-timetable",
+      "rel": "informs",
+      "to": "plan-hackathon"
     }
   ]
 }
