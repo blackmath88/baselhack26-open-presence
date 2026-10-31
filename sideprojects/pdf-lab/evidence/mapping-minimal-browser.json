@@ -1,0 +1,12 @@
+{
+  "browser": "154.0.8037.97",
+  "checks": {
+    "three_controls_in_both_engines": true,
+    "source_and_rewrite_served_hashes": true,
+    "decoded_map_display": true,
+    "keyboard_selection": true,
+    "desktop_mobile_within_viewport": true,
+    "no_page_errors": true
+  },
+  "native_viewer": "not-run: HTML notebook and artifact bytes only"
+}

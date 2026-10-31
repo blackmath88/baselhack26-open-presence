@@ -11,9 +11,11 @@ Editorial principle: reports should contain the feature they explain where pract
 
 ## Implementation checkpoint
 
+**A01 minimization delivered:** one vector glyph, with A and Z one-character controls versus SEA, narrows the Ghostscript rewrite observation. A/Z survive, SEA becomes A in both extractors; source/output CMaps and pixel differences are recorded. See [MAPPING-MINIMAL.md](MAPPING-MINIMAL.md). No generalized threshold, conformance verdict or native viewer support claimed.
+
 **A01 transformation notebook delivered:** object-clone versus Ghostscript pdfwrite now has parent/output hashes, two-engine extraction, measured pixel differences and an actual-file reveal control. pypdf preserves the readings; Ghostscript 10.08.0 collapses both maps to byte-identical A–D outputs while Poppler pixels remain unchanged. See [TRANSFORMATION-NOTEBOOK.md](TRANSFORMATION-NOTEBOOK.md); no physical print or native copy/paste support is implied.
 
-**A01 delivered:** two original poems share the same visible Type 3 line glyphs, with mapping-only extraction differences measured in MuPDF and Poppler. Four fixtures include ordinary mapping, alternate mapping, direct text and raster controls. The browser can construct a real custom-mapped PDF; a desktop/mobile smoke checks the downloaded bytes. Poppler lineation/order differs; native copy/paste, OCR and transformations remain unrun. See [TWO-POEMS.md](TWO-POEMS.md). Earlier cabinet milestones remain available.
+**A01 delivered:** two original poems share the same visible Type 3 line glyphs, with mapping-only extraction differences measured in MuPDF and Poppler. Four fixtures include ordinary mapping, alternate mapping, direct text and raster controls. The browser can construct a real custom-mapped PDF; a desktop/mobile smoke checks the downloaded bytes. Poppler lineation/order differs; native copy/paste and OCR remain unrun; rewrite results are separately recorded. See [TWO-POEMS.md](TWO-POEMS.md). Earlier cabinet milestones remain available.
 
 
 **Cabinet 003 delivered:** eight static layer-lock states, a three-engine comparison with observed MuPDF disagreement, an interactive Boolean bitmap half-adder, and a Type 4 colour-program PDF. Nine exhibit families, 23 PDFs. Next: minimise the OCMD discrepancy and add a single-coordinate stack trace to the colour exhibit. Hashquines and symbol-substitution scans are specified, not reproduced; see [WEIRD-MACHINES.md](WEIRD-MACHINES.md).

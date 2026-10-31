@@ -1,0 +1,23 @@
+[
+  {
+    "case": "identity",
+    "mapping": "A",
+    "source_sha256": "6904c5cf7cd7d4dd321ce7507e5d42e6eb4b0bf86513676b63ac9387c8f170a0",
+    "source": "6904c5cf7cd7d4dd321ce7507e5d42e6eb4b0bf86513676b63ac9387c8f170a0",
+    "rewrite": "f0ac270a0e69c970645590567b19097a3443ad1a82208c5643d2a224127f7dfb"
+  },
+  {
+    "case": "single",
+    "mapping": "Z",
+    "source_sha256": "3c3cdd28934313f99d8063ce4ed9ac03540fae6f26cce981347845f9f9ec225d",
+    "source": "3c3cdd28934313f99d8063ce4ed9ac03540fae6f26cce981347845f9f9ec225d",
+    "rewrite": "eac82ce53c3a600260025a8dd8c78baab55fa0f1d9e24092360c2ab41e4e8871"
+  },
+  {
+    "case": "multiple",
+    "mapping": "SEA",
+    "source_sha256": "f289ac060e6b9f3b84233aa5370f526f3d12602386b7d3c53aead4dfb1064b27",
+    "source": "f289ac060e6b9f3b84233aa5370f526f3d12602386b7d3c53aead4dfb1064b27",
+    "rewrite": "cf2986270047d0196fdb4a7c878bc69dab787d38fac2ddb087862e7d8f4cd1e5"
+  }
+]

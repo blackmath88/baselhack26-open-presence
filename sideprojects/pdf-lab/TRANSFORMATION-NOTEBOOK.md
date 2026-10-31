@@ -72,6 +72,10 @@ That is actual output byte identity, not merely equal extraction or equal render
 
 The raw structure listing includes decoded ToUnicode streams and their hashes. A mere `/ToUnicode` key is therefore not a sufficient survival check. Likewise, visually unchanged output in one renderer is not evidence of semantic preservation.
 
+## Minimized follow-up — one glyph, three maps
+
+[The minimized experiment](MAPPING-MINIMAL.md) now removes the poem layout and nested text. One tiny vector glyph maps to A, Z or SEA. Both extractors return the intended source strings. Ghostscript 10.08.0 preserves A and Z, but SEA becomes A; its output CMap has no mapping entries. This separates the nonidentity single-character control from the short multi-character case without establishing a general length threshold or standards defect. Source/rewrite rendering differs in both engines and is measured separately. The three rewritten files do not all collapse to the same bytes because Z survives. The existing notebook has a small selector/CMap drawer for these actual artifacts.
+
 ## Artifacts and limits
 
 - [Raw notebook](evidence/poems-transforms.json): parent/output hashes, exact commands, stdout/stderr, tool versions, structure, pixel metrics and pair comparisons.
@@ -82,4 +86,4 @@ The raw structure listing includes decoded ToUnicode streams and their hashes. A
 
 No OCR, physical printing, screen-reader testing, interactive native viewer selection, font substitution or other rewrite settings are measured. No security defect, historical reproduction or universal tool behavior is claimed. All results are assistant self-verification, not independent review or human acceptance.
 
-Next useful increment: qualify one actual viewer's selection/copy/paste and pasted line order. Alternatively minimize the observed mapping loss to one short multi-character glyph before making any causal or conformance claim about Ghostscript. Keep the existing paired poem artwork as the artistic reference.
+Next useful increment: qualify one actual viewer's selection/copy/paste and pasted line order. The one-glyph minimization is now recorded; source/spec inspection is needed before making a causal or conformance claim about Ghostscript. Keep the existing paired poem artwork as the artistic reference.

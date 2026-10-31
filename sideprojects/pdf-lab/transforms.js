@@ -46,4 +46,24 @@ fetch('evidence/poems-transforms.json').then(r=>{if(!r.ok)throw Error('HTTP '+r.
   evidence=data;document.getElementById('journey-version').textContent='Recorded: MuPDF '+data.versions.mupdf+' · '+data.versions.poppler+' · pypdf '+data.versions.pypdf+' · Ghostscript '+data.versions.ghostscript;
   reveal.disabled=false;update();
 }).catch(err=>{document.getElementById('journey-version').textContent='Could not load measurements. Serve this folder locally, or open evidence/poems-transforms.json. '+err.message;});
+// The minimized fixture stays a small drawer in the existing notebook.
+const minimalCase=document.getElementById('minimal-case'),minimalEngine=document.getElementById('minimal-engine');
+let minimal=null;
+function updateMinimal(){
+  if(!minimal)return;
+  const row=minimal.rows.find(r=>r.case===minimalCase.value),engine=minimalEngine.value;
+  const text=state=>engine==='mupdf'?row.states[state].mupdf.observation.text:row.states[state].poppler.stdout;
+  document.getElementById('minimal-text').textContent='Source extraction:\n'+text('source')+'\nRewrite extraction:\n'+text('rewrite');
+  const changes=row.states.rewrite.render_observations[engine];
+  document.getElementById('minimal-status').textContent='Recorded '+engine+' · map '+row.mapping+' · '+changes.changed_pixels.toLocaleString()+' / '+changes.total_pixels.toLocaleString()+' pixels changed after Ghostscript '+minimal.versions.ghostscript+' pdfwrite.';
+  for(const state of ['source','rewrite']){
+    const img=document.getElementById('minimal-'+state+'-image');
+    img.src='evidence/previews/minimal-'+row.case+'-'+state+'-'+engine+'.webp';
+    img.alt='Actual '+engine+' '+state+' rendering, map '+row.mapping;
+    document.getElementById('minimal-'+state+'-file').href=row.states[state].file;
+  }
+  document.getElementById('minimal-cmaps').textContent=['source','rewrite'].map(state=>state.toUpperCase()+' / '+row.states[state].sha256+'\n'+row.states[state].structure.fonts[0].tounicode_stream).join('\n\n');
+}
+minimalCase.addEventListener('change',updateMinimal);minimalEngine.addEventListener('change',updateMinimal);
+fetch('evidence/mapping-minimal.json').then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();}).then(data=>{minimal=data;updateMinimal();}).catch(err=>{document.getElementById('minimal-status').textContent='Minimized evidence unavailable: '+err.message;});
 })();

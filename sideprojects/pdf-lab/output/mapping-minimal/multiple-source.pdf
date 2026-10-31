@@ -1,0 +1,64 @@
+%PDF-1.4
+% PDF LAB - authored ASCII specimen
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 200 200] /Resources << /Font << /G 6 0 R >> >> /Contents 7 0 R >>
+endobj
+4 0 obj
+<< /Length 86  >>
+stream
+1000 0 d0
+0.1 0.55 0.6 rg 100 100 800 800 re f
+1 0.6 0.2 RG 35 w 150 150 m 850 850 l S
+endstream
+endobj
+5 0 obj
+<< /Length 328  >>
+stream
+/CIDInit /ProcSet findresource begin
+12 dict begin
+begincmap
+/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def
+/CMapName /Minimal def
+/CMapType 2 def
+1 begincodespacerange
+<00> <FF>
+endcodespacerange
+1 beginbfchar
+<41> <005300450041>
+endbfchar
+endcmap
+CMapName currentdict /CMap defineresource pop
+end
+end
+endstream
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type3 /FontBBox [0 0 1000 1000] /FontMatrix [.001 0 0 .001 0 0] /CharProcs << /mark 4 0 R >> /Encoding << /Type /Encoding /Differences [65 /mark] >> /FirstChar 65 /LastChar 65 /Widths [1000] /Resources << >> /ToUnicode 5 0 R >>
+endobj
+7 0 obj
+<< /Length 40  >>
+stream
+BT /G 160 Tf 1 0 0 1 20 20 Tm <41> Tj ET
+endstream
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000045 00000 n 
+0000000094 00000 n 
+0000000151 00000 n 
+0000000276 00000 n 
+0000000413 00000 n 
+0000000793 00000 n 
+0000001061 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+1152
+%%EOF

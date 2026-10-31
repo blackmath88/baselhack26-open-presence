@@ -18,6 +18,44 @@ const http=require('node:http'),fs=require('node:fs/promises'),path=require('nod
     const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
     page.on('pageerror',e=>errors.push(e.message));
     await page.goto(`http://127.0.0.1:${server.address().port}/index.html#poems`);
+    if(process.argv.includes('--minimal')){
+      await page.locator('#minimal-mapping > summary').click();
+      await page.waitForFunction(()=>document.getElementById('minimal-text').textContent.includes('Source extraction:'));
+      const evidence=JSON.parse(await fs.readFile(path.join(root,'evidence/mapping-minimal.json'),'utf8'));
+      for(const engine of ['mupdf','poppler']){
+        await page.selectOption('#minimal-engine',engine);
+        for(const [caseName,mapping,expected] of [['identity','A','A'],['single','Z','Z'],['multiple','SEA','A']]){
+          await page.selectOption('#minimal-case',caseName);
+          const output=await page.locator('#minimal-text').textContent();
+          assert.ok(output.includes('Source extraction:\n'+mapping));
+          assert.ok(output.includes('Rewrite extraction:\n'+expected));
+          const row=evidence.rows.find(r=>r.case===caseName);
+          for(const state of ['source','rewrite']){
+            const href=await page.locator('#minimal-'+state+'-file').getAttribute('href');
+            const response=await page.request.get(new URL(href,page.url()).href);assert.equal(response.status(),200);
+            assert.equal(require('node:crypto').createHash('sha256').update(await response.body()).digest('hex'),row.states[state].sha256);
+          }
+          assert.match(await page.locator('#minimal-cmaps').textContent(),/begincmap/);
+        }
+      }
+      await page.locator('#minimal-case').focus();await page.keyboard.press('Home');
+      assert.equal(await page.locator('#minimal-case').inputValue(),'identity');
+      await page.keyboard.press('End');assert.equal(await page.locator('#minimal-case').inputValue(),'multiple');
+      await page.selectOption('#minimal-engine','mupdf');
+      await page.waitForFunction(()=>document.getElementById('minimal-rewrite-image').complete);
+      for(const [name,width,height] of [['desktop',1440,1000],['mobile',390,844]]){
+        await page.setViewportSize({width,height});
+        assert.ok(await page.evaluate(()=>document.getElementById('minimal-mapping').getBoundingClientRect().right<=innerWidth));
+        const stem=path.join(root,'evidence/previews/minimal-workbench-'+name);
+        await page.locator('#minimal-mapping').screenshot({path:stem+'.png'});
+        execFileSync(process.env.PDF_CHECK_PYTHON||'python3',['-c','from PIL import Image; import sys; Image.open(sys.argv[1]).save(sys.argv[2],lossless=True)',stem+'.png',stem+'.webp'],{timeout:10000});
+        await fs.rm(stem+'.png');
+      }
+      assert.deepEqual(errors,[]);
+      const result={browser:await browser.version(),checks:{three_controls_in_both_engines:true,source_and_rewrite_served_hashes:true,decoded_map_display:true,keyboard_selection:true,desktop_mobile_within_viewport:true,no_page_errors:true},native_viewer:'not-run: HTML notebook and artifact bytes only'};
+      await fs.writeFile(path.join(root,'evidence/mapping-minimal-browser.json'),JSON.stringify(result,null,2)+'\n');
+      console.log(JSON.stringify(result,null,2));return;
+    }
     await page.waitForFunction(()=>document.getElementById('poem-extraction').textContent.includes('I keep a tide'));
     await page.selectOption('#poem-reading','visible');
     assert.match(await page.locator('#poem-file').getAttribute('href'),/visible.pdf$/);

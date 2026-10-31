@@ -18,3 +18,6 @@
 #journey-hashes { overflow-wrap: anywhere; }
 #journey-extraction { max-height: 28rem; overflow: auto; }
 @media(max-width:600px) { .journey-renders { grid-template-columns: 1fr; } }
+.minimal-renders { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0; }
+.minimal-renders figure { width: 228px; max-width: 100%; }
+#minimal-cmaps { max-height: 32rem; overflow: auto; }

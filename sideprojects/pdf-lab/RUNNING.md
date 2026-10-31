@@ -21,6 +21,14 @@ python3 check-transforms.py
 
 This reads the current A01 fixtures without rebuilding them. Four clone/rewrite derivatives, their own manifest, raw extraction and pixel differences form the [transformation notebook](TRANSFORMATION-NOTEBOOK.md). A pypdf clone preserves the readings and pixels. Ghostscript 10.08.0 pdfwrite collapses both different maps to the same output bytes: both extractors return A–D instead of verse. Poppler pixels remain equal; MuPDF changes 3,043 pixels at 72 dpi. The gallery's `#poem-journey` control selects actual artifacts and measured renders/difference masks, then reveals extraction. Physical printing and native viewer copy/paste remain unrun.
 
+## A01 — minimized mapping loss
+
+```sh
+python3 minimize-mapping.py
+```
+
+[One glyph, three maps](MAPPING-MINIMAL.md) reduces the rewrite observation to seven-object PDFs. Ghostscript 10.08.0 preserves the A and nonidentity Z controls, while SEA becomes A in both extractors. Raw source/output CMaps and two-engine render measurements are recorded separately; six small experimental PDFs live in `output/mapping-minimal/`. Existing cabinet and transformation artifacts are unchanged. Open the minimization drawer in `#poem-journey`. This is a bounded observation, not a universal mapping-length rule or bug verdict.
+
 ## Start here
 From `sideprojects/pdf-lab`:
 
