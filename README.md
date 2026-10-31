@@ -43,6 +43,8 @@ Start with a bounded real corpus and source links. Preserve individual authorshi
 br-ai-nstorm supplies shared sensemaking concepts; ATProto is the candidate portable record layer. Live federation is not an existing capability of this pilot.
 
 ## Adobe is an optional narrative
+
+[PDF history scrolly module](modules/pdf-history/README.md) — original research, editorial provenance, claim-verification queue and [six-act build plan](modules/pdf-history/PLAN.md). Retro early-PDF visual studies are planned; no HTML explainer is implemented yet.
 **“PDF helped us preserve a document when it travelled. What should we preserve when an answer travels through AI?”**
 
 The concept and tool must stand without this framing. Photoshop can introduce the familiar experience; photo-frame contributions are the actual case. PDF preserved form, not truth.
