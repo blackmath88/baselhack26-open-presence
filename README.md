@@ -85,6 +85,10 @@ The concept and tool must stand without this framing. Photoshop can introduce th
 
 A future name may be a PDF wordplay. Naming and repository renaming are deferred.
 
+## Side project: PDF LAB
+
+[PDF LAB](sideprojects/pdf-lab/README.md) explores PDF as a creative format and a forensic learning environment: one file, many interpreters. Includes a [build plan](sideprojects/pdf-lab/PLAN.md) and [research/sparring prompt](sideprojects/pdf-lab/RESEARCH-PROMPT.md). Agreed on 31 October: incubate here, then extract to a separate repository after the hackathon. Documentation stage; technical choices remain proposed and this does not replace the main pilot.
+
 ## Status and working boundaries
 This update is documentation only; no running pilot or federation is claimed. Inspect current code and Knowledge Lab's active branch/runtime before implementation or integration.
 
