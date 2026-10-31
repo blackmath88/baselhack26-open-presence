@@ -12,6 +12,12 @@ Open [index.html](index.html) in a browser after downloading it. GitHub's blob v
 
 [Design and browser validation](DESIGN.md) · [Source and claim ledger](sources.json)
 
+## Next iteration — VS Code / Claude
+
+[Issue #1: reassurance, missing characters and human-signal provenance](https://github.com/blackmath88/baselhack26-open-presence/issues/1) · [Implementation handoff](prompts/CLAUDE-002-REASSURANCE.md).
+
+The current HTML remains edition 01. The next task adds the reassurance of a travelling document, visible two-page manual overflow, missing-character examples, signature distinctions and a short search/LLM context teaser. The implementation is delegated to the receiving VS Code agent.
+
 ## Start here
 
 - [Build plan and narrative contract](PLAN.md)
