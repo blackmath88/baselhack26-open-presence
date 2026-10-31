@@ -4,7 +4,8 @@
  * command receipts; reads fold the same log. Network I/O (ATProto) happens
  * outside transactions and is reconciled back in through receipts.
  */
-import { visibleEvents, withheldObjectIds, referencesWithheld } from './read-boundary.js'
+import { withheldObjectIds, referencesWithheld } from './read-boundary.js'
+import { visibleRoomEvents } from './read-view.js'
 import { parseOperation } from './operation-schemas.js'
 import type {
   CommonsContribution, ImportedProblem, ModeratedContribution, Ref, ReviewCommand, SubmitContributionCommandV2,
@@ -193,9 +194,10 @@ export function createCommonsService(options: CommonsServiceOptions) {
       authorize(actor, SCOPE_READ)
       return repository.transaction(async tx => {
         const roomId = id.startsWith('commons:') ? id : importedProblemSpaceId(id)
-        const history = await tx.repository.read(roomId)
+        const allHistory = await tx.repository.read()
+        const history = allHistory.filter(e => e.problemId === roomId)
         const metadata = commonsMetadata(tx)
-        const visibleHistory = visibleEvents(history, metadata)
+        const visibleHistory = visibleRoomEvents(allHistory, metadata).filter(e => e.problemId === roomId)
         const state = project(visibleHistory)
         if (!state) throw notFound('Room', id)
         const source = metadata.sources[roomId.slice('commons:'.length)]

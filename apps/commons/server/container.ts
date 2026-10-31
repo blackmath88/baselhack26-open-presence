@@ -6,7 +6,6 @@
  * MCP-over-HTTP or a test, which is what lets the integration test drive one
  * service instance through two transports at once.
  */
-import { commonsReadRepository } from './commons/read-boundary.js'
 import { createIdSource, highWaterMark, systemClock, type Clock, type IdSource } from './domain/events.js'
 import { createJsonRepository, createMemoryRepository } from './persistence/json-repository.js'
 import { ensureSeedData } from './persistence/seed.js'
@@ -19,6 +18,7 @@ import { createOrchestrationService, type OrchestrationService } from './applica
 import { createImportService, type ImportService } from './application/import-service.js'
 import { createPrototypeAuth, type PrototypeAuth } from './auth/prototype-auth.js'
 import { createCommonsService, type CommonsService } from './commons/service.js'
+import { createModerationAwareReads } from './commons/read-view.js'
 import { createAtprotoAdapter } from './commons/atproto/index.js'
 import type { AtprotoAdapter } from './commons/atproto/contract.js'
 import type { ServiceDeps } from './application/support.js'
@@ -108,11 +108,14 @@ export async function buildServices(options: BuildOptions = {}): Promise<Service
   const commons = 'transaction' in repository
     ? createCommonsService({ repository: repository as TransactionalEventRepository, clock, ...(atproto ? { atproto } : {}), ...(appUrl ? { appUrl } : {}), ...(envConfig ? { appId: envConfig.appId } : {}) })
     : undefined
-  const readDeps = commons ? { ...deps, repository: commonsReadRepository(repository as TransactionalEventRepository) } : deps
-  const readOrchestration = createOrchestrationService(readDeps)
   const contributions = createContributionService(deps)
   const curation = createCurationService(deps)
   const orchestration = createOrchestrationService(deps)
+  // Reads must respect Commons moderation even through inherited REST/MCP
+  // endpoints. Commands retain the full log and its existing transaction rules.
+  const readDeps = commons ? { ...deps, repository: createModerationAwareReads(repository as TransactionalEventRepository) } : deps
+  const readCuration = createCurationService(readDeps)
+  const readOrchestration = createOrchestrationService(readDeps)
 
   return {
     problems: createProblemService(readDeps),
@@ -125,7 +128,7 @@ export async function buildServices(options: BuildOptions = {}): Promise<Service
     curation: commons
       ? {
           ...curation,
-          list: createCurationService(readDeps).list,
+          list: readCuration.list,
           accept: (actor, input) => (input.problemId.startsWith('commons:')
             ? commons.review(actor, { commandId: `review:${input.proposalId}:accept:${actor.actorId}`, proposalId: input.proposalId, problemId: input.problemId, decision: 'accept' }) as ReturnType<CurationService['accept']>
             : curation.accept(actor, input)),

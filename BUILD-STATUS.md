@@ -53,16 +53,20 @@ Specification: `docs/architecture/MULTI-ENTRY-COMMONS.md` · plan: `docs/build/M
 ## Not done / open
 - No independent review of this slice yet (coordinator-verified only). PR #8's own open review notes stand.
 - UI: no report flow or moderation audit view; Map view still draws same-room edges only; the Commons section is above the room views, not a redesign.
-- Shared operation schemas are now implemented in the NUC continuation below.
+- A shared zod schema per operation across all three adapters would replace today's validator-in-service plus zod-in-MCP.
 - OAuth, public namespace, public hosting and moderation ownership remain activation questions, not reasons to stop (see `DEMO.md` → Real limitations).
 
 ## Current state / next action
 Draft PR opened against `feat/commons-brainstorm-integration` (retarget to `main` when PR #8 lands). Next exact action: an independent bounded review of this head (publication/ingestion state machines, moderation leakage, CLI exit codes), then the activation checklist if a real account and namespace are provided.
 
 
+## Codex integration continuation — 31 October
+
+Publication fixes from PR #13 are integrated. The reproduced legacy room/HTTP/MCP moderation read leak is repaired in the accompanying change; normal read projections omit withheld content and dependent reasons while retaining the original event log. Combined local checks against current main: 188 tests, typecheck, index reproduction, build and both server smoke scripts pass. See `evidence/MODERATION-READS-20261031.md`. These are coordinator checks, not independent review or public activation. Earlier milestone and test counts above are historical evidence.
+
 ## NUC continuation — adapter consistency and moderation repair (2026-10-31)
 
-Base: latest PR #11 head `dacc9741877040836d103992e8861c36f29ae167`, including PR #13's publication destination/retry repairs. This differs from the takeover document's `0175fa9`; the original M0–M5 build is preserved. Continuation branch: `blackmath88/commons-adapter-consistency`, stacked on `feat/commons-multi-entry` (PR #11), which remains stacked on PR #8.
+Starting base: PR #11 head `dacc9741877040836d103992e8861c36f29ae167`, including PR #13's publication destination/retry repairs. This differs from the takeover document's `0175fa9`; the original M0–M5 build is preserved. Continuation branch: `blackmath88/commons-adapter-consistency`, stacked on `feat/commons-multi-entry` (PR #11), PR #11 is now based on main after its earlier dependencies were integrated by the separate session.
 
 Ownership checked before edits: Claude's original checkout was clean at `0175fa9`; its multi-entry transcript ended at a usage limit. Orca reported no attached or unverifiable terminals for that checkout or its packet worktrees. Claude processes in the parent clones directory were preserved; its existing Vite preview on :5173 was left running. Work took place in a separate Orca-created continuation worktree, directly in foreground Codex, with no workers dispatched and no paid API calls.
 
@@ -71,4 +75,8 @@ Repairs and consistency:
 - MCP discovery uses the same runtime operation schemas enforced by the Commons service. HTTP rejects invalid JSON types instead of silently converting them; numeric/enumeration bounds apply to HTTP/CLI as well as MCP. Preview retains its existing `ok:false` validation response; invalid commands use domain `invalid` (HTTP 422, CLI exit 2; MCP uses its protocol's error result).
 - Session attribution remains authoritative; untrusted extra identity fields are stripped before receipt hashing. Operation names, tool names, room/contribution identifiers and underlying log are preserved. Existing valid durable command receipts are retained.
 
-Validation and exact handoff: `evidence/CODEX-NUC-ADAPTER-CONSISTENCY.md`. No public account writes, merge, deployment, OAuth, namespace activation or original-build restart. Remaining review is bounded independent review of this continuation; activation/product follow-ups above remain separate.
+PR #14 landed concurrently at `86ec1a9` after this work began; its complete-log moderation reader is preserved as the single shared reader, with this continuation adding schema validation and receipt replay protection. Local integration resolves the overlap without merging any remote PR.
+
+Validation and exact handoff: `evidence/CODEX-NUC-ADAPTER-CONSISTENCY.md`. No public account writes, remote PR merge, deployment, OAuth, namespace activation or original-build restart. Remaining review is bounded independent review of this continuation; activation/product follow-ups above remain separate.
+
+Final combined checkpoint after preserving PR #14: typecheck, **18 files / 192 tests** (isolated PDS executed), index reproduction, production build and both local-server smoke scripts pass. Draft continuation: PR #15. Existing chunk-size warning remains; independent review is still outstanding.
