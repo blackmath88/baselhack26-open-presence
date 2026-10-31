@@ -1,0 +1,53 @@
+{
+  "id": "7743dd2d-6d74-445d-aec3-0a19d323dbf3",
+  "ok": true,
+  "result": {
+    "runId": "run_90dca94459a5",
+    "deliveryId": "delivery_c3a45f2905ad",
+    "messages": [
+      {
+        "id": "msg_f00fb79219ba",
+        "run_id": "run_90dca94459a5",
+        "delivery_contract": "current_delivery",
+        "from_handle": "term_a39cb4e0-6bc3-41bd-b112-e4591e388e6f",
+        "to_handle": "run:run_90dca94459a5",
+        "subject": "Verified G4 blocker: mixed legacy and Commons reviews both succeed",
+        "body": "Actual HTTP reproduction on port 8799 against JSON repository: concurrent legacy accept and Commons reject both returned 200 for commons:emmc-not-exposed:relation:0, persisted RelationRejected then RelationAccepted, final accepted with relation present. UI uses legacy /api/curation endpoint through useRoom/api.review, so Commons-only smoke does not cover the live UI path; full report and reproduction will follow.",
+        "type": "escalation",
+        "priority": "normal",
+        "thread_id": null,
+        "payload": "{\"taskId\":\"task_0f08a3857d7d\",\"dispatchId\":\"ctx_0699618af237\"}",
+        "created_at": "2026-10-31T13:47:57Z",
+        "delivered_at": null
+      },
+      {
+        "id": "msg_ae007eafb9b5",
+        "run_id": "run_90dca94459a5",
+        "delivery_contract": "current_delivery",
+        "from_handle": "term_a39cb4e0-6bc3-41bd-b112-e4591e388e6f",
+        "to_handle": "run:run_90dca94459a5",
+        "subject": "Packet D complete: 1 BLOCKER, 4 SHOULD-FIX, 2 NOTE",
+        "body": "Reviewed exactly 2624045168d2f5709469827728b659701c0f815d read-only and wrote D-report.md with 1 BLOCKER, 4 SHOULD-FIX, and 2 NOTE findings, reproductions, file-line evidence, and gate assessment. Verified mixed legacy/Common reviews both succeed contradictorily, imported evidence disappears in State, prototype auth binds all interfaces, import accepts forged provenance, and reviewed history loses agent origin; typecheck, 136 tests, index reproduction, and Commons-only smoke nevertheless pass. Product files remain unchanged and fixes plus browser G5 checks remain for the coordinator; observed harness is Codex in local Orca with terminal-reported GPT-6.1-Sol default.",
+        "type": "worker_done",
+        "priority": "normal",
+        "thread_id": null,
+        "payload": "{\"taskId\":\"task_0f08a3857d7d\",\"dispatchId\":\"ctx_0699618af237\",\"outcome\":\"succeeded\",\"reportPath\":\"/home/nuc/projects/op-commons-review/D-report.md\"}",
+        "created_at": "2026-10-31T13:50:39Z",
+        "delivered_at": null
+      }
+    ],
+    "count": 2,
+    "replayed": false,
+    "acknowledged": null,
+    "timedOut": false,
+    "cancelled": false,
+    "connectionLost": false,
+    "mutation": {
+      "requestId": "c302214a-bcd3-4eff-ab5d-f774fb0d93ea",
+      "replayed": false
+    }
+  },
+  "_meta": {
+    "runtimeId": "5c11751c-5a08-4dac-8366-7809de174acf"
+  }
+}

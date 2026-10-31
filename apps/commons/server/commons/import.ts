@@ -65,7 +65,7 @@ export async function importIntoTransaction(tx: RepositoryTransaction, problems:
     for (const e of p.evidence) {
       events.push(makeEvent(deps, {
         problemId, objectId: importedContributionId(p.postackId, e.id), actorId: 'repo:postack-underflow', eventType: 'ContributionAdded',
-        payload: { kind: 'observation', label: `Imported evidence ${e.id}`, content: `Imported evidence reference: ${e.source.objectId} (${e.id}).`, visibility: 'problem',
+        payload: { kind: 'evidence', label: `Imported evidence ${e.id}`, content: `Imported evidence reference: ${e.source.objectId} (${e.id}).`, visibility: 'problem',
           provenance: { authoredBy: 'repo:postack-underflow', preparedBy: p.provenance.authoredBy, submittedBy: 'repo:postack-underflow', source: 'repo_import',
             sourceDetail: JSON.stringify({ postackId: p.postackId, evidenceId: e.id, source: e.source }), endorsement: 'participant_review_required', timestamp: clock.now() } },
       }))

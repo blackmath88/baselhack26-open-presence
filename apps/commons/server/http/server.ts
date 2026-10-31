@@ -14,6 +14,8 @@ import { importedProblems } from '../../src/commons/source/index.js'
 import type { TransactionalEventRepository } from '../persistence/repository.js'
 
 const port = Number(process.env.PORT ?? 8787)
+// Loopback by default: prototype sign-in must not be reachable from the LAN unless asked for.
+const host = process.env.HOST ?? '127.0.0.1'
 
 // The prototype login stub is on by default for local development and must be
 // explicitly disabled anywhere else. See docs/architecture/ADR-003 §9.
@@ -39,7 +41,7 @@ async function main(): Promise<void> {
         res.end(JSON.stringify({ error: 'internal_error' }))
       }
     })
-  }).listen(port, () => {
+  }).listen(port, host, () => {
     console.log(`br-ai-nstorm API   http://localhost:${port}/api`)
     console.log(`br-ai-nstorm MCP   http://localhost:${port}/mcp`)
     if (enablePrototypeAuth) {

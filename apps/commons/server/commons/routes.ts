@@ -1,6 +1,10 @@
-/** Node HTTP subrouter. Returns true when handled; coordinator calls before its 404. */
+/**
+ * Node HTTP subrouter. Returns true when handled; coordinator calls before its 404.
+ * There is deliberately no import endpoint: the pinned corpus is imported only by trusted
+ * startup code, so a participant cannot introduce records under Postack source provenance.
+ */
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import type { ImportedProblem, ReviewCommand, SubmitContributionCommand } from '../../src/commons/contracts.js'
+import type { ReviewCommand, SubmitContributionCommand } from '../../src/commons/contracts.js'
 import { resolveActor, type TokenVerifier } from '../auth/actor-context.js'
 import { invalid, isDomainError } from '../domain/errors.js'
 import type { CommonsService } from './service.js'
@@ -44,9 +48,6 @@ export function commonsRoutes(deps: CommonsRouteDeps): (req: IncomingMessage, re
       } else if (req.method === 'POST' && path === '/api/commons/reviews') {
         const body = await readJson(req)
         send(res, 200, await deps.commons.review(actor, body as unknown as ReviewCommand))
-      } else if (req.method === 'POST' && path === '/api/commons/import') {
-        const body = await readJson(req)
-        send(res, 200, await deps.commons.importProblems(actor, body.problems as ImportedProblem[]))
       } else send(res, 404, { error: 'not_found', message: 'Unknown Commons route.' })
     } catch (error) {
       if (isDomainError(error)) {

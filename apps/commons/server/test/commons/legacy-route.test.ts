@@ -32,7 +32,23 @@ async function start() {
       headers: { 'content-type': 'application/json', authorization: `Bearer ${token(who)}` },
       body: JSON.stringify({ problemId: 'commons:emmc-not-exposed' }),
     })
-  return { review }
+  const commonsReview = (who: string, proposalId: string, decision: 'accept' | 'reject') =>
+    fetch(`${base}/api/commons/reviews`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${token(who)}` },
+      body: JSON.stringify({ commandId: `c-${who}-${decision}`, proposalId, decision }),
+    })
+  const addThought = (who: string) =>
+    fetch(`${base}/api/problems/${encodeURIComponent('commons:emmc-not-exposed')}/contributions`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${token(who)}` },
+      body: JSON.stringify({ content: `Thought from ${who}` }),
+    })
+  const state = async () =>
+    (await (await fetch(`${base}/api/problems/${encodeURIComponent('commons:emmc-not-exposed')}`, {
+      headers: { authorization: `Bearer ${token('person:kai')}` },
+    })).json()) as { contributions: Array<{ kind: string; content: string; status: string }>; relations: unknown[] }
+  return { review, commonsReview, addThought, state }
 }
 
 describe('legacy curation route on Commons rooms', () => {
@@ -51,5 +67,26 @@ describe('legacy curation route on Commons rooms', () => {
     const again = await review('person:kai', 'commons:emmc-not-exposed:relation:1', 'accept')
     expect([first.status, again.status]).toEqual([200, 200])
     expect(await again.json()).toEqual(await first.json())
+  })
+
+  it('serializes a legacy accept against a concurrent Commons reject (review B1)', async () => {
+    const { review, commonsReview, state } = await start()
+    for (let i = 0; i < 5; i++) {
+      const id = `commons:emmc-not-exposed:relation:${i % 2}`
+      const results = await Promise.all([review('person:kai', id, 'accept'), commonsReview('person:lea', id, 'reject')])
+      if (i < 2) expect(results.map(r => r.status).sort()).toEqual([200, 409])
+      else expect(results.every(r => r.status === 409 || r.status === 200)).toBe(true)
+    }
+    expect((await state()).relations.length).toBeLessThanOrEqual(2)
+  })
+
+  it('adds free-form thoughts to imported rooms through the transaction, and imported evidence shows in State (S1)', async () => {
+    const { addThought, state } = await start()
+    const results = await Promise.all([addThought('person:kai'), addThought('person:lea')])
+    expect(results.map(r => r.status)).toEqual([201, 201])
+    const s = await state()
+    expect(s.contributions.filter(c => c.content.startsWith('Thought from')).length).toBe(2)
+    expect(s.contributions.some(c => c.kind === 'evidence')).toBe(true)
+    expect(s.contributions.some(c => c.kind === 'observation')).toBe(false)
   })
 })

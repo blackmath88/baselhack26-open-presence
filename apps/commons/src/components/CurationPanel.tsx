@@ -183,7 +183,10 @@ export function CurationPanel({
                   {KIND_COPY[proposal.kind].title.toLowerCase()} · {label(proposal.sourceId)}
                   {proposal.targetId ? ` ↔ ${label(proposal.targetId)}` : ''}
                 </span>
-                <span className="curation-meta">by {proposal.reviewedBy?.replace('person:', '') ?? '—'}</span>
+                <span className="curation-meta">
+                  proposed by {proposerLabel(proposal)} · reviewed by {proposal.reviewedBy?.replace('person:', '') ?? '—'}
+                </span>
+                {proposal.reason && <span className="curation-meta">{proposal.reason}</span>}
               </div>
             ))}
           </div>

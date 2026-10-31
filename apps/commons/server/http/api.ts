@@ -200,7 +200,10 @@ export function createApi(services: Services, options: ApiOptions): ApiHandler {
           const source = optionalStr(body.source, 'source')
           const sourceDetail = optionalStr(body.sourceDetail, 'sourceDetail')
           const preparedBy = optionalStr(body.preparedBy, 'preparedBy')
-          const result = await services.contributions.add(actor, {
+          const add = services.commons && problemId.startsWith('commons:')
+            ? services.commons.addToRoom.bind(services.commons)
+            : services.contributions.add
+          const result = await add(actor, {
             problemId,
             content: str(body.content, 'content'),
             ...(kind ? { kind: kind as ContributionKind } : {}),

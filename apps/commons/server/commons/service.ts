@@ -94,6 +94,16 @@ export function createCommonsService(options: CommonsServiceOptions) {
         return curation[snapshot.decision](actor, { problemId: proposed.problemId, proposalId: snapshot.proposalId })
       }))
     },
+    /**
+     * A free-form contribution to an imported room (the room's own "Add a thought").
+     * Runs the existing contribution service inside the same serialized transaction
+     * as Commons commands, so it validates and appends against current state.
+     */
+    async addToRoom(actor: ActorContext, input: Parameters<ReturnType<typeof createContributionService>['add']>[1]) {
+      authorize(actor, SCOPE_CONTRIBUTE)
+      if (!input.problemId.startsWith('commons:')) throw invalid('Not a Commons room.')
+      return repository.transaction(tx => createContributionService(deps(tx)).add(actor, input))
+    },
     async getRoom(actor: ActorContext, id: string) {
       authorize(actor, SCOPE_READ)
       return repository.transaction(async tx => {

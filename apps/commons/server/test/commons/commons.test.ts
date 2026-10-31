@@ -159,7 +159,9 @@ describe('Commons HTTP subrouter', () => {
       ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
     })
     expect((await request(`rooms/${encodeURIComponent(roomId)}`, undefined, false)).status).toBe(401)
-    expect((await request('import', { problems: sources })).status).toBe(200)
+    // No HTTP import: participants cannot inject records under Postack provenance (review S3).
+    expect((await request('import', { problems: sources })).status).toBe(404)
+    await createCommonsImporter(repository)(sources)
     const submitted = await request('contributions', { ...submission, actorId: 'person:impostor', authoredBy: 'person:impostor' })
     expect(submitted.status).toBe(201)
     expect(((await submitted.json()) as { contribution: { provenance: { authoredBy: string } } }).contribution.provenance.authoredBy).toBe('person:kai')
@@ -168,6 +170,5 @@ describe('Commons HTTP subrouter', () => {
     const room = await request(`rooms/${encodeURIComponent(roomId)}`)
     expect(room.status).toBe(200)
     expect(((await room.json()) as { history: unknown[] }).history.length).toBeGreaterThan(0)
-    expect((await request('import', { problems: 'bad' })).status).toBe(422)
   })
 })
