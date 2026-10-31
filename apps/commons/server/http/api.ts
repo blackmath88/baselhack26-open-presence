@@ -220,6 +220,14 @@ export function createApi(services: Services, options: ApiOptions): ApiHandler {
         const body = await readJson(req)
         const problemId = str(body.problemId, 'problemId')
         const reason = optionalStr(body.reason, 'reason')
+        // Commons rooms review through the serialized, idempotent Commons command so this
+        // route cannot race a concurrent review of the same proposal. The default key makes
+        // a retried click by the same participant replay instead of failing.
+        if (services.commons && problemId.startsWith('commons:')) {
+          const decision = curationMatch[2] as 'accept' | 'reject'
+          const commandId = optionalStr(body.commandId, 'commandId') ?? `review:${proposalId}:${decision}:${actor.actorId}`
+          return send(res, 200, await services.commons.review(actor, { commandId, proposalId, decision }))
+        }
         const result =
           curationMatch[2] === 'accept'
             ? await services.curation.accept(actor, { problemId, proposalId })

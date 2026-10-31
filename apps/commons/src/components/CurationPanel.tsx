@@ -136,7 +136,8 @@ export function CurationPanel({
             <div className="curation-head">
               <span className={`kind-chip proposal-${proposal.kind}`}>{KIND_COPY[proposal.kind].title}</span>
               <span className="curation-meta">
-                {proposerLabel(proposal)} · confidence {proposal.confidence.toFixed(2)}
+                {proposerLabel(proposal)} ·{' '}
+                {proposal.proposedBy === 'postack-agent' ? 'imported record-writer proposal, no score' : `confidence ${proposal.confidence.toFixed(2)}`}
               </span>
             </div>
 

@@ -53,8 +53,16 @@ async function request<T>(path: string, options: { token?: string; method?: stri
   }
 
   const text = await response.text()
-  const payload = text ? (JSON.parse(text) as Record<string, unknown>) : {}
+  let payload: Record<string, unknown> = {}
+  try {
+    payload = text ? (JSON.parse(text) as Record<string, unknown>) : {}
+  } catch {
+    // Not our API's JSON: typically the dev proxy answering for a stopped backend.
+  }
 
+  if (!response.ok && response.status >= 500 && payload.error === undefined) {
+    throw new ApiError(response.status, 'network_error', `The br-ai-nstorm server did not answer (HTTP ${response.status}). Is \`npm run dev:server\` running?`)
+  }
   if (!response.ok) {
     throw new ApiError(
       response.status,

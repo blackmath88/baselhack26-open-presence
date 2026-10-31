@@ -20,7 +20,15 @@ async function post<T>(path: string, token: string, body: unknown): Promise<T> {
     throw new ApiError(0, 'network_error', 'Could not reach the local shared room. Your draft is still saved in this browser.')
   }
   const text = await response.text()
-  const payload = text ? (JSON.parse(text) as Record<string, unknown>) : {}
+  let payload: Record<string, unknown> = {}
+  try {
+    payload = text ? (JSON.parse(text) as Record<string, unknown>) : {}
+  } catch {
+    // Not our API's JSON: typically the dev proxy answering for a stopped backend.
+  }
+  if (!response.ok && response.status >= 500 && payload.error === undefined) {
+    throw new ApiError(response.status, 'network_error', `The local shared room did not answer (HTTP ${response.status}). Your draft is still saved in this browser.`)
+  }
   if (!response.ok) {
     throw new ApiError(response.status, String(payload.error ?? 'error'), String(payload.message ?? response.statusText), payload.detail)
   }

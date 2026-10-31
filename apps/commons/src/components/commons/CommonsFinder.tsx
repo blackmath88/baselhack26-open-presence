@@ -195,7 +195,8 @@ export function CommonsFinder({
       setStatus({ kind: 'notice', text: result.replayed ? 'Already submitted earlier — no duplicate created.' : 'Submitted to the local shared room.' })
       onSubmitted(result.problemId ?? importedProblemSpaceId(selected.postackId))
     } catch (error) {
-      setStatus({ kind: 'error', text: `${error instanceof Error ? error.message : 'Submission failed.'} The draft stays in this browser.` })
+      const text = error instanceof Error ? error.message : 'Submission failed.'
+      setStatus({ kind: 'error', text: text.includes('draft is still saved') ? text : `${text} The draft stays in this browser.` })
     } finally {
       setBusy(false)
     }
