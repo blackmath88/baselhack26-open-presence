@@ -182,6 +182,15 @@ export interface ExternalOrigin {
   selfPublicationOf?: string;
 }
 
+/**
+ * Which adapter carried the submission in. Declared by the adapter (MCP sets it
+ * server-side; the browser and CLI declare it over HTTP), never detected and
+ * never authorization. Absent on older records: `unknown`. Ingested records are `atproto`.
+ */
+export type CommonsEntrance = 'browser' | 'cli' | 'mcp' | 'http' | 'atproto' | 'unknown'
+export const SUBMIT_ENTRANCES = ['browser', 'cli', 'mcp', 'http'] as const
+export type SubmitEntrance = (typeof SUBMIT_ENTRANCES)[number]
+
 export interface CommonsActor {
   id: string; // person:<x> | did:… | repo:<owner/name>
   displayName?: string;
@@ -207,6 +216,7 @@ export interface CommonsContribution {
   supersedes?: Ref;
   contradicts?: Ref;
   origin: { kind: 'local' } | ExternalOrigin;
+  entrance: CommonsEntrance;
   publication: PublicationReceipt | null;
   links: { app: string };
 }
@@ -232,6 +242,8 @@ export interface SubmitContributionCommandV2 extends SubmitContributionCommand {
   supersedesId?: string;
   contradictsId?: string;
   observedAt?: string;
+  /** Adapter that carried this command; excluded from the idempotency hash, first recorded value wins. */
+  entrance?: SubmitEntrance;
 }
 
 export interface CommandReceipt {

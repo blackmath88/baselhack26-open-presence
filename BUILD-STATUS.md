@@ -63,3 +63,12 @@ Draft PR opened against `feat/commons-brainstorm-integration` (retarget to `main
 ## Codex integration continuation — 31 October
 
 Publication fixes from PR #13 are integrated. The reproduced legacy room/HTTP/MCP moderation read leak is repaired in the accompanying change; normal read projections omit withheld content and dependent reasons while retaining the original event log. Combined local checks against current main: 188 tests, typecheck, index reproduction, build and both server smoke scripts pass. See `evidence/MODERATION-READS-20261031.md`. These are coordinator checks, not independent review or public activation. Earlier milestone and test counts above are historical evidence.
+
+
+## NUC window continuation — 31 October, 20:10–23:00 (Claude Code coordinator)
+
+Branch `blackmath88/nuc-20261031-commons` from main `b1af012`. Weakest link found in the repository → problem → evidence → contribution → reply → rediscovery path: a contribution's source refs never led back from the repository. Browsing `issue/99` showed only problem records, never what people added about it; search could not find a contribution by the object it cited; nothing said which entrance carried a contribution.
+
+Changed: contributions carry a declared `entrance` (`browser`/`cli`/`mcp`/`http`, `atproto` for ingested, `unknown` for older records; excluded from the idempotency hash, so a retry through another entrance replays). Repository navigation (HTTP/CLI/MCP/UI) lists visible contributions citing each doc, thread and comment, with author, entrance and cited objects; linked-only thread lists include contribution-cited threads. Contribution search indexes cited object ids and source authors (`source` field) and returns source refs + entrance in every summary. Moderation removes citations from the navigator. Imported records are unchanged (asserted).
+
+Checks at this head: typecheck; 18 files / 189 tests, including both isolated-PDS suites run for real after `tools/local-pds` install (the two-author test now also asserts a fresh instance rediscovers Alice's record from the cited thread, entrance `atproto`); index byte-identical; Vite build (chunk warning only); `e2e.sh` and the extended `multi-entry.sh` (`evidence/cli-smoke-rediscovery-20261031.txt`). Browser UI changes are typechecked and built, not browser-walked in this window. Self-reviewed only. Separate from draft #15 (adapter schemas), which touches the same adapter files; expect a small rebase.

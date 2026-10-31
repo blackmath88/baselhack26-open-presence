@@ -6,6 +6,7 @@ export const contribution = (overrides: Partial<CommonsContribution> = {}): Comm
   revision: 1,
   problemId: 'usb-c-no-data',
   roomId: 'commons:usb-c-no-data',
+  entrance: 'http',
   kind: 'observation',
   text: 'Same on my M2 Mac: the frame charges but never mounts. Zebra-quartz-7719 phrase for search.',
   circumstances: 'macOS 15, USB-C cable',

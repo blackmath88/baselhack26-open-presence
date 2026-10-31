@@ -57,6 +57,7 @@ export function Composer({ token, problem, parent, relation, onSubmitted, onCanc
       ...(relation === 'correction' && parentId ? { contradictsId: parentId, parentId } : {}),
       ...(relation === 'supersedes' && parentId ? { supersedesId: parentId } : {}),
       preparedBy: 'browser-draft',
+      entrance: 'browser' as const,
     }
   }
   const doPreview = async () => {

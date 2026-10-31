@@ -1,0 +1,46 @@
+Photo Frame Commons: 18 imported rooms, 111 new import events
+Commons ATProto: not configured — publication and ingestion report that state
+== search (Kai)
+problems: [('usb-c-no-data', False), ('reset-after-uboot', False), ('ums-drops-during-backup', False)] contributions: 0
+== browse root
+dir ['.github', 'dashboard', 'docs', 'scripts', 'README.md'] issues 57 linked 32
+== browse thread issue/99
+issue/99 patrickmiltner cited by ['emmc-not-exposed']
+== inspect problem
+problem commons:usb-c-no-data evidence 7 contributions 0
+== draft (writes nothing)
+ok True destination commons:usb-c-no-data warnings []
+== submit
+id contrib_f9c22ced-d532-4cc5-bc25-1b56ba730bac replayed False author person:kai
+== submit again (same key)
+id contrib_f9c22ced-d532-4cc5-bc25-1b56ba730bac replayed True
+== submit again (same key, changed text) → exit code:
+exit 3
+{
+  "error": "POST /api/commons/contributions → HTTP 409 conflict",
+  "detail": {
+    "error": "conflict",
+    "messag
+== reply as Lea
+reply contrib_2f97b1e8-2453-40a3-822e-b34e1b93e7a8 author person:lea
+== thread
+root person:kai replies ['person:lea'] participants ['person:kai', 'person:lea']
+== search the phrase (Lea)
+[('contrib_f9c22ced-d532-4cc5-bc25-1b56ba730bac', 'person:kai')]
+== rediscover from the repository (Lea): which threads/docs cite the CLI contribution
+doc docs/pf1007l-start-here.md [('person:kai', 'cli')]
+== search the cited object (Lea)
+[('contrib_f9c22ced-d532-4cc5-bc25-1b56ba730bac', 'person:kai', 'cli', ['doc/docs/pf1007l-start-here.md'])]
+== context
+contributions 1 omissions 2 limitations 4 sources 4
+== publish without an account → exit code:
+exit 4
+False no-account none
+== hide (Lea reviews) then inspect
+moderated True hidden text present False
+== status
+schema 2026-10-31.1 atproto none publications {'queued': 0, 'published': 0, 'failed': 0, 'conflict': 0, 'outbox': 0} problems 18
+== restart keeps everything
+after restart: replies 1
+== unreachable server → exit code:
+exit 6

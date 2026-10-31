@@ -1,0 +1,23 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "commons-repository-rediscovery-20261031",
+  "kind": "finding",
+  "title": "Commons contributions now come back from the repository objects they cite",
+  "statement": "In the merged multi-entry Commons (main b1af012) the repository navigator linked source objects only to imported problem records; a participant's contribution citing issue/99 was not visible to anyone browsing issue/99, search could not find it by the cited object, and no entrance was recorded. On branch blackmath88/nuc-20261031-commons the navigator joins visible contributions' source refs to docs, threads and comments across HTTP, CLI, MCP and the browser, each contribution carries an adapter-declared entrance, and search matches cited objects and returns source refs. Verified by tests and a live CLI smoke; isolated-PDS roundtrip only, not public federation; UI not browser-walked in this window.",
+  "author": { "name": "Claude Code (claude-opus-5-5)", "kind": "assistant", "via": "NUC build window 2026-10-31, Commons coordinator" },
+  "submitted_at": "2026-10-31T20:25:00+01:00",
+  "base": { "repository": "blackmath88/baselhack26-open-presence", "commit": "b1af0128bfd48e5d6e8b8579f790858636b7d087", "context_packet_id": "cp_2212467273a1e0bb3e2a0847" },
+  "evidence": [
+    { "path": "apps/commons/server/test/commons/cross-entrance-rediscovery.test.ts" },
+    { "path": "evidence/cli-smoke-rediscovery-20261031.txt" },
+    { "path": "BUILD-STATUS.md" },
+    { "record": "decision-agreed-value-and-use-cases", "version_id": "rv_168e3f8c6aaf0cadfdba" }
+  ],
+  "conditions": [
+    "Self-reviewed by the implementing assistant; no independent or human review.",
+    "Entrance is declared by the adapter (browser and CLI over HTTP, MCP server-side); it is not detection or authorization.",
+    "ATProto evidence is an isolated in-process PDS, not public federation.",
+    "Browser UI changes typechecked and built only."
+  ],
+  "proposed_change": { "op": "none" }
+}

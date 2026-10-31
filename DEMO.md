@@ -33,11 +33,11 @@ Other knobs: `COMMONS_ATPROTO_NAMESPACE` (default `test.openpresence.commons`, d
 ```bash
 cd apps/commons
 npm run typecheck
-npm test                         # 188 tests; the PDS round-trip suites skip visibly if tools/local-pds is not installed
+npm test                         # 189 tests; the PDS round-trip suites skip visibly if tools/local-pds is not installed
 npm run index:check              # record-only index reproduces byte for byte
 npx vite build
 bash scripts/smoke/e2e.sh        # first-slice smoke (submit, retry, restart, concurrent review)
-bash scripts/smoke/multi-entry.sh # CLI entrance against a real server: search, browse, draft, submit, reply, thread, context, moderation, status
+bash scripts/smoke/multi-entry.sh # CLI entrance against a real server: search, browse, draft, submit, reply, thread, repository rediscovery, context, moderation, status
 ```
 
 ## Three entrances, one Commons
@@ -67,6 +67,17 @@ npm run commons -- thread <contributionId> · context <id> --budget 4000 · stat
 Exit codes: 0 ok · 2 validation · 3 conflict · 4 forbidden/not ready · 5 not found · 6 server unreachable.
 The contribution made here appears once in the UI (State view and Commons card), attributed to the session's
 participant, and `commons_search` finds its distinctive words with author and source refs.
+
+**Rediscovery from the repository.** Every contribution records the entrance that carried it (`browser`, `cli`,
+`mcp`, `http`; ingested records are `atproto`; older records `unknown`) — declared by the adapter, never detected,
+never authorization. A contribution's source refs feed back into the repository navigator: after
+`submit … --ref issue/99`, `npm run commons -- browse --object issue/99` (and `commons_browse_repository`, and the
+**Repository** view in the browser) lists it under the thread — and under the exact comment if it cited one — with
+author, entrance and cited objects. `--threads issue --linked` now includes threads cited only by contributions.
+Searching the cited object id (`npm run commons -- search issue/99`) finds it through a `source` match, and the
+result shows source refs (permalink, original author) and entrance. Hidden or blocked contributions disappear from
+the navigator like everywhere else; imported records are never changed. See
+`evidence/cli-smoke-rediscovery-20261031.txt` and `server/test/commons/cross-entrance-rediscovery.test.ts`.
 
 **3. Community link and ATProto.** Any contribution has `#/contributions/<id>` and `#/threads/<id>`; opening one
 restores the problem, highlights the contribution and shows the conversation with both voices. **Reply** and

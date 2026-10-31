@@ -151,7 +151,7 @@ async function main(argv: string[]): Promise<number> {
       const draft = draftFromFlags(flags)
       const prepared = await post('/api/commons/contributions/prepare', draft) as { ok: boolean; command?: Record<string, unknown>; errors: string[] }
       if (!prepared.ok || !prepared.command) throw new CliError(2, `Not submitted: ${prepared.errors.join(' ')}`, prepared)
-      const command = { ...prepared.command, commandId: flagStr(flags, 'command-id') ?? (typeof draft.commandId === 'string' ? draft.commandId : prepared.command.commandId ?? randomUUID()) }
+      const command = { ...prepared.command, commandId: flagStr(flags, 'command-id') ?? (typeof draft.commandId === 'string' ? draft.commandId : prepared.command.commandId ?? randomUUID()), entrance: 'cli' }
       out = await post('/api/commons/contributions', command)
       break
     }

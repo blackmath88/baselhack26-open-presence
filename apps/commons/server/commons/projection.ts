@@ -102,6 +102,7 @@ export function toCommonsContribution(ctx: ProjectionContext, c: ContributionRec
     ...(meta.supersedes ? { supersedes: meta.supersedes } : {}),
     ...(meta.contradicts ? { contradicts: meta.contradicts } : {}),
     origin,
+    entrance: origin.kind === 'atproto' && !origin.selfPublicationOf ? 'atproto' : meta.entrance ?? 'unknown',
     publication: ctx.metadata.publications[c.id] ?? null,
     links: { app: appLinks.contribution(c.id) },
   }

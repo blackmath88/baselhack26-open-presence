@@ -124,6 +124,8 @@ textarea:disabled{opacity:.6}
 .commons-hits button { width: 100%; text-align: left; display: grid; gap: .2rem; padding: .6rem; border-radius: 8px; border: 1px solid var(--line, #ddd); background: transparent; font: inherit; cursor: pointer; }
 .commons-hits button.active, .commons-hits button:focus-visible { outline: 2px solid currentColor; }
 .commons-why, .commons-limit { font-size: .85em; opacity: .75; }
+.commons-citing { margin: .4rem 0 .6rem 1.2rem; padding: 0; }
+.commons-citing li { margin-bottom: .35rem; }
 .commons-near { font-weight: 600; }
 .commons-detail { display: grid; gap: 1rem; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
 @media (max-width: 760px) { .commons-detail { grid-template-columns: minmax(0, 1fr); } }

@@ -68,6 +68,10 @@ export function CommonsFinder({ reader, token, query }: { reader: CommonsReader;
                   <strong>{h.summary.kind} by {actorLabel(h.summary.actor)}</strong>
                   <span className="badge">{h.summary.origin === 'atproto' ? 'ATProto' : h.summary.publication}</span>
                   <span>{h.summary.excerpt}</span>
+                  <span className="commons-limit">
+                    entered via {h.summary.entrance}
+                    {h.summary.sourceRefs.length ? <> · cites {h.summary.sourceRefs.map((r) => r.author === 'unknown' ? r.objectId : `${r.objectId} (source author @${r.author})`).join(', ')}</> : ' · cites no source'}
+                  </span>
                   <span className="commons-why">{h.explanation} · problem {h.problemId}</span>
                 </a>
               </li>

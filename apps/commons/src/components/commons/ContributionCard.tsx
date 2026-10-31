@@ -102,6 +102,7 @@ export function ContributionCard({ c, token, actorId, canReview, onReply, onCorr
         <strong>{actorLabel(c.actor)}</strong>
         <span className="commons-limit">· {c.createdAt.slice(0, 16).replace('T', ' ')}{c.revision > 1 ? ` · revision ${c.revision}` : ''}</span>
         <PublicationBadge c={c} />
+        {c.entrance && c.entrance !== 'unknown' && <span className="badge" title="adapter that carried the submission; declared, not detected">via {c.entrance}</span>}
         {c.assistance.declared !== 'none' && <span className="badge">{c.assistance.declared}{c.assistance.preparedBy ? ` · ${c.assistance.preparedBy}` : ''}</span>}
       </div>
       {c.parent && (
