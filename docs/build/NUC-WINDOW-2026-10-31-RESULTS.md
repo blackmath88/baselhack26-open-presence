@@ -17,7 +17,7 @@ Supervisor pid 13205 started 19:10:02 UTC; `OWNERSHIP_RECONCILED` reported no co
 
 ## Commons (turn 1, branch `blackmath88/nuc-20261031-commons`, base main `b1af012`)
 Implemented and tested: repository rediscovery of contributions (navigator lists citing contributions with author, entrance and cited objects across HTTP/CLI/MCP/UI), adapter-declared `entrance` on every contribution, search over cited objects with source refs in results. Demonstrated cross-entrance path: CLI-style submit citing a comment of `issue/99` → MCP `commons_browse_repository issue/99` shows it with `person:kai`, `cli`, `[comment/…]` → MCP reply labelled `mcp` → HTTP search by the comment id finds it with permalink → hide removes it everywhere; imported record byte-identical (`cross-entrance-rediscovery.test.ts`). Live CLI against a real local server: `evidence/cli-smoke-rediscovery-20261031.txt`. Isolated-PDS protocol roundtrip: a fresh instance rediscovers Alice's ingested record from the cited thread with entrance `atproto` — isolated development network only, not public federation.
-Checks: typecheck · 189/189 tests (PDS suites real) · index byte-identical · build · e2e.sh · multi-entry.sh. Not done: browser walkthrough of the UI changes.
+Checks: typecheck · 189/189 tests (PDS suites real) · index byte-identical · build · e2e.sh · multi-entry.sh. Browser: one headless Chromium desktop pass via a minimal CDP script (`evidence/browser-check-rediscovery-20261031.txt`, screenshot); phone/keyboard not run.
 
 Draft PR: https://github.com/blackmath88/baselhack26-open-presence/pull/18 (feature head `3002474` plus this results update).
 

@@ -1,0 +1,34 @@
+Browser check — repository rediscovery (NUC window 2026-10-31 ~20:27 CET, Claude Code, self-run)
+Setup: temp data, API 127.0.0.1:8799, Vite dev 127.0.0.1:5199, headless Chromium via a minimal CDP script (sign-in = prototype session for Lea; Kai's contribution submitted through the CLI citing comment/6175633958).
+Screenshot: evidence/browser-rediscovery-issue-99.png (#/repo?object=issue/99).
+
+== #/repo?object=issue/99 (excerpt)
+ issue/99: PF1007L report: eMMC never initialises in U-Boot (mmc dev 1 fails) on BOTH Route U and Route S builds, tested firmware 20260113
+
+@patrickmiltner · opened 2026-10-14 · 4 comments by @wesbos, @peirvine · original 
+
+Cited by: The eMMC never appears in U-Boot, so there is nothing to back up (e1, e2, e7)
+
+Community contributions citing this thread or its comments:
+
+attempt by person:kai · via cli · 2026-10-31 · cites comment/6175633958 · problem emmc-not-exposed
+“larkspur-0417: reflashing over USB OTG still hides the eMMC”
+comment/6175633958 @peirvine · 2026-10-14 → The eMMC never appears in U-Boot, so there is nothing to back up (e2)
+comment/6270081219 @wesbos · 2026-10-19 → The eMMC never appears in U-Boot, so there is nothing to back up (e7)
+
+Comment bodies are not stored here; only authors, times and hashes. Follow the original to read them.
+
+
+== #/search?q=larkspur (excerpt)
+Searches agent-written records over a pinned public snapshot of wesbos/photo-frame-dashboard, plus what participants and opted-in ATProto authors contributed here. Not live, not reviewed by a person. Ranking is lexical, not confidence.
+
+Contributions
+attempt by kai
+local
+larkspur-0417: reflashing over USB OTG still hides the eMMC
+entered via cli · cites comment/6175633958 (source author @peirvine)
+Matched text: larkspur in a attempt by person:kai (entered via cli), citing comment/6175633958. Lexical rank only; not a confidence score and not a review. · problem emmc-not-exposed
+
+Coverage: 18 records from the snapshot of 2026-10-29, 1 contributions, no ATProto author synced.
+
+Not checked: phone width, keyboard navigation of the new list.

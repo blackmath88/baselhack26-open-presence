@@ -7,10 +7,10 @@ import { useEffect, useState } from 'react'
 import { ExternalLink, FileText, Folder, MessageSquare } from 'lucide-react'
 import { appLinks } from '../../commons/contracts'
 import { commonsApi, type RepoView } from '../../commons/client/api'
-import { safeHref } from './ContributionCard'
+import { actorLabel, safeHref } from './ContributionCard'
 
 type Linked = { problemId: string; title: string; evidenceIds: string[]; locators: string[]; link: string }
-type Citing = { contributionId: string; problemId: string; kind: string; actor: { id: string; displayName?: string }; entrance: string; cited: string[]; excerpt: string; createdAt: string; link: string }
+type Citing = { contributionId: string; problemId: string; kind: string; actor: Parameters<typeof actorLabel>[0]; entrance: string; cited: string[]; excerpt: string; createdAt: string; link: string }
 
 /** Community contributions citing this object: the rediscovery path back from the repository to what people added. */
 function Contributions({ contributions }: { contributions: Citing[] }) {
@@ -19,7 +19,7 @@ function Contributions({ contributions }: { contributions: Citing[] }) {
     <ul className="commons-citing" aria-label="Contributions citing this">
       {contributions.map((c) => (
         <li key={c.contributionId}>
-          <a href={c.link}>{c.kind} by {c.actor.displayName ?? c.actor.id}</a>
+          <a href={c.link}>{c.kind} by {actorLabel(c.actor)}</a>
           <span className="commons-limit"> · via {c.entrance} · {c.createdAt.slice(0, 10)} · cites {c.cited.join(', ')} · problem {c.problemId}</span>
           <div className="commons-limit">“{c.excerpt}”</div>
         </li>
