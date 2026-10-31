@@ -1,112 +1,68 @@
-# PDF LAB — proposed build plan
-31 October 2026 · implementation not started
+# PDF LAB — build the strange objects first
+31 October 2026 · current plan; implementation not started
 
-## Outcome
-A person can choose a PDF experiment, predict what a reader will see, compare actual representations and inspect evidence explaining a discrepancy. The first demo must work locally without an LLM or a proprietary viewer.
+Read [the format-bending brief](FORMAT-BENDING.md). Achim's latest direction prioritises demoscene-like artefacts, reverse engineering and playful format limits. This plan replaces the previous extraction-first sequence. Historical methodology remains in [the research review](RESEARCH-REVIEW-2026-10-31.md) and Git history.
 
-## Research refinement — 31 October
-Read [the reviewed research and corrections](RESEARCH-REVIEW-2026-10-31.md). This refines the proposed sequence below; it does not claim implementation or a newly agreed audience.
+## 1. Deliver B01: this picture is one letter
+Inspect applicable repository instructions and locally available tools. Select a small generator capable of exposing exact PDF objects; pin versions and review licences. Verify Type 3 font requirements in primary documentation.
 
-Start with two extraction engines and one OCR engine as an additional observation, not a prerequisite six-engine benchmark. P001 becomes a staged family: first a legitimate ActualText control and a deliberately contradictory counterpart; then ToUnicode, invisible text, colour, crop/media boundaries and optional-content variants one at a time. Each fixture changes one mechanism. Add a small interactive P005 experiment early alongside the comparison work.
+Build a simple original maze/map drawn inside a single Type 3 glyph, plus a direct-page-drawing control. Keep the generator readable. Produce the PDF, source recipe, object inventory, render and extraction observations. Add a mapping-only variant, then one export/print/flattening observation if the relevant environment is available.
 
-Every comparison records its purpose, semantic expectation, engine family, wrapper, settings, preprocessing, raw output and normalization rules. OCR is not ground truth. Compatible behaviour in a game is not evidence that all form APIs work.
+Done means:
+- the PDF renders recognisable artwork;
+- inspection proves the glyph mechanism;
+- a reader can discover what selection/extraction does;
+- the notebook links to actual output and names the viewers/parsers;
+- a local rerun regenerates it or explains nondeterministic metadata.
 
-For P002, distinguish underlying content remaining from a particular extractor exposing it; do not assume every extractor returns covered text. For P003, compare incremental save, rewrite without cleanup and rewrite with explicit cleanup. Use validated revision boundaries/xref chains or known generator snapshots, not blind splitting at every %%EOF. Full save alone is not a sanitization guarantee.
+Do not gate B01 on a generic plugin system, six parsers, OCR or a complete gallery. A baseline belongs inside this work, not as a separate product milestone.
 
-The seven-variant/six-parser matrix is an expansion roadmap. Creative exploration and educational reproduction remain valuable without discovering a new vulnerability.
+## 2. Deliver B02: the backstage machine
+Build a small document with a deliberately hidden interface, accessible by an authored field trigger and discoverable through object inspection. Reveal a toy machine with visible registers, memory and program listing.
 
-## 1. Research and choose instruments
-Use [the research prompt](RESEARCH-PROMPT.md). Produce a claim ledger with source, date/version, evidence category and remaining uncertainty. Evaluate existing tools before writing wrappers.
+Implement step/reset first, then bounded run. Choose a tiny instruction set and include a short drawing program. Keep the initial machine entirely within the supported PDF form/JavaScript environment of a named reader. No external calls or host execution.
 
-Candidate instruments, not selected dependencies:
-- qpdf or pikepdf for structure and transformations;
-- Poppler for rendering/text extraction;
-- MuPDF/PyMuPDF as a second implementation;
-- PDF.js as a browser viewer;
-- veraPDF for applicable conformance questions;
-- Acrobat and macOS Preview as manual observation environments;
-- OCR as an explicitly separate representation;
-- signature validation tooling only when the signature specimen is in scope.
+Done means: opening scene, trigger, state changes, inspectable program and reset all work in one recorded viewer. Record a second viewer if available. Test save/reopen separately; do not promise persistence before observing it. Give unsupported viewers a static explanation.
 
-Verify licences, maintained versions, actual feature support and installation constraints. Wrappers that share an underlying engine do not count as independent parsers. Do not imply that structural validation proves security or correct semantics.
+## 3. Deliver B03: the repair bench
+Generate a small known-good PDF. Derive three fixtures changing one property each: xref offset, stream length, final-update truncation. Preserve originals and record intended validity/rule.
 
-Deliverable: tool decision record, pinned versions and the first three specimen recipes.
+Run two independently implemented engine families offline in disposable processes with explicit size/time/memory/output limits. Capture:
+- accept/reject and exit status;
+- diagnostics, including reported repairs;
+- render/extraction differences;
+- timeout or crash separately from semantic disagreement.
 
-## 2. Build the reproducible evidence core
-Keep all code, inputs and documentation inside this folder. Use a small local CLI first; implementation language follows tool choice.
+Minimise a reproducible interesting case if found. Re-run after minimisation to verify the same observation. If no differences emerge, publish the negative result and choose another bounded mutation. Do not fabricate a “reader disagreement” exhibit.
 
-Proposed commands:
-- generate: construct deterministic fixtures where feasible;
-- inspect: collect static structure and extracted text;
-- render: create page images using a named renderer;
-- compare: assemble aligned evidence without deciding which representation is authoritative;
-- report: write machine-readable results and a human-readable notebook.
+## 4. Present the cabinet
+Only after working PDFs exist, make a local gallery over their files and observations:
+- encounter the artefact;
+- play or predict;
+- reveal its mechanism;
+- bend one parameter;
+- inspect evidence.
 
-Data contracts:
-- Specimen: id, file path, SHA-256, source/licence, parent hash, recipe, intended properties and feature flags.
-- Experiment: question, prediction, procedure, specimen hashes, environment and falsifier.
-- Run: instrument/version/configuration, input hash, timestamps, exit status and output hashes.
-- Observation: statement, evidence references, page/object/region if known, author and observation type.
-- Interpretation: conclusion, supporting observations, alternatives, limits and status.
+Each card includes actual compatibility results, original PDF, source and regeneration command. Previews must be labelled as renderings, not live PDF interaction. Avoid simulated results or a wall of metadata.
 
-Use explicit statuses: not-run, observed, unsupported, blocked, error. Unknown is not a pass. Output disagreement must retain both results.
+## 5. Expand
+Next candidates: harmless PDF/archive polyglot, print-transformation composition, revision-history mystery. Preserve exact byte identity for polyglots; distinguish an attachment from a second file-format interpretation. Revision reconstruction follows validated structural boundaries, never blind %%EOF splitting. Full saves are not assumed to remove residual content.
 
-Acceptance: regenerate or explain nondeterministic bytes; verify inputs are unchanged; capture failures and unsupported cases without fabricating observations.
+Extraction, redaction and agent-ingestion comparisons remain supporting drawers. Signatures, broad fuzzing and shared XL/PDF infrastructure come later when they serve a concrete exhibit.
 
-## 3. Deliver the first experiment
-P000 baseline: a simple page with known text and a numeric value.
-P001 variant: a synthetic page designed to retain the same visible content while changing a machine-readable representation.
+## Minimal shared evidence
+Specimen: id, source, licence, hash, parent hash, recipe and intended mechanism.
+Run: input hash, engine family, wrapper/version/settings, environment, limits, exit state and output paths/hashes.
+Observation: visible effect, structure, extraction or interaction, linked to evidence.
+Interpretation: hypothesis, mechanism, uncertainty, expected falsifier and classification.
+Transformation: original and derived hashes, command/settings and losses observed.
 
-Show:
-- both page renders;
-- extracted text from two independently implemented engines where available;
-- the structural change responsible;
-- exact viewer/parser versions;
-- a short explanation with limits.
+Keep raw and normalized results separate. Use not-run, observed, unsupported, blocked and error states. OCR, if added, is another instrument, not truth. Different wrappers of one engine are correlated observations.
 
-For visual equivalence, compare the pair with the same pinned renderer and record the image diff; repeat with another renderer if available. Do not infer universal pixel identity from one rendering. If the intended discrepancy does not reproduce, preserve that negative result.
+## Implementation handoff
+Work inside sideprojects/pdf-lab. Begin with B01 and deliver a real PDF with a clear reveal before expanding abstractions. Reuse mature tools, check their actual capabilities and report failures honestly. No AI service, external deployment or new repository is required.
 
-Acceptance: a newcomer can identify the disagreement and locate its evidence. No AI is needed to demonstrate the representation mismatch.
+The creative direction is user-requested; exact design, tools and ordering are proposed implementation choices. No existing experiment result is claimed by this plan.
 
-## 4. Add one trust case and one creative case
-P002: synthetic sensitive marker; compare a black overlay, unapplied redaction and applied redaction. Inspect text, images, annotations, attachments and relevant revisions. Bound any claim of removal to the tests performed; checking one extractor is insufficient.
-
-P005: a local form calculator with documented fallback. Compare interaction in available viewers. Record arithmetic, persistence after saving and unsupported behaviour separately. Network submission is out of scope.
-
-Acceptance: demonstrate one format affordance and one trust boundary. Avoid making the whole lab a catalogue of alarming files.
-
-## 5. Add the visual workbench
-Build a local UI over actual run artifacts:
-- left: specimen and experiment selection;
-- centre: page, extraction and structure comparison;
-- detail: instrument settings and evidence links;
-- notebook: prediction, observation, interpretation and next question.
-
-Keep raw outputs accessible and link findings to specific pages/objects where possible. Do not hide disagreements inside a single AI summary. No public upload service, deployment or hosted scanner is required.
-
-Acceptance: baseline and P001 end-to-end; keyboard access; readable narrow layout; no fake results. Cached runs must be labelled with input hash and environment.
-
-## 6. Later experiments
-Revisions, transformations, attachments, accessibility and signature interpretation follow the core. Agent comparisons are optional adapters:
-- preserve exact prompt, supplied representation, provider/model/version where available, settings and output;
-- distinguish extraction from reasoning and instruction-following;
-- repeat stochastic runs and avoid inferring a hidden ingestion pipeline from answers alone.
-
-Active-content experiments run separately in disposable environments with resource limits and network disabled by default. Use harmless owned fixtures. Never execute uploaded files merely to inspect them.
-
-## Scope cuts
-If time is short, deliver CLI + generated evidence report + P000/P001.
-Then add P002 and P005.
-Defer shared framework extraction, cloud accounts, federation, broad fuzzing, exploit development and remote execution infrastructure.
-
-## Post-hackathon extraction
-1. Review licences and ensure every required input and script is local to this folder.
-2. Create the separate repo at the explicitly requested later step; do not auto-create it now.
-3. Move the folder as the new root, retaining attribution and useful history.
-4. Replace parent-repository links with canonical URLs.
-5. Add standalone setup/CI and verify a fresh clone can reproduce the first experiment.
-6. Leave a short pointer here and update the project knowledge declarations when appropriate.
-7. Consider shared XL/PDF infrastructure only after both demonstrate a real common need.
-
-## Handoff for an implementing agent
-Read README.md and this plan. Inspect applicable repository instructions. Implement only within sideprojects/pdf-lab unless integration is explicitly required. Start with the evidence contracts and P000/P001. Research and choose tools with a short rationale; no API key or AI service is required. Report what ran, what failed, what remains untested and the next bounded slice. Documentation proposals are not evidence of working software.
+## After the hackathon
+Extract this self-contained folder into a separately requested repo, retain provenance/history and a pointer here, verify fresh-clone reproduction and update canonical links. Shared infrastructure with XL LAB should follow demonstrated reuse.
