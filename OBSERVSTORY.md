@@ -44,6 +44,14 @@ python3 /path/to/observstory/scripts/observstory.py knowledge brief --artifact /
 ```
 Selected files are already public in this repository; the view adds paths, short section excerpts and hashes, nothing private.
 
+## Project memory
+Every first-parent revision of the selected knowledge is retained by the NUC Project Memory host (Knowledge Lab
+branch `feat/project-memory-mvp`): versions, events, history at any revision, reproducible context packets and
+receipts. Findings come back as [proposal files](.observstory/proposals/README.md) and count only after a human
+review record. Dated packets for assistants: [docs/memory](docs/memory/README.md). Assistant rules: [AGENTS.md](AGENTS.md).
+The memory page is served on the NUC (loopback, reach it with an SSH tunnel); it is **not** published to Pages by this
+workflow.
+
 ## Pages deployment
 The workflow publishes dashboard output from main, excluding pull-request events. Pages was enabled by the owner on 31 October 2026 while the source repository remained private. The published output includes collected repository activity, planning declarations, file paths and commit titles; source-repository visibility does not restrict access to the published dashboard.
 

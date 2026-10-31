@@ -1,6 +1,6 @@
 {
   "schema": "observstory.knowledge-manifest/v1",
-  "title": "Open Presence · Project Knowledge",
+  "title": "Open Presence \u00b7 Project Knowledge",
   "selection_policy": "explicit-declaration/v1",
   "audience": "public",
   "note": "Selects existing documents; it does not approve them. A record's status is what the cited source declares, or a manifest classification where marked. Decisions and open questions are imported from .observstory/coordination.json, not duplicated here.",
@@ -39,7 +39,7 @@
         },
         {
           "path": "EARLIER-BUSINESS-PRESENCE.md",
-          "quote": "Historical brief — superseded as the weekend build direction"
+          "quote": "Historical brief \u2014 superseded as the weekend build direction"
         }
       ]
     },
@@ -156,6 +156,32 @@
       "note": "Manifest classification: hotel implementation inputs from the superseded scenario."
     },
     {
+      "id": "decision-agreed-value-and-use-cases",
+      "type": "decision",
+      "path": "docs/product/VALUE-AND-UX.md",
+      "status": "stated",
+      "declared_in": [
+        {
+          "path": "docs/product/VALUE-AND-UX.md",
+          "quote": "Achim explicitly agreed the value framing and three use cases in the project conversation."
+        }
+      ],
+      "note": "The agreed part is the value framing and the three use cases; interface wording and layout in the same file remain proposals."
+    },
+    {
+      "id": "decision-proposed-shared-memory-architecture",
+      "type": "decision",
+      "path": "docs/architecture/PROPOSED-SHARED-MEMORY.md",
+      "status": "proposed",
+      "declared_in": [
+        {
+          "path": "docs/architecture/PROPOSED-SHARED-MEMORY.md",
+          "quote": "proposal for architecture sparring, not an accepted ADR or implementation claim."
+        }
+      ],
+      "note": "Under review in issue #3. Concerns community problem memory for the product, not Observatory project memory."
+    },
+    {
       "id": "plan-event-timetable",
       "type": "plan",
       "path": "EVENT-TIMETABLE.md",
@@ -204,6 +230,11 @@
     },
     {
       "from": "coordination:D1",
+      "rel": "applies_to",
+      "to": "concept-human-signal"
+    },
+    {
+      "from": "decision-agreed-value-and-use-cases",
       "rel": "applies_to",
       "to": "concept-human-signal"
     },
