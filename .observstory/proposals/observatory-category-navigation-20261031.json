@@ -1,0 +1,34 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "observatory-category-navigation-20261031",
+  "kind": "finding",
+  "title": "Category navigation and recursive expansion make implementation artifacts inspectable in the Observatory workspace",
+  "statement": "The Observatory worker reports that this project's 39 heterogeneous projected records were partly hidden by one-level expansion: implementation artifacts sat below derived areas. Producer 4d107c6 (observstory PR #26, stacked on #24) adds category filters, shared search and ancestor-preserving recursive display. It keeps provenance and leaves lifecycle as unknown. A local consumer build with that producer renders 42 records with the filters (PR #19).",
+  "author": {
+    "name": "Codex (Observatory worker); filed by Claude Code coordinator",
+    "kind": "assistant",
+    "via": "NUC build window 2026-10-31"
+  },
+  "submitted_at": "2026-10-31T20:28:00+01:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "b1af0128bfd48e5d6e8b8579f790858636b7d087",
+    "context_packet_id": "cp_2212467273a1e0bb3e2a0847"
+  },
+  "evidence": [
+    {
+      "path": ".github/workflows/observstory.yml"
+    },
+    {
+      "path": "evidence/observatory-pin-4d107c6-local.txt"
+    }
+  ],
+  "conditions": [
+    "Producer evidence lives in blackmath88/observstory at 4d107c6 (frontend/docs/visual-workspace/REVIEW.md); the local pin evidence lives on branch blackmath88/nuc-20261031-observatory-pin.",
+    "Worker self-verification on captured inputs plus a coordinator local build; no CI run, no deployment.",
+    "Does not establish implementation progress, owners or dates."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
