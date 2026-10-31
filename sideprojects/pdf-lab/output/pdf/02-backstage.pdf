@@ -1,0 +1,175 @@
+%PDF-1.4
+% PDF LAB - authored ASCII specimen
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R /Names << /JavaScript << /Names [(Lab) 5 0 R] >> >> /AcroForm << /Fields [7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R] /DR << /Font << /H 4 0 R >> >> /DA (/H 12 Tf 0 g) /NeedAppearances true >> >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /H 4 0 R >> >> /Contents 20 0 R /Annots [7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R] >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /S /JavaScript /JS (/* PDF LAB toy machine. The secret is authored, not a security boundary. */
+var lab = {open:false, pc:0, a:0, cells:[], halted:false};
+function labPaint\(doc\) {
+  doc.getField\('state'\).value = 'PC '+lab.pc+' | A '+lab.a+' | '+\(lab.halted?'HALT':'READY'\);
+  doc.getField\('memory'\).value = lab.cells.join\('  '\);
+}
+function labReset\(doc\) {
+  if\(!lab.open\) return;
+  lab.pc=0; lab.a=0; lab.cells=[]; lab.halted=false; labPaint\(doc\);
+}
+function labUnlock\(doc\) {
+  if\(String\(doc.getField\('key'\).value\).toLowerCase\(\).replace\(/^\\s+|\\s+$/g,''\)!=='backstage'\) {
+    doc.getField\('state'\).value='Still locked. What is behind a stage?'; return;
+  }
+  lab.open=true;
+  ['memory','step','run','reset'].forEach\(function\(n\){doc.getField\(n\).display=0;}\);
+  labReset\(doc\);
+}
+function labStep\(doc\) {
+  if\(!lab.open || lab.halted\) return;
+  if\(lab.pc===0\) lab.a=1;
+  else if\(lab.pc%2===1\) lab.cells.push\(lab.a\);
+  else lab.a+=1;
+  lab.pc+=1;
+  if\(lab.cells.length===8\) lab.halted=true;
+  labPaint\(doc\);
+}
+function labRun\(doc\) { for\(var i=0;i<32 && !lab.halted;i++\) labStep\(doc\); }
+) >>
+endobj
+6 0 obj
+<< /Length 86 /Type /XObject /Subtype /Form /BBox [0 0 350 35] /Resources << /Font << /H 4 0 R >> >> >>
+stream
+0.94 0.96 1 rg 0 0 350 35 re f
+0.1 0.18 0.3 rg
+BT /H 12 Tf 1 0 0 1 8 13.5 Tm () Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Annot /Subtype /Widget /FT /Tx /T (key) /Rect [48 530 398 565] /P 3 0 R /F 4 /V () /DA (/H 12 Tf 0.1 0.18 0.3 rg) /AP << /N 6 0 R >> >>
+endobj
+8 0 obj
+<< /Length 91 /Type /XObject /Subtype /Form /BBox [0 0 150 35] /Resources << /Font << /H 4 0 R >> >> >>
+stream
+0.94 0.96 1 rg 0 0 150 35 re f
+0.1 0.18 0.3 rg
+BT /H 12 Tf 1 0 0 1 8 13.5 Tm (Enter) Tj ET
+
+endstream
+endobj
+9 0 obj
+<< /Type /Annot /Subtype /Widget /FT /Btn /Ff 65536 /T (unlock) /Rect [412 530 562 565] /P 3 0 R /F 4 /V (Enter) /DA (/H 12 Tf 0.1 0.18 0.3 rg) /AP << /N 8 0 R >> /A << /S /JavaScript /JS (labUnlock\(this\);) >> >>
+endobj
+10 0 obj
+<< /Length 147 /Type /XObject /Subtype /Form /BBox [0 0 514 40] /Resources << /Font << /H 4 0 R >> >> >>
+stream
+0.94 0.96 1 rg 0 0 514 40 re f
+0.1 0.18 0.3 rg
+BT /H 12 Tf 1 0 0 1 8 16.0 Tm (LOCKED - enter the word that names the other side of a stage.) Tj ET
+
+endstream
+endobj
+11 0 obj
+<< /Type /Annot /Subtype /Widget /FT /Tx /T (state) /Rect [48 447 562 487] /P 3 0 R /F 4 /V (LOCKED - enter the word that names the other side of a stage.) /DA (/H 12 Tf 0.1 0.18 0.3 rg) /AP << /N 10 0 R >> >>
+endobj
+12 0 obj
+<< /Length 86 /Type /XObject /Subtype /Form /BBox [0 0 514 40] /Resources << /Font << /H 4 0 R >> >> >>
+stream
+0.94 0.96 1 rg 0 0 514 40 re f
+0.1 0.18 0.3 rg
+BT /H 12 Tf 1 0 0 1 8 16.0 Tm () Tj ET
+
+endstream
+endobj
+13 0 obj
+<< /Type /Annot /Subtype /Widget /FT /Tx /T (memory) /Rect [48 370 562 410] /P 3 0 R /F 2 /V () /DA (/H 12 Tf 0.1 0.18 0.3 rg) /AP << /N 12 0 R >> >>
+endobj
+14 0 obj
+<< /Length 90 /Type /XObject /Subtype /Form /BBox [0 0 150 38] /Resources << /Font << /H 4 0 R >> >> >>
+stream
+0.94 0.96 1 rg 0 0 150 38 re f
+0.1 0.18 0.3 rg
+BT /H 12 Tf 1 0 0 1 8 15.0 Tm (Step) Tj ET
+
+endstream
+endobj
+15 0 obj
+<< /Type /Annot /Subtype /Widget /FT /Btn /Ff 65536 /T (step) /Rect [48 300 198 338] /P 3 0 R /F 2 /V (Step) /DA (/H 12 Tf 0.1 0.18 0.3 rg) /AP << /N 14 0 R >> /A << /S /JavaScript /JS (labStep\(this\);) >> >>
+endobj
+16 0 obj
+<< /Length 89 /Type /XObject /Subtype /Form /BBox [0 0 150 38] /Resources << /Font << /H 4 0 R >> >> >>
+stream
+0.94 0.96 1 rg 0 0 150 38 re f
+0.1 0.18 0.3 rg
+BT /H 12 Tf 1 0 0 1 8 15.0 Tm (Run) Tj ET
+
+endstream
+endobj
+17 0 obj
+<< /Type /Annot /Subtype /Widget /FT /Btn /Ff 65536 /T (run) /Rect [230 300 380 338] /P 3 0 R /F 2 /V (Run) /DA (/H 12 Tf 0.1 0.18 0.3 rg) /AP << /N 16 0 R >> /A << /S /JavaScript /JS (labRun\(this\);) >> >>
+endobj
+18 0 obj
+<< /Length 91 /Type /XObject /Subtype /Form /BBox [0 0 150 38] /Resources << /Font << /H 4 0 R >> >> >>
+stream
+0.94 0.96 1 rg 0 0 150 38 re f
+0.1 0.18 0.3 rg
+BT /H 12 Tf 1 0 0 1 8 15.0 Tm (Reset) Tj ET
+
+endstream
+endobj
+19 0 obj
+<< /Type /Annot /Subtype /Widget /FT /Btn /Ff 65536 /T (reset) /Rect [412 300 562 338] /P 3 0 R /F 2 /V (Reset) /DA (/H 12 Tf 0.1 0.18 0.3 rg) /AP << /N 18 0 R >> /A << /S /JavaScript /JS (labReset\(this\);) >> >>
+endobj
+20 0 obj
+<< /Length 911  >>
+stream
+0.10 0.18 0.30 rg
+BT /H 11 Tf 1 0 0 1 48 741 Tm (PDF LAB / 02) Tj ET
+BT /H 28 Tf 1 0 0 1 48 697 Tm (An ordinary instruction sheet.) Tj ET
+BT /H 12 Tf 1 0 0 1 48 660 Tm (Some documents have another side. Find the entrance.) Tj ET
+BT /H 10 Tf 1 0 0 1 48 585 Tm (ACCESS PHRASE) Tj ET
+BT /H 10 Tf 1 0 0 1 48 505 Tm (STATE / PROGRAM COUNTER) Tj ET
+BT /H 10 Tf 1 0 0 1 48 423 Tm (MEMORY / EIGHT CELLS) Tj ET
+BT /H 11 Tf 1 0 0 1 48 244 Tm (PROGRAM: LOAD 1 / DRAW / ADD 1 / DRAW / REPEAT / HALT) Tj ET
+BT /H 11 Tf 1 0 0 1 48 210 Tm (The machine fills eight cells, one instruction at a time.) Tj ET
+BT /H 10 Tf 1 0 0 1 48 175 Tm (If buttons do nothing, this viewer may not support PDF JavaScript.) Tj ET
+BT /H 10 Tf 1 0 0 1 48 149 Tm (Reverse-engineer: inspect the document JavaScript and field actions.) Tj ET
+BT /H 10 Tf 1 0 0 1 48 72 Tm (No network. No host access. An intentionally authored secret interface.) Tj ET
+
+endstream
+endobj
+xref
+0 21
+0000000000 65535 f 
+0000000045 00000 n 
+0000000291 00000 n 
+0000000348 00000 n 
+0000000531 00000 n 
+0000000601 00000 n 
+0000001764 00000 n 
+0000001987 00000 n 
+0000002148 00000 n 
+0000002376 00000 n 
+0000002606 00000 n 
+0000002892 00000 n 
+0000003118 00000 n 
+0000003342 00000 n 
+0000003508 00000 n 
+0000003736 00000 n 
+0000003962 00000 n 
+0000004189 00000 n 
+0000004413 00000 n 
+0000004642 00000 n 
+0000004872 00000 n 
+trailer
+<< /Size 21 /Root 1 0 R >>
+startxref
+5836
+%%EOF
