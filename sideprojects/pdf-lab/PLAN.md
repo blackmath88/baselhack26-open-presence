@@ -11,6 +11,8 @@ Editorial principle: reports should contain the feature they explain where pract
 
 ## Implementation checkpoint
 
+**A01 transformation notebook delivered:** object-clone versus Ghostscript pdfwrite now has parent/output hashes, two-engine extraction, measured pixel differences and an actual-file reveal control. pypdf preserves the readings; Ghostscript 10.08.0 collapses both maps to byte-identical A–D outputs while Poppler pixels remain unchanged. See [TRANSFORMATION-NOTEBOOK.md](TRANSFORMATION-NOTEBOOK.md); no physical print or native copy/paste support is implied.
+
 **A01 delivered:** two original poems share the same visible Type 3 line glyphs, with mapping-only extraction differences measured in MuPDF and Poppler. Four fixtures include ordinary mapping, alternate mapping, direct text and raster controls. The browser can construct a real custom-mapped PDF; a desktop/mobile smoke checks the downloaded bytes. Poppler lineation/order differs; native copy/paste, OCR and transformations remain unrun. See [TWO-POEMS.md](TWO-POEMS.md). Earlier cabinet milestones remain available.
 
 

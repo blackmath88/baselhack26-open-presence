@@ -1,0 +1,30 @@
+[
+  {
+    "file": "output/transforms/poem-visible-clone.pdf",
+    "parent_sha256": "d1b7c5f91e16f4981d2b9c5ab7f3663fcc29ef67e997b5982b883c575c1b6c6b",
+    "sha256": "f6bb42804c07e219bf1162e9db50b65d68c38812e3a40219c84bfa91d1e90ec0",
+    "bytes": 3133,
+    "operation": "clone"
+  },
+  {
+    "file": "output/transforms/poem-visible-rewrite.pdf",
+    "parent_sha256": "d1b7c5f91e16f4981d2b9c5ab7f3663fcc29ef67e997b5982b883c575c1b6c6b",
+    "sha256": "50dd20d903152dbdd52c22e9621a529c868f80a58c70583ec444c47c73aafd99",
+    "bytes": 3842,
+    "operation": "rewrite"
+  },
+  {
+    "file": "output/transforms/poem-other-clone.pdf",
+    "parent_sha256": "3cad603f64fdac1684515dbc9bd834562dcaa5449cb3d073af86d76ee6036964",
+    "sha256": "3f5db2356016c6af2821b3e47801b873711f2dcc71b8adcc7959b7e359ddfc5a",
+    "bytes": 3169,
+    "operation": "clone"
+  },
+  {
+    "file": "output/transforms/poem-other-rewrite.pdf",
+    "parent_sha256": "3cad603f64fdac1684515dbc9bd834562dcaa5449cb3d073af86d76ee6036964",
+    "sha256": "50dd20d903152dbdd52c22e9621a529c868f80a58c70583ec444c47c73aafd99",
+    "bytes": 3842,
+    "operation": "rewrite"
+  }
+]

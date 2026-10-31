@@ -8,7 +8,11 @@
     "custom_mupdf_extraction": true,
     "custom_mupdf_pixel_identity": true,
     "mobile_exhibit_within_viewport": true,
-    "no_page_errors": true
+    "no_page_errors": true,
+    "journey_selector_and_reveal": true,
+    "journey_served_artifact_hashes": true,
+    "journey_keyboard": true,
+    "journey_mobile_within_viewport": true
   },
   "custom_lines": [
     "A tide waits under the floor.",
@@ -19,7 +23,7 @@
   "custom_poppler": {
     "command": [
       "pdftotext",
-      "/tmp/poem-browser-6HbzAP/custom.pdf",
+      "/tmp/poem-browser-J1FJAT/custom.pdf",
       "-"
     ],
     "exit_code": 0,

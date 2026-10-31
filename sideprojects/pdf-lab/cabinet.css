@@ -11,3 +11,10 @@
 #poem-extraction { max-height: 32rem; overflow: auto; white-space: pre-wrap; }
 #poem-bend label { display: block; margin: .5rem 0; }
 #poem-bend input { display: block; box-sizing: border-box; width: 100%; padding: .5rem; font: inherit; }
+.journey-controls { display: flex; flex-wrap: wrap; gap: 1rem; align-items: end; }
+.journey-controls label { font-size: .9rem; }
+.journey-controls select { display: block; max-width: 100%; padding: .6rem; margin-top: .3rem; }
+.journey-renders { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+#journey-hashes { overflow-wrap: anywhere; }
+#journey-extraction { max-height: 28rem; overflow: auto; }
+@media(max-width:600px) { .journey-renders { grid-template-columns: 1fr; } }

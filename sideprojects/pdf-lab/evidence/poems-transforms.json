@@ -1,0 +1,1016 @@
+{
+  "kind": "local-transformation-observations",
+  "date": "2026-10-31",
+  "versions": {
+    "python": "3.12.16",
+    "pypdf": "6.10.0",
+    "pymupdf": "1.26.6",
+    "mupdf": "1.26.11",
+    "poppler": "pdftotext version 26.08.0",
+    "ghostscript": "10.08.0"
+  },
+  "limits": {
+    "wall_seconds": 10,
+    "cpu_seconds": 8,
+    "memory_MiB": 768,
+    "output_MiB": 4
+  },
+  "settings": {
+    "raster_dpi": 72,
+    "SOURCE_DATE_EPOCH": "1793473800",
+    "difference": "any RGB channel differs; no tolerance"
+  },
+  "checks": {
+    "all_27_source_artifacts_preserved": true
+  },
+  "pair_output_byte_identity": {
+    "source": false,
+    "clone": false,
+    "rewrite": true,
+    "raster": true
+  },
+  "not_run": [
+    "native viewer copy/paste",
+    "physical printing",
+    "OCR",
+    "other rewrite tools/settings"
+  ],
+  "rows": [
+    {
+      "reading": "visible",
+      "operation": "source",
+      "parent_file": "output/pdf/01-poem-visible.pdf",
+      "parent_sha256": "d1b7c5f91e16f4981d2b9c5ab7f3663fcc29ef67e997b5982b883c575c1b6c6b",
+      "recipe_runs": [],
+      "file": "output/pdf/01-poem-visible.pdf",
+      "sha256": "d1b7c5f91e16f4981d2b9c5ab7f3663fcc29ef67e997b5982b883c575c1b6c6b",
+      "bytes": 3157,
+      "structure": {
+        "pages": 1,
+        "fonts": [
+          {
+            "key": "/H",
+            "subtype": "/Type1",
+            "has_tounicode": false,
+            "glyph_count": 0
+          },
+          {
+            "key": "/G",
+            "subtype": "/Type3",
+            "has_tounicode": true,
+            "glyph_count": 4,
+            "tounicode_sha256": "26e9a195c9e1089c9d7784a6ffc72f50a10b4e662e86ecb4470e84043da83aa1",
+            "tounicode_stream": "/CIDInit /ProcSet findresource begin\n12 dict begin\nbegincmap\n/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def\n/CMapName /TwoPoems def\n/CMapType 2 def\n1 begincodespacerange\n<00> <FF>\nendcodespacerange\n4 beginbfchar\n<41> <00490020006C0065006100760065002000610020006C0061006D0070002000620065007300690064006500200074006800650020007200610069006E002E>\n<42> <005400680065002000770069006E0064006F0077002000670061007400680065007200730020006C006900740074006C006500200073006500610073002E>\n<43> <00410020006D006F0074006800200072006500680065006100720073006500730020006200650069006E006700200066006C0061006D0065002E>\n<44> <004400610072006B00200067006900760065007300200065006100630068002000770069006E0067002000610020006E0061006D0065002E>\nendbfchar\nendcmap\nCMapName currentdict /CMap defineresource pop\nend\nend"
+          }
+        ],
+        "has_annotations": false,
+        "has_open_action": false
+      },
+      "engines": {
+        "mupdf": {
+          "command": [
+            "/tmp/pdf-nuc-check/bin/python",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+            "--worker",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-visible.pdf",
+            "/tmp/tmprv1ubb5_/mupdf.png"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "{\"text\": \"PDF LAB / A01 - TWO POEMS\\nA lamp beside the rain\\nRead with your eyes. Then select the four lines and copy.\\nI leave a lamp beside the rain.\\nThe window gathers little seas.\\nA moth rehearses being flame.\\nDark gives each wing a name.\\nThe shapes hold one poem. The character map can hold another.\\nA mapping experiment, not encryption. Both readings are in the source.\\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\\n\", \"pixels_sha256\": \"0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741\", \"width\": 612, \"height\": 792, \"repaired\": false}\n",
+          "stderr": "",
+          "observation": {
+            "text": "PDF LAB / A01 - TWO POEMS\nA lamp beside the rain\nRead with your eyes. Then select the four lines and copy.\nI leave a lamp beside the rain.\nThe window gathers little seas.\nA moth rehearses being flame.\nDark gives each wing a name.\nThe shapes hold one poem. The character map can hold another.\nA mapping experiment, not encryption. Both readings are in the source.\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\n",
+            "pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741",
+            "width": 612,
+            "height": 792,
+            "repaired": false
+          },
+          "reading": {
+            "visible_lines": 4,
+            "other_lines": 0,
+            "empty": false
+          }
+        },
+        "poppler": {
+          "command": [
+            "pdftotext",
+            "-layout",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-visible.pdf",
+            "-"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "I leave a lamp beside the rain.The window gathers little seas.A moth rehearses being flame.\nDark gives each wing a name.\nPDF LAB / A01 - TWO POEMS\n\n\n\nA lamp beside the rain\nRead with your eyes. Then select the four lines and copy.\n\n\n\n\nThe shapes hold one poem. The character map can hold another.\n\nA mapping experiment, not encryption. Both readings are in the source.\n\n\n\n\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\n\f",
+          "stderr": "",
+          "reading": {
+            "visible_lines": 4,
+            "other_lines": 0,
+            "empty": false
+          }
+        }
+      },
+      "poppler_render": {
+        "command": [
+          "pdftoppm",
+          "-r",
+          "72",
+          "-singlefile",
+          "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-visible.pdf",
+          "/tmp/tmprv1ubb5_/poppler"
+        ],
+        "state": "accepted",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "render_comparison": {
+        "mupdf": {
+          "same_dimensions": true,
+          "changed_pixels": 0,
+          "total_pixels": 484704,
+          "mean_absolute_channel_error": 0.0,
+          "pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741",
+          "source_pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741"
+        },
+        "poppler": {
+          "same_dimensions": true,
+          "changed_pixels": 0,
+          "total_pixels": 484704,
+          "mean_absolute_channel_error": 0.0,
+          "pixels_sha256": "9e3c29586f2191a4977a3985c4a48a45fc08fb913ca89455ce8ef785b092cde2",
+          "source_pixels_sha256": "9e3c29586f2191a4977a3985c4a48a45fc08fb913ca89455ce8ef785b092cde2"
+        }
+      },
+      "preview_prefix": "evidence/previews/01-poem-visible-source"
+    },
+    {
+      "reading": "visible",
+      "operation": "clone",
+      "parent_file": "output/pdf/01-poem-visible.pdf",
+      "parent_sha256": "d1b7c5f91e16f4981d2b9c5ab7f3663fcc29ef67e997b5982b883c575c1b6c6b",
+      "recipe_runs": [
+        {
+          "command": [
+            "/tmp/pdf-nuc-check/bin/python",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+            "--clone",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-visible.pdf",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/transforms/poem-visible-clone.pdf"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/tmp/pdf-nuc-check/bin/python",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+            "--clone",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-visible.pdf",
+            "/tmp/tmprv1ubb5_/repeat.pdf"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "deterministic_in_run": true,
+      "file": "output/transforms/poem-visible-clone.pdf",
+      "sha256": "f6bb42804c07e219bf1162e9db50b65d68c38812e3a40219c84bfa91d1e90ec0",
+      "bytes": 3133,
+      "structure": {
+        "pages": 1,
+        "fonts": [
+          {
+            "key": "/H",
+            "subtype": "/Type1",
+            "has_tounicode": false,
+            "glyph_count": 0
+          },
+          {
+            "key": "/G",
+            "subtype": "/Type3",
+            "has_tounicode": true,
+            "glyph_count": 4,
+            "tounicode_sha256": "26e9a195c9e1089c9d7784a6ffc72f50a10b4e662e86ecb4470e84043da83aa1",
+            "tounicode_stream": "/CIDInit /ProcSet findresource begin\n12 dict begin\nbegincmap\n/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def\n/CMapName /TwoPoems def\n/CMapType 2 def\n1 begincodespacerange\n<00> <FF>\nendcodespacerange\n4 beginbfchar\n<41> <00490020006C0065006100760065002000610020006C0061006D0070002000620065007300690064006500200074006800650020007200610069006E002E>\n<42> <005400680065002000770069006E0064006F0077002000670061007400680065007200730020006C006900740074006C006500200073006500610073002E>\n<43> <00410020006D006F0074006800200072006500680065006100720073006500730020006200650069006E006700200066006C0061006D0065002E>\n<44> <004400610072006B00200067006900760065007300200065006100630068002000770069006E0067002000610020006E0061006D0065002E>\nendbfchar\nendcmap\nCMapName currentdict /CMap defineresource pop\nend\nend"
+          }
+        ],
+        "has_annotations": false,
+        "has_open_action": false
+      },
+      "engines": {
+        "mupdf": {
+          "command": [
+            "/tmp/pdf-nuc-check/bin/python",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+            "--worker",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/transforms/poem-visible-clone.pdf",
+            "/tmp/tmprv1ubb5_/mupdf.png"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "{\"text\": \"PDF LAB / A01 - TWO POEMS\\nA lamp beside the rain\\nRead with your eyes. Then select the four lines and copy.\\nI leave a lamp beside the rain.\\nThe window gathers little seas.\\nA moth rehearses being flame.\\nDark gives each wing a name.\\nThe shapes hold one poem. The character map can hold another.\\nA mapping experiment, not encryption. Both readings are in the source.\\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\\n\", \"pixels_sha256\": \"0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741\", \"width\": 612, \"height\": 792, \"repaired\": false}\n",
+          "stderr": "",
+          "observation": {
+            "text": "PDF LAB / A01 - TWO POEMS\nA lamp beside the rain\nRead with your eyes. Then select the four lines and copy.\nI leave a lamp beside the rain.\nThe window gathers little seas.\nA moth rehearses being flame.\nDark gives each wing a name.\nThe shapes hold one poem. The character map can hold another.\nA mapping experiment, not encryption. Both readings are in the source.\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\n",
+            "pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741",
+            "width": 612,
+            "height": 792,
+            "repaired": false
+          },
+          "reading": {
+            "visible_lines": 4,
+            "other_lines": 0,
+            "empty": false
+          }
+        },
+        "poppler": {
+          "command": [
+            "pdftotext",
+            "-layout",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/transforms/poem-visible-clone.pdf",
+            "-"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "I leave a lamp beside the rain.The window gathers little seas.A moth rehearses being flame.\nDark gives each wing a name.\nPDF LAB / A01 - TWO POEMS\n\n\n\nA lamp beside the rain\nRead with your eyes. Then select the four lines and copy.\n\n\n\n\nThe shapes hold one poem. The character map can hold another.\n\nA mapping experiment, not encryption. Both readings are in the source.\n\n\n\n\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\n\f",
+          "stderr": "",
+          "reading": {
+            "visible_lines": 4,
+            "other_lines": 0,
+            "empty": false
+          }
+        }
+      },
+      "poppler_render": {
+        "command": [
+          "pdftoppm",
+          "-r",
+          "72",
+          "-singlefile",
+          "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/transforms/poem-visible-clone.pdf",
+          "/tmp/tmprv1ubb5_/poppler"
+        ],
+        "state": "accepted",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "render_comparison": {
+        "mupdf": {
+          "same_dimensions": true,
+          "changed_pixels": 0,
+          "total_pixels": 484704,
+          "mean_absolute_channel_error": 0.0,
+          "pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741",
+          "source_pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741"
+        },
+        "poppler": {
+          "same_dimensions": true,
+          "changed_pixels": 0,
+          "total_pixels": 484704,
+          "mean_absolute_channel_error": 0.0,
+          "pixels_sha256": "9e3c29586f2191a4977a3985c4a48a45fc08fb913ca89455ce8ef785b092cde2",
+          "source_pixels_sha256": "9e3c29586f2191a4977a3985c4a48a45fc08fb913ca89455ce8ef785b092cde2"
+        }
+      },
+      "preview_prefix": "evidence/previews/01-poem-visible-clone"
+    },
+    {
+      "reading": "visible",
+      "operation": "rewrite",
+      "parent_file": "output/pdf/01-poem-visible.pdf",
+      "parent_sha256": "d1b7c5f91e16f4981d2b9c5ab7f3663fcc29ef67e997b5982b883c575c1b6c6b",
+      "recipe_runs": [
+        {
+          "command": [
+            "gs",
+            "-q",
+            "-dSAFER",
+            "-dBATCH",
+            "-dNOPAUSE",
+            "-sDEVICE=pdfwrite",
+            "-dCompatibilityLevel=1.7",
+            "-dAutoRotatePages=/None",
+            "-dOmitInfoDate=true",
+            "-dOmitID=true",
+            "-sOutputFile=/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/transforms/poem-visible-rewrite.pdf",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-visible.pdf"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "gs",
+            "-q",
+            "-dSAFER",
+            "-dBATCH",
+            "-dNOPAUSE",
+            "-sDEVICE=pdfwrite",
+            "-dCompatibilityLevel=1.7",
+            "-dAutoRotatePages=/None",
+            "-dOmitInfoDate=true",
+            "-dOmitID=true",
+            "-sOutputFile=/tmp/tmprv1ubb5_/repeat.pdf",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-visible.pdf"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "deterministic_in_run": true,
+      "file": "output/transforms/poem-visible-rewrite.pdf",
+      "sha256": "50dd20d903152dbdd52c22e9621a529c868f80a58c70583ec444c47c73aafd99",
+      "bytes": 3842,
+      "structure": {
+        "pages": 1,
+        "fonts": [
+          {
+            "key": "/R7",
+            "subtype": "/Type1",
+            "has_tounicode": false,
+            "glyph_count": 0
+          },
+          {
+            "key": "/R11",
+            "subtype": "/Type3",
+            "has_tounicode": true,
+            "glyph_count": 4,
+            "tounicode_sha256": "47a3dc44782647a92fcaf389cf6c7feb3d3c75916f888bb321f8bc4f1332ea74",
+            "tounicode_stream": "/CIDInit /ProcSet findresource begin\n12 dict begin\nbegincmap\n/CMapType 2 def\n/CMapName/R17 def\n1 begincodespacerange\n<00><ff>\nendcodespacerange\nendcmap\nCMapName currentdict /CMap defineresource pop\nend end\n"
+          }
+        ],
+        "has_annotations": false,
+        "has_open_action": false
+      },
+      "engines": {
+        "mupdf": {
+          "command": [
+            "/tmp/pdf-nuc-check/bin/python",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+            "--worker",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/transforms/poem-visible-rewrite.pdf",
+            "/tmp/tmprv1ubb5_/mupdf.png"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "{\"text\": \"PDF LAB / A01 - TWO POEMS\\nA lamp beside the rain\\nRead with your eyes. Then select the four lines and copy.\\nA\\nB\\nC\\nD\\nThe shapes hold one poem. The character map can hold another.\\nA mapping experiment, not encryption. Both readings are in the source.\\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\\n\", \"pixels_sha256\": \"7d6492161a4822c31a45c8ebec18e4d229a7b46b38811ff8c0467757ef21f6cd\", \"width\": 612, \"height\": 792, \"repaired\": false}\n",
+          "stderr": "",
+          "observation": {
+            "text": "PDF LAB / A01 - TWO POEMS\nA lamp beside the rain\nRead with your eyes. Then select the four lines and copy.\nA\nB\nC\nD\nThe shapes hold one poem. The character map can hold another.\nA mapping experiment, not encryption. Both readings are in the source.\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\n",
+            "pixels_sha256": "7d6492161a4822c31a45c8ebec18e4d229a7b46b38811ff8c0467757ef21f6cd",
+            "width": 612,
+            "height": 792,
+            "repaired": false
+          },
+          "reading": {
+            "visible_lines": 0,
+            "other_lines": 0,
+            "empty": false
+          }
+        },
+        "poppler": {
+          "command": [
+            "pdftotext",
+            "-layout",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/transforms/poem-visible-rewrite.pdf",
+            "-"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "ABCD\nPDF LAB / A01 - TWO POEMS\n\n\n\nA lamp beside the rain\nRead with your eyes. Then select the four lines and copy.\n\n\n\n\nThe shapes hold one poem. The character map can hold another.\n\nA mapping experiment, not encryption. Both readings are in the source.\n\n\n\n\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\n\f",
+          "stderr": "",
+          "reading": {
+            "visible_lines": 0,
+            "other_lines": 0,
+            "empty": false
+          }
+        }
+      },
+      "poppler_render": {
+        "command": [
+          "pdftoppm",
+          "-r",
+          "72",
+          "-singlefile",
+          "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/transforms/poem-visible-rewrite.pdf",
+          "/tmp/tmprv1ubb5_/poppler"
+        ],
+        "state": "accepted",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "render_comparison": {
+        "mupdf": {
+          "same_dimensions": true,
+          "changed_pixels": 3043,
+          "total_pixels": 484704,
+          "mean_absolute_channel_error": 0.017775797187561893,
+          "pixels_sha256": "7d6492161a4822c31a45c8ebec18e4d229a7b46b38811ff8c0467757ef21f6cd",
+          "source_pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741"
+        },
+        "poppler": {
+          "same_dimensions": true,
+          "changed_pixels": 0,
+          "total_pixels": 484704,
+          "mean_absolute_channel_error": 0.0,
+          "pixels_sha256": "9e3c29586f2191a4977a3985c4a48a45fc08fb913ca89455ce8ef785b092cde2",
+          "source_pixels_sha256": "9e3c29586f2191a4977a3985c4a48a45fc08fb913ca89455ce8ef785b092cde2"
+        }
+      },
+      "preview_prefix": "evidence/previews/01-poem-visible-rewrite"
+    },
+    {
+      "reading": "visible",
+      "operation": "raster",
+      "parent_file": "output/pdf/01-poem-visible.pdf",
+      "parent_sha256": "d1b7c5f91e16f4981d2b9c5ab7f3663fcc29ef67e997b5982b883c575c1b6c6b",
+      "recipe_runs": [],
+      "recipe_note": "Reused existing A01 MuPDF 72 dpi RGB raster control; no OCR.",
+      "file": "output/pdf/01-poem-raster.pdf",
+      "sha256": "d7e48073b03dfa1ece2e5335c22f6957f3352de3444d40429ca4afff6ad3cc36",
+      "bytes": 69711,
+      "structure": {
+        "pages": 1,
+        "fonts": [],
+        "has_annotations": false,
+        "has_open_action": false
+      },
+      "engines": {
+        "mupdf": {
+          "command": [
+            "/tmp/pdf-nuc-check/bin/python",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+            "--worker",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-raster.pdf",
+            "/tmp/tmprv1ubb5_/mupdf.png"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "{\"text\": \"\", \"pixels_sha256\": \"0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741\", \"width\": 612, \"height\": 792, \"repaired\": false}\n",
+          "stderr": "",
+          "observation": {
+            "text": "",
+            "pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741",
+            "width": 612,
+            "height": 792,
+            "repaired": false
+          },
+          "reading": {
+            "visible_lines": 0,
+            "other_lines": 0,
+            "empty": true
+          }
+        },
+        "poppler": {
+          "command": [
+            "pdftotext",
+            "-layout",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-raster.pdf",
+            "-"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "\f",
+          "stderr": "",
+          "reading": {
+            "visible_lines": 0,
+            "other_lines": 0,
+            "empty": true
+          }
+        }
+      },
+      "poppler_render": {
+        "command": [
+          "pdftoppm",
+          "-r",
+          "72",
+          "-singlefile",
+          "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-raster.pdf",
+          "/tmp/tmprv1ubb5_/poppler"
+        ],
+        "state": "accepted",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "render_comparison": {
+        "mupdf": {
+          "same_dimensions": true,
+          "changed_pixels": 0,
+          "total_pixels": 484704,
+          "mean_absolute_channel_error": 0.0,
+          "pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741",
+          "source_pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741"
+        },
+        "poppler": {
+          "same_dimensions": true,
+          "changed_pixels": 25090,
+          "total_pixels": 484704,
+          "mean_absolute_channel_error": 2.2663838823969544,
+          "pixels_sha256": "39b21144223ad3e6043b7d802ea69f876c4631a7bbe8aaaf9ba4ced15724c803",
+          "source_pixels_sha256": "9e3c29586f2191a4977a3985c4a48a45fc08fb913ca89455ce8ef785b092cde2"
+        }
+      },
+      "preview_prefix": "evidence/previews/01-poem-visible-raster"
+    },
+    {
+      "reading": "other",
+      "operation": "source",
+      "parent_file": "output/pdf/01-poem-other.pdf",
+      "parent_sha256": "3cad603f64fdac1684515dbc9bd834562dcaa5449cb3d073af86d76ee6036964",
+      "recipe_runs": [],
+      "file": "output/pdf/01-poem-other.pdf",
+      "sha256": "3cad603f64fdac1684515dbc9bd834562dcaa5449cb3d073af86d76ee6036964",
+      "bytes": 3193,
+      "structure": {
+        "pages": 1,
+        "fonts": [
+          {
+            "key": "/H",
+            "subtype": "/Type1",
+            "has_tounicode": false,
+            "glyph_count": 0
+          },
+          {
+            "key": "/G",
+            "subtype": "/Type3",
+            "has_tounicode": true,
+            "glyph_count": 4,
+            "tounicode_sha256": "22c4996f4add0d3e28095a14c1dd7d75945c23350e4eba6391c23826843c1901",
+            "tounicode_stream": "/CIDInit /ProcSet findresource begin\n12 dict begin\nbegincmap\n/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def\n/CMapName /TwoPoems def\n/CMapType 2 def\n1 begincodespacerange\n<00> <FF>\nendcodespacerange\n4 beginbfchar\n<41> <00490020006B0065006500700020006100200074006900640065002000620065006E00650061007400680020006D007900200074006F006E006700750065002E>\n<42> <005400680065002000730069006C0065006E006300650020006300610072007200690065007300200070006100700065007200200062006F006100740073002E>\n<43> <004100200077006F0072006400200073006C006900700073002000660072006500650020006200650066006F007200650020006100200073006F006E0067002E>\n<44> <005400680065002000730068006F0072006500200077006100730020006C0069007300740065006E0069006E006700200073006F0020006C006F006E0067002E>\nendbfchar\nendcmap\nCMapName currentdict /CMap defineresource pop\nend\nend"
+          }
+        ],
+        "has_annotations": false,
+        "has_open_action": false
+      },
+      "engines": {
+        "mupdf": {
+          "command": [
+            "/tmp/pdf-nuc-check/bin/python",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+            "--worker",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-other.pdf",
+            "/tmp/tmprv1ubb5_/mupdf.png"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "{\"text\": \"PDF LAB / A01 - TWO POEMS\\nA lamp beside the rain\\nRead with your eyes. Then select the four lines and copy.\\nI keep a tide beneath my tongue.\\nThe silence carries paper boats.\\nA word slips free before a song.\\nThe shore was listening so long.\\nThe shapes hold one poem. The character map can hold another.\\nA mapping experiment, not encryption. Both readings are in the source.\\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\\n\", \"pixels_sha256\": \"0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741\", \"width\": 612, \"height\": 792, \"repaired\": false}\n",
+          "stderr": "",
+          "observation": {
+            "text": "PDF LAB / A01 - TWO POEMS\nA lamp beside the rain\nRead with your eyes. Then select the four lines and copy.\nI keep a tide beneath my tongue.\nThe silence carries paper boats.\nA word slips free before a song.\nThe shore was listening so long.\nThe shapes hold one poem. The character map can hold another.\nA mapping experiment, not encryption. Both readings are in the source.\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\n",
+            "pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741",
+            "width": 612,
+            "height": 792,
+            "repaired": false
+          },
+          "reading": {
+            "visible_lines": 0,
+            "other_lines": 4,
+            "empty": false
+          }
+        },
+        "poppler": {
+          "command": [
+            "pdftotext",
+            "-layout",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-other.pdf",
+            "-"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "I keep a tide beneath my tongue.The silence carries paper boats.A word slips free before a song.The shore was listening so long.\nPDF LAB / A01 - TWO POEMS\n\n\n\nA lamp beside the rain\nRead with your eyes. Then select the four lines and copy.\n\n\n\n\nThe shapes hold one poem. The character map can hold another.\n\nA mapping experiment, not encryption. Both readings are in the source.\n\n\n\n\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\n\f",
+          "stderr": "",
+          "reading": {
+            "visible_lines": 0,
+            "other_lines": 4,
+            "empty": false
+          }
+        }
+      },
+      "poppler_render": {
+        "command": [
+          "pdftoppm",
+          "-r",
+          "72",
+          "-singlefile",
+          "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-other.pdf",
+          "/tmp/tmprv1ubb5_/poppler"
+        ],
+        "state": "accepted",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "render_comparison": {
+        "mupdf": {
+          "same_dimensions": true,
+          "changed_pixels": 0,
+          "total_pixels": 484704,
+          "mean_absolute_channel_error": 0.0,
+          "pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741",
+          "source_pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741"
+        },
+        "poppler": {
+          "same_dimensions": true,
+          "changed_pixels": 0,
+          "total_pixels": 484704,
+          "mean_absolute_channel_error": 0.0,
+          "pixels_sha256": "9e3c29586f2191a4977a3985c4a48a45fc08fb913ca89455ce8ef785b092cde2",
+          "source_pixels_sha256": "9e3c29586f2191a4977a3985c4a48a45fc08fb913ca89455ce8ef785b092cde2"
+        }
+      },
+      "preview_prefix": "evidence/previews/01-poem-other-source"
+    },
+    {
+      "reading": "other",
+      "operation": "clone",
+      "parent_file": "output/pdf/01-poem-other.pdf",
+      "parent_sha256": "3cad603f64fdac1684515dbc9bd834562dcaa5449cb3d073af86d76ee6036964",
+      "recipe_runs": [
+        {
+          "command": [
+            "/tmp/pdf-nuc-check/bin/python",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+            "--clone",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-other.pdf",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/transforms/poem-other-clone.pdf"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "/tmp/pdf-nuc-check/bin/python",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+            "--clone",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-other.pdf",
+            "/tmp/tmprv1ubb5_/repeat.pdf"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "deterministic_in_run": true,
+      "file": "output/transforms/poem-other-clone.pdf",
+      "sha256": "3f5db2356016c6af2821b3e47801b873711f2dcc71b8adcc7959b7e359ddfc5a",
+      "bytes": 3169,
+      "structure": {
+        "pages": 1,
+        "fonts": [
+          {
+            "key": "/H",
+            "subtype": "/Type1",
+            "has_tounicode": false,
+            "glyph_count": 0
+          },
+          {
+            "key": "/G",
+            "subtype": "/Type3",
+            "has_tounicode": true,
+            "glyph_count": 4,
+            "tounicode_sha256": "22c4996f4add0d3e28095a14c1dd7d75945c23350e4eba6391c23826843c1901",
+            "tounicode_stream": "/CIDInit /ProcSet findresource begin\n12 dict begin\nbegincmap\n/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def\n/CMapName /TwoPoems def\n/CMapType 2 def\n1 begincodespacerange\n<00> <FF>\nendcodespacerange\n4 beginbfchar\n<41> <00490020006B0065006500700020006100200074006900640065002000620065006E00650061007400680020006D007900200074006F006E006700750065002E>\n<42> <005400680065002000730069006C0065006E006300650020006300610072007200690065007300200070006100700065007200200062006F006100740073002E>\n<43> <004100200077006F0072006400200073006C006900700073002000660072006500650020006200650066006F007200650020006100200073006F006E0067002E>\n<44> <005400680065002000730068006F0072006500200077006100730020006C0069007300740065006E0069006E006700200073006F0020006C006F006E0067002E>\nendbfchar\nendcmap\nCMapName currentdict /CMap defineresource pop\nend\nend"
+          }
+        ],
+        "has_annotations": false,
+        "has_open_action": false
+      },
+      "engines": {
+        "mupdf": {
+          "command": [
+            "/tmp/pdf-nuc-check/bin/python",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+            "--worker",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/transforms/poem-other-clone.pdf",
+            "/tmp/tmprv1ubb5_/mupdf.png"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "{\"text\": \"PDF LAB / A01 - TWO POEMS\\nA lamp beside the rain\\nRead with your eyes. Then select the four lines and copy.\\nI keep a tide beneath my tongue.\\nThe silence carries paper boats.\\nA word slips free before a song.\\nThe shore was listening so long.\\nThe shapes hold one poem. The character map can hold another.\\nA mapping experiment, not encryption. Both readings are in the source.\\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\\n\", \"pixels_sha256\": \"0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741\", \"width\": 612, \"height\": 792, \"repaired\": false}\n",
+          "stderr": "",
+          "observation": {
+            "text": "PDF LAB / A01 - TWO POEMS\nA lamp beside the rain\nRead with your eyes. Then select the four lines and copy.\nI keep a tide beneath my tongue.\nThe silence carries paper boats.\nA word slips free before a song.\nThe shore was listening so long.\nThe shapes hold one poem. The character map can hold another.\nA mapping experiment, not encryption. Both readings are in the source.\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\n",
+            "pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741",
+            "width": 612,
+            "height": 792,
+            "repaired": false
+          },
+          "reading": {
+            "visible_lines": 0,
+            "other_lines": 4,
+            "empty": false
+          }
+        },
+        "poppler": {
+          "command": [
+            "pdftotext",
+            "-layout",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/transforms/poem-other-clone.pdf",
+            "-"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "I keep a tide beneath my tongue.The silence carries paper boats.A word slips free before a song.The shore was listening so long.\nPDF LAB / A01 - TWO POEMS\n\n\n\nA lamp beside the rain\nRead with your eyes. Then select the four lines and copy.\n\n\n\n\nThe shapes hold one poem. The character map can hold another.\n\nA mapping experiment, not encryption. Both readings are in the source.\n\n\n\n\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\n\f",
+          "stderr": "",
+          "reading": {
+            "visible_lines": 0,
+            "other_lines": 4,
+            "empty": false
+          }
+        }
+      },
+      "poppler_render": {
+        "command": [
+          "pdftoppm",
+          "-r",
+          "72",
+          "-singlefile",
+          "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/transforms/poem-other-clone.pdf",
+          "/tmp/tmprv1ubb5_/poppler"
+        ],
+        "state": "accepted",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "render_comparison": {
+        "mupdf": {
+          "same_dimensions": true,
+          "changed_pixels": 0,
+          "total_pixels": 484704,
+          "mean_absolute_channel_error": 0.0,
+          "pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741",
+          "source_pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741"
+        },
+        "poppler": {
+          "same_dimensions": true,
+          "changed_pixels": 0,
+          "total_pixels": 484704,
+          "mean_absolute_channel_error": 0.0,
+          "pixels_sha256": "9e3c29586f2191a4977a3985c4a48a45fc08fb913ca89455ce8ef785b092cde2",
+          "source_pixels_sha256": "9e3c29586f2191a4977a3985c4a48a45fc08fb913ca89455ce8ef785b092cde2"
+        }
+      },
+      "preview_prefix": "evidence/previews/01-poem-other-clone"
+    },
+    {
+      "reading": "other",
+      "operation": "rewrite",
+      "parent_file": "output/pdf/01-poem-other.pdf",
+      "parent_sha256": "3cad603f64fdac1684515dbc9bd834562dcaa5449cb3d073af86d76ee6036964",
+      "recipe_runs": [
+        {
+          "command": [
+            "gs",
+            "-q",
+            "-dSAFER",
+            "-dBATCH",
+            "-dNOPAUSE",
+            "-sDEVICE=pdfwrite",
+            "-dCompatibilityLevel=1.7",
+            "-dAutoRotatePages=/None",
+            "-dOmitInfoDate=true",
+            "-dOmitID=true",
+            "-sOutputFile=/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/transforms/poem-other-rewrite.pdf",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-other.pdf"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "gs",
+            "-q",
+            "-dSAFER",
+            "-dBATCH",
+            "-dNOPAUSE",
+            "-sDEVICE=pdfwrite",
+            "-dCompatibilityLevel=1.7",
+            "-dAutoRotatePages=/None",
+            "-dOmitInfoDate=true",
+            "-dOmitID=true",
+            "-sOutputFile=/tmp/tmprv1ubb5_/repeat.pdf",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-other.pdf"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "deterministic_in_run": true,
+      "file": "output/transforms/poem-other-rewrite.pdf",
+      "sha256": "50dd20d903152dbdd52c22e9621a529c868f80a58c70583ec444c47c73aafd99",
+      "bytes": 3842,
+      "structure": {
+        "pages": 1,
+        "fonts": [
+          {
+            "key": "/R7",
+            "subtype": "/Type1",
+            "has_tounicode": false,
+            "glyph_count": 0
+          },
+          {
+            "key": "/R11",
+            "subtype": "/Type3",
+            "has_tounicode": true,
+            "glyph_count": 4,
+            "tounicode_sha256": "47a3dc44782647a92fcaf389cf6c7feb3d3c75916f888bb321f8bc4f1332ea74",
+            "tounicode_stream": "/CIDInit /ProcSet findresource begin\n12 dict begin\nbegincmap\n/CMapType 2 def\n/CMapName/R17 def\n1 begincodespacerange\n<00><ff>\nendcodespacerange\nendcmap\nCMapName currentdict /CMap defineresource pop\nend end\n"
+          }
+        ],
+        "has_annotations": false,
+        "has_open_action": false
+      },
+      "engines": {
+        "mupdf": {
+          "command": [
+            "/tmp/pdf-nuc-check/bin/python",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+            "--worker",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/transforms/poem-other-rewrite.pdf",
+            "/tmp/tmprv1ubb5_/mupdf.png"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "{\"text\": \"PDF LAB / A01 - TWO POEMS\\nA lamp beside the rain\\nRead with your eyes. Then select the four lines and copy.\\nA\\nB\\nC\\nD\\nThe shapes hold one poem. The character map can hold another.\\nA mapping experiment, not encryption. Both readings are in the source.\\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\\n\", \"pixels_sha256\": \"7d6492161a4822c31a45c8ebec18e4d229a7b46b38811ff8c0467757ef21f6cd\", \"width\": 612, \"height\": 792, \"repaired\": false}\n",
+          "stderr": "",
+          "observation": {
+            "text": "PDF LAB / A01 - TWO POEMS\nA lamp beside the rain\nRead with your eyes. Then select the four lines and copy.\nA\nB\nC\nD\nThe shapes hold one poem. The character map can hold another.\nA mapping experiment, not encryption. Both readings are in the source.\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\n",
+            "pixels_sha256": "7d6492161a4822c31a45c8ebec18e4d229a7b46b38811ff8c0467757ef21f6cd",
+            "width": 612,
+            "height": 792,
+            "repaired": false
+          },
+          "reading": {
+            "visible_lines": 0,
+            "other_lines": 0,
+            "empty": false
+          }
+        },
+        "poppler": {
+          "command": [
+            "pdftotext",
+            "-layout",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/transforms/poem-other-rewrite.pdf",
+            "-"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "ABCD\nPDF LAB / A01 - TWO POEMS\n\n\n\nA lamp beside the rain\nRead with your eyes. Then select the four lines and copy.\n\n\n\n\nThe shapes hold one poem. The character map can hold another.\n\nA mapping experiment, not encryption. Both readings are in the source.\n\n\n\n\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\n\f",
+          "stderr": "",
+          "reading": {
+            "visible_lines": 0,
+            "other_lines": 0,
+            "empty": false
+          }
+        }
+      },
+      "poppler_render": {
+        "command": [
+          "pdftoppm",
+          "-r",
+          "72",
+          "-singlefile",
+          "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/transforms/poem-other-rewrite.pdf",
+          "/tmp/tmprv1ubb5_/poppler"
+        ],
+        "state": "accepted",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "render_comparison": {
+        "mupdf": {
+          "same_dimensions": true,
+          "changed_pixels": 3043,
+          "total_pixels": 484704,
+          "mean_absolute_channel_error": 0.017775797187561893,
+          "pixels_sha256": "7d6492161a4822c31a45c8ebec18e4d229a7b46b38811ff8c0467757ef21f6cd",
+          "source_pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741"
+        },
+        "poppler": {
+          "same_dimensions": true,
+          "changed_pixels": 0,
+          "total_pixels": 484704,
+          "mean_absolute_channel_error": 0.0,
+          "pixels_sha256": "9e3c29586f2191a4977a3985c4a48a45fc08fb913ca89455ce8ef785b092cde2",
+          "source_pixels_sha256": "9e3c29586f2191a4977a3985c4a48a45fc08fb913ca89455ce8ef785b092cde2"
+        }
+      },
+      "preview_prefix": "evidence/previews/01-poem-other-rewrite"
+    },
+    {
+      "reading": "other",
+      "operation": "raster",
+      "parent_file": "output/pdf/01-poem-other.pdf",
+      "parent_sha256": "3cad603f64fdac1684515dbc9bd834562dcaa5449cb3d073af86d76ee6036964",
+      "recipe_runs": [],
+      "recipe_note": "Reused existing A01 MuPDF 72 dpi RGB raster control; no OCR.",
+      "file": "output/pdf/01-poem-raster.pdf",
+      "sha256": "d7e48073b03dfa1ece2e5335c22f6957f3352de3444d40429ca4afff6ad3cc36",
+      "bytes": 69711,
+      "structure": {
+        "pages": 1,
+        "fonts": [],
+        "has_annotations": false,
+        "has_open_action": false
+      },
+      "engines": {
+        "mupdf": {
+          "command": [
+            "/tmp/pdf-nuc-check/bin/python",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+            "--worker",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-raster.pdf",
+            "/tmp/tmprv1ubb5_/mupdf.png"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "{\"text\": \"\", \"pixels_sha256\": \"0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741\", \"width\": 612, \"height\": 792, \"repaired\": false}\n",
+          "stderr": "",
+          "observation": {
+            "text": "",
+            "pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741",
+            "width": 612,
+            "height": 792,
+            "repaired": false
+          },
+          "reading": {
+            "visible_lines": 0,
+            "other_lines": 0,
+            "empty": true
+          }
+        },
+        "poppler": {
+          "command": [
+            "pdftotext",
+            "-layout",
+            "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-raster.pdf",
+            "-"
+          ],
+          "state": "accepted",
+          "exit_code": 0,
+          "stdout": "\f",
+          "stderr": "",
+          "reading": {
+            "visible_lines": 0,
+            "other_lines": 0,
+            "empty": true
+          }
+        }
+      },
+      "poppler_render": {
+        "command": [
+          "pdftoppm",
+          "-r",
+          "72",
+          "-singlefile",
+          "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/pdf/01-poem-raster.pdf",
+          "/tmp/tmprv1ubb5_/poppler"
+        ],
+        "state": "accepted",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "render_comparison": {
+        "mupdf": {
+          "same_dimensions": true,
+          "changed_pixels": 0,
+          "total_pixels": 484704,
+          "mean_absolute_channel_error": 0.0,
+          "pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741",
+          "source_pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741"
+        },
+        "poppler": {
+          "same_dimensions": true,
+          "changed_pixels": 25090,
+          "total_pixels": 484704,
+          "mean_absolute_channel_error": 2.2663838823969544,
+          "pixels_sha256": "39b21144223ad3e6043b7d802ea69f876c4631a7bbe8aaaf9ba4ced15724c803",
+          "source_pixels_sha256": "9e3c29586f2191a4977a3985c4a48a45fc08fb913ca89455ce8ef785b092cde2"
+        }
+      },
+      "preview_prefix": "evidence/previews/01-poem-other-raster"
+    }
+  ]
+}
