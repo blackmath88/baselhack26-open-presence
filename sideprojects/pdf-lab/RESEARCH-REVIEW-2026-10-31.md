@@ -1,5 +1,7 @@
 # Research review — 31 October 2026
 
+**Historical sequencing note:** Achim subsequently redirected the opening towards format bending and creative reverse engineering. [FORMAT-BENDING.md](FORMAT-BENDING.md) and [PLAN.md](PLAN.md) now take precedence for product direction and implementation order. Technical findings and qualifications below remain background research.
+
 ## Provenance and status
 This is a selected synthesis and critical review of the research response supplied by Achim in chat on 31 October, following the PDF LAB Perplexity prompt. It is not a verbatim archive, a reproduction of experiments or a verification of every reference in that response.
 
