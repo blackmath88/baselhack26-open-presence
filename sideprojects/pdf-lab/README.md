@@ -7,6 +7,7 @@
 Achim explicitly requested housing this project in a subfolder of the hackathon repository, with concept, build plan and research/sparring prompt, before moving it to a separate repository after the hackathon. That location and later separation are agreed; the technical choices and experiment ordering below are proposals. No implementation, measured result or new repository is claimed.
 
 - [Build plan](PLAN.md)
+- [Research review and corrections — 31 October](RESEARCH-REVIEW-2026-10-31.md)
 - [Perplexity research and sparring prompt](RESEARCH-PROMPT.md)
 
 PDF LAB is a sibling concept to [XL LAB](https://github.com/blackmath88/xl-lab), adapting its evidence-first forensic learning approach. It is independent of the Photo Frame Commons build and optional PDF-history narrative. It creates no new weekend delivery commitment.
