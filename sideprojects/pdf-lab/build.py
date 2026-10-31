@@ -94,6 +94,8 @@ def build():
     files.update(generate())
     from weird import generate as weird_generate
     files.update(weird_generate())
+    from poems import generate as poem_generate
+    files.update(poem_generate())
     manifest=[]
     for name,data in files.items():
         (OUT/name).write_bytes(data);manifest.append({'file':name,'sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data)})

@@ -1,0 +1,109 @@
+%PDF-1.4
+% PDF LAB - authored ASCII specimen
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /H 4 0 R /G 10 0 R >> >> /Contents 11 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 76  >>
+stream
+500 0 d0
+BT /H 22 Tf 1 0 0 1 0 0 Tm (I leave a lamp beside the rain.) Tj ET
+
+endstream
+endobj
+6 0 obj
+<< /Length 76  >>
+stream
+500 0 d0
+BT /H 22 Tf 1 0 0 1 0 0 Tm (The window gathers little seas.) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Length 74  >>
+stream
+500 0 d0
+BT /H 22 Tf 1 0 0 1 0 0 Tm (A moth rehearses being flame.) Tj ET
+
+endstream
+endobj
+8 0 obj
+<< /Length 73  >>
+stream
+500 0 d0
+BT /H 22 Tf 1 0 0 1 0 0 Tm (Dark gives each wing a name.) Tj ET
+
+endstream
+endobj
+9 0 obj
+<< /Length 817  >>
+stream
+/CIDInit /ProcSet findresource begin
+12 dict begin
+begincmap
+/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def
+/CMapName /TwoPoems def
+/CMapType 2 def
+1 begincodespacerange
+<00> <FF>
+endcodespacerange
+4 beginbfchar
+<41> <00490020006C0065006100760065002000610020006C0061006D0070002000620065007300690064006500200074006800650020007200610069006E002E>
+<42> <005400680065002000770069006E0064006F0077002000670061007400680065007200730020006C006900740074006C006500200073006500610073002E>
+<43> <00410020006D006F0074006800200072006500680065006100720073006500730020006200650069006E006700200066006C0061006D0065002E>
+<44> <004400610072006B00200067006900760065007300200065006100630068002000770069006E0067002000610020006E0061006D0065002E>
+endbfchar
+endcmap
+CMapName currentdict /CMap defineresource pop
+end
+end
+endstream
+endobj
+10 0 obj
+<< /Type /Font /Subtype /Type3 /FontBBox [0 -8 500 30] /FontMatrix [1 0 0 1 0 0] /CharProcs << /line0 5 0 R /line1 6 0 R /line2 7 0 R /line3 8 0 R >> /Encoding << /Type /Encoding /Differences [65 /line0 /line1 /line2 /line3] >> /FirstChar 65 /LastChar 68 /Widths [500 500 500 500] /Resources << /Font << /H 4 0 R >> >> /ToUnicode 9 0 R >>
+endobj
+11 0 obj
+<< /Length 714  >>
+stream
+0.08 0.13 0.22 rg
+BT /H 11 Tf 1 0 0 1 48 741 Tm (PDF LAB / A01 - TWO POEMS) Tj ET
+BT /H 28 Tf 1 0 0 1 48 690 Tm (A lamp beside the rain) Tj ET
+BT /H 11 Tf 1 0 0 1 48 656 Tm (Read with your eyes. Then select the four lines and copy.) Tj ET
+BT /G 1 Tf 1 0 0 1 48 540 Tm <41> Tj ET
+BT /G 1 Tf 1 0 0 1 48 482 Tm <42> Tj ET
+BT /G 1 Tf 1 0 0 1 48 424 Tm <43> Tj ET
+BT /G 1 Tf 1 0 0 1 48 366 Tm <44> Tj ET
+BT /H 11 Tf 1 0 0 1 48 190 Tm (The shapes hold one poem. The character map can hold another.) Tj ET
+BT /H 10 Tf 1 0 0 1 48 166 Tm (A mapping experiment, not encryption. Both readings are in the source.) Tj ET
+BT /H 10 Tf 1 0 0 1 48 72 Tm (Original poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.) Tj ET
+
+endstream
+endobj
+xref
+0 12
+0000000000 65535 f 
+0000000045 00000 n 
+0000000094 00000 n 
+0000000151 00000 n 
+0000000287 00000 n 
+0000000357 00000 n 
+0000000484 00000 n 
+0000000611 00000 n 
+0000000736 00000 n 
+0000000860 00000 n 
+0000001729 00000 n 
+0000002084 00000 n 
+trailer
+<< /Size 12 /Root 1 0 R >>
+startxref
+2851
+%%EOF

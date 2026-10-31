@@ -1,6 +1,18 @@
 # Working cabinet 003
 31 October 2026. Nine exhibit families, 23 generated PDFs, a local cabinet with live byte inspection, deterministic recipes and recorded observations.
 
+## A01 — two poems, one visible page
+
+A01 adds four specimens to the existing cabinet (27 PDFs total). Open `index.html#poems` for the actual-file selector, mapping reveal and browser control that builds a downloadable PDF from four custom lines. [Recipe and measured limitations](TWO-POEMS.md).
+
+```sh
+python3 lab.py poems
+python3 check-poems.py
+node test-poems.js
+```
+
+This focused route preserves the earlier 23 artifacts. MuPDF 1.26.11 and Poppler 26.08.0 render the two mapped versions identically within each engine and extract the intended different strings. Poppler joins/reorders mapped lines; lineation and native copy/paste remain unqualified. Raster extraction is empty in both engines. A real Chromium workbench smoke downloaded a custom PDF and verified its extraction in both engines and pixel identity in MuPDF. See `evidence/poems-results.json` and `evidence/poems-browser-results.json`. No deployment implied.
+
 ## Start here
 From `sideprojects/pdf-lab`:
 

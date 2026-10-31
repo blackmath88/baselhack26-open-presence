@@ -1,0 +1,38 @@
+{
+  "browser": "154.0.8037.97",
+  "checks": {
+    "specimen_selector": true,
+    "measured_extraction_switch": true,
+    "local_pdf_download": true,
+    "custom_poppler_extraction": true,
+    "custom_mupdf_extraction": true,
+    "custom_mupdf_pixel_identity": true,
+    "mobile_exhibit_within_viewport": true,
+    "no_page_errors": true
+  },
+  "custom_lines": [
+    "A tide waits under the floor.",
+    "The house remembers the sea.",
+    "I open a door in a whisper.",
+    "Water comes looking for me."
+  ],
+  "custom_poppler": {
+    "command": [
+      "pdftotext",
+      "/tmp/poem-browser-6HbzAP/custom.pdf",
+      "-"
+    ],
+    "exit_code": 0,
+    "stdout": "A tide waits under the floor.\nThe house remembers the sea.I open a door in a whisper.Water comes looking for me.\nPDF LAB / A01 - TWO POEMS\n\nA lamp beside the rain\n\nRead with your eyes. Then select the four lines and copy.\n\nThe shapes hold one poem. The character map can hold another.\nA mapping experiment, not encryption. Both readings are in the source.\n\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\n\n\f",
+    "stderr": ""
+  },
+  "custom_poppler_text": "A tide waits under the floor.\nThe house remembers the sea.I open a door in a whisper.Water comes looking for me.\nPDF LAB / A01 - TWO POEMS\n\nA lamp beside the rain\n\nRead with your eyes. Then select the four lines and copy.\n\nThe shapes hold one poem. The character map can hold another.\nA mapping experiment, not encryption. Both readings are in the source.\n\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\n\n\f",
+  "custom_mupdf": {
+    "text": "PDF LAB / A01 - TWO POEMS\nA lamp beside the rain\nRead with your eyes. Then select the four lines and copy.\nA tide waits under the floor.\nThe house remembers the sea.\nI open a door in a whisper.\nWater comes looking for me.\nThe shapes hold one poem. The character map can hold another.\nA mapping experiment, not encryption. Both readings are in the source.\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\n",
+    "pixels_sha256": "0868696dcf6c3120a6ea656c17422a2af44378f0486a6b60a1a96d3fab606741",
+    "width": 612,
+    "height": 792
+  },
+  "custom_sha256": "decf9c66b5082de09674ffbed6c41b0d4bd2707ac08b03cebae72b6ea4ec2753",
+  "native_pdf_viewer": "not-run: browser workbench and downloaded file only"
+}

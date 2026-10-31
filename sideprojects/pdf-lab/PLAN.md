@@ -11,6 +11,9 @@ Editorial principle: reports should contain the feature they explain where pract
 
 ## Implementation checkpoint
 
+**A01 delivered:** two original poems share the same visible Type 3 line glyphs, with mapping-only extraction differences measured in MuPDF and Poppler. Four fixtures include ordinary mapping, alternate mapping, direct text and raster controls. The browser can construct a real custom-mapped PDF; a desktop/mobile smoke checks the downloaded bytes. Poppler lineation/order differs; native copy/paste, OCR and transformations remain unrun. See [TWO-POEMS.md](TWO-POEMS.md). Earlier cabinet milestones remain available.
+
+
 **Cabinet 003 delivered:** eight static layer-lock states, a three-engine comparison with observed MuPDF disagreement, an interactive Boolean bitmap half-adder, and a Type 4 colour-program PDF. Nine exhibit families, 23 PDFs. Next: minimise the OCMD discrepancy and add a single-coordinate stack trace to the colour exhibit. Hashquines and symbol-substitution scans are specified, not reproduced; see [WEIRD-MACHINES.md](WEIRD-MACHINES.md).
 
 **Cabinet 002 delivered:** PDF/ZIP polyglot, incremental-revision mystery with xref-based recovery, print-intent reveal, parameterised maze CLI and byte inspector. Thirteen PDFs are generated. Print behaviour is observed in Ghostscript; the archive and recovered revision are independently checked. B03 now includes bounded render comparisons with no visual divergence found. [Current handoff](RUNNING.md) records exact observations and remaining gaps.
