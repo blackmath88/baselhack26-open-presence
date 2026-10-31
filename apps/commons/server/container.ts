@@ -73,16 +73,37 @@ export async function buildServices(options: BuildOptions = {}): Promise<Service
     options.defaultOrchestration === undefined ? defaultOrchestrationFromEnv(curator) : options.defaultOrchestration
   const deps: ServiceDeps = { repository, clock, ids, curator, ...(defaultOrchestration ? { defaultOrchestration } : {}) }
 
+  const commons = 'transaction' in repository
+    ? createCommonsService({ repository: repository as TransactionalEventRepository, clock })
+    : undefined
+  const contributions = createContributionService(deps)
+  const curation = createCurationService(deps)
+
   return {
     problems: createProblemService(deps),
-    contributions: createContributionService(deps),
-    curation: createCurationService(deps),
+    // Every transport (REST, MCP) gets these services. Writes to imported commons:* rooms
+    // go through the serialized Commons transaction, so no transport can validate against
+    // stale state; a retry by the same participant replays its prior review outcome.
+    contributions: commons
+      ? { ...contributions, add: (actor, input) => (input.problemId.startsWith('commons:') ? commons.addToRoom(actor, input) : contributions.add(actor, input)) }
+      : contributions,
+    curation: commons
+      ? {
+          ...curation,
+          accept: (actor, input) => (input.problemId.startsWith('commons:')
+            ? commons.review(actor, { commandId: `review:${input.proposalId}:accept:${actor.actorId}`, proposalId: input.proposalId, decision: 'accept' }) as ReturnType<CurationService['accept']>
+            : curation.accept(actor, input)),
+          reject: (actor, input) => (input.problemId.startsWith('commons:')
+            ? commons.review(actor, { commandId: `review:${input.proposalId}:reject:${actor.actorId}`, proposalId: input.proposalId, decision: 'reject' }) as ReturnType<CurationService['reject']>
+            : curation.reject(actor, input)),
+        }
+      : curation,
     orchestration: createOrchestrationService(deps),
     imports: createImportService(deps),
     auth,
     curator,
     repository,
-    ...('transaction' in repository ? { commons: createCommonsService({ repository: repository as TransactionalEventRepository, clock }) } : {}),
+    ...(commons ? { commons } : {}),
   }
 }
 
