@@ -19,6 +19,11 @@ Supervisor pid 13205 started 19:10:02 UTC; `OWNERSHIP_RECONCILED` reported no co
 Implemented and tested: repository rediscovery of contributions (navigator lists citing contributions with author, entrance and cited objects across HTTP/CLI/MCP/UI), adapter-declared `entrance` on every contribution, search over cited objects with source refs in results. Demonstrated cross-entrance path: CLI-style submit citing a comment of `issue/99` → MCP `commons_browse_repository issue/99` shows it with `person:kai`, `cli`, `[comment/…]` → MCP reply labelled `mcp` → HTTP search by the comment id finds it with permalink → hide removes it everywhere; imported record byte-identical (`cross-entrance-rediscovery.test.ts`). Live CLI against a real local server: `evidence/cli-smoke-rediscovery-20261031.txt`. Isolated-PDS protocol roundtrip: a fresh instance rediscovers Alice's ingested record from the cited thread with entrance `atproto` — isolated development network only, not public federation.
 Checks: typecheck · 189/189 tests (PDS suites real) · index byte-identical · build · e2e.sh · multi-entry.sh. Not done: browser walkthrough of the UI changes.
 
+Draft PR: https://github.com/blackmath88/baselhack26-open-presence/pull/18 (feature head `3002474` plus this results update).
+
+## Observatory consumer pin (coordinator, separate branch)
+Draft PR https://github.com/blackmath88/baselhack26-open-presence/pull/19, branch `blackmath88/nuc-20261031-observatory-pin`: workflow pin `84c3c0a` → `4d107c6`. Verified locally by running the action's build/publish/install steps with the producer extracted via `git archive` (worker worktree untouched): knowledge complete, 0 diagnostics; headless Chromium renders 42 records with category filters. Not CI-run; land after observstory #26/#24 review.
+
 ## Worker reports (read, not re-verified by the coordinator)
 - PDF: PR #17, head `9ecbabd`, two-poem ToUnicode artwork, 27 PDFs; report `reports/pdf.md`.
 - Observatory: observstory PR #26, producer head `4d107c6`, stacked on #24 (`84c3c0a`); consumer pin update left to coordinator.
