@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Open Presence · Repository replay</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui;background:#111b20;color:#e7eee9}body{max-width:1100px;margin:auto;padding:24px}a{color:#9cdeba}h1{font-size:clamp(28px,5vw,52px);margin-bottom:8px}p{max-width:75ch;color:#b9c9ce;line-height:1.6}.controls{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:28px 0}button,select{font:inherit;padding:10px;background:#24383f;color:inherit;border:1px solid #527078;border-radius:6px}input{flex:1;min-width:160px}#map{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin-top:24px}.file{padding:14px;background:#24333b;border-left:3px solid #58717c;overflow-wrap:anywhere;font:13px monospace}.changed{border-color:#f4bd78;background:#423729}.added{border-color:#a6e6bc;background:#224735}#removed{color:#f0b2a6}#detail{min-height:100px}small{color:#aabdc1}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #f4bd78}
+</style>
+<a href="index.html">← Observatory</a>
+<h1>A repository taking shape.</h1>
+<p>Replay the files behind the project. Green marks additions; amber marks changes. This is recorded repository activity, not a measure of knowledge, quality or human contribution.</p>
+<div class="controls"><button id="play">Play</button><label for="position">Commit</label><input id="position" type="range" min="0" value="0"><label for="speed">Pace</label><select id="speed"><option value="1500">Slow</option><option value="700">Quick</option></select></div>
+<section id="detail" aria-live="polite"><h2 id="title"></h2><a id="source">Inspect commit</a><p id="status"></p><p id="removed"></p></section>
+<div id="map" aria-label="Files at selected commit"></div>
+<p><small>Last 200 first-parent commits reachable from the build checkout. The first frame is a baseline, not a claim about when every file was created. Commit timestamps can differ from when work actually happened. Playback is opt-in; reload for a newly deployed snapshot. Graph ingestion is not connected yet.</small></p>
+<a href="repo-events.jsonl">Download event log (JSONL)</a>
+<script id="events" type="application/json">__EVENTS__</script>
+<script>
+const events=JSON.parse(document.getElementById('events').textContent);
+const position=document.getElementById('position'), play=document.getElementById('play'), speed=document.getElementById('speed');let timer=null;
+position.max=Math.max(0,events.length-1);
+function stop(){clearTimeout(timer);timer=null;play.textContent='Play'}
+function draw(){const e=events[Number(position.value)];if(!e){document.getElementById('title').textContent='No recorded commits';play.disabled=true;return}
+document.getElementById('title').textContent=e.title;
+document.getElementById('source').href=e.url;
+document.getElementById('source').textContent=e.id.slice(0,8)+' · '+e.ts;
+document.getElementById('status').textContent=`${Number(position.value)+1} / ${events.length} · ${e.files.length} files · ${e.kind==='baseline'?'Baseline':e.added.length+' added / '+e.removed.length+' removed'}`;
+document.getElementById('removed').textContent=e.removed.length?'Removed: '+e.removed.join(', '):'';
+const added=new Set(e.added),changed=new Set(e.changed),map=document.getElementById('map');map.replaceChildren();
+for(const file of e.files){const node=document.createElement('div');node.className='file '+(added.has(file)?'added':changed.has(file)?'changed':'');node.textContent=file;map.append(node)}}
+function tick(){if(Number(position.value)>=events.length-1){stop();return}position.value=Number(position.value)+1;draw();timer=setTimeout(tick,Number(speed.value))}
+play.onclick=()=>{if(timer!==null){stop();return}if(Number(position.value)>=events.length-1)position.value=0;draw();play.textContent='Pause';timer=setTimeout(tick,Number(speed.value))};
+position.oninput=()=>{stop();draw()};draw();
+</script></html>
