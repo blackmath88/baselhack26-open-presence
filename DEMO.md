@@ -82,7 +82,9 @@ evidence cites the same issue or doc, flagged "in another problem"), with entran
 `evidenceCitations`, and context packets list `citedBy` per evidence item. To cite one exact passage rather than the
 whole source object, pass evidence ids (`submit … --evidence e2`, MCP/HTTP `evidenceIds`); the passage's object joins
 `sourceRefs` and the citation attaches to that passage only. Participants appear under the display name the server
-resolved at submission ("Kai"), on every entrance. Hidden or blocked contributions disappear from
+resolved at submission ("Kai"), on every entrance. In the browser, every evidence item has **Respond to this passage**:
+the composer opens with that passage selected (passages are listed under each source and can be toggled), the
+preview states the exact passages, and after submitting the citation appears under that passage only. Hidden or blocked contributions disappear from
 the navigator like everywhere else; imported records are never changed. See
 `evidence/cli-smoke-rediscovery-20261031.txt`, `evidence/browser-check-evidence-citations-20261031.txt` and `server/test/commons/cross-entrance-rediscovery.test.ts`.
 

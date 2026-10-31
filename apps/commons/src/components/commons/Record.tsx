@@ -30,7 +30,7 @@ export function SourceLine({ source }: { source: SourceRef }) {
   )
 }
 
-export function Record({ problem, hit, citations = {} }: { problem: ImportedProblem; hit?: SearchHit; citations?: Record<string, Citing[]> }) {
+export function Record({ problem, hit, citations = {}, onCite }: { problem: ImportedProblem; hit?: SearchHit; citations?: Record<string, Citing[]>; onCite?: (evidenceId: string) => void }) {
   // A later passage of an already-listed object repeats the list only when exactly the same contributions cite it.
   const key = (id: string) => (citations[id] ?? []).map((c) => c.contributionId).join(' ')
   const sameAsEarlier = (id: string, i: number) => problem.evidence.slice(0, i).some((x) => x.source.objectId === problem.evidence[i]!.source.objectId && key(x.id) === key(id))
@@ -78,11 +78,12 @@ export function Record({ problem, hit, citations = {} }: { problem: ImportedProb
               </p>
             )}
             <SourceLine source={e.source} />
+            {onCite && <button className="button commons-cite" onClick={() => onCite(e.id)} aria-label={`Respond to passage ${e.id}`}>Respond to this passage</button>}
             {citations[e.id]?.length && sameAsEarlier(e.id, i) ? (
               <p className="commons-limit">Cited by the same {citations[e.id]!.length} contribution{citations[e.id]!.length === 1 ? '' : 's'} as above: they cite the whole source object, not one passage.</p>
             ) : citations[e.id]?.length ? (
               <details className="commons-cited-by">
-                <summary>{citations[e.id]!.length} contribution{citations[e.id]!.length === 1 ? '' : 's'} cite this source</summary>
+                <summary>{citations[e.id]!.length === 1 ? '1 contribution cites' : `${citations[e.id]!.length} contributions cite`} this source</summary>
                 <CitingList contributions={citations[e.id]!} label={`Contributions citing evidence ${e.id}`} />
               </details>
             ) : null}

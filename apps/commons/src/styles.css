@@ -163,3 +163,6 @@ textarea:disabled{opacity:.6}
 
 /* Phone width: the room's view switcher wraps and grid children may shrink, so nothing forces a horizontal page scroll. */
 @media (max-width: 720px) { .view-switcher { flex-wrap: wrap; } .workspace { grid-template-columns: minmax(0, 1fr); } .main-panel, .side-rail, .view-body { min-width: 0; } .problem-tabs { max-width: 100%; } .state-summary { white-space: normal; max-width: 100%; } }
+
+.commons-passages { list-style: none; margin: .1rem 0 .3rem 1.4rem; padding: 0; }
+.commons-cite { font-size: .8em; padding: .15rem .5rem; margin: .25rem 0; }

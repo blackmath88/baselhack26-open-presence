@@ -39,6 +39,9 @@ Pin PR #19 was bumped to producer `f45775c` (observstory #26 turn 2) and re-veri
 ## Commons turn 3 (20:35–20:41)
 Passage-level citations (`evidenceIds`, CLI `--evidence`) and server-resolved participant display names on every entrance. Checks: 191 tests, typecheck, index, build, e2e, multi-entry smoke, browser pass (`evidence/browser-check-passage-citation-20261031.txt`).
 
+## Commons turn 4 (20:40–20:45)
+Browser composer cites exact passages; "Respond to this passage" on every evidence item. Real browser round trip, browser → CLI rediscovery with name, entrance and source ref; phone-width pass. Checks: typecheck, 191 tests, index, build (UI-only change, server smokes not rerun).
+
 ## Worker reports (read, not re-verified by the coordinator)
 - PDF: PR #17, head `9ecbabd` → turn 2 `4aa8fad` (transformation notebook over A01), two-poem ToUnicode artwork, 27 PDFs; report `reports/pdf.md`.
 - Observatory: observstory PR #26, producer head `4d107c6` → turn 2 `f45775c`, stacked on #24 (`84c3c0a`); consumer pin update left to coordinator.
