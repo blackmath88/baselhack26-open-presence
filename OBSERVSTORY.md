@@ -29,7 +29,7 @@ Run from this repository root so the command reads .observstory/coordination.jso
 For later check-ins, create a short note with markers such as CHECKPOINT, FREEZE, DECISION and @Owner; use checkin propose and then confirm only the agreed items. See the [upstream guide](https://github.com/blackmath88/observstory/blob/a38a1a203d5b2c9ee599ecdf421ccc595cb57c0d/docs/collaboration-delivery/README.md).
 
 ## Pinned source and behaviour
-Action pinned to blackmath88/observstory@9f83c2c3e801cb9296a014756b7c95c913914952 (feature branch feat/project-knowledge-slice; adds only the opt-in Project Knowledge module over the previous pin a38a1a2).
+Action pinned to blackmath88/observstory@3e0dc7f24e490b6ee9cdb4795993a5cc12fa1964 (landed Project Knowledge integration, Observstory PR #19).
 No upstream code copied. Configuration and workflow authored here.
 Collection permissions: contents/read, pull-requests/read, issues/read. Artifact retained seven days. Public Pages deployment uses a separate job with pages/write and id-token/write. No messaging, transcription, people scoring or agent orchestration.
 A snapshot becoming old does not mean the code is currently blocked. Read its collection timestamp. A merged change does not prove a milestone's acceptance tests passed.
