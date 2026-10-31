@@ -33,7 +33,7 @@ Other knobs: `COMMONS_ATPROTO_NAMESPACE` (default `test.openpresence.commons`, d
 ```bash
 cd apps/commons
 npm run typecheck
-npm test                         # 191 tests; the PDS round-trip suites skip visibly if tools/local-pds is not installed
+npm test                         # 192 tests; the PDS round-trip suites skip visibly if tools/local-pds is not installed
 npm run index:check              # record-only index reproduces byte for byte
 npx vite build
 bash scripts/smoke/e2e.sh        # first-slice smoke (submit, retry, restart, concurrent review)
@@ -85,7 +85,9 @@ whole source object, pass evidence ids (`submit … --evidence e2`, MCP/HTTP `ev
 `sourceRefs` and the citation attaches to that passage only. Participants appear under the display name the server
 resolved at submission ("Kai"), on every entrance. In the browser, every evidence item has **Respond to this passage**:
 the composer opens with that passage selected (passages are listed under each source and can be toggled), the
-preview states the exact passages, and after submitting the citation appears under that passage only. Hidden or blocked contributions disappear from
+preview states the exact passages, and after submitting the citation appears under that passage only. Search
+results for problem records say whether people have been there ("Community: 2 experiences · 1 reply · from Kai, Lea",
+plus contributions in other problems citing the same sources); `commons_search` returns it as `problems[].community`. Hidden or blocked contributions disappear from
 the navigator like everywhere else; imported records are never changed. See
 `evidence/cli-smoke-rediscovery-20261031.txt`, `evidence/browser-check-evidence-citations-20261031.txt` and `server/test/commons/cross-entrance-rediscovery.test.ts`.
 

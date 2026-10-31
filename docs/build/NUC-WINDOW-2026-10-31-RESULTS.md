@@ -45,6 +45,14 @@ Browser composer cites exact passages; "Respond to this passage" on every eviden
 ## Commons turn 5 (20:44–20:50)
 Committed `scripts/smoke/browser.sh`: a CLI → browser → CLI journey (repository → contribution → reply → passage → rediscovery) with assertions; it passes (`evidence/browser-smoke-cross-entrance-20261031.txt`). No product code changed.
 
+## Supervisor cap and idle time (recorded honestly)
+The supervisor mistakenly capped every lane at five turns. Commons finished turn 5 at 20:46 CET (unit nuc-build-20261031-commons-5-2e8287 settled 19:46:12Z). It was idle until the recovery launch at 22:18 CET (commons-6-c1113f, STARTED 21:18:17Z; pdf-6 and observatory-6 launched together at 21:18:09Z). About 90 minutes of window time went unused on Commons. Observatory turn 5 had ended at 21:03 CET.
+
+## Commons turn 6 (22:18–22:25) and final consumer pin
+- Search results for problem records carry `community`: own experiences, replies, participant names, last activity, and contributions in other problems citing the same sources. Shown in the browser and covered in the browser smoke. Checks on head: typecheck, 192 tests, index, build, e2e, multi-entry, browser.sh PASS.
+- PR #19 pinned to producer `f0cbde8` (observstory #26 turn 5, equal to the fetched remote head at 22:19 CET). Local consumption verified: knowledge complete, 0 diagnostics; installed `index.html` byte-identical to the producer release; 44 records with new timeline-window controls render at 1440px; 390px captured. No CI run with this pin, no deployment.
+- Commons #18 CI passed on an earlier head (reported by the supervisor). It was not re-observed by me for the latest push.
+
 ## Worker reports (read, not re-verified by the coordinator)
 - PDF: PR #17, head `9ecbabd` → turn 2 `4aa8fad` (transformation notebook over A01), two-poem ToUnicode artwork, 27 PDFs; report `reports/pdf.md`.
 - Observatory: observstory PR #26, producer head `4d107c6` → turn 2 `f45775c`, stacked on #24 (`84c3c0a`); consumer pin update left to coordinator.
