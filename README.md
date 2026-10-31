@@ -44,7 +44,7 @@ br-ai-nstorm supplies shared sensemaking concepts; ATProto is the candidate port
 
 ## Adobe is an optional narrative
 
-[PDF history scrolly module](modules/pdf-history/README.md) — original research, editorial provenance, claim-verification queue and [six-act build plan](modules/pdf-history/PLAN.md). Retro early-PDF visual studies are planned; no HTML explainer is implemented yet.
+[PDF history scrolly module](modules/pdf-history/README.md) — original research, editorial provenance, claim-verification queue and [six-act build plan](modules/pdf-history/PLAN.md). [Edition 01](modules/pdf-history/index.html) is implemented as one offline HTML file; [design and browser checks](modules/pdf-history/DESIGN.md) document the working retro direction and limitations.
 **“PDF helped us preserve a document when it travelled. What should we preserve when an answer travels through AI?”**
 
 The concept and tool must stand without this framing. Photoshop can introduce the familiar experience; photo-frame contributions are the actual case. PDF preserved form, not truth.
