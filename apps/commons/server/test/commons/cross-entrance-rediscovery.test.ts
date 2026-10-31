@@ -144,4 +144,16 @@ describe('cross-entrance rediscovery from the repository', () => {
     expect(found.problems.find(p => p.problemId === PROBLEM)?.community).toMatchObject({ contributions: 1, replies: 1, participants: ['Kai', 'Lea'], citingFromOtherProblems: 1 })
     expect(found.problems.find(p => p.problemId === PROBLEM)?.community.latestAt).toMatch(/^2026|^20/)
   })
+
+  it('names other problems that cite the same sources, derived and labelled as such, without touching the records', async () => {
+    harness = await createHarness({ seed: false })
+    await createCommonsImporter(harness.services.repository as TransactionalEventRepository)(sources)
+    const h = harness
+    await h.http('POST', '/api/commons/contributions', { token: h.token('Lea'), body: { commandId: 'shared-1', problemId: 'gadget-error-71', text: 'Shared doc note.', sourceRefs: ['docs/pf1007l-start-here.md'] } })
+    const view = await h.http<{ problem: unknown; sharedSources: Array<{ problemId: string; objects: string[]; contributions: number }> }>('GET', `/api/commons/problems/${PROBLEM}`, { token: h.token('Kai') })
+    expect(view.body.sharedSources).toContainEqual(expect.objectContaining({ problemId: 'gadget-error-71', objects: ['doc/docs/pf1007l-start-here.md'], contributions: 1 }))
+    expect(view.body.sharedSources.some(s => s.problemId === PROBLEM)).toBe(false)
+    const record = sources.find(s => s.postackId === PROBLEM)!
+    expect(view.body.problem).toEqual(record)
+  })
 })

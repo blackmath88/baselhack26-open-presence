@@ -30,7 +30,9 @@ export function SourceLine({ source }: { source: SourceRef }) {
   )
 }
 
-export function Record({ problem, hit, citations = {}, onCite }: { problem: ImportedProblem; hit?: SearchHit; citations?: Record<string, Citing[]>; onCite?: (evidenceId: string) => void }) {
+type Shared = { problemId: string; title: string; objects: string[]; contributions: number; link: string }
+
+export function Record({ problem, hit, citations = {}, onCite, shared = [] }: { problem: ImportedProblem; hit?: SearchHit; citations?: Record<string, Citing[]>; onCite?: (evidenceId: string) => void; shared?: Shared[] }) {
   // A later passage of an already-listed object repeats the list only when exactly the same contributions cite it.
   const key = (id: string) => (citations[id] ?? []).map((c) => c.contributionId).join(' ')
   const sameAsEarlier = (id: string, i: number) => problem.evidence.slice(0, i).some((x) => x.source.objectId === problem.evidence[i]!.source.objectId && key(x.id) === key(id))
@@ -97,6 +99,19 @@ export function Record({ problem, hit, citations = {}, onCite }: { problem: Impo
             {problem.corrections.map((c) => (
               <li key={c.id}>
                 {c.note} <span className="commons-limit">(source assertion, evidence {c.evidenceIds.join(', ')})</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+      {shared.length > 0 && (
+        <>
+          <h3>Shares cited sources with</h3>
+          <p className="commons-limit">Derived from the imported records' evidence: these problems cite the same issue or document. Not a reviewed relationship, and not a claim that they are the same problem.</p>
+          <ul aria-label="Problems sharing cited sources">
+            {shared.map((s) => (
+              <li key={s.problemId}>
+                <a href={s.link}>{s.title}</a> <span className="commons-limit">· {s.objects.join(', ')} · {s.contributions ? `${s.contributions} contribution${s.contributions === 1 ? '' : 's'} there` : 'no contributions there yet'}</span>
               </li>
             ))}
           </ul>

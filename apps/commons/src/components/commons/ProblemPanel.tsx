@@ -44,7 +44,7 @@ export function ProblemPanel({ token, problemId, actorId, canReview, focus, mode
     <div className="commons-problem">
       <div className="commons-detail">
         <div>
-          <Record problem={view.problem} citations={view.evidenceCitations} onCite={(id) => { setComposer(null); setCiting(id) }} />
+          <Record problem={view.problem} citations={view.evidenceCitations} shared={view.sharedSources} onCite={(id) => { setComposer(null); setCiting(id) }} />
           <section aria-label="Conversation" className="commons-conversation">
             <h3>
               Experiences and conversation · {view.contributions.length}

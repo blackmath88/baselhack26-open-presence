@@ -152,6 +152,11 @@ export interface ProblemView {
    * inside a cited thread counts), from this problem and — flagged `otherProblem` — from others.
    */
   evidenceCitations: Record<string, Array<CitingContribution & { otherProblem: boolean }>>
+  /**
+   * Other problem records whose evidence cites the same source objects. Derived from the imported
+   * records only; not a reviewed relationship and not a claim that the problems are the same.
+   */
+  sharedSources: Array<{ problemId: string; title: string; objects: string[]; contributions: number; link: string }>
   contributions: Array<CommonsContribution | ModeratedContribution>
   related: Array<{ problemId: string; title?: string; relation: string; origin: string; link: string }>
   moderatedCount: number
@@ -171,6 +176,7 @@ export function problemView(loaded: LoadedCommons, metadata: CommonsMetadata, id
     links: { app: appLinks.problem(problemId), thread: appLinks.thread(roomId) },
     evidence: problem.evidence,
     evidenceCitations: evidenceCitations(problem, communityCitations(loaded, metadata)),
+    sharedSources: sharedSources(loaded, metadata, problem),
     contributions,
     related: problem.related.map(r => ({ problemId: r.problemId, ...(metadata.sources[r.problemId] ? { title: metadata.sources[r.problemId].title } : {}), relation: r.relation, origin: r.origin, link: appLinks.problem(r.problemId) })),
     moderatedCount: contributions.filter(isModerated).length,
@@ -180,6 +186,20 @@ export function problemView(loaded: LoadedCommons, metadata: CommonsMetadata, id
       failed: receipts.filter(r => r.status === 'failed' || r.status === 'conflict').length,
     },
   }
+}
+
+function sharedSources(loaded: LoadedCommons, metadata: CommonsMetadata, problem: ImportedProblem): ProblemView['sharedSources'] {
+  const mine = new Set(problem.evidence.map(e => citationKeys(e.source.objectId)[0]!))
+  const out: ProblemView['sharedSources'] = []
+  for (const other of Object.values(metadata.sources)) {
+    if (other.postackId === problem.postackId) continue
+    const objects = [...new Set(other.evidence.map(e => citationKeys(e.source.objectId)[0]!).filter(k => mine.has(k)))]
+    if (!objects.length) continue
+    const contributions = (loaded.byRoom.get(importedProblemSpaceId(other.postackId)) ?? []).filter(id => !isModerated(loaded.contributions.get(id)!)).length
+    out.push({ problemId: other.postackId, title: other.title, objects, contributions, link: appLinks.problem(other.postackId) })
+  }
+  // Most shared sources first, then by id for a stable order.
+  return out.sort((a, b) => b.objects.length - a.objects.length || a.problemId.localeCompare(b.problemId))
 }
 
 function evidenceCitations(problem: ImportedProblem, community: Map<string, CitingContribution[]>) {

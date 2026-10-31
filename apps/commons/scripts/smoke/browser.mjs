@@ -51,6 +51,7 @@ await shot('smoke-1-repository')
 await js(`document.querySelector('.commons-citing a[href="#/contributions/${contributionId}"]').click()`)
 await until('contribution card opens', `!!document.getElementById('c-${contributionId}')`)
 check('problem record is shown with the contribution', /problem record/i.test(await text()))
+check('problem names others sharing cited sources', await js(`!!document.querySelector('ul[aria-label="Problems sharing cited sources"] a')`), await js(`[...document.querySelectorAll('ul[aria-label="Problems sharing cited sources"] li')].slice(0, 2).map(l => l.innerText.replace(/\\s+/g, ' ')).join(' | ')`))
 
 // 3. Reply from the browser.
 check('reply composer opens', await js(`(() => { const b = [...document.getElementById('c-${contributionId}').querySelectorAll('button')].find(b => b.innerText.trim() === 'Reply'); if (!b) return false; b.click(); return true })()`))
