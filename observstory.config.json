@@ -33,7 +33,9 @@
       "paths": [
         "src/",
         "app/",
-        "public/"
+        "public/",
+        "apps/commons/",
+        "modules/pdf-history/"
       ]
     },
     {

@@ -159,7 +159,7 @@
       "id": "plan-event-timetable",
       "type": "plan",
       "path": "EVENT-TIMETABLE.md",
-      "status": "reference",
+      "status": "current",
       "note": "User-supplied event programme, not independently verified. Distinct from proposed internal work targets."
     }
   ],
@@ -209,7 +209,7 @@
     },
     {
       "from": "plan-event-timetable",
-      "rel": "constrains",
+      "rel": "informs",
       "to": "plan-hackathon"
     }
   ]
