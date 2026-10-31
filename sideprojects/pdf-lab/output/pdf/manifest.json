@@ -1,0 +1,42 @@
+[
+  {
+    "file": "01-one-letter.pdf",
+    "sha256": "f1cfed684194c506b8b96d903f3177bfa02d06454bcfef41bf79cece18952ea1",
+    "bytes": 9613
+  },
+  {
+    "file": "01-alternate-reading.pdf",
+    "sha256": "d5bc6b882297c6e67f3b2a19177968b5c2e72051bff5208167aed7a31842a80d",
+    "bytes": 9625
+  },
+  {
+    "file": "01-direct-drawing.pdf",
+    "sha256": "9f6ddfdfdd557b4c3abe1ace8a4744ead9d576951fae2203800cb776158b77cc",
+    "bytes": 17398
+  },
+  {
+    "file": "02-backstage.pdf",
+    "sha256": "cfb2a5fb0ceddf7fb2537defbae1ce207f897aa302747606ddf9f0af29c155df",
+    "bytes": 6322
+  },
+  {
+    "file": "03-baseline.pdf",
+    "sha256": "f1cfed684194c506b8b96d903f3177bfa02d06454bcfef41bf79cece18952ea1",
+    "bytes": 9613
+  },
+  {
+    "file": "03-wrong-xref.pdf",
+    "sha256": "d52dd1acaa82c921b1729b73877281da8dc128c6176ed060a4763d9cd803b8e8",
+    "bytes": 9613
+  },
+  {
+    "file": "03-wrong-length.pdf",
+    "sha256": "68a31b9f01184f126cfa97724e137b3c15237813a52cd4918f0d802cfefa9f11",
+    "bytes": 9613
+  },
+  {
+    "file": "03-truncated-update.pdf",
+    "sha256": "6b709c31c63c0146cf868e48deaedc824e4addf9062df2efeb7b24af5c0a8f7b",
+    "bytes": 9745
+  }
+]
