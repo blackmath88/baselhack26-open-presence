@@ -3,12 +3,13 @@
   "kind": "local-observations",
   "checks": {
     "polyglot": {
-      "same_input_sha256": "c467f406eb12ea7dba5b7fae11aef15e3adbd56f1f9319533d72a39b2735df5c",
+      "same_input_sha256": "a35c136cac06fde1057f5ea1d3dcde133c4ada57452118a717ce25507e26fbce",
       "zip_member_sha256": {
         "READ-ME.txt": "51dc73fc7c71ca291ed95a481ba4c4387908bb81cd442ac32e5445dcba082b7f",
         "RECIPE.txt": "f2274d3f3cb8e1b38dbf7abdd15b078dce35a056ba39e44c381ff8e7736aa59f",
-        "source/exhibits.py": "b39044bc4f9e2c916bbff72e65c19c05a8cadc34d1e48ad2e3f62c7cdd5da403",
-        "source/build.py": "d7f9098f85acfb5d3b33c72c108b910baba9116da7b49612f441d69114b1563c",
+        "source/exhibits.py": "09874e4a98b74e2467ad990067879204d1a6728f4ca1cd1bfce53cbd92c2b5b3",
+        "source/build.py": "929b6c0ce3724bf0a593def17f9731c07d51a130e4c51aa2af54e5e91641dc2c",
+        "source/weird.py": "5b03c87ae5935ce2b8226ea8f3b7864bd4af1d8c8c1831c0854f6d591c4bf6e7",
         "source/machine.js": "ba219f5766699549c2863b8a4fe2b2132aa4676e7290983ca2616c98fc6f2f8c"
       },
       "pdf_no_embeddedfiles": true,
@@ -97,7 +98,7 @@
             "72",
             "-singlefile",
             "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-baseline.pdf",
-            "/tmp/tmpy5iax93z/render"
+            "/tmp/tmpgy2jljy7/render"
           ],
           "status": "accepted",
           "exit_code": 0,
@@ -130,7 +131,7 @@
             "72",
             "-singlefile",
             "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-wrong-xref.pdf",
-            "/tmp/tmpwxp7kyyx/render"
+            "/tmp/tmpn6_o6f9x/render"
           ],
           "status": "accepted",
           "exit_code": 0,
@@ -163,7 +164,7 @@
             "72",
             "-singlefile",
             "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-wrong-length.pdf",
-            "/tmp/tmpv86qtorl/render"
+            "/tmp/tmppb83o4j_/render"
           ],
           "status": "accepted",
           "exit_code": 0,
@@ -196,7 +197,7 @@
             "72",
             "-singlefile",
             "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-truncated-update.pdf",
-            "/tmp/tmpy13lvzi4/render"
+            "/tmp/tmp2sphy__x/render"
           ],
           "status": "accepted",
           "exit_code": 0,
@@ -220,7 +221,7 @@
       ],
       "status": "accepted",
       "exit_code": 0,
-      "stdout": "Archive:  /workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/04-two-identities.pdf\n\nstartxref\n1857\n%%EOF\n    testing: READ-ME.txt              OK\n    testing: RECIPE.txt               OK\n    testing: source/exhibits.py       OK\n    testing: source/build.py          OK\n    testing: source/machine.js        OK\nNo errors detected in compressed data of /workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/04-two-identities.pdf.\n",
+      "stdout": "Archive:  /workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/04-two-identities.pdf\n\nstartxref\n1857\n%%EOF\n    testing: READ-ME.txt              OK\n    testing: RECIPE.txt               OK\n    testing: source/exhibits.py       OK\n    testing: source/build.py          OK\n    testing: source/weird.py          OK\n    testing: source/machine.js        OK\nNo errors detected in compressed data of /workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/04-two-identities.pdf.\n",
       "stderr": ""
     },
     {

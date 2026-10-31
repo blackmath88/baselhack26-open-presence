@@ -1,3 +1,4 @@
 PyMuPDF==1.26.6
 pypdf==6.10.0
 Pillow==12.3.0
+pypdfium2==5.14.0

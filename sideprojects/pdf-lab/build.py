@@ -92,6 +92,8 @@ def build():
     files['03-truncated-update.pdf']=base+update+tail[:tail.index(b'/Root')+5]
     from exhibits import generate
     files.update(generate())
+    from weird import generate as weird_generate
+    files.update(weird_generate())
     manifest=[]
     for name,data in files.items():
         (OUT/name).write_bytes(data);manifest.append({'file':name,'sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data)})

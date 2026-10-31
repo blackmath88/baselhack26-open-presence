@@ -1,5 +1,5 @@
-# Working cabinet 002
-31 October 2026. Six exhibit families, thirteen generated PDFs, a local cabinet with live byte inspection, deterministic recipes and recorded observations.
+# Working cabinet 003
+31 October 2026. Nine exhibit families, 23 generated PDFs, a local cabinet with live byte inspection, deterministic recipes and recorded observations.
 
 ## Start here
 From `sideprojects/pdf-lab`:
@@ -90,3 +90,21 @@ Completed: three new real mechanisms, parametric glyph generation, history recov
 Open: live B02 viewer qualification, physical print comparison, broader archive/viewer compatibility and any actually divergent parser specimen. The cabinet is a local/repo deliverable, not a newly published site. No separate repository was created.
 
 Source tree inspected at fc3e143374d40cc4ac1e47cc06429e697e934bb9, listing complete. Published knowledge/snapshot endpoints again failed; generated completeness and diagnostics could not be verified. Source knowledge manifest was read earlier and its blob was unchanged. No AGENTS.md appeared in the inspected tree.
+
+
+## Cabinet 003 — layer logic, bitmap computation and colour code
+
+```sh
+python3 -m pip install -r requirements-check.txt
+python3 build.py
+python3 check-weird.py
+node test-weird.js
+```
+
+Poppler is also required on PATH. `check-weird.py` records all eight default layer states in MuPDF, Poppler and PDFium, and evaluates six colour-function samples per engine. Browser rendering and actual layer-panel interaction remain untested. The gallery uses actual recorded renders; its bitmap circuit is a separate browser simulation. No interactive browser was available for end-to-end UI testing in this environment.
+
+Measured on 2026-10-31: Poppler 24.02.0 and PDFium 156.0.8076.0 match all lock indicators; MuPDF 1.26.11 through PyMuPDF 1.26.6 differs on the gate, AllOn and AnyOff. Cause unassigned. The colour formula passes sampled comparisons in all three engines. The five-NAND half-adder passes 327,680 bitmap-pair tests against independent XOR/AND expectations. See `evidence/weird-results.json` and `WEIRD-MACHINES.md` for exact scope and falsifiers.
+
+New source: `weird.py`, `weird.js`, `check-weird.py`, `test-weird.js`. Build remains standard-library-only. Verification adds pinned pypdfium2. New reports do not assert current vulnerabilities or reproduce any codec exploit. Hashquine and scan-substitution work is queued with explicit controls, not presented as measured.
+
+Review sequence: inspect PDF object structure, render all fixture states in independent processes, compare sampled panels, visually inspect representative PDFs, run existing cabinet tests and verify local links. The GitHub Pages knowledge/snapshot endpoints were unavailable during this session; the previously read source project knowledge was retained. Changes remain scoped to the optional `sideprojects/pdf-lab` project.

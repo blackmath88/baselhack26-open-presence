@@ -39,6 +39,7 @@ def polyglot():
         'RECIPE.txt':b'1. Write a complete PDF.\n2. Append an uncompressed ZIP with absolute offsets.\n3. Put the original PDF startxref and EOF in the ZIP comment.\n4. Test both consumers on the exact same bytes.\n',
         'source/exhibits.py':(ROOT/'exhibits.py').read_bytes(),
         'source/build.py':(ROOT/'build.py').read_bytes(),
+        'source/weird.py':(ROOT/'weird.py').read_bytes(),
         'source/machine.js':(ROOT/'machine.js').read_bytes(),
     }
     with zipfile.ZipFile(buffer,'w',compression=zipfile.ZIP_STORED) as z:

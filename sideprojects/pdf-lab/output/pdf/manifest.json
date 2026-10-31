@@ -41,8 +41,8 @@
   },
   {
     "file": "04-two-identities.pdf",
-    "sha256": "c467f406eb12ea7dba5b7fae11aef15e3adbd56f1f9319533d72a39b2735df5c",
-    "bytes": 18964
+    "sha256": "a35c136cac06fde1057f5ea1d3dcde133c4ada57452118a717ce25507e26fbce",
+    "bytes": 23342
   },
   {
     "file": "05-object-17.pdf",
@@ -63,5 +63,55 @@
     "file": "06-print-to-reveal.pdf",
     "sha256": "f8bb150a75c27b32a3c7449b35a4506f0ca4ab7756420e2adb9e6a9ac7f19398",
     "bytes": 11283
+  },
+  {
+    "file": "07-layer-lock-000.pdf",
+    "sha256": "a9c44755d60f12b9876a308c4f25573b92f2696ee3980a8c6e5419629d67838d",
+    "bytes": 3703
+  },
+  {
+    "file": "07-layer-lock-001.pdf",
+    "sha256": "d7f9817b01ad8b532565b3eefa061e6cbdfa6d52e559d2001f8054cea6800bc1",
+    "bytes": 3702
+  },
+  {
+    "file": "07-layer-lock-010.pdf",
+    "sha256": "70467388301d109b05b977e25ca5a7c80bd36e496e76c4b1e36d24ba7a493f11",
+    "bytes": 3702
+  },
+  {
+    "file": "07-layer-lock-011.pdf",
+    "sha256": "c60ab8c9a24bb50d2f7d33ebb0c73e5e913e8657c82c44eef1ccedb88b514430",
+    "bytes": 3702
+  },
+  {
+    "file": "07-layer-lock-100.pdf",
+    "sha256": "5d7d860dd67827c29a6757843307f8590c8b2491be9f2715667c5188870e577a",
+    "bytes": 3702
+  },
+  {
+    "file": "07-layer-lock-101.pdf",
+    "sha256": "1182f900293b19a3fe552cde7bae566b7dbcd6314b0a58c9501da58a794d3ae1",
+    "bytes": 3702
+  },
+  {
+    "file": "07-layer-lock-110.pdf",
+    "sha256": "ca05e39f5f005f027a8994d9bcd1cf7200a8a816a0b19fdb1811ebd4759f06e7",
+    "bytes": 3702
+  },
+  {
+    "file": "07-layer-lock-111.pdf",
+    "sha256": "39745f38d17c991aa81de45e6ff9e29d258934fc0f5432a43b629270dcac5659",
+    "bytes": 3703
+  },
+  {
+    "file": "08-bitmap-machine.pdf",
+    "sha256": "a283e2a9a5a8db6c4ca60e16e30362debdb996d3d3bb8246e9287a2274271e5b",
+    "bytes": 2890
+  },
+  {
+    "file": "09-colour-program.pdf",
+    "sha256": "160293ff25fafe6e29e33ac4325f987f02525c0b563939213553f1840f61ff54",
+    "bytes": 1537
   }
 ]

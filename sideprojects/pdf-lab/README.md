@@ -1,5 +1,5 @@
 # PDF LAB
-31 October 2026 · BaselHack side project · working cabinet 002
+31 October 2026 · BaselHack side project · working cabinet 003
 
 **How far can you bend a document before it becomes something else?**
 
@@ -8,9 +8,13 @@ A cabinet of strange PDFs: pictures made from letters, secret interfaces, visibl
 ## Current direction
 Achim redirected PDF LAB on 31 October towards format bending, reverse engineering and playful format abuse. **Artefacts onstage, evidence backstage.** Start with [the format-bending brief](FORMAT-BENDING.md) and [current build plan](PLAN.md).
 
-Proposed opening: **B01 This picture is one letter → B02 The backstage machine → B03 What did the reader repair?** These replace the earlier extraction-first sequence. The cabinet now has six exhibit families and thirteen PDFs: the one-letter maze, backstage prototype, repair bench, real PDF/ZIP polyglot, recoverable revision mystery and print-mode reveal. B02 still awaits live interactive-viewer qualification. Exact exhibit choices remain proposals.
+Proposed opening: **B01 This picture is one letter → B02 The backstage machine → B03 What did the reader repair?** These replace the earlier extraction-first sequence. The first six exhibit families contain thirteen PDFs: the one-letter maze, backstage prototype, repair bench, real PDF/ZIP polyglot, recoverable revision mystery and print-mode reveal. B02 still awaits live interactive-viewer qualification. Cabinet 003 adds layer logic, a bitmap circuit and a colour calculator: nine exhibit families and 23 PDFs total.
 
 The following evidence model and P-series are retained as supporting research, not the primary experience. The earlier [research prompt](RESEARCH-PROMPT.md) and [review](RESEARCH-REVIEW-2026-10-31.md) reflect the foundational forensic framing; use FORMAT-BENDING.md for current creative priorities.
+
+## Cabinet 003: small machines inside the document
+
+[Layer lock](output/pdf/07-layer-lock-000.pdf) · [bitmap circuit](output/pdf/08-bitmap-machine.pdf) · [colour program](output/pdf/09-colour-program.pdf). The gallery compares all eight saved layer states across three engines and includes an interactive bitmap half-adder. **A real divergence:** Poppler/PDFium follow the intended gate; this MuPDF build leaves it visible in every state. [Experiment cards, research corrections and next investigations](WEIRD-MACHINES.md) · [raw observations](evidence/weird-results.json).
 
 ## Open the working cabinet
 

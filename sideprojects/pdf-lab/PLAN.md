@@ -5,9 +5,11 @@ Read [the format-bending brief](FORMAT-BENDING.md). Achim's latest direction pri
 
 ## Implementation checkpoint
 
+**Cabinet 003 delivered:** eight static layer-lock states, a three-engine comparison with observed MuPDF disagreement, an interactive Boolean bitmap half-adder, and a Type 4 colour-program PDF. Nine exhibit families, 23 PDFs. Next: minimise the OCMD discrepancy and add a single-coordinate stack trace to the colour exhibit. Hashquines and symbol-substitution scans are specified, not reproduced; see [WEIRD-MACHINES.md](WEIRD-MACHINES.md).
+
 **Cabinet 002 delivered:** PDF/ZIP polyglot, incremental-revision mystery with xref-based recovery, print-intent reveal, parameterised maze CLI and byte inspector. Thirteen PDFs are generated. Print behaviour is observed in Ghostscript; the archive and recovered revision are independently checked. B03 now includes bounded render comparisons with no visual divergence found. [Current handoff](RUNNING.md) records exact observations and remaining gaps.
 
-See [RUNNING.md](RUNNING.md) for reproduction and limits. B01 is implemented with two-engine render equality and extraction checks. B02 has generated fields/actions and tested logic, but live viewer qualification remains pending. B03 extraction runs are recorded; no divergent rendering or minimized failure is claimed. A local cabinet and eight PDFs are committed. Remaining acceptance items below stay open.
+See [RUNNING.md](RUNNING.md) for reproduction and limits. B01 is implemented with two-engine render equality and extraction checks. B02 has generated fields/actions and tested logic, but live viewer qualification remains pending. B03 extraction runs are recorded; no divergent rendering or minimized failure is claimed. The initial eight PDFs remain in the expanded cabinet. Remaining acceptance items below stay open.
 
 ## 1. Deliver B01: this picture is one letter
 Inspect applicable repository instructions and locally available tools. Select a small generator capable of exposing exact PDF objects; pin versions and review licences. Verify Type 3 font requirements in primary documentation.

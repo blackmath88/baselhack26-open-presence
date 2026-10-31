@@ -237,7 +237,7 @@
     },
     {
       "file": "04-two-identities.pdf",
-      "sha256": "c467f406eb12ea7dba5b7fae11aef15e3adbd56f1f9319533d72a39b2735df5c",
+      "sha256": "a35c136cac06fde1057f5ea1d3dcde133c4ada57452118a717ce25507e26fbce",
       "poppler": {
         "command": [
           "pdftotext",
@@ -367,6 +367,276 @@
         "status": "accepted",
         "exit_code": 0,
         "stdout": "{\"text\": \"PDF LAB / 06\\nPrint me to ruin the puzzle.\\nOn screen: find the path. In print mode: the answer appears.\\nA print-only annotation carries the solution. It is not absent from the file.\\nReader and print settings matter. Tested print-mode renders are in the cabinet.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "07-layer-lock-000.pdf",
+      "sha256": "a9c44755d60f12b9876a308c4f25573b92f2696ee3980a8c6e5419629d67838d",
+      "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-000.pdf",
+          "-"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "PDF LAB / 07\n\nThe lock is the layers panel.\nThree switches. One expression. No JavaScript.\n\nA\n\nB\n\nC\n\nGreen means visible. Grey means the conditional paint is absent.\n\nA AND (NOT B) AND C\n\nOpen the layers panel and find the combination. Inspect /VE to explain it.\n\nAnyOn\n\nAllOn\n\nAnyOff\n\nThese four controls use /P policies. The large gate uses /VE.\nIts /P fallback is AllOn: a different answer exposes ignored expressions.\n\nSame page stream in all eight fixtures; only default layer states change.\n\nLayers hide paint, not secrets. Viewer controls require separate qualification.\n\nAllOff\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-000.pdf"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 07\\nThe lock is the layers panel.\\nThree switches. One expression. No JavaScript.\\nA\\nB\\nC\\nA AND (NOT B) AND C\\nGreen means visible. Grey means the conditional paint is absent.\\nOpen the layers panel and find the combination. Inspect /VE to explain it.\\nAnyOn\\nAllOn\\nAnyOff\\nAllOff\\nThese four controls use /P policies. The large gate uses /VE.\\nIts /P fallback is AllOn: a different answer exposes ignored expressions.\\nSame page stream in all eight fixtures; only default layer states change.\\nLayers hide paint, not secrets. Viewer controls require separate qualification.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "07-layer-lock-001.pdf",
+      "sha256": "d7f9817b01ad8b532565b3eefa061e6cbdfa6d52e559d2001f8054cea6800bc1",
+      "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-001.pdf",
+          "-"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "PDF LAB / 07\n\nThe lock is the layers panel.\nThree switches. One expression. No JavaScript.\n\nA\n\nB\n\nC\n\nGreen means visible. Grey means the conditional paint is absent.\n\nA AND (NOT B) AND C\n\nOpen the layers panel and find the combination. Inspect /VE to explain it.\n\nAnyOn\n\nAllOn\n\nAnyOff\n\nThese four controls use /P policies. The large gate uses /VE.\nIts /P fallback is AllOn: a different answer exposes ignored expressions.\n\nSame page stream in all eight fixtures; only default layer states change.\n\nLayers hide paint, not secrets. Viewer controls require separate qualification.\n\nAllOff\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-001.pdf"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 07\\nThe lock is the layers panel.\\nThree switches. One expression. No JavaScript.\\nA\\nB\\nC\\nA AND (NOT B) AND C\\nGreen means visible. Grey means the conditional paint is absent.\\nOpen the layers panel and find the combination. Inspect /VE to explain it.\\nAnyOn\\nAllOn\\nAnyOff\\nAllOff\\nThese four controls use /P policies. The large gate uses /VE.\\nIts /P fallback is AllOn: a different answer exposes ignored expressions.\\nSame page stream in all eight fixtures; only default layer states change.\\nLayers hide paint, not secrets. Viewer controls require separate qualification.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "07-layer-lock-010.pdf",
+      "sha256": "70467388301d109b05b977e25ca5a7c80bd36e496e76c4b1e36d24ba7a493f11",
+      "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-010.pdf",
+          "-"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "PDF LAB / 07\n\nThe lock is the layers panel.\nThree switches. One expression. No JavaScript.\n\nA\n\nB\n\nC\n\nGreen means visible. Grey means the conditional paint is absent.\n\nA AND (NOT B) AND C\n\nOpen the layers panel and find the combination. Inspect /VE to explain it.\n\nAnyOn\n\nAllOn\n\nAnyOff\n\nThese four controls use /P policies. The large gate uses /VE.\nIts /P fallback is AllOn: a different answer exposes ignored expressions.\n\nSame page stream in all eight fixtures; only default layer states change.\n\nLayers hide paint, not secrets. Viewer controls require separate qualification.\n\nAllOff\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-010.pdf"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 07\\nThe lock is the layers panel.\\nThree switches. One expression. No JavaScript.\\nA\\nB\\nC\\nA AND (NOT B) AND C\\nGreen means visible. Grey means the conditional paint is absent.\\nOpen the layers panel and find the combination. Inspect /VE to explain it.\\nAnyOn\\nAllOn\\nAnyOff\\nAllOff\\nThese four controls use /P policies. The large gate uses /VE.\\nIts /P fallback is AllOn: a different answer exposes ignored expressions.\\nSame page stream in all eight fixtures; only default layer states change.\\nLayers hide paint, not secrets. Viewer controls require separate qualification.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "07-layer-lock-011.pdf",
+      "sha256": "c60ab8c9a24bb50d2f7d33ebb0c73e5e913e8657c82c44eef1ccedb88b514430",
+      "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-011.pdf",
+          "-"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "PDF LAB / 07\n\nThe lock is the layers panel.\nThree switches. One expression. No JavaScript.\n\nA\n\nB\n\nC\n\nGreen means visible. Grey means the conditional paint is absent.\n\nA AND (NOT B) AND C\n\nOpen the layers panel and find the combination. Inspect /VE to explain it.\n\nAnyOn\n\nAllOn\n\nAnyOff\n\nThese four controls use /P policies. The large gate uses /VE.\nIts /P fallback is AllOn: a different answer exposes ignored expressions.\n\nSame page stream in all eight fixtures; only default layer states change.\n\nLayers hide paint, not secrets. Viewer controls require separate qualification.\n\nAllOff\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-011.pdf"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 07\\nThe lock is the layers panel.\\nThree switches. One expression. No JavaScript.\\nA\\nB\\nC\\nA AND (NOT B) AND C\\nGreen means visible. Grey means the conditional paint is absent.\\nOpen the layers panel and find the combination. Inspect /VE to explain it.\\nAnyOn\\nAllOn\\nAnyOff\\nAllOff\\nThese four controls use /P policies. The large gate uses /VE.\\nIts /P fallback is AllOn: a different answer exposes ignored expressions.\\nSame page stream in all eight fixtures; only default layer states change.\\nLayers hide paint, not secrets. Viewer controls require separate qualification.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "07-layer-lock-100.pdf",
+      "sha256": "5d7d860dd67827c29a6757843307f8590c8b2491be9f2715667c5188870e577a",
+      "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-100.pdf",
+          "-"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "PDF LAB / 07\n\nThe lock is the layers panel.\nThree switches. One expression. No JavaScript.\n\nA\n\nB\n\nC\n\nGreen means visible. Grey means the conditional paint is absent.\n\nA AND (NOT B) AND C\n\nOpen the layers panel and find the combination. Inspect /VE to explain it.\n\nAnyOn\n\nAllOn\n\nAnyOff\n\nThese four controls use /P policies. The large gate uses /VE.\nIts /P fallback is AllOn: a different answer exposes ignored expressions.\n\nSame page stream in all eight fixtures; only default layer states change.\n\nLayers hide paint, not secrets. Viewer controls require separate qualification.\n\nAllOff\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-100.pdf"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 07\\nThe lock is the layers panel.\\nThree switches. One expression. No JavaScript.\\nA\\nB\\nC\\nA AND (NOT B) AND C\\nGreen means visible. Grey means the conditional paint is absent.\\nOpen the layers panel and find the combination. Inspect /VE to explain it.\\nAnyOn\\nAllOn\\nAnyOff\\nAllOff\\nThese four controls use /P policies. The large gate uses /VE.\\nIts /P fallback is AllOn: a different answer exposes ignored expressions.\\nSame page stream in all eight fixtures; only default layer states change.\\nLayers hide paint, not secrets. Viewer controls require separate qualification.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "07-layer-lock-101.pdf",
+      "sha256": "1182f900293b19a3fe552cde7bae566b7dbcd6314b0a58c9501da58a794d3ae1",
+      "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-101.pdf",
+          "-"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "PDF LAB / 07\n\nThe lock is the layers panel.\nThree switches. One expression. No JavaScript.\n\nA\n\nB\n\nC\n\nGreen means visible. Grey means the conditional paint is absent.\n\nA AND (NOT B) AND C\n\nOpen the layers panel and find the combination. Inspect /VE to explain it.\n\nAnyOn\n\nAllOn\n\nAnyOff\n\nThese four controls use /P policies. The large gate uses /VE.\nIts /P fallback is AllOn: a different answer exposes ignored expressions.\n\nSame page stream in all eight fixtures; only default layer states change.\n\nLayers hide paint, not secrets. Viewer controls require separate qualification.\n\nAllOff\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-101.pdf"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 07\\nThe lock is the layers panel.\\nThree switches. One expression. No JavaScript.\\nA\\nB\\nC\\nA AND (NOT B) AND C\\nGreen means visible. Grey means the conditional paint is absent.\\nOpen the layers panel and find the combination. Inspect /VE to explain it.\\nAnyOn\\nAllOn\\nAnyOff\\nAllOff\\nThese four controls use /P policies. The large gate uses /VE.\\nIts /P fallback is AllOn: a different answer exposes ignored expressions.\\nSame page stream in all eight fixtures; only default layer states change.\\nLayers hide paint, not secrets. Viewer controls require separate qualification.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "07-layer-lock-110.pdf",
+      "sha256": "ca05e39f5f005f027a8994d9bcd1cf7200a8a816a0b19fdb1811ebd4759f06e7",
+      "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-110.pdf",
+          "-"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "PDF LAB / 07\n\nThe lock is the layers panel.\nThree switches. One expression. No JavaScript.\n\nA\n\nB\n\nC\n\nGreen means visible. Grey means the conditional paint is absent.\n\nA AND (NOT B) AND C\n\nOpen the layers panel and find the combination. Inspect /VE to explain it.\n\nAnyOn\n\nAllOn\n\nAnyOff\n\nThese four controls use /P policies. The large gate uses /VE.\nIts /P fallback is AllOn: a different answer exposes ignored expressions.\n\nSame page stream in all eight fixtures; only default layer states change.\n\nLayers hide paint, not secrets. Viewer controls require separate qualification.\n\nAllOff\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-110.pdf"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 07\\nThe lock is the layers panel.\\nThree switches. One expression. No JavaScript.\\nA\\nB\\nC\\nA AND (NOT B) AND C\\nGreen means visible. Grey means the conditional paint is absent.\\nOpen the layers panel and find the combination. Inspect /VE to explain it.\\nAnyOn\\nAllOn\\nAnyOff\\nAllOff\\nThese four controls use /P policies. The large gate uses /VE.\\nIts /P fallback is AllOn: a different answer exposes ignored expressions.\\nSame page stream in all eight fixtures; only default layer states change.\\nLayers hide paint, not secrets. Viewer controls require separate qualification.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "07-layer-lock-111.pdf",
+      "sha256": "39745f38d17c991aa81de45e6ff9e29d258934fc0f5432a43b629270dcac5659",
+      "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-111.pdf",
+          "-"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "PDF LAB / 07\n\nThe lock is the layers panel.\nThree switches. One expression. No JavaScript.\n\nA\n\nB\n\nC\n\nGreen means visible. Grey means the conditional paint is absent.\n\nA AND (NOT B) AND C\n\nOpen the layers panel and find the combination. Inspect /VE to explain it.\n\nAnyOn\n\nAllOn\n\nAnyOff\n\nThese four controls use /P policies. The large gate uses /VE.\nIts /P fallback is AllOn: a different answer exposes ignored expressions.\n\nSame page stream in all eight fixtures; only default layer states change.\n\nLayers hide paint, not secrets. Viewer controls require separate qualification.\n\nAllOff\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-111.pdf"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 07\\nThe lock is the layers panel.\\nThree switches. One expression. No JavaScript.\\nA\\nB\\nC\\nA AND (NOT B) AND C\\nGreen means visible. Grey means the conditional paint is absent.\\nOpen the layers panel and find the combination. Inspect /VE to explain it.\\nAnyOn\\nAllOn\\nAnyOff\\nAllOff\\nThese four controls use /P policies. The large gate uses /VE.\\nIts /P fallback is AllOn: a different answer exposes ignored expressions.\\nSame page stream in all eight fixtures; only default layer states change.\\nLayers hide paint, not secrets. Viewer controls require separate qualification.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "08-bitmap-machine.pdf",
+      "sha256": "a283e2a9a5a8db6c4ca60e16e30362debdb996d3d3bb8246e9287a2274271e5b",
+      "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/08-bitmap-machine.pdf",
+          "-"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "PDF LAB / 08\n\nPictures that add.\nA toy bitmap machine, built entirely from NAND operations.\n\nN = NAND(A, B)\nL = NAND(A, N)\n\nR = NAND(B, N)\n\nSUM = NAND(L, R)\nCARRY = NAND(N, N)\n\nA\n\nB\n\nSUM\n\nCARRY\n\n0\n\n0\n\n0\n\n0\n\n0\n\n1\n\n1\n\n0\n\n1\n\n0\n\n1\n\n0\n\n1\n\n1\n\n0\n\n1\n\nIn the workbench, every pixel is an independent one-bit half-adder.\nThis is our own Boolean simulator, not JBIG2 and not an exploit reproduction.\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/08-bitmap-machine.pdf"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 08\\nPictures that add.\\nA toy bitmap machine, built entirely from NAND operations.\\nN = NAND(A, B)\\nL = NAND(A, N)     R = NAND(B, N)\\nSUM = NAND(L, R)\\nCARRY = NAND(N, N)\\nA       B       SUM     CARRY\\n0\\n0\\n0\\n0\\n0\\n1\\n1\\n0\\n1\\n0\\n1\\n0\\n1\\n1\\n0\\n1\\nIn the workbench, every pixel is an independent one-bit half-adder.\\nThis is our own Boolean simulator, not JBIG2 and not an exploit reproduction.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "09-colour-program.pdf",
+      "sha256": "160293ff25fafe6e29e33ac4325f987f02525c0b563939213553f1840f61ff54",
+      "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/09-colour-program.pdf",
+          "-"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "PDF LAB / 09\n\nThe colour is a program.\nA tiny stack language computes the paint. No PDF JavaScript.\n\nv = (sin(2160x) * cos(1440y) + 1) / 2 [angles in degrees]\nRGB = (v, 1-v, 0.35). The page stores a function, not this pixel grid.\n\nInspect /FunctionType 4 and /ShadingType 1. Sampling belongs to the reader.\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/09-colour-program.pdf"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 09\\nThe colour is a program.\\nA tiny stack language computes the paint. No PDF JavaScript.\\nv = (sin(2160x) * cos(1440y) + 1) / 2   [angles in degrees]\\nRGB = (v, 1-v, 0.35). The page stores a function, not this pixel grid.\\nInspect /FunctionType 4 and /ShadingType 1. Sampling belongs to the reader.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
         "stderr": ""
       }
     }
