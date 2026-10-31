@@ -57,8 +57,11 @@ The supervisor mistakenly capped every lane at five turns. Commons finished turn
 
 ## Worker reports (read, not re-verified by the coordinator)
 - Memory (knowledge-lab draft PR #4, head `011a360` at its 20:38 report): producer pin c23c35a in the feature worktree, trustworthy backup/restore-check (90 payloads verified on a real-data copy). Live services were not switched; the activation remains owner-controlled.
-- PDF: PR #17, head `9ecbabd` → turn 2 `4aa8fad` (transformation notebook over A01) → recovery `24ae931` (one glyph, three maps: Ghostscript keeps 1-char A/Z maps, drops the 3-char SEA map), two-poem ToUnicode artwork, 27 PDFs; report `reports/pdf.md`.
+- PDF: PR #17, head `9ecbabd` → turn 2 `4aa8fad` (transformation notebook over A01) → recovery `24ae931` (one glyph, three maps: Ghostscript keeps 1-char A/Z maps, drops the 3-char SEA map) → `1697148` (static audit of the pinned Ghostscript source path consistent with that loss; not an executed root-cause proof), two-poem ToUnicode artwork, 27 PDFs; report `reports/pdf.md`.
 - Observatory: observstory PR #26, producer head `4d107c6` → turn 2 `f45775c` → turn 5 `f0cbde8` → recovery `ae4f814` (Sources and provenance drawer), stacked on #24 (`84c3c0a`); consumer pin update left to coordinator.
 
 ## Limitations / next
 See `BUILD-STATUS.md` (NUC window section) and the runtime report `reports/commons.md`.
+
+## Close (22:37 CET)
+Last coordinator actions: final heads recorded. #18 code head `7d3bd3b` (CI success, browser smoke ran). #19 pin `ae4f814` (CI observe success, producer unchanged at 22:36). PDF #17 at `1697148`, Observatory #26 at `ae4f814`. No new Commons scope opened after 22:32 because the 22:45 stop is too close for another coherent increment. Next Commons step: draw `sharedSources` as a derived, visually distinct Map-view edge type. Nothing was merged or deployed; no workers were started by the coordinator.
