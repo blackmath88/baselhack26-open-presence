@@ -65,3 +65,9 @@ See `BUILD-STATUS.md` (NUC window section) and the runtime report `reports/commo
 
 ## Close (22:37 CET)
 Last coordinator actions: final heads recorded. #18 code head `7d3bd3b` (CI success, browser smoke ran). #19 pin `ae4f814` (CI observe success, producer unchanged at 22:36). PDF #17 at `1697148`, Observatory #26 at `ae4f814`. No new Commons scope opened after 22:32 because the 22:45 stop is too close for another coherent increment. Next Commons step: draw `sharedSources` as a derived, visually distinct Map-view edge type. Nothing was merged or deployed; no workers were started by the coordinator.
+
+
+<!-- nuc-runtime-stop -->
+## Observed runtime shutdown
+
+Assistant runtime supervisor observed full slice settlement at 2026-10-31T21:51:51.525727+00:00. Remaining processes: 0. This final shutdown receipt is appended locally after worker termination; it may be uncommitted. Exact heads and dirty state: `/home/nuc/Documents/Codex/2026-10-31/take-ownership-of-tonight-s-nuc/outputs/stop-evidence.json`. Provider STARTED identities are recorded in `/home/nuc/Documents/Codex/2026-10-31/take-ownership-of-tonight-s-nuc/work/runtime/events.jsonl`.
