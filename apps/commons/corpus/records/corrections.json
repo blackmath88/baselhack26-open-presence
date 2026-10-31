@@ -1,0 +1,64 @@
+{
+ "$schema": "postack.commons.corrections/1",
+ "note": "Real corrections and qualifications found in the snapshot. Each one is a contributor's statement that narrows, widens or contradicts a claim made elsewhere. 'absorbed' says whether the curated documents reflect it at the snapshot revision, as far as the record writer could find. The 'preview' is the record writer's proposal of how the problem record would change if the correction were accepted; it is never applied to the source.",
+ "corrections": [
+  {
+   "id": "c-71-january",
+   "problem": "gadget-error-71",
+   "kind": "scope",
+   "by": "jethrojones",
+   "ref": {"thread": "issue/12", "comment": 6137133782},
+   "quote": "**Route U didn't work on this January (`20260113`, boot `d71c313d`) unit.**",
+   "says": "Posted on 2026-10-13, the day after #12 was closed as documented. The gadget never enumerated; the host logged error -71 twice, on an A-to-C cable direct to the PC.",
+   "qualifies": {"ref": {"doc": "docs/pf1007l-start-here.md", "lines": [390, 390]}, "quote": "**Unsolved** (one May `20260519` unit)"},
+   "absorbed": false,
+   "absorbedNote": "At the snapshot revision the -71 row cites #62 and #36 only, and no other line of the start-here page mentions error -71.",
+   "preview": {
+    "environment": ["January 20260113 (boot d71c313d), reported in #12"],
+    "symptoms": ["error -71 on a January unit"],
+    "statusNote": "Unsolved. Reported on a May 20260519 unit (#62, #36) and, after its issue was closed, on a January 20260113 unit (#12)."
+   }
+  },
+  {
+   "id": "c-cable-qualified",
+   "problem": "usb-c-no-data",
+   "kind": "scope",
+   "by": "repo:wesbos/photo-frame-dashboard",
+   "ref": {"doc": "docs/pf1007l-start-here.md", "lines": [115, 117]},
+   "quote": "records intermittent C-to-C enumeration through a hub",
+   "says": "The start-here page qualifies its own USB-A to USB-C rule, citing a May Mac report that saw C-to-C data through a hub.",
+   "qualifies": {"ref": {"doc": "docs/pf1007l-start-here.md", "lines": [108, 108]}, "quote": "A USB-C to USB-C cable gave unit C **no power and no data**."},
+   "absorbed": true,
+   "absorbedNote": "Already in the document: the qualification sits under the rule it qualifies.",
+   "preview": null
+  },
+  {
+   "id": "c-nohs-failed",
+   "problem": "emmc-not-exposed",
+   "kind": "result",
+   "by": "marklaw8-design",
+   "ref": {"thread": "issue/98", "comment": 6276236728},
+   "quote": "same result, only the SD card.",
+   "says": "On a May 20260519 unit the no-HS patch, which fixed the same symptom on January units, changed nothing.",
+   "qualifies": {"ref": {"thread": "pull/113"}, "quote": "fixed by `docs/patches/pf1007l-v2025.10-no-mmc-hs.patch` (4-bit, 26 MHz, no HS) plus the START STOP correction."},
+   "absorbed": true,
+   "absorbedNote": "The table's Unsolved row names #98 as a unit where no-HS did not help.",
+   "preview": null
+  },
+  {
+   "id": "c-159k-no-write",
+   "problem": "frameo-159k-no-adb",
+   "kind": "status",
+   "by": "jarvis-fats",
+   "ref": {"thread": "issue/126", "comment": 6446743407},
+   "quote": "with no boot or loader writes",
+   "says": "After the maintainer's last 'no reviewed route' status, an owner reports a route that writes nothing.",
+   "qualifies": {"ref": {"thread": "issue/126", "comment": 6371672225}, "quote": "Status: still no reviewed route."},
+   "absorbed": false,
+   "absorbedNote": "No reply from the maintainer in the snapshot. A report is not a review, so the status would not change; only the record's approaches would.",
+   "preview": {
+    "statusNote": "No reviewed route. Since the maintainer's last status, one owner reports a route with no boot or loader writes (unreviewed)."
+   }
+  }
+ ]
+}
