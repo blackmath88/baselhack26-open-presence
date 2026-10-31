@@ -14,11 +14,12 @@ def run(cmd):
     with tempfile.TemporaryFile() as out,tempfile.TemporaryFile() as err:
         try:
             p=subprocess.run(cmd,stdout=out,stderr=err,timeout=10,preexec_fn=limits)
-            status='accepted' if p.returncode==0 else 'error'
+            status='accepted' if p.returncode==0 else ('signal' if p.returncode<0 else 'error')
             code=p.returncode
         except subprocess.TimeoutExpired:status='timeout';code=None
         out.seek(0);err.seek(0)
-        return {'status':status,'exit_code':code,'stdout':out.read(2*1024**2).decode(errors='replace'),'stderr':err.read(2*1024**2).decode(errors='replace')}
+        return {'command':cmd,'status':status,'exit_code':code,'stdout':out.read(2*1024**2).decode(errors='replace'),'stderr':err.read(2*1024**2).decode(errors='replace')}
+build.build()
 before={p.name:p.read_bytes() for p in OUT.glob('*.pdf')};build.build()
 assert before=={p.name:p.read_bytes() for p in OUT.glob('*.pdf')},'generation must be deterministic'
 observations=[]

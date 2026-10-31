@@ -1,0 +1,100 @@
+%PDF-1.4
+% PDF LAB - authored ASCII specimen
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /H 4 0 R >> >> /Contents 17 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+null
+endobj
+6 0 obj
+null
+endobj
+7 0 obj
+null
+endobj
+8 0 obj
+null
+endobj
+9 0 obj
+null
+endobj
+10 0 obj
+null
+endobj
+11 0 obj
+null
+endobj
+12 0 obj
+null
+endobj
+13 0 obj
+null
+endobj
+14 0 obj
+null
+endobj
+15 0 obj
+null
+endobj
+16 0 obj
+null
+endobj
+17 0 obj
+<< /Length 1246 >>
+stream
+0.08 0.14 0.24 rg
+BT /H 11 Tf 1 0 0 1 48 741 Tm (PDF LAB / 05) Tj ET
+BT /H 30 Tf 1 0 0 1 48 697 Tm (Who killed object 17?) Tj ET
+BT /H 12 Tf 1 0 0 1 48 663 Tm (A document can forget without losing its memory.) Tj ET
+0.95 0.97 1 rg 48 465 516 126 re f
+0.12 0.34 0.91 rg
+BT /H 10 Tf 1 0 0 1 68 564 Tm (CURRENT STATEMENT / AMENDED) Tj ET
+0.08 0.14 0.24 rg
+BT /H 20 Tf 1 0 0 1 68 532 Tm (There was nobody here.) Tj ET
+BT /H 11 Tf 1 0 0 1 68 506 Tm (The current cross-reference points to this replacement.) Tj ET
+BT /H 11 Tf 1 0 0 1 68 489 Tm (The earlier statement has disappeared from the page.) Tj ET
+0.08 0.14 0.24 rg
+BT /H 13 Tf 1 0 0 1 48 370 Tm (Your case: recover the witness and explain the disappearance.) Tj ET
+BT /H 12 Tf 1 0 0 1 48 320 Tm (01   Find the final startxref offset.) Tj ET
+BT /H 12 Tf 1 0 0 1 48 289 Tm (02   Read its trailer. Follow /Prev.) Tj ET
+BT /H 12 Tf 1 0 0 1 48 258 Tm (03   Recover the earlier complete revision.) Tj ET
+BT /H 12 Tf 1 0 0 1 48 227 Tm (04   Compare object 17 in both revisions.) Tj ET
+BT /H 11 Tf 1 0 0 1 48 148 Tm (Win condition: explain what changed, with byte offsets as evidence.) Tj ET
+BT /H 10 Tf 1 0 0 1 48 72 Tm (Hint: saving an update can append new objects while retaining old bytes.) Tj ET
+
+endstream
+endobj
+xref
+0 18
+0000000000 65535 f 
+0000000045 00000 n 
+0000000094 00000 n 
+0000000151 00000 n 
+0000000277 00000 n 
+0000000347 00000 n 
+0000000367 00000 n 
+0000000387 00000 n 
+0000000407 00000 n 
+0000000427 00000 n 
+0000000447 00000 n 
+0000000468 00000 n 
+0000000489 00000 n 
+0000000510 00000 n 
+0000000531 00000 n 
+0000000552 00000 n 
+0000000573 00000 n 
+0000000594 00000 n 
+trailer
+<< /Size 18 /Root 1 0 R >>
+startxref
+1893
+%%EOF

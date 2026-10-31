@@ -5,6 +5,8 @@ Read [the format-bending brief](FORMAT-BENDING.md). Achim's latest direction pri
 
 ## Implementation checkpoint
 
+**Cabinet 002 delivered:** PDF/ZIP polyglot, incremental-revision mystery with xref-based recovery, print-intent reveal, parameterised maze CLI and byte inspector. Thirteen PDFs are generated. Print behaviour is observed in Ghostscript; the archive and recovered revision are independently checked. B03 now includes bounded render comparisons with no visual divergence found. [Current handoff](RUNNING.md) records exact observations and remaining gaps.
+
 See [RUNNING.md](RUNNING.md) for reproduction and limits. B01 is implemented with two-engine render equality and extraction checks. B02 has generated fields/actions and tested logic, but live viewer qualification remains pending. B03 extraction runs are recorded; no divergent rendering or minimized failure is claimed. A local cabinet and eight PDFs are committed. Remaining acceptance items below stay open.
 
 ## 1. Deliver B01: this picture is one letter
@@ -49,8 +51,8 @@ Only after working PDFs exist, make a local gallery over their files and observa
 
 Each card includes actual compatibility results, original PDF, source and regeneration command. Previews must be labelled as renderings, not live PDF interaction. Avoid simulated results or a wall of metadata.
 
-## 5. Expand
-Next candidates: harmless PDF/archive polyglot, print-transformation composition, revision-history mystery. Preserve exact byte identity for polyglots; distinguish an attachment from a second file-format interpretation. Revision reconstruction follows validated structural boundaries, never blind %%EOF splitting. Full saves are not assumed to remove residual content.
+## 5. Expansion status
+Implemented in cabinet 002: harmless PDF/archive polyglot, print-transformation composition and revision-history mystery. Next work is viewer qualification and deeper variants. Preserve exact byte identity for polyglots; distinguish an attachment from a second file-format interpretation. Revision reconstruction follows validated structural boundaries, never blind %%EOF splitting. Full saves are not assumed to remove residual content.
 
 Extraction, redaction and agent-ingestion comparisons remain supporting drawers. Signatures, broad fuzzing and shared XL/PDF infrastructure come later when they serve a concrete exhibit.
 
@@ -70,3 +72,4 @@ The creative direction is user-requested; exact design, tools and ordering are p
 
 ## After the hackathon
 Extract this self-contained folder into a separately requested repo, retain provenance/history and a pointer here, verify fresh-clone reproduction and update canonical links. Shared infrastructure with XL LAB should follow demonstrated reuse.
+

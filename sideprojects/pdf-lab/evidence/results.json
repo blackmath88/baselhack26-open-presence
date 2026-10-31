@@ -23,12 +23,23 @@
       "file": "01-alternate-reading.pdf",
       "sha256": "d5bc6b882297c6e67f3b2a19177968b5c2e72051bff5208167aed7a31842a80d",
       "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/01-alternate-reading.pdf",
+          "-"
+        ],
         "status": "accepted",
         "exit_code": 0,
         "stdout": "LOST\n\nPDF LAB / 01\n\nThis picture is one letter.\nFind the way through. Then select the picture and copy it.\n\nA picture to your eyes. A character to the extractor.\n\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\n\n\f",
         "stderr": ""
       },
       "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/01-alternate-reading.pdf"
+        ],
         "status": "accepted",
         "exit_code": 0,
         "stdout": "{\"text\": \"PDF LAB / 01\\nThis picture is one letter.\\nFind the way through. Then select the picture and copy it.\\nLOST\\nA picture to your eyes. A character to the extractor.\\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
@@ -39,12 +50,23 @@
       "file": "01-direct-drawing.pdf",
       "sha256": "9f6ddfdfdd557b4c3abe1ace8a4744ead9d576951fae2203800cb776158b77cc",
       "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/01-direct-drawing.pdf",
+          "-"
+        ],
         "status": "accepted",
         "exit_code": 0,
         "stdout": "PDF LAB / 01\n\nThis picture is one letter.\nFind the way through. Then select the picture and copy it.\n\nA picture to your eyes. A character to the extractor.\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\n\n\f",
         "stderr": ""
       },
       "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/01-direct-drawing.pdf"
+        ],
         "status": "accepted",
         "exit_code": 0,
         "stdout": "{\"text\": \"PDF LAB / 01\\nThis picture is one letter.\\nFind the way through. Then select the picture and copy it.\\nA picture to your eyes. A character to the extractor.\\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
@@ -55,12 +77,23 @@
       "file": "01-one-letter.pdf",
       "sha256": "f1cfed684194c506b8b96d903f3177bfa02d06454bcfef41bf79cece18952ea1",
       "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/01-one-letter.pdf",
+          "-"
+        ],
         "status": "accepted",
         "exit_code": 0,
         "stdout": "A\n\nPDF LAB / 01\n\nThis picture is one letter.\nFind the way through. Then select the picture and copy it.\n\nA picture to your eyes. A character to the extractor.\n\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\n\n\f",
         "stderr": ""
       },
       "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/01-one-letter.pdf"
+        ],
         "status": "accepted",
         "exit_code": 0,
         "stdout": "{\"text\": \"PDF LAB / 01\\nThis picture is one letter.\\nFind the way through. Then select the picture and copy it.\\nA\\nA picture to your eyes. A character to the extractor.\\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
@@ -71,12 +104,23 @@
       "file": "02-backstage.pdf",
       "sha256": "cfb2a5fb0ceddf7fb2537defbae1ce207f897aa302747606ddf9f0af29c155df",
       "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/02-backstage.pdf",
+          "-"
+        ],
         "status": "accepted",
         "exit_code": 0,
         "stdout": "PDF LAB / 02\n\nAn ordinary instruction sheet.\nSome documents have another side. Find the entrance.\n\nACCESS PHRASE\n\nSTATE / PROGRAM COUNTER\n\nLOCKED - enter the word that names the other side of a stage.\nMEMORY / EIGHT CELLS\n\nPROGRAM: LOAD 1 / DRAW / ADD 1 / DRAW / REPEAT / HALT\nThe machine fills eight cells, one instruction at a time.\nIf buttons do nothing, this viewer may not support PDF JavaScript.\nReverse-engineer: inspect the document JavaScript and field actions.\n\nNo network. No host access. An intentionally authored secret interface.\n\n\f",
         "stderr": ""
       },
       "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/02-backstage.pdf"
+        ],
         "status": "accepted",
         "exit_code": 0,
         "stdout": "{\"text\": \"PDF LAB / 02\\nAn ordinary instruction sheet.\\nSome documents have another side. Find the entrance.\\nACCESS PHRASE\\nSTATE / PROGRAM COUNTER\\nMEMORY / EIGHT CELLS\\nPROGRAM: LOAD 1 / DRAW / ADD 1 / DRAW / REPEAT / HALT\\nThe machine fills eight cells, one instruction at a time.\\nIf buttons do nothing, this viewer may not support PDF JavaScript.\\nReverse-engineer: inspect the document JavaScript and field actions.\\nNo network. No host access. An intentionally authored secret interface.\\nEnter\\nLOCKED - enter the word that names the other side of a stage.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
@@ -87,12 +131,23 @@
       "file": "03-baseline.pdf",
       "sha256": "f1cfed684194c506b8b96d903f3177bfa02d06454bcfef41bf79cece18952ea1",
       "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-baseline.pdf",
+          "-"
+        ],
         "status": "accepted",
         "exit_code": 0,
         "stdout": "A\n\nPDF LAB / 01\n\nThis picture is one letter.\nFind the way through. Then select the picture and copy it.\n\nA picture to your eyes. A character to the extractor.\n\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\n\n\f",
         "stderr": ""
       },
       "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-baseline.pdf"
+        ],
         "status": "accepted",
         "exit_code": 0,
         "stdout": "{\"text\": \"PDF LAB / 01\\nThis picture is one letter.\\nFind the way through. Then select the picture and copy it.\\nA\\nA picture to your eyes. A character to the extractor.\\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
@@ -103,12 +158,23 @@
       "file": "03-truncated-update.pdf",
       "sha256": "6b709c31c63c0146cf868e48deaedc824e4addf9062df2efeb7b24af5c0a8f7b",
       "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-truncated-update.pdf",
+          "-"
+        ],
         "status": "accepted",
         "exit_code": 0,
         "stdout": "A\n\nPDF LAB / 01\n\nThis picture is one letter.\nFind the way through. Then select the picture and copy it.\n\nA picture to your eyes. A character to the extractor.\n\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\n\n\f",
         "stderr": ""
       },
       "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-truncated-update.pdf"
+        ],
         "status": "accepted",
         "exit_code": 0,
         "stdout": "{\"text\": \"PDF LAB / 01\\nThis picture is one letter.\\nFind the way through. Then select the picture and copy it.\\nA\\nA picture to your eyes. A character to the extractor.\\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
@@ -119,12 +185,23 @@
       "file": "03-wrong-length.pdf",
       "sha256": "68a31b9f01184f126cfa97724e137b3c15237813a52cd4918f0d802cfefa9f11",
       "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-wrong-length.pdf",
+          "-"
+        ],
         "status": "accepted",
         "exit_code": 0,
         "stdout": "A\n\nPDF LAB / 01\n\nThis picture is one letter.\nFind the way through. Then select the picture and copy it.\n\nA picture to your eyes. A character to the extractor.\n\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\n\n\f",
         "stderr": ""
       },
       "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-wrong-length.pdf"
+        ],
         "status": "accepted",
         "exit_code": 0,
         "stdout": "{\"text\": \"PDF LAB / 01\\nThis picture is one letter.\\nFind the way through. Then select the picture and copy it.\\nA\\nA picture to your eyes. A character to the extractor.\\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\\n\", \"repaired\": false, \"warnings\": \"PDF stream Length incorrect\"}\n",
@@ -135,15 +212,161 @@
       "file": "03-wrong-xref.pdf",
       "sha256": "d52dd1acaa82c921b1729b73877281da8dc128c6176ed060a4763d9cd803b8e8",
       "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-wrong-xref.pdf",
+          "-"
+        ],
         "status": "accepted",
         "exit_code": 0,
         "stdout": "A\n\nPDF LAB / 01\n\nThis picture is one letter.\nFind the way through. Then select the picture and copy it.\n\nA picture to your eyes. A character to the extractor.\n\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\n\n\f",
         "stderr": ""
       },
       "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-wrong-xref.pdf"
+        ],
         "status": "accepted",
         "exit_code": 0,
         "stdout": "{\"text\": \"PDF LAB / 01\\nThis picture is one letter.\\nFind the way through. Then select the picture and copy it.\\nA\\nA picture to your eyes. A character to the extractor.\\nReveal: inspect /CharProcs. The maze is the glyph drawing procedure.\\n\", \"repaired\": true, \"warnings\": \"format error: cannot recognize xref format\\ntrying to repair broken xref\\nrepairing PDF document\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "04-two-identities.pdf",
+      "sha256": "c467f406eb12ea7dba5b7fae11aef15e3adbd56f1f9319533d72a39b2735df5c",
+      "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/04-two-identities.pdf",
+          "-"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "PDF LAB / 04\n\nI have another identity.\nThe file you are reading is also a ZIP archive.\n\nINTERPRETER 01 / PDF\n\nA document.\nThis page is the public face. Your PDF reader follows\ncross-references to assemble the page you see.\n\nINTERPRETER 02 / ZIP\n\nAn evidence bag.\nOpen the exact same bytes with an archive reader.\nInside: a message, a recipe and the construction source.\n\nNo attachment button. No second download.\nTry: python3 -m zipfile -l 04-two-identities.pdf\nCopy or rename it to .zip if your archive tool needs an extension.\n\nThe interesting question is which reader tolerates which boundaries.\n\nCompatibility exhibit. Standards conformance is not claimed.\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/04-two-identities.pdf"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 04\\nI have another identity.\\nThe file you are reading is also a ZIP archive.\\nINTERPRETER 01 / PDF\\nA document.\\nThis page is the public face. Your PDF reader follows\\ncross-references to assemble the page you see.\\nINTERPRETER 02 / ZIP\\nAn evidence bag.\\nOpen the exact same bytes with an archive reader.\\nInside: a message, a recipe and the construction source.\\nNo attachment button. No second download.\\nTry: python3 -m zipfile -l 04-two-identities.pdf\\nCopy or rename it to .zip if your archive tool needs an extension.\\nThe interesting question is which reader tolerates which boundaries.\\nCompatibility exhibit. Standards conformance is not claimed.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "05-object-17.pdf",
+      "sha256": "b88a18f2f469eee03691cefe946a52512d1f07d253718620328f465b5756cb6a",
+      "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/05-object-17.pdf",
+          "-"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "PDF LAB / 05\n\nWho killed object 17?\nA document can forget without losing its memory.\n\nCURRENT STATEMENT / AMENDED\n\nThere was nobody here.\nThe current cross-reference points to this replacement.\nThe earlier statement has disappeared from the page.\n\nYour case: recover the witness and explain the disappearance.\n\n01 Find the final startxref offset.\n02 Read its trailer. Follow /Prev.\n03 Recover the earlier complete revision.\n04 Compare object 17 in both revisions.\n\nWin condition: explain what changed, with byte offsets as evidence.\n\nHint: saving an update can append new objects while retaining old bytes.\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/05-object-17.pdf"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 05\\nWho killed object 17?\\nA document can forget without losing its memory.\\nCURRENT STATEMENT / AMENDED\\nThere was nobody here.\\nThe current cross-reference points to this replacement.\\nThe earlier statement has disappeared from the page.\\nYour case: recover the witness and explain the disappearance.\\n01   Find the final startxref offset.\\n02   Read its trailer. Follow /Prev.\\n03   Recover the earlier complete revision.\\n04   Compare object 17 in both revisions.\\nWin condition: explain what changed, with byte offsets as evidence.\\nHint: saving an update can append new objects while retaining old bytes.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "05-original-witness.pdf",
+      "sha256": "5b286749b8cf363156d6f682509c6f9091c0267f4d439f866a6b9d8ecc4c615d",
+      "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/05-original-witness.pdf",
+          "-"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "PDF LAB / 05\n\nObject 17 was here.\nA witness statement, before the amendment.\n\nWITNESS / ORIGINAL STATEMENT\n\nThe room was never empty.\nI left through the east door at 17:17.\nThe word I left behind was PALIMPSEST.\n\nObject number: 17. Generation: 0. This is a content stream.\nA later revision can change the current meaning of this reference.\n\nThis statement is synthetic. The revision mechanism is real.\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/05-original-witness.pdf"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 05\\nObject 17 was here.\\nA witness statement, before the amendment.\\nWITNESS / ORIGINAL STATEMENT\\nThe room was never empty.\\nI left through the east door at 17:17.\\nThe word I left behind was PALIMPSEST.\\nObject number: 17. Generation: 0. This is a content stream.\\nA later revision can change the current meaning of this reference.\\nThis statement is synthetic. The revision mechanism is real.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "05-rewritten-control.pdf",
+      "sha256": "11da90d62428ea53e6b1ba964676950283aeb873197149bcab07db131f37adee",
+      "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/05-rewritten-control.pdf",
+          "-"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "PDF LAB / 05\n\nWho killed object 17?\nA document can forget without losing its memory.\n\nCURRENT STATEMENT / AMENDED\n\nThere was nobody here.\nThe current cross-reference points to this replacement.\nThe earlier statement has disappeared from the page.\n\nYour case: recover the witness and explain the disappearance.\n\n01 Find the final startxref offset.\n02 Read its trailer. Follow /Prev.\n03 Recover the earlier complete revision.\n04 Compare object 17 in both revisions.\n\nWin condition: explain what changed, with byte offsets as evidence.\n\nHint: saving an update can append new objects while retaining old bytes.\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/05-rewritten-control.pdf"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 05\\nWho killed object 17?\\nA document can forget without losing its memory.\\nCURRENT STATEMENT / AMENDED\\nThere was nobody here.\\nThe current cross-reference points to this replacement.\\nThe earlier statement has disappeared from the page.\\nYour case: recover the witness and explain the disappearance.\\n01   Find the final startxref offset.\\n02   Read its trailer. Follow /Prev.\\n03   Recover the earlier complete revision.\\n04   Compare object 17 in both revisions.\\nWin condition: explain what changed, with byte offsets as evidence.\\nHint: saving an update can append new objects while retaining old bytes.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "06-print-to-reveal.pdf",
+      "sha256": "f8bb150a75c27b32a3c7449b35a4506f0ca4ab7756420e2adb9e6a9ac7f19398",
+      "poppler": {
+        "command": [
+          "pdftotext",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/06-print-to-reveal.pdf",
+          "-"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "PDF LAB / 06\n\nPrint me to ruin the puzzle.\nOn screen: find the path. In print mode: the answer appears.\n\nA print-only annotation carries the solution. It is not absent from the file.\nReader and print settings matter. Tested print-mode renders are in the cabinet.\n\n\f",
+        "stderr": ""
+      },
+      "mupdf": {
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys,json; d=fitz.open(sys.argv[1]); t=''.join(p.get_text() for p in d); print(json.dumps({'text':t,'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/06-print-to-reveal.pdf"
+        ],
+        "status": "accepted",
+        "exit_code": 0,
+        "stdout": "{\"text\": \"PDF LAB / 06\\nPrint me to ruin the puzzle.\\nOn screen: find the path. In print mode: the answer appears.\\nA print-only annotation carries the solution. It is not absent from the file.\\nReader and print settings matter. Tested print-mode renders are in the cabinet.\\n\", \"repaired\": false, \"warnings\": \"\"}\n",
         "stderr": ""
       }
     }

@@ -1,5 +1,5 @@
 # PDF LAB
-31 October 2026 · BaselHack side project · first working cabinet
+31 October 2026 · BaselHack side project · working cabinet 002
 
 **How far can you bend a document before it becomes something else?**
 
@@ -8,11 +8,15 @@ A cabinet of strange PDFs: pictures made from letters, secret interfaces, visibl
 ## Current direction
 Achim redirected PDF LAB on 31 October towards format bending, reverse engineering and playful format abuse. **Artefacts onstage, evidence backstage.** Start with [the format-bending brief](FORMAT-BENDING.md) and [current build plan](PLAN.md).
 
-Proposed opening: **B01 This picture is one letter → B02 The backstage machine → B03 What did the reader repair?** These replace the earlier extraction-first sequence. The first cabinet is implemented: B01 is render/extraction-verified, B02 is a prototype awaiting interactive-viewer qualification, and B03 has recorded extractor results. Exact exhibit choices remain proposals.
+Proposed opening: **B01 This picture is one letter → B02 The backstage machine → B03 What did the reader repair?** These replace the earlier extraction-first sequence. The cabinet now has six exhibit families and thirteen PDFs: the one-letter maze, backstage prototype, repair bench, real PDF/ZIP polyglot, recoverable revision mystery and print-mode reveal. B02 still awaits live interactive-viewer qualification. Exact exhibit choices remain proposals.
 
 The following evidence model and P-series are retained as supporting research, not the primary experience. The earlier [research prompt](RESEARCH-PROMPT.md) and [review](RESEARCH-REVIEW-2026-10-31.md) reflect the foundational forensic framing; use FORMAT-BENDING.md for current creative priorities.
 
 ## Open the working cabinet
+
+**New:** [one file, two identities](output/pdf/04-two-identities.pdf) · [who killed object 17?](output/pdf/05-object-17.pdf) · [print me to ruin the puzzle](output/pdf/06-print-to-reveal.pdf).
+
+The gallery now has actual rendered comparisons and a live byte inspector. `python3 lab.py bend --seed 17 --word RABBIT` creates your own glyph-maze variant. See [cabinet 002 measurements](evidence/cabinet-results.json).
 
 - [First PDF: this picture is one letter](output/pdf/01-one-letter.pdf)
 - [Alternate extraction: same picture, LOST](output/pdf/01-alternate-reading.pdf)
@@ -109,3 +113,4 @@ Current measurements are bounded to the engines and checks in RUNNING.md. Intera
 - Open: exact generators/parsers, viewer access, first creative specimen, future repository name and licence.
 - Affected documents: this README, PLAN.md, RESEARCH-PROMPT.md and the root navigation link.
 - Current-state boundary: source tree inspected at 70d1cfb07647a08756e53fbaef9098700087bd18, complete Git tree listing; source knowledge manifest and coordination declarations read. Published data/knowledge.json and data/snapshot.json could not be fetched. Generated snapshot completeness and diagnostics remain unverified.
+

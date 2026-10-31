@@ -22,8 +22,8 @@ def text(x,y,s,size=12): return f'BT /H {size} Tf 1 0 0 1 {x} {y} Tm {literal(s)
 def shell():
     p=PDF();p.add('');p.add('<< /Type /Pages /Kids [3 0 R] /Count 1 >>');p.add('');p.add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>'); return p
 
-def maze():
-    n=18;r=random.Random(2210); seen={(0,0)};stack=[(0,0)];edges=set()
+def maze(seed=2210):
+    n=18;r=random.Random(seed); seen={(0,0)};stack=[(0,0)];edges=set()
     while stack:
         x,y=stack[-1]; choices=[(a,b) for a,b in [(x+1,y),(x-1,y),(x,y+1),(x,y-1)] if 0<=a<n and 0<=b<n and (a,b) not in seen]
         if not choices: stack.pop();continue
@@ -41,8 +41,8 @@ def maze():
     ops+=['0.15 0.4 0.95 rg 12 12 26 26 re f','0.95 0.25 0.35 rg 862 862 26 26 re f']
     return '\n'.join(ops)
 
-def picture(kind='letter',mapping='A'):
-    p=shell(); drawing=maze()
+def picture(kind='letter',mapping='A',seed=2210):
+    p=shell(); drawing=maze(seed)
     glyph=p.stream('900 0 d0\n'+drawing)
     cmap=p.stream('/CIDInit /ProcSet findresource begin\n12 dict begin\nbegincmap\n/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def\n/CMapName /Lab def\n/CMapType 2 def\n1 begincodespacerange\n<00> <FF>\nendcodespacerange\n1 beginbfchar\n<41> <'+mapping.encode('utf-16-be').hex().upper()+'>\nendbfchar\nendcmap\nCMapName currentdict /CMap defineresource pop\nend\nend')
     font=p.add(f'<< /Type /Font /Subtype /Type3 /FontBBox [0 0 900 900] /FontMatrix [.001 0 0 .001 0 0] /CharProcs << /maze {glyph} 0 R >> /Encoding << /Type /Encoding /Differences [65 /maze] >> /FirstChar 65 /LastChar 65 /Widths [900] /Resources << >> /ToUnicode {cmap} 0 R >>')
@@ -90,6 +90,8 @@ def build():
     update=b'1 0 obj\n<< /Type /Catalog /Pages 2 0 R /LabNote (unfinished update) >>\nendobj\n'
     tail=f'xref\n1 1\n{offset:010d} 00000 n \ntrailer\n<< /Size 10 /Root 1 0 R /Prev {prev} >>\nstartxref\n{offset+len(update)}\n%%EOF\n'.encode()
     files['03-truncated-update.pdf']=base+update+tail[:tail.index(b'/Root')+5]
+    from exhibits import generate
+    files.update(generate())
     manifest=[]
     for name,data in files.items():
         (OUT/name).write_bytes(data);manifest.append({'file':name,'sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data)})
