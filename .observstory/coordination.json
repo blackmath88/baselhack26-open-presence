@@ -8,9 +8,19 @@
       "at": "2026-10-31T10:33:00+01:00",
       "recorded": false,
       "open_questions": [
-        "Official submission/demo deadline is not established; suggested rehearsal is not the event deadline.",
         "Task owners are unassigned; choose at the first check-in.",
         "Knowledge Lab operational state must be checked on its active branch/host."
+      ]
+    },
+    {
+      "id": "S2",
+      "kind": "check-in",
+      "label": "Event timetable and purpose of the Observatory project view",
+      "at": "2026-10-31T14:24:45+01:00",
+      "recorded": false,
+      "open_questions": [
+        "What submission/upload procedure and individual pitch slot apply? The supplied timetable establishes hands-off at Sunday noon, not these details.",
+        "Does Saturday programme's 00:00 pushups mean the end of Saturday? Event data preserves this day-boundary assumption."
       ]
     }
   ],
@@ -58,39 +68,61 @@
       "id": "G4",
       "kind": "checkpoint",
       "label": "Integrated journey checkpoint",
-      "at": "2026-11-01T11:00:00+01:00",
+      "at": "2026-11-01T10:00:00+01:00",
       "status": "proposed",
       "areas": [],
       "source": {
         "session": "S1",
         "extractor": "manual",
-        "excerpt": "Assistant-proposed planning target; see HACKATHON-PLAN.md"
+        "excerpt": "Revised assistant-proposed target to fit the user-supplied Sunday 12:00 hands-off; remains unconfirmed.",
+        "previous_proposed_at": "2026-11-01T11:00:00+01:00",
+        "revised_in_session": "S2"
       }
     },
     {
       "id": "G5",
       "kind": "freeze",
       "label": "Feature freeze",
-      "at": "2026-11-01T13:00:00+01:00",
+      "at": "2026-11-01T10:30:00+01:00",
       "status": "proposed",
       "areas": [],
       "source": {
         "session": "S1",
         "extractor": "manual",
-        "excerpt": "Assistant-proposed planning target; see HACKATHON-PLAN.md"
+        "excerpt": "Revised assistant-proposed target to fit the user-supplied Sunday 12:00 hands-off; remains unconfirmed.",
+        "previous_proposed_at": "2026-11-01T13:00:00+01:00",
+        "revised_in_session": "S2"
       }
     },
     {
       "id": "G6",
       "kind": "demo",
       "label": "Demo rehearsal",
-      "at": "2026-11-01T15:00:00+01:00",
+      "at": "2026-11-01T11:15:00+01:00",
       "status": "proposed",
       "areas": [],
       "source": {
         "session": "S1",
         "extractor": "manual",
-        "excerpt": "Assistant-proposed planning target; see HACKATHON-PLAN.md"
+        "excerpt": "Revised assistant-proposed target to fit the user-supplied Sunday 12:00 hands-off; remains unconfirmed.",
+        "previous_proposed_at": "2026-11-01T15:00:00+01:00",
+        "revised_in_session": "S2"
+      }
+    },
+    {
+      "id": "G_EVENT_HANDS_OFF",
+      "kind": "freeze",
+      "label": "Event: Hands off! (supplied timetable)",
+      "at": "2026-11-01T12:00:00+01:00",
+      "status": "declared",
+      "confirmed_by": "Achim (supplied event timetable)",
+      "confirmed_at": "2026-10-31T14:24:45+01:00",
+      "areas": [],
+      "source": {
+        "session": "S2",
+        "extractor": "manual",
+        "path": ".observstory/event.json",
+        "excerpt": "Sunday: 12:00 Hands off! Assigned Team Rooms. User-supplied timetable; not independently checked with organisers."
       }
     }
   ],
@@ -182,13 +214,15 @@
       "source": {
         "session": "S1",
         "extractor": "manual",
-        "excerpt": "Suggested work package; no person assigned"
+        "excerpt": "Revised assistant-proposed work target before Sunday 12:00 hands-off; no owner assigned.",
+        "previous_proposed_due": "2026-11-01T11:00:00+01:00",
+        "revised_in_session": "S2"
       }
     },
     {
       "id": "C6",
       "text": "M6: Freeze features, document limits and rehearse standalone plus optional Adobe narrative",
-      "due": "2026-11-01T15:00:00+01:00",
+      "due": "2026-11-01T11:30:00+01:00",
       "owner": null,
       "status": "proposed",
       "links": [
@@ -200,7 +234,9 @@
       "source": {
         "session": "S1",
         "extractor": "manual",
-        "excerpt": "Suggested work package; no person assigned"
+        "excerpt": "Revised assistant-proposed work target before Sunday 12:00 hands-off; no owner assigned.",
+        "previous_proposed_due": "2026-11-01T15:00:00+01:00",
+        "revised_in_session": "S2"
       }
     }
   ],
@@ -242,6 +278,19 @@
         "session": "S1",
         "extractor": "manual",
         "excerpt": "User explicitly specified this scope in the preceding project-concept update."
+      }
+    },
+    {
+      "id": "D4",
+      "text": "The Observatory project view should support hackathon time and to-do management together with shared project knowledge, not only repository activity. Continue the existing Claude redesign rather than starting a competing UI.",
+      "status": "declared",
+      "confirmed_by": "Achim (explicit project instruction)",
+      "confirmed_at": "2026-10-31T14:24:45+01:00",
+      "areas": [],
+      "source": {
+        "session": "S2",
+        "extractor": "manual",
+        "excerpt": "The goal is to have this working as time and to do management for the hackathon, adding time schedule; Claude is already working on a redesign."
       }
     }
   ]
