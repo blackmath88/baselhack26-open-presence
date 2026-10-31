@@ -4,6 +4,14 @@
 
 Challenge: **Adobe — The Post-Website Business**. Cash prize amount is not established by the supplied brief.
 
+## Current direction — Human Signal (31 October)
+
+**How can human knowledge travel through an AI-mediated web without losing its context, its people, and the possibility of contributing back?**
+
+Start with [Human Signal — Adobe track concept](HUMAN-SIGNAL-CONCEPT.md): the PDF history and business-model analogy, human experience indexing, community participation, AT Protocol proposal, sourced provenance boundaries and a bounded demo. This is the latest conceptual direction, connected to [Postack Underflow](https://github.com/blackmath88/postack-underflow).
+
+The earlier business-presence exploration below remains a reference. The new brief proposes a local repair workshop scenario to connect the community vision to the documented Adobe challenge. Neither direction is implemented or validated yet.
+
 ## Challenge context
 
 Local businesses have moved from their own websites to aggregator profiles; increasingly an assistant may discover, compare and book without a person visiting either. How can the business remain accurately represented, discoverable, bookable and in control?
@@ -18,7 +26,7 @@ The supplied terms say entrants retain IP, Adobe may showcase submissions with c
 
 [Official challenge](https://www.baselhack.ch/challenges/the-post-website-business)
 
-## Current idea
+## Earlier idea — business-controlled presence
 
 A small hotel maintains one structured source for its identity, offerings and policies. The human page and agent tools consume that state. The owner changes information once and can inspect what is published.
 
@@ -105,7 +113,7 @@ These support exploration of protocol mechanics; they do not endorse this applic
 
 ## How we work
 
-This is a solo BaselHack 2026 exploration, prepared on **30 October 2026**. Start with one observable mechanism, test the uncertain assumption early, and make the integrated demo work before widening the scope.
+This BaselHack 2026 exploration was prepared on **30 October 2026**, with the Human Signal direction added on **31 October**. Team formation and entry eligibility remain to be established. Start with one observable mechanism, test the uncertain assumption early, and make the integrated demo work before widening the scope.
 
 - Keep facts, assumptions, model proposals and human decisions distinguishable.
 - Reuse existing work explicitly; record source commits and licences before copying code or assets.
