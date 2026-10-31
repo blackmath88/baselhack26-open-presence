@@ -1,152 +1,145 @@
-# Human Signal — Adobe track concept
-31 October 2026 · Working direction · Documentation, not an implemented standard
+# Human Signal — discovery and community
+31 October 2026 · Working concept · Name provisional
 
-## The question
-When agents increasingly mediate the web, how do human experience and living communities remain discoverable, accountable and worth contributing to?
+## Current decision
+Build a real Photo Frame Commons experiment around [wesbos/photo-frame-dashboard](https://github.com/wesbos/photo-frame-dashboard). The purpose is discoverable experience and shared sensemaking in an agent-mediated web. It must make sense with or without the Adobe/PDF narrative.
 
-**Adobe helped documents travel without losing their form. How can human knowledge travel through an AI-mediated web without losing its context, its people, and the possibility of contributing back?**
+For these two days, the active repositories are:
+- **This repository, baselhack26-open-presence:** the experience, public-source pilot, community model, and optional Adobe presentation.
+- **[baselhack26-knowledge-lab](https://github.com/blackmath88/baselhack26-knowledge-lab):** the parallel graph/retrieval learning experiment. Build and explore a graph for fun; investigate what it reveals and what its extraction loses.
 
-This develops the Postack Underflow community and indexing experiment for the Adobe track. It extends the earlier business-presence concept; it does not claim a validated product, universal authenticity mechanism or agreed technical standard.
+Postack Underflow and br-ai-nstorm supply research and reusable mechanisms. They are not additional weekend delivery destinations. This supersedes the earlier suggestion to implement the pilot inside Postack at /commons/. Wes's repository remains an external source, not a repository we modify.
 
-## The PDF story: preserve what matters as information travels
-PDF stands for Portable Document Format. Adobe's Camelot project addressed reliable, high-fidelity document exchange between different applications, computers and printers. PDF and Acrobat launched in June 1993.
+A future name may play on PDF. Do not rename either repository or settle the expansion yet. “Human Signal” and “Photo Frame Commons” are working labels, not final brands.
 
-Exporting to PDF can feel like issuing a document: “This is the version I am sending; this is what I stand behind.” That is our cultural interpretation, not the format's technical guarantee.
+## Begin with the experience
+You search a few words about a Photoshop problem, find a Reddit thread, and recognise: “Yes, exactly my situation.” Or you land on a relevant Stack Overflow discussion about an Adobe development problem.
 
-PDF alone establishes neither authorship nor truth. Digital signatures add mechanisms for checking signer authenticity and changes to signed content. A signed false claim remains false.
+What helps is more than an answer. Someone asks which version; another describes a failed attempt; a screenshot reveals a difference; a later reply corrects the advice. You use those surroundings to judge applicability and trust.
 
-Reader initially cost money and became free with Acrobat 2.0 in 1994. Adobe developed a commercial ecosystem around creating, editing, converting and managing documents while broad access helped adoption. PDF became an ISO standard in 2008.
+We call this **paratext**: the questions, original wording, dates, versions, failed attempts, screenshots, disagreements, corrections and follow-ups surrounding a solution.
 
-The strategic analogy is an openly usable shared format with valuable tools and workflows around it. It is not a claim that AT Protocol is literally a successor to PDF.
+An agent can bring information directly to you, which is useful. But its synthesis can make the path harder to inspect. What was actually observed? Which exception disappeared? Whose interpretation connected these sources? The person may become dependent on one intermediary's judgement.
 
-| Transition | What needs preserving |
-| --- | --- |
-| Documents move between computers | Appearance and readability |
-| Information moves through AI systems | Source, context, evidence and responsibility |
-| Agents mediate web interaction | Human intention, relationships and opportunities to participate |
+Then you solve something with your own AI. The new observation may remain in a private chat. The answer arrived, but your experience did not travel back.
 
-The latter two rows are our proposed direction.
+These are experiences and hypotheses to investigate. They do not establish that Google is universally useless, that every AI answer hides its sources, or that public knowledge is inevitably declining. Platforms may close or restrict access; self-hosting alone does not guarantee availability either.
 
-## Thesis: human signal
-As plausible generic information becomes easier to generate, we hypothesise that situated experience becomes more valuable: “I tried this”; “it failed here”; “I changed my mind”; “we are still investigating.”
+## Two questions, connected but distinct
+**Discovery:** How can people and agents find situated experience and inspect enough context to judge it for themselves?
 
-Reddit, Stack Overflow, forums and maker communities are reference points because their useful information has a history: questions, attempts, disagreement, corrections and continuing relationships. These communities also contain errors and synthetic content. Their names are not authenticity guarantees.
+**Community:** How do people continue interacting and contributing when agents mediate much of the web?
 
-An agent-mediated answer may cite a discussion yet remove the practical reason to visit or contribute. Our experiment asks whether discovery can lead back into participation.
+A useful result may be an unresolved conversation. A useful contribution may be “same here,” “what version?”, “still fails,” a screenshot, or a correction. Preserve that voice. Do not require people to produce a polished article or complete a formal evidence form before participating.
 
-An agent acting for a person can carry meaningful human signal. AI-assisted wording does not invalidate an experience. Generating a plausible story does not establish that anyone experienced it.
+We are exploring the future with AI as part of it. AI may help translate, find, connect and organise. Its interpretations should remain distinguishable and contestable.
 
-Keep separate:
-- Identity: which account published this?
-- Authority: who can speak or act for whom?
-- Provenance: where did the record come from and how was it changed?
-- Evidence: what supports the account?
-- Truth and applicability: is it accurate, and does it apply here?
-- Consent: what interaction or reuse has the contributor invited?
+“Authentic” here means attributable contributions with inspectable context and history. It does not mean certified true, proven human, or written without AI. Identity, authority, provenance, evidence, applicability and permission are separate matters.
 
-No single “authenticity score” should collapse these distinctions.
+## The real case: Photo Frame Commons
+Wes's repository already contains contributions from people working with agents. It is therefore an opportunity to investigate a functioning feedback loop, not a prop for an inevitable-decline story.
 
-## Index situations and invitations
-The useful unit is an experience with context, rather than only an answer or URL.
+Start with the question: **“My Mac cannot see my frame.”**
 
-| Proposed record | Contents |
-| --- | --- |
-| Experience | Situation, constraints, attempt, outcome, date, evidence, uncertainties, attribution |
-| Invitation | Welcomed questions/tests/collaboration, interaction limits, expiry or withdrawal |
-| Follow-up | Test, correction, disagreement or changed outcome linked to the relevant experience/version |
+Candidate public contributions inspected on 31 October:
+- [PR #268](https://github.com/wesbos/photo-frame-dashboard/pull/268): a report about Mac USB connection and external power on a particular Frameo unit.
+- [PR #264](https://github.com/wesbos/photo-frame-dashboard/pull/264): a report that a hub resolved enumeration for a different device.
+- [PR #256](https://github.com/wesbos/photo-frame-dashboard/pull/256): a second device report qualifying an existing guide, with failed attempts and differing conditions.
+- [PR #262](https://github.com/wesbos/photo-frame-dashboard/pull/262): the contributor explicitly separates personal background from AI-assisted investigation and writing.
 
-Example: “I repaired this display. Two board versions behave differently. I welcome someone testing version B. You can search my published notes; send relevant questions in a weekly digest.”
+These are source-reported observations, not independently reproduced findings. Do not treat related symptoms as equivalent fixes, PR inclusion as endorsement, or closure/merge as proof. Fetch complete relevant threads and reviews before claiming to represent the conversation.
 
-Discoverability does not imply permanent availability. A public record is not blanket permission for agents to contact its author, scrape private work or republish everything.
+The source README already warns that the same retail name can cover different hardware. Applicability is a central part of the knowledge, not an optional footnote.
 
-The index should explain why an experience matches, which constraints differ and what remains unresolved. Retain failed attempts and disagreements. Distinguish machine-proposed connections from author-approved assertions.
+## First working journey
+1. **Recognise:** search or browse by a practical problem.
+2. **Inspect:** see relevant accounts with hardware, version, date, source, authors and limitations. Explain the match and expose near-matches.
+3. **Connect:** explore questions, approaches, evidence and disagreements in a thread or graph, keeping original contributions reachable.
+4. **Explore privately:** take a bounded selection into work with your own AI; no requirement to expose the private conversation.
+5. **Contribute:** draft a short observation, inspect exactly what would leave the private workspace, and preview how it connects.
+6. **Rediscover:** a reviewed local contribution or classification correction changes the local view/index while the original source remains unchanged.
 
-## Community and orchestration
-Proposed loop:
+Initial contributions can remain local drafts with explicit status. No synthetic comment is presented as real community activity. Public posting is a separate integration and authorization step.
 
-**Publish → discover → reuse → challenge → correct → maintain → rediscover.**
+A source inspector and coherent journey matter more than broad crawling or many disconnected sketches.
 
-1. An agent searches published experiences.
-2. It identifies a consequential gap or difference.
-3. It checks the contributor's current invitation.
-4. It proposes a useful encounter or test.
-5. People choose to engage; delegated actions remain within explicit permissions.
-6. Participants approve what becomes a public follow-up.
-7. The next search reflects the new observation without erasing the earlier account.
+## Roles of the underlying ideas
+### Postack: finding and questioning the index
+Reuse the problem framing and inspectable retrieval approach. Keep source records separate from classification claims. “These belong together” is an attributable interpretation. Preserve unknowns, unmatched material and correction history.
 
-Optimise for useful encounters with little unwanted attention. More messages is not success. Communities need moderation, stewardship, reciprocity and reasons to return; portable storage alone supplies none of those.
+Potential code references are the deterministic retrieval engine, connection contracts and local correction preview. Assess actual dependencies and licences before copying. Do not import the entire essay or sixty laboratory sketches as the product.
 
-## AT Protocol's role
-AT Protocol is candidate infrastructure for identity, signed repositories, records and application views. Our proposed shared experience vocabulary would be closer to the “PDF” in the analogy.
+### br-ai-nstorm: working through a problem together
+Use its semantic model: questions, approaches, evidence, assumptions, contradictions and synthesis. Maps and timelines are views of that material.
 
-- Contributions live in authors' repositories.
-- Candidate Lexicons describe experiences, invitations and follow-ups.
-- A bounded index reads selected records and retains source/version references.
-- A personal notebook and a community problem view interpret the same contributions.
-- Agent tools retrieve context and propose contributions; publication requires the relevant authorization.
+Its Open Cognitive Bubbles idea supplies the bridge between private AI-assisted exploration and bounded, reviewable shared contributions. AI may propose structure; it must not silently rewrite collective memory.
 
-Interoperability requires participating applications to implement compatible schemas and behaviour. A custom record will not automatically appear in Bluesky or every ATProto application.
+The adoption documentation describes a deterministic Markdown importer and line-anchored references. It does not directly ingest GitHub discussion threads. Its repository attribution cannot substitute for individual comment authorship. The pilot needs an adapter preserving source IDs, author logins, permalinks, timestamps and relationships. Unknown authorship stays unknown.
 
-Account signatures do not prove humanity, lived experience or truth. An agent-involvement label such as “agent-drafted, author-approved” is an attributable provenance claim, not an independently verified fact.
+### ATProto: a portability experiment
+Explore independently held contributions and shared record schemas, with multiple interfaces interpreting them. Self-hosting is an option, not a prerequisite for every participant.
 
-Use illustrative schema names until a controlled namespace is chosen. Plan for edits, deleted records, stale indexes, invitation withdrawal and dangling references. Version references do not themselves preserve historical content. Begin with deliberately public demo data.
+Begin with public read-only integration where relevant and clearly labelled fixtures for missing semantics. Do not imply custom schemas are established standards or that federation is already implemented.
 
-## Adobe connection and challenge fit
-Adobe's Content Credentials work supplies a relevant contemporary provenance reference: cryptographically signed, tamper-evident information. Our question adds a social dimension: how experiences are challenged, updated and connected to continuing community. Do not claim this replaces Content Credentials/C2PA or that an integration already exists.
+Preserve AT URIs and observed CIDs where available. Account signatures are not proof of humanity or truth. Edits, deletion, stale caches and unavailable sources need explicit behaviour; version references do not preserve historical content by themselves.
 
-The repository's earlier challenge brief centres local businesses and “The Post-Website Business.” Our broader vision should therefore have a concrete local-business demonstration. Mentor acceptance of a broader interpretation is not established.
+Community moderation, governance and participation cannot be supplied by a format alone.
 
-Suggested scenario: a fictional Basel repair workshop publishes a service offer and an invitation to a community repair session. A participant publishes an observed repair outcome; another reports a hardware variation. A customer's agent distinguishes the workshop's offer, the participant's experience and its own inference. It explains relevance and proposes joining or testing, subject to the invitation. The workshop can update its offer, but cannot rewrite a participant's experience.
+## The two-repository weekend
+| Repository | Weekend purpose | Boundary |
+| --- | --- | --- |
+| Open Presence (provisional name) | A working experience around real photo-frame knowledge: discover, inspect, connect, challenge and contribute locally | Owns the pilot's interpretation and interaction, not the external community's source material |
+| Knowledge Lab | Playful graph/RAG exploration: inspect extracted entities, links, passages and retrieval behaviour | A learning backend/experiment; extracted relationships are assertions, not verified social relationships |
 
-Use labelled fictional fixtures or explicitly contributed real examples. Do not fabricate real testimonials or imply independent verification.
+Knowledge Lab's main README specifies LightRAG. This concept does not replace its engine, restart services, expand its allowlist, authorize paid runs or claim its runtime is ready. Check its current implementation branch and operational state before integration.
 
-A digital picture-frame repair remains an alternative maker example, connected to Postack. The original podcast-to-repository attribution remains unverified and must not be presented as established.
+Use a small shared source manifest/export contract if useful: source URL, repository/revision or retrieval time, author when known, original passage, record ID, and relationship origin. Keep implementation independent enough that the human-facing pilot can run from a deterministic local snapshot when the graph service is unavailable.
 
-## Smallest convincing experiment
-**One problem. Three contributors. Two views. One correction that changes what the next person finds.**
+The graph is a deliberate exploration, not decoration that must prove better retrieval. It can reveal unexpected connections, misleading similarities, omissions and disagreement. Every edge should disclose whether it comes from an explicit source link, deterministic rule, editorial interpretation or model proposal.
 
-1. Search in everyday language over a small curated corpus.
-2. Show two experiences with different constraints, source links and authors.
-3. Publish a follow-up through an appropriately authorized development account.
-4. Add a correction from another contributor.
-5. Update the retrieval explanation with the new boundary.
-6. Show the contributions in a personal notebook and a shared problem view.
-7. Demonstrate a withdrawn invitation preventing a new contact proposal.
+A Knowledge Lab entity co-occurrence is not automatically a community relationship. Source statements, extracted entities and participant judgements need separate types and labels.
 
-A fixture-only version can test the interaction but must be labelled as such. Real cross-account record publication/readback is required to claim a live protocol demonstration. Do not claim open-web indexing, broad federation or signature verification unless actually demonstrated.
+## What we want to learn
+Compare ordinary repository navigation with our pilot on a small set of real questions:
+- Can someone find an applicable account?
+- Can they explain why a similar account does not apply?
+- Can they distinguish an observed result, a source claim and our interpretation?
+- Can they reach the original conversation and identify what remains unknown?
+- Can they draft a useful follow-up without losing their own voice or exposing unrelated private context?
 
-Success checks:
-- A person can identify an applicable experience and explain its limits.
-- A correction changes the next retrieval result or explanation.
-- Author contributions remain separately attributed.
-- A person can distinguish evidence from unsupported assertion.
-- No invitation or a withdrawn invitation leads to no unsolicited outreach.
-- The same record is rendered in both views without copying it into a new author's ownership.
-- A participant can contribute a useful follow-up with little effort.
+For the graph: does it reveal a useful relationship, or merely create an appealing but misleading picture? Compare with the simpler index; record failures.
 
-Record failures and uncertainties. A tiny demonstration is not evidence of broad superiority.
+A small test may demonstrate a discovery mechanism. Community value requires people using it over time. Do not call the theory proven because a graph renders or a demo succeeds.
 
-## Business hypothesis
-Following the open-format/tooling analogy, potential paid value could sit in publishing tools, hosted indexing, community stewardship, moderation workflows and agent integration. Keep discovery and contributions portable.
+## Optional Adobe/PDF narrative
+**“PDF helped us preserve a document when it travelled. What should we preserve when an answer travels through AI?”**
 
-This is a hypothesis, not a validated business model. Test who benefits, who pays and how contributors benefit before designing monetisation. Avoid incentives that reward invented experiences or message volume.
+Five movements:
+1. A document travels between systems. PDF preserves its intended form.
+2. A person finds a public discussion and recognises their own problem.
+3. An AI brings an answer, but context can disappear and new discoveries can remain private.
+4. Portable contributions retain people, circumstances, evidence and disagreement.
+5. A selected observation returns to shared knowledge and becomes someone else's starting point.
 
-## Pitch spine
-Adobe helped make documents reliably portable. Today, agents increasingly bring information to us. But useful knowledge carries more than words: someone tried something, under specific conditions, and others challenged or improved it.
+PDF means Portable Document Format. Adobe launched PDF and Acrobat in 1993; its original promise was reliable document fidelity, not certified truth. Signatures add integrity and signer-authentication mechanisms, not factual correctness.
 
-We are exploring how that human signal can remain discoverable and portable. Experiences retain their sources, context, disagreements and invitations to participate. Agents help find relevant people and knowledge, and help new observations return to the community.
+Adobe's free Reader/paid tools history is a supporting business analogy, not the core user journey. Content Credentials is a relevant provenance reference; no C2PA integration or replacement is implied.
 
-**The answer becomes a doorway into a community.**
+Photoshop is a recognisable narrative example. The actual pilot uses photo-frame contributions. The earlier hotel/booking and fictional repair-workshop ideas are superseded as build scenarios.
 
-Demo line: **“My agent found an answer. It also found where my experience could help someone else.”**
+The existing challenge material emphasised local-business presence. Our broader framing does not establish organiser acceptance; keep that question separate from the independent value of the experiment. The implementation must remain understandable without Adobe branding.
 
-## Relationship to prior work and next decisions
-- Postack provides the conceptual lineage; this is not a claim that all ideas began at the hackathon.
-- Its README described the community demo as fixtures and no live ATProto adapter when inspected for this discussion.
-- Keep prior research and new implementation identifiable, including source revisions and licences before reuse.
-- The earlier hotel/booking concept remains a reference, not a requirement to build two prototypes.
+## Delivery boundaries and next work
+- Ingest a bounded, reproducible public-source snapshot with documented coverage and omissions.
+- Preserve original material separately from generated descriptions, relationships and local drafts.
+- Review licences and attribution; retain source revisions for reused code.
+- Keep the two active repositories as the weekend work destinations.
+- Do not modify Wes's repository, Postack or br-ai-nstorm as part of this concept update.
+- No automatic outreach, account writes, production deployment or private-session ingestion.
+- No truth score, manufactured consensus or fictional testimonials.
+- Name, final stack and public presentation can follow the working experiment.
 
-Decide next: the single scenario; participants and contribution permissions; smallest schema; candidate index; permitted agent actions; and what the demo will actually prove. No deployment, paid inference, account creation or outreach is authorized by this brief itself.
+Status: concept update only. This document does not claim a running Photo Frame Commons implementation or live ATProto federation.
 
 ## Sources
 Historical and technical sources checked during the discussion on 31 October 2026:
@@ -162,3 +155,4 @@ Historical and technical sources checked during the discussion on 31 October 202
 - Adobe challenge reference from the existing repository brief: https://www.baselhack.ch/challenges/the-post-website-business
 
 Historical sources support the history, not our forecasts. Human-signal value, participation benefits and business viability are hypotheses to test.
+
