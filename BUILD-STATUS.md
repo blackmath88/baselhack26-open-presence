@@ -84,3 +84,5 @@ Turn 5 (20:44–): reusable cross-entrance browser smoke, `apps/commons/scripts/
 Idle gap: the supervisor capped every lane at five turns. Commons turn 5 ended at 20:46 and the lane resumed at 22:18 (runtime `events.jsonl`: commons-6 launch 21:18:09Z). Nothing ran on Commons in between.
 
 Turn 6 (22:18–): search → problem rediscovery. Problem hits from search (HTTP/CLI/MCP `commons_search`, browser) carry `community`: own experiences, replies, participant names, last activity, and visible contributions in other problems citing the same sources. The browser shows it under each hit. `browser.sh` gained a search step. Checks on this head: typecheck; 192 tests; index byte-identical; build; e2e.sh; multi-entry.sh; browser.sh PASS (`evidence/browser-smoke-cross-entrance-20261031.txt`). Pin PR #19 moved to producer `f0cbde8` with local consumer verification.
+
+CI: the Commons app workflow now runs `browser.sh`. Run 41243526771 on `b69cc7d` succeeded, and the browser step actually ran on the runner's Chrome (`PASS browser smoke` in the log; it did not skip).
