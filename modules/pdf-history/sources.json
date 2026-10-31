@@ -1,0 +1,144 @@
+{
+  "edition": 1,
+  "accessed": "2026-10-31",
+  "sources": [
+    {
+      "id": "camelot",
+      "title": "The Camelot Project",
+      "author": "John Warnock",
+      "date": null,
+      "url": "https://pdfa.org/wp-content/uploads/2020/07/warnock_camelot.pdf",
+      "locator": "PDF pp. 1–2 and concluding electronic-distribution discussion",
+      "type": "primary proposal",
+      "status": "read; relevant passages located",
+      "limits": "Proposed workflow and ambitions, not measured customer outcomes."
+    },
+    {
+      "id": "reference",
+      "title": "PDF Reference, second edition, version 1.3",
+      "author": "Adobe Systems Incorporated",
+      "date": "2000",
+      "url": "https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/pdfreference1.3.pdf",
+      "locator": "Chapter 2; §2.4; §5.8, Embedded Font Programs",
+      "type": "primary technical reference",
+      "status": "read; relevant passages located",
+      "limits": "Later technical edition; not a launch-feature inventory."
+    },
+    {
+      "id": "interview",
+      "title": "Adobe Acrobat at 20: Successes, Second Guesses and a Few Miscues",
+      "author": "Knowledge at Wharton; interview with John Warnock and Bob Wulff",
+      "date": "2013-06-05",
+      "url": "https://knowledge.wharton.upenn.edu/article/adobe-acrobat-at-20-successes-second-guesses-and-a-few-miscues/",
+      "locator": "Introduction; Acrobat 2.0/free Reader exchange; discussion of published format and product strategy",
+      "type": "primary participant testimony, retrospective",
+      "status": "read; relevant passages located",
+      "limits": "Interested retrospective account, not independent financial evidence."
+    },
+    {
+      "id": "accessibility",
+      "title": "PDF3: Ensuring correct tab and reading order in PDF documents",
+      "author": "W3C Web Accessibility Initiative",
+      "date": null,
+      "url": "https://www.w3.org/WAI/WCAG22/Techniques/pdf/PDF3",
+      "locator": "Description",
+      "type": "primary technical guidance",
+      "status": "read; relevant passages located",
+      "limits": "Technique for tagged PDFs, not an evaluation of all PDF readers."
+    }
+  ],
+  "claims": [
+    {
+      "id": "native-dependencies",
+      "text": "Native document fonts and layout can depend on the receiving environment.",
+      "scene": "story",
+      "sources": [
+        "interview"
+      ],
+      "status": "qualified"
+    },
+    {
+      "id": "electronic-page",
+      "text": "Camelot sought practical visual-document exchange using existing print technology.",
+      "scene": "paper",
+      "sources": [
+        "camelot"
+      ],
+      "status": "supported"
+    },
+    {
+      "id": "page-model",
+      "text": "PDF represents composed pages using text, vector graphics and images; font inclusion is conditional.",
+      "scene": "package",
+      "sources": [
+        "reference"
+      ],
+      "status": "supported with edition caveat"
+    },
+    {
+      "id": "free-reader",
+      "text": "Acrobat arrived in 1993; Reader became free with Acrobat 2.0 in 1994.",
+      "scene": "reader",
+      "sources": [
+        "interview"
+      ],
+      "status": "supported by retrospective account"
+    },
+    {
+      "id": "value-loop",
+      "text": "Free receiving can increase the usefulness of paid creation and workflow tools.",
+      "scene": "business",
+      "sources": [
+        "interview",
+        "camelot"
+      ],
+      "status": "editorial economic interpretation"
+    },
+    {
+      "id": "structure",
+      "text": "Appearance alone does not establish correct reading order.",
+      "scene": "survives",
+      "sources": [
+        "accessibility"
+      ],
+      "status": "supported"
+    },
+    {
+      "id": "context",
+      "text": "Version, omitted context and truth require more than visual fidelity.",
+      "scene": "survives",
+      "sources": [],
+      "status": "editorial distinction"
+    },
+    {
+      "id": "bridge",
+      "text": "A portable context record might help applicability judgments.",
+      "scene": "next",
+      "sources": [],
+      "status": "project hypothesis, not proven capability"
+    }
+  ],
+  "illustrations": [
+    {
+      "id": "manual",
+      "label": "Synthetic field manual; original CSS/SVG, no historical customer document"
+    },
+    {
+      "id": "font-demo",
+      "label": "Simplified font/layout simulation, not a word processor or PDF renderer"
+    },
+    {
+      "id": "workbench",
+      "label": "1990s/early-2000s-inspired shell, not an exact historic UI"
+    },
+    {
+      "id": "context-record",
+      "label": "Proposed record, not published or federated"
+    }
+  ],
+  "build": {
+    "runtime": "one HTML file; no external runtime assets",
+    "validation": "See DESIGN.md for performed browser checks and limitations",
+    "browser": "Chromium 153.0.8010.0"
+  }
+}
