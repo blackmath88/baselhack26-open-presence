@@ -9,6 +9,9 @@ import { createServer } from 'node:http'
 import { buildServices } from '../container.js'
 import { createApi } from './api.js'
 import { createMcpNodeHandler } from '../mcp/http.js'
+import { createCommonsImporter } from '../commons/import.js'
+import { importedProblems } from '../../src/commons/source/index.js'
+import type { TransactionalEventRepository } from '../persistence/repository.js'
 
 const port = Number(process.env.PORT ?? 8787)
 
@@ -18,6 +21,11 @@ const enablePrototypeAuth = process.env.BRAINSTORM_PROTOTYPE_AUTH !== 'off'
 
 async function main(): Promise<void> {
   const services = await buildServices()
+  // Idempotent: unchanged pinned records append nothing on later boots.
+  if (services.commons) {
+    const result = await createCommonsImporter(services.repository as TransactionalEventRepository)(importedProblems())
+    console.log(`Photo Frame Commons: ${result.roomIds.length} imported rooms, ${result.appendedEvents} new import events`)
+  }
   const api = createApi(services, { enablePrototypeAuth })
   const mcp = createMcpNodeHandler(services)
 

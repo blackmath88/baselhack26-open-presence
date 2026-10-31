@@ -1,0 +1,16 @@
+Photo Frame Commons: 18 imported rooms, 111 new import events
+participants person:achim person:kai
+submit: 201
+retry-same: 201
+retry-different: 409
+session2 sees: 1 person:achim browser-draft
+problems listed: 18
+server pid 3994103 stopped
+Photo Frame Commons: 18 imported rooms, 0 new import events
+after-restart: 1 person:achim browser-draft
+retry-after-restart: 201 then 1 person:achim browser-draft
+proposal commons:emmc-not-exposed:relation:0
+accept:200 reject:409 
+{"proposal":{"id":"commons:emmc-not-exposed:relation:0","problemId":"commons:emmc-not-exposed","kind":"relation","sourceId":"commons:emmc-not-exposed","targetId":"commons:ums-drops-during-backup","relationKind":"relates","reason":"Unreviewed imported neighbour (source-declared): #99 names #16, #17 a
+{"error":"conflict","message":"Proposal has already been reviewed.","detail":{"status":"accepted"}}
+server pid 3994153 stopped

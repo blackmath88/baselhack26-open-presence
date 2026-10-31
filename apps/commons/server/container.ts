@@ -9,7 +9,7 @@
 import { createIdSource, highWaterMark, systemClock, type Clock, type IdSource } from './domain/events.js'
 import { createJsonRepository, createMemoryRepository } from './persistence/json-repository.js'
 import { ensureSeedData } from './persistence/seed.js'
-import type { EventRepository } from './persistence/repository.js'
+import type { EventRepository, TransactionalEventRepository } from './persistence/repository.js'
 import { createAiCurator, nullCurator, type Curator } from './curation/ai-curator.js'
 import { createProblemService, type ProblemService } from './application/problem-service.js'
 import { createContributionService, type ContributionService } from './application/contribution-service.js'
@@ -17,6 +17,7 @@ import { createCurationService, type CurationService } from './application/curat
 import { createOrchestrationService, type OrchestrationService } from './application/orchestration-service.js'
 import { createImportService, type ImportService } from './application/import-service.js'
 import { createPrototypeAuth, type PrototypeAuth } from './auth/prototype-auth.js'
+import { createCommonsService, type CommonsService } from './commons/service.js'
 import type { ServiceDeps } from './application/support.js'
 import type { OrchestrationMode } from './domain/types.js'
 import { ORCHESTRATION_MODES } from './domain/types.js'
@@ -30,6 +31,8 @@ export interface Services {
   auth: PrototypeAuth
   curator: Curator
   repository: EventRepository
+  /** Present when the repository supports serialized transactions (local JSON / memory). */
+  commons?: CommonsService
 }
 
 export interface BuildOptions {
@@ -79,6 +82,7 @@ export async function buildServices(options: BuildOptions = {}): Promise<Service
     auth,
     curator,
     repository,
+    ...('transaction' in repository ? { commons: createCommonsService({ repository: repository as TransactionalEventRepository, clock }) } : {}),
   }
 }
 

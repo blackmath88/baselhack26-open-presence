@@ -9,6 +9,7 @@
  * v0.2's `x-brainstorm-actor` header is removed rather than deprecated. Leaving
  * it would leave a path where the caller asserts its own identity.
  */
+import { commonsRoutes } from '../commons/routes.js'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import type { Services } from '../container.js'
 import { DomainError, isDomainError, invalid } from '../domain/errors.js'
@@ -86,11 +87,13 @@ export type ApiHandler = (req: IncomingMessage, res: ServerResponse) => Promise<
 export function createApi(services: Services, options: ApiOptions): ApiHandler {
   const withActor = async (req: IncomingMessage): Promise<ActorContext> =>
     resolveActor(services.auth, req.headers.authorization)
+  const commons = services.commons ? commonsRoutes({ commons: services.commons, auth: services.auth }) : null
 
   return async function handle(req, res) {
     const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`)
     const path = url.pathname
     const method = req.method ?? 'GET'
+    if (commons && (await commons(req, res))) return
 
     try {
       if (method === 'OPTIONS') {
