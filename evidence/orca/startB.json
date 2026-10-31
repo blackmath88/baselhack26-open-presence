@@ -1,0 +1,87 @@
+{
+  "id": "47ee1932-4272-425f-b189-5db0da2b2fdd",
+  "ok": true,
+  "result": {
+    "runId": "run_8ef2e94f3363",
+    "taskId": "task_3315c2257e8d",
+    "dispatchId": "ctx_633c09e3638b",
+    "state": "failed",
+    "stage": "agent_readiness",
+    "failedStage": "agent_readiness",
+    "lastError": "timeout",
+    "setup": {
+      "requested": "skip",
+      "effective": "skip",
+      "source": "explicit_request",
+      "hookFound": false,
+      "startupPolicy": "start-immediately",
+      "state": "not_configured"
+    },
+    "launch": {
+      "requested": {
+        "agent": "claude",
+        "model": null,
+        "effort": null
+      },
+      "effective": {
+        "agent": "claude",
+        "model": null,
+        "effort": null
+      }
+    },
+    "mode": {
+      "mode": "terminal",
+      "preferred": "terminal",
+      "reason": "user_default",
+      "detail": "Started a terminal agent worker, the default for new agent tabs in your settings."
+    },
+    "effects": [
+      {
+        "kind": "worktree",
+        "action": "created_top_level",
+        "id": "a8d5ad05-4c98-471f-ba89-cff2d7de8ea9::/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/commons-packet-b"
+      },
+      {
+        "kind": "terminal",
+        "role": "agent",
+        "action": "created",
+        "id": "term_dc5a60db-2ec7-4df5-8418-b3461cb468f3",
+        "tabId": "191c544d-cd07-4534-9186-bf05ffded35c",
+        "leafId": "5ba650e4-be57-4e7f-b4c0-91d6a447c210"
+      },
+      {
+        "kind": "setup",
+        "action": "skip",
+        "requested": "skip",
+        "effective": "skip",
+        "source": "explicit_request",
+        "hookFound": false,
+        "startupPolicy": "start-immediately",
+        "state": "not_configured"
+      }
+    ],
+    "residualResources": [
+      {
+        "kind": "worktree",
+        "action": "created_top_level",
+        "id": "a8d5ad05-4c98-471f-ba89-cff2d7de8ea9::/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/commons-packet-b"
+      },
+      {
+        "kind": "terminal",
+        "role": "agent",
+        "action": "created",
+        "id": "term_dc5a60db-2ec7-4df5-8418-b3461cb468f3",
+        "tabId": "191c544d-cd07-4534-9186-bf05ffded35c",
+        "leafId": "5ba650e4-be57-4e7f-b4c0-91d6a447c210"
+      }
+    ],
+    "recovery": "This start created a terminal that never ran the Task. Close it with: orca orchestration worker-release --dispatch ctx_633c09e3638b",
+    "mutation": {
+      "requestId": "8162d742-d6fd-492e-a557-8f64e94a4073",
+      "replayed": false
+    }
+  },
+  "_meta": {
+    "runtimeId": "5c11751c-5a08-4dac-8366-7809de174acf"
+  }
+}

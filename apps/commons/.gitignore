@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.env
+.DS_Store
+.wrangler/
+
+# Local event log — disposable prototype persistence.
+server/data/
+
+# Emitted output. Both tsconfigs are noEmit; these exist only if someone runs
+# `tsc` without `-p`, and Vite would then resolve them ahead of the real
+# sources, silently serving stale code.
+*.tsbuildinfo
+src/**/*.js
+src/**/*.d.ts
+!src/vite-env.d.ts
+server/**/*.js
+server/**/*.d.ts

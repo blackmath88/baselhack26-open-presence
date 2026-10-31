@@ -1,0 +1,38 @@
+{
+  "id": "a5504f4d-8b71-41fa-aaa1-7cba6ae9ed6c",
+  "ok": true,
+  "result": {
+    "runId": "run_8ef2e94f3363",
+    "deliveryId": "delivery_6610aace9eb2",
+    "messages": [
+      {
+        "id": "msg_f20c8f593ef5",
+        "run_id": "run_8ef2e94f3363",
+        "delivery_contract": "current_delivery",
+        "from_handle": "term_43770907-ca37-4c65-99cf-611b021d3491",
+        "to_handle": "run:run_8ef2e94f3363",
+        "subject": "Packet B succeeded: transactional shared memory, 129 tests green",
+        "body": "Implemented idempotent source-separated import, atomic durable command receipts, contribution/review services and Node HTTP subrouter in implementation commit 8cc10fd372b861cbf297cb584207547f8b509019, with report delivery commit 12955b51ee1f5d4cf0bfaf66ca6c75df471c8f77. All 129 server tests pass and server typecheck is clean after one focused test-typing repair, including concurrent contradictory reviews, durable restart retries and immutable real-record sources. Coordinator wiring of createCommonsService and commonsRoutes plus integrated UI verification remains, with exact signatures, changed paths, origins, commands and observed Codex harness limitations documented in evidence/orca/B-report.md.",
+        "type": "worker_done",
+        "priority": "normal",
+        "thread_id": null,
+        "payload": "{\"taskId\":\"task_3315c2257e8d\",\"dispatchId\":\"ctx_27572260aaef\",\"outcome\":\"succeeded\",\"filesModified\":[\"apps/commons/server/persistence/repository.ts\",\"apps/commons/server/persistence/json-repository.ts\",\"apps/commons/server/commons/import.ts\",\"apps/commons/server/commons/service.ts\",\"apps/commons/server/commons/routes.ts\",\"apps/commons/server/test/commons/commons.test.ts\",\"apps/commons/server/test/commons/real-records.json\",\"evidence/orca/B-report.md\"],\"reportPath\":\"evidence/orca/B-report.md\"}",
+        "created_at": "2026-10-31T13:29:58Z",
+        "delivered_at": null
+      }
+    ],
+    "count": 1,
+    "replayed": false,
+    "acknowledged": "delivery_e674e208906c",
+    "timedOut": false,
+    "cancelled": false,
+    "connectionLost": false,
+    "mutation": {
+      "requestId": "f09b783e-6fbe-4534-8438-4c7307cbe725",
+      "replayed": false
+    }
+  },
+  "_meta": {
+    "runtimeId": "5c11751c-5a08-4dac-8366-7809de174acf"
+  }
+}

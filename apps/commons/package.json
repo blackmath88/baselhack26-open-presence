@@ -1,0 +1,41 @@
+{
+  "name": "br-ai-nstorm",
+  "private": true,
+  "version": "0.4.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:server": "tsx server/http/server.ts",
+    "dev:cloudflare": "npm run build && npx wrangler@latest dev",
+    "mcp": "tsx server/mcp/stdio.ts",
+    "brainstorm": "tsx scripts/brainstorm.ts",
+    "build": "npm run typecheck && vite build",
+    "deploy": "npm run build && npx wrangler@latest deploy",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "index:check": "node scripts/corpus/check-index.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.server.json && tsc --noEmit -p tsconfig.worker.json"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/node": "2.1.2",
+    "@modelcontextprotocol/server": "^2.0.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "d3": "^7.9.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "vite": "^7.1.3",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "^2.0.0",
+    "@types/d3": "^7.4.3",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "tsx": "^4.20.5",
+    "typescript": "^5.8.3",
+    "vitest": "^4.1.11"
+  }
+}

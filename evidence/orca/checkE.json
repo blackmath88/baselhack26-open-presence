@@ -1,0 +1,38 @@
+{
+  "id": "b1148d3c-e4da-4fea-96eb-7c2b046c9eb7",
+  "ok": true,
+  "result": {
+    "runId": "run_bd1d1d2cdc46",
+    "deliveryId": "delivery_7eaeae4b367b",
+    "messages": [
+      {
+        "id": "msg_37a500e91e93",
+        "run_id": "run_bd1d1d2cdc46",
+        "delivery_contract": "current_delivery",
+        "from_handle": "term_c1029e8c-eb28-4d83-b97a-392e6af9b2dd",
+        "to_handle": "run:run_bd1d1d2cdc46",
+        "subject": "Re-review B1 remains through MCP",
+        "body": "Exact commit 33b97fc: legacy HTTP accept vs Commons reject serialized in 12 fresh JSON trials, but real SDK MCP clients calling review_curation_proposal through /mcp can both succeed on contradictory reviews and persist RelationAccepted plus RelationRejected. MCP register-tools.ts:343-345 still calls the outer curation service directly; B1 disposition is PARTIAL and G4 remains blocked. Reproduction artifacts are under /home/nuc/projects/op-commons-review-3/; final report forthcoming.",
+        "type": "escalation",
+        "priority": "normal",
+        "thread_id": null,
+        "payload": "{\"taskId\":\"task_ba93eccd8d09\",\"dispatchId\":\"ctx_4daa68ab44fa\"}",
+        "created_at": "2026-10-31T13:59:42Z",
+        "delivered_at": null
+      }
+    ],
+    "count": 1,
+    "replayed": false,
+    "acknowledged": null,
+    "timedOut": false,
+    "cancelled": false,
+    "connectionLost": false,
+    "mutation": {
+      "requestId": "48187765-e7d3-4c04-8ab3-bd2189f0f656",
+      "replayed": false
+    }
+  },
+  "_meta": {
+    "runtimeId": "5c11751c-5a08-4dac-8366-7809de174acf"
+  }
+}

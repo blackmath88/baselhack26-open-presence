@@ -1,0 +1,277 @@
+/**
+ * HTTP adapter.
+ *
+ * Its whole job: parse a request, resolve an actor from the bearer token, call
+ * exactly one application method, map domain errors to status codes, serialise
+ * JSON. It contains no domain logic, and the services it calls cannot tell that
+ * an HTTP request happened.
+ *
+ * v0.2's `x-brainstorm-actor` header is removed rather than deprecated. Leaving
+ * it would leave a path where the caller asserts its own identity.
+ */
+import { commonsRoutes } from '../commons/routes.js'
+import type { IncomingMessage, ServerResponse } from 'node:http'
+import type { Services } from '../container.js'
+import { DomainError, isDomainError, invalid } from '../domain/errors.js'
+import { resolveActor, type ActorContext } from '../auth/actor-context.js'
+import { CONFLICT_KIND_MEANING } from '../domain/conflicts.js'
+import type { ContributionKind, ContributionSource } from '../domain/types.js'
+
+const STATUS: Record<DomainError['code'], number> = {
+  not_found: 404,
+  invalid: 422,
+  unauthorized: 401,
+  forbidden: 403,
+  conflict: 409,
+}
+
+const CORS = {
+  'access-control-allow-origin': '*',
+  'access-control-allow-methods': 'GET,POST,OPTIONS',
+  'access-control-allow-headers': 'content-type,authorization',
+  'access-control-max-age': '600',
+}
+
+function send(res: ServerResponse, status: number, body: unknown, headers: Record<string, string> = {}): void {
+  res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', ...CORS, ...headers })
+  res.end(JSON.stringify(body, null, 2))
+}
+
+/**
+ * Above the largest legitimate body: an import bundle is capped at 2 Mi
+ * characters of source (`MAX_IMPORT_TOTAL_CHARS`), which is at most ~12 MiB
+ * once UTF-8 encoded and JSON-escaped, even for non-Latin text.
+ */
+const MAX_BODY_BYTES = 16 * 1024 * 1024
+
+async function readJson(req: IncomingMessage): Promise<Record<string, unknown>> {
+  const chunks: Buffer[] = []
+  let size = 0
+  for await (const chunk of req) {
+    size += (chunk as Buffer).length
+    if (size > MAX_BODY_BYTES) throw invalid('Request body is too large.')
+    chunks.push(chunk as Buffer)
+  }
+  const raw = Buffer.concat(chunks).toString('utf8').trim()
+  if (!raw) return {}
+  try {
+    const parsed: unknown = JSON.parse(raw)
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+      throw invalid('Request body must be a JSON object.')
+    }
+    return parsed as Record<string, unknown>
+  } catch (error) {
+    if (isDomainError(error)) throw error
+    throw invalid('Request body is not valid JSON.')
+  }
+}
+
+const str = (value: unknown, field: string): string => {
+  if (typeof value !== 'string' || value.trim() === '') throw invalid(`"${field}" must be a non-empty string.`)
+  return value
+}
+
+const optionalStr = (value: unknown, field: string): string | undefined =>
+  value === undefined || value === null ? undefined : str(value, field)
+
+export interface ApiOptions {
+  /**
+   * Enables `POST /api/auth/session` and `GET /api/participants`. This is the
+   * prototype login stub; it must be off in anything resembling a deployment.
+   */
+  enablePrototypeAuth: boolean
+}
+
+export type ApiHandler = (req: IncomingMessage, res: ServerResponse) => Promise<void>
+
+export function createApi(services: Services, options: ApiOptions): ApiHandler {
+  const withActor = async (req: IncomingMessage): Promise<ActorContext> =>
+    resolveActor(services.auth, req.headers.authorization)
+  const commons = services.commons ? commonsRoutes({ commons: services.commons, auth: services.auth }) : null
+
+  return async function handle(req, res) {
+    const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`)
+    const path = url.pathname
+    const method = req.method ?? 'GET'
+    if (commons && (await commons(req, res))) return
+
+    try {
+      if (method === 'OPTIONS') {
+        res.writeHead(204, CORS)
+        res.end()
+        return
+      }
+
+      if (method === 'GET' && path === '/health') {
+        return send(res, 200, {
+          ok: true,
+          aiCurator: services.curator.enabled,
+          curator: services.curator.name,
+          prototypeAuth: options.enablePrototypeAuth,
+          orchestration: services.orchestration.options(),
+        })
+      }
+
+      // --- prototype auth (dev only) -------------------------------------
+      if (options.enablePrototypeAuth && method === 'GET' && path === '/api/participants') {
+        return send(res, 200, { participants: services.auth.participants() })
+      }
+
+      if (options.enablePrototypeAuth && method === 'POST' && path === '/api/auth/session') {
+        const body = await readJson(req)
+        const { token, actor } = services.auth.issue(str(body.participantId, 'participantId'))
+        return send(res, 201, { token, actor })
+      }
+
+      // --- everything below requires a resolved actor ---------------------
+      if (method === 'GET' && path === '/api/problems') {
+        await withActor(req)
+        return send(res, 200, { problems: await services.problems.list() })
+      }
+
+      if (method === 'GET' && path === '/api/conflict-types') {
+        await withActor(req)
+        return send(res, 200, { conflictTypes: CONFLICT_KIND_MEANING })
+      }
+
+      if (method === 'POST' && (path === '/api/imports' || path === '/api/imports/preview')) {
+        const actor = await withActor(req)
+        const body = await readJson(req)
+        return path.endsWith('/preview')
+          ? send(res, 200, await services.imports.preview(actor, body))
+          : send(res, 201, await services.imports.apply(actor, body))
+      }
+
+      const problemMatch = /^\/api\/problems\/([^/]+)(?:\/([^/]+))?$/.exec(path)
+      if (problemMatch) {
+        const problemId = decodeURIComponent(problemMatch[1])
+        const section = problemMatch[2]
+        const actor = await withActor(req)
+
+        if (method === 'GET' && !section) {
+          if (url.searchParams.get('detail') === 'compact') {
+            return send(res, 200, { ...(await services.problems.getCompactState(problemId)), viewer: actor })
+          }
+          return send(res, 200, {
+            ...(await services.problems.getState(problemId)),
+            viewer: actor,
+          })
+        }
+        if (method === 'GET' && section === 'updates') {
+          const since = url.searchParams.get('since') ?? undefined
+          return send(res, 200, await services.problems.getUpdates(problemId, actor, since))
+        }
+        if (method === 'GET' && section === 'conflicts') {
+          return send(res, 200, await services.problems.getConflicts(problemId))
+        }
+        if (method === 'GET' && section === 'curation') {
+          const status = url.searchParams.get('status') as 'pending' | 'accepted' | 'rejected' | null
+          const proposals = await services.curation.list(problemId, status ? { status } : undefined)
+          if (services.commons && problemId.startsWith('commons:')) {
+            // Imported edges keep their origin and the source evidence behind them in the review UI.
+            const room = await services.commons.getRoom(await withActor(req), problemId)
+            const enriched = new Map(room.proposals.map((p) => [p.id, p]))
+            const evidence = new Map((room.source?.evidence ?? []).map((e) => [e.id, e.source]))
+            return send(res, 200, {
+              proposals: proposals.map((p) => {
+                const e = enriched.get(p.id)
+                if (!e) return p
+                return {
+                  ...p,
+                  origin: e.origin,
+                  evidence: e.evidenceIds.map((id) => ({ id, objectId: evidence.get(id)?.objectId, permalink: evidence.get(id)?.permalink })),
+                }
+              }),
+            })
+          }
+          return send(res, 200, { proposals })
+        }
+        if (method === 'GET' && section === 'events') {
+          return send(res, 200, { events: await services.problems.getEvents(problemId) })
+        }
+        if (method === 'GET' && section === 'mine') {
+          return send(res, 200, {
+            contributions: await services.problems.getMyContributions(problemId, actor),
+          })
+        }
+        if (method === 'GET' && section === 'orchestration') {
+          return send(res, 200, await services.orchestration.get(problemId))
+        }
+        if (method === 'POST' && section === 'orchestration') {
+          const body = await readJson(req)
+          const reason = optionalStr(body.reason, 'reason')
+          const orchestration = await services.orchestration.setMode(actor, {
+            problemId,
+            mode: body.mode,
+            ...(reason ? { reason } : {}),
+          })
+          return send(res, 200, { orchestration, options: services.orchestration.options() })
+        }
+        if (method === 'GET' && section === 'context') {
+          return send(res, 200, await services.orchestration.context(problemId, url.searchParams.get('draft') ?? ''))
+        }
+        if (method === 'POST' && section === 'contributions') {
+          const body = await readJson(req)
+          const kind = optionalStr(body.kind, 'kind')
+          const source = optionalStr(body.source, 'source')
+          const sourceDetail = optionalStr(body.sourceDetail, 'sourceDetail')
+          const preparedBy = optionalStr(body.preparedBy, 'preparedBy')
+          const commandId = optionalStr(body.commandId, 'commandId')
+          const commons = services.commons
+          const add: typeof services.contributions.add = commons && problemId.startsWith('commons:')
+            ? (a, input) => commons.addToRoom(a, input, commandId)
+            : services.contributions.add
+          const result = await add(actor, {
+            problemId,
+            content: str(body.content, 'content'),
+            ...(kind ? { kind: kind as ContributionKind } : {}),
+            ...(source ? { source: source as ContributionSource } : {}),
+            ...(sourceDetail ? { sourceDetail } : {}),
+            ...(preparedBy ? { preparedBy } : {}),
+            ...(body.proposals !== undefined ? { proposals: body.proposals } : {}),
+          })
+          return send(res, 201, result)
+        }
+      }
+
+      const curationMatch = /^\/api\/curation\/([^/]+)\/(accept|reject)$/.exec(path)
+      if (curationMatch && method === 'POST') {
+        const actor = await withActor(req)
+        const proposalId = decodeURIComponent(curationMatch[1])
+        const body = await readJson(req)
+        const problemId = str(body.problemId, 'problemId')
+        const reason = optionalStr(body.reason, 'reason')
+        // Commons rooms review through the serialized, idempotent Commons command so this
+        // route cannot race a concurrent review of the same proposal. The default key makes
+        // a retried click by the same participant replay instead of failing.
+        if (services.commons && problemId.startsWith('commons:')) {
+          const decision = curationMatch[2] as 'accept' | 'reject'
+          const commandId = optionalStr(body.commandId, 'commandId') ?? `review:${proposalId}:${decision}:${actor.actorId}`
+          return send(res, 200, await services.commons.review(actor, { commandId, proposalId, problemId, decision, ...(reason ? { reason } : {}) }))
+        }
+        const result =
+          curationMatch[2] === 'accept'
+            ? await services.curation.accept(actor, { problemId, proposalId })
+            : await services.curation.reject(actor, {
+                problemId,
+                proposalId,
+                ...(reason ? { reason } : {}),
+              })
+        return send(res, 200, result)
+      }
+
+      return send(res, 404, { error: 'not_found', message: `No route for ${method} ${path}.` })
+    } catch (error) {
+      if (isDomainError(error)) {
+        const headers =
+          error.code === 'unauthorized'
+            ? { 'www-authenticate': 'Bearer realm="br-ai-nstorm", error="invalid_token"' }
+            : {}
+        return send(res, STATUS[error.code], { error: error.code, message: error.message, detail: error.detail }, headers)
+      }
+      // Never leak an unexpected error's message to the client.
+      console.error('[br-ai-nstorm] unhandled API error:', error)
+      return send(res, 500, { error: 'internal_error', message: 'Unexpected server error.' })
+    }
+  }
+}

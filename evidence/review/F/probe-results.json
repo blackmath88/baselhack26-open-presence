@@ -1,0 +1,349 @@
+{
+  "curation": {
+    "status": 200,
+    "ms": 108.31432799999993,
+    "body": {
+      "proposals": [
+        {
+          "id": "commons:emmc-not-exposed:relation:0",
+          "problemId": "commons:emmc-not-exposed",
+          "kind": "relation",
+          "sourceId": "commons:emmc-not-exposed",
+          "targetId": "commons:ums-drops-during-backup",
+          "relationKind": "relates",
+          "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+          "confidence": 0,
+          "proposedBy": "postack-agent",
+          "status": "pending",
+          "createdAt": "2026-10-31T14:11:19.944Z",
+          "origin": "source-assertion",
+          "evidence": [
+            {
+              "id": "e1",
+              "objectId": "issue/99",
+              "permalink": "https://github.com/wesbos/photo-frame-dashboard/issues/99"
+            }
+          ]
+        },
+        {
+          "id": "commons:emmc-not-exposed:relation:1",
+          "problemId": "commons:emmc-not-exposed",
+          "kind": "relation",
+          "sourceId": "commons:emmc-not-exposed",
+          "targetId": "commons:gadget-error-71",
+          "relationKind": "relates",
+          "reason": "Unreviewed imported neighbour (machine-proposal): Both stop before any eMMC data reaches the host; the cause may or may not be shared.; see original record and evidence.",
+          "confidence": 0,
+          "proposedBy": "postack-agent",
+          "status": "pending",
+          "createdAt": "2026-10-31T14:11:19.944Z",
+          "origin": "postack-agent",
+          "evidence": []
+        }
+      ]
+    }
+  },
+  "unauth": {
+    "status": 401,
+    "ms": 25.44305899999972,
+    "body": {
+      "error": "unauthorized",
+      "message": "Missing Authorization header."
+    }
+  },
+  "missing": {
+    "status": 404,
+    "ms": 51.27488299999959,
+    "body": {
+      "error": "not_found",
+      "message": "Problem not found",
+      "detail": {
+        "id": "commons:no-such-room"
+      }
+    }
+  },
+  "acceptShape": [
+    "proposal",
+    "relation"
+  ],
+  "acceptedList": {
+    "status": 200,
+    "ms": 29.06956900000023,
+    "body": {
+      "proposals": [
+        {
+          "id": "commons:emmc-not-exposed:relation:0",
+          "problemId": "commons:emmc-not-exposed",
+          "kind": "relation",
+          "sourceId": "commons:emmc-not-exposed",
+          "targetId": "commons:ums-drops-during-backup",
+          "relationKind": "relates",
+          "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+          "confidence": 0,
+          "proposedBy": "postack-agent",
+          "status": "accepted",
+          "createdAt": "2026-10-31T14:11:19.944Z",
+          "reviewedBy": "person:kai",
+          "reviewedAt": "2026-10-31T14:11:20.321Z",
+          "origin": "source-assertion",
+          "evidence": [
+            {
+              "id": "e1",
+              "objectId": "issue/99",
+              "permalink": "https://github.com/wesbos/photo-frame-dashboard/issues/99"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "render": {
+    "origin": false,
+    "evidence": true,
+    "proposer": true,
+    "links": [
+      "https://github.com/wesbos/photo-frame-dashboard/issues/99"
+    ]
+  },
+  "linkSafety": {
+    "javascriptHref": false,
+    "evilHostHref": false,
+    "literalScript": false,
+    "validHref": true
+  },
+  "wrongRoom": {
+    "ok": true,
+    "value": {
+      "proposal": {
+        "id": "commons:emmc-not-exposed:relation:1",
+        "problemId": "commons:emmc-not-exposed",
+        "kind": "relation",
+        "sourceId": "commons:emmc-not-exposed",
+        "targetId": "commons:gadget-error-71",
+        "relationKind": "relates",
+        "reason": "Unreviewed imported neighbour (machine-proposal): Both stop before any eMMC data reaches the host; the cause may or may not be shared.; see original record and evidence.",
+        "confidence": 0,
+        "proposedBy": "postack-agent",
+        "status": "rejected",
+        "createdAt": "2026-10-31T14:11:19.944Z",
+        "reviewedBy": "person:kai",
+        "reviewedAt": "2026-10-31T14:11:20.429Z"
+      }
+    }
+  },
+  "wrongRoomEvents": [
+    {
+      "id": "evt_77b5363d-5475-4946-99a4-822201c3d88e",
+      "problemId": "commons:emmc-not-exposed",
+      "actorId": "person:kai",
+      "timestamp": "2026-10-31T14:11:20.429Z",
+      "objectId": "commons:emmc-not-exposed:relation:1",
+      "eventType": "RelationRejected",
+      "payload": {
+        "proposalId": "commons:emmc-not-exposed:relation:1",
+        "reason": "Mistaken room"
+      }
+    }
+  ],
+  "reasons": [
+    {
+      "length": 0,
+      "direct": {
+        "ok": false,
+        "code": "invalid",
+        "message": "reason must be a non-empty string."
+      }
+    },
+    {
+      "length": 3,
+      "direct": {
+        "ok": false,
+        "code": "invalid",
+        "message": "reason must be a non-empty string."
+      }
+    },
+    {
+      "length": 1001,
+      "direct": {
+        "ok": true,
+        "value": {
+          "proposal": {
+            "id": "commons:reason-2:relation:0",
+            "problemId": "commons:reason-2",
+            "kind": "relation",
+            "sourceId": "commons:reason-2",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "rejected",
+            "createdAt": "2026-10-31T14:11:20.530Z",
+            "reviewedBy": "person:kai",
+            "reviewedAt": "2026-10-31T14:11:20.555Z"
+          }
+        }
+      }
+    },
+    {
+      "length": 100001,
+      "direct": {
+        "ok": true,
+        "value": {
+          "proposal": {
+            "id": "commons:reason-3:relation:0",
+            "problemId": "commons:reason-3",
+            "kind": "relation",
+            "sourceId": "commons:reason-3",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "rejected",
+            "createdAt": "2026-10-31T14:11:20.575Z",
+            "reviewedBy": "person:kai",
+            "reviewedAt": "2026-10-31T14:11:20.597Z"
+          }
+        }
+      }
+    }
+  ],
+  "wrapperEmptyReason": {
+    "ok": true,
+    "value": {
+      "proposal": {
+        "id": "commons:reason-empty-wrapper:relation:0",
+        "problemId": "commons:reason-empty-wrapper",
+        "kind": "relation",
+        "sourceId": "commons:reason-empty-wrapper",
+        "targetId": "commons:ums-drops-during-backup",
+        "relationKind": "relates",
+        "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+        "confidence": 0,
+        "proposedBy": "postack-agent",
+        "status": "rejected",
+        "createdAt": "2026-10-31T14:11:20.629Z",
+        "reviewedBy": "person:kai",
+        "reviewedAt": "2026-10-31T14:11:20.655Z"
+      }
+    }
+  },
+  "methods": {
+    "contributions": [
+      "add",
+      "edit",
+      "supersede",
+      "changeVisibility",
+      "evaluate"
+    ],
+    "curation": [
+      "list",
+      "accept",
+      "reject"
+    ]
+  },
+  "nonImportObservation": [
+    {
+      "kind": "evidence",
+      "source": "direct"
+    },
+    {
+      "kind": "evidence",
+      "source": "direct"
+    },
+    {
+      "kind": "evidence",
+      "source": "direct"
+    },
+    {
+      "kind": "evidence",
+      "source": "direct"
+    },
+    {
+      "kind": "evidence",
+      "source": "direct"
+    },
+    {
+      "kind": "evidence",
+      "source": "direct"
+    },
+    {
+      "kind": "evidence",
+      "source": "direct"
+    },
+    {
+      "kind": "evidence",
+      "source": "direct"
+    },
+    {
+      "kind": "evidence",
+      "source": "direct"
+    },
+    {
+      "kind": "evidence",
+      "source": "direct"
+    }
+  ],
+  "ordinaryRooms": [
+    "campus-ai",
+    "basel-heat",
+    "research-onboarding"
+  ],
+  "ordinaryAdd": {
+    "ok": true,
+    "value": {
+      "contribution": {
+        "id": "contrib_000076",
+        "problemId": "campus-ai",
+        "kind": "claim",
+        "label": "A review probe contribution about a concrete experience.",
+        "content": "A review probe contribution about a concrete experience.",
+        "status": "active",
+        "visibility": "problem",
+        "provenance": {
+          "authoredBy": "person:kai",
+          "submittedBy": "person:kai",
+          "source": "direct",
+          "endorsement": "human_endorsed",
+          "timestamp": "2026-10-31T14:11:20.700Z"
+        },
+        "createdAt": "2026-10-31T14:11:20.700Z"
+      },
+      "proposals": [],
+      "curator": {
+        "mode": "participant",
+        "deterministic": 0,
+        "ai": 0,
+        "participant": 0,
+        "trimmed": 0,
+        "aiEnabled": false
+      },
+      "dropped": []
+    }
+  },
+  "ordinaryEdit": {
+    "ok": true,
+    "value": {
+      "id": "contrib_000076",
+      "problemId": "campus-ai",
+      "kind": "claim",
+      "label": "Updated review probe contribution.",
+      "content": "Updated review probe contribution.",
+      "status": "active",
+      "visibility": "problem",
+      "provenance": {
+        "authoredBy": "person:kai",
+        "submittedBy": "person:kai",
+        "source": "direct",
+        "endorsement": "human_endorsed",
+        "timestamp": "2026-10-31T14:11:20.700Z"
+      },
+      "createdAt": "2026-10-31T14:11:20.700Z",
+      "updatedAt": "2026-10-31T14:11:20.745Z"
+    }
+  },
+  "ordinaryEvaluate": {
+    "ok": true
+  }
+}

@@ -1,0 +1,2302 @@
+[
+  {
+    "mode": "mixed-http",
+    "i": 0,
+    "results": [
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "accepted",
+            "createdAt": "2026-10-31T13:59:12.540Z",
+            "reviewedBy": "person:kai",
+            "reviewedAt": "2026-10-31T13:59:12.668Z"
+          },
+          "relation": {
+            "id": "rel_d2217495-aead-4103-81b4-1d2d1b2ca0a9",
+            "problemId": "commons:emmc-not-exposed",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "kind": "relates",
+            "createdBy": "person:kai",
+            "createdAt": "2026-10-31T13:59:12.668Z",
+            "fromProposalId": "commons:emmc-not-exposed:relation:0"
+          }
+        }
+      },
+      {
+        "status": 409,
+        "body": {
+          "error": "conflict",
+          "message": "Proposal has already been reviewed.",
+          "detail": {
+            "status": "accepted"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      }
+    ],
+    "final": "accepted",
+    "relations": 1
+  },
+  {
+    "mode": "mixed-http",
+    "i": 1,
+    "results": [
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "accepted",
+            "createdAt": "2026-10-31T13:59:12.891Z",
+            "reviewedBy": "person:kai",
+            "reviewedAt": "2026-10-31T13:59:12.923Z"
+          },
+          "relation": {
+            "id": "rel_0988c9e4-ddcc-4401-9bd3-e9959704a7cd",
+            "problemId": "commons:emmc-not-exposed",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "kind": "relates",
+            "createdBy": "person:kai",
+            "createdAt": "2026-10-31T13:59:12.923Z",
+            "fromProposalId": "commons:emmc-not-exposed:relation:0"
+          }
+        }
+      },
+      {
+        "status": 409,
+        "body": {
+          "error": "conflict",
+          "message": "Proposal has already been reviewed.",
+          "detail": {
+            "status": "accepted"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      }
+    ],
+    "final": "accepted",
+    "relations": 1
+  },
+  {
+    "mode": "mixed-http",
+    "i": 2,
+    "results": [
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "accepted",
+            "createdAt": "2026-10-31T13:59:13.003Z",
+            "reviewedBy": "person:kai",
+            "reviewedAt": "2026-10-31T13:59:13.069Z"
+          },
+          "relation": {
+            "id": "rel_35c94e6f-1934-4d12-883c-29ddea5811a2",
+            "problemId": "commons:emmc-not-exposed",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "kind": "relates",
+            "createdBy": "person:kai",
+            "createdAt": "2026-10-31T13:59:13.069Z",
+            "fromProposalId": "commons:emmc-not-exposed:relation:0"
+          }
+        }
+      },
+      {
+        "status": 409,
+        "body": {
+          "error": "conflict",
+          "message": "Proposal has already been reviewed.",
+          "detail": {
+            "status": "accepted"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      }
+    ],
+    "final": "accepted",
+    "relations": 1
+  },
+  {
+    "mode": "mixed-http",
+    "i": 3,
+    "results": [
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "accepted",
+            "createdAt": "2026-10-31T13:59:13.103Z",
+            "reviewedBy": "person:kai",
+            "reviewedAt": "2026-10-31T13:59:13.128Z"
+          },
+          "relation": {
+            "id": "rel_e37ad303-6ee7-4994-b9c9-67361754f4f7",
+            "problemId": "commons:emmc-not-exposed",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "kind": "relates",
+            "createdBy": "person:kai",
+            "createdAt": "2026-10-31T13:59:13.128Z",
+            "fromProposalId": "commons:emmc-not-exposed:relation:0"
+          }
+        }
+      },
+      {
+        "status": 409,
+        "body": {
+          "error": "conflict",
+          "message": "Proposal has already been reviewed.",
+          "detail": {
+            "status": "accepted"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      }
+    ],
+    "final": "accepted",
+    "relations": 1
+  },
+  {
+    "mode": "mixed-http",
+    "i": 4,
+    "results": [
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "accepted",
+            "createdAt": "2026-10-31T13:59:13.158Z",
+            "reviewedBy": "person:kai",
+            "reviewedAt": "2026-10-31T13:59:13.184Z"
+          },
+          "relation": {
+            "id": "rel_16488fa6-6626-4ffd-b23f-7355d101293b",
+            "problemId": "commons:emmc-not-exposed",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "kind": "relates",
+            "createdBy": "person:kai",
+            "createdAt": "2026-10-31T13:59:13.184Z",
+            "fromProposalId": "commons:emmc-not-exposed:relation:0"
+          }
+        }
+      },
+      {
+        "status": 409,
+        "body": {
+          "error": "conflict",
+          "message": "Proposal has already been reviewed.",
+          "detail": {
+            "status": "accepted"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      }
+    ],
+    "final": "accepted",
+    "relations": 1
+  },
+  {
+    "mode": "mixed-http",
+    "i": 5,
+    "results": [
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "accepted",
+            "createdAt": "2026-10-31T13:59:13.232Z",
+            "reviewedBy": "person:kai",
+            "reviewedAt": "2026-10-31T13:59:13.253Z"
+          },
+          "relation": {
+            "id": "rel_e860c74e-82bb-4b02-ba7d-70aa78109bc9",
+            "problemId": "commons:emmc-not-exposed",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "kind": "relates",
+            "createdBy": "person:kai",
+            "createdAt": "2026-10-31T13:59:13.253Z",
+            "fromProposalId": "commons:emmc-not-exposed:relation:0"
+          }
+        }
+      },
+      {
+        "status": 409,
+        "body": {
+          "error": "conflict",
+          "message": "Proposal has already been reviewed.",
+          "detail": {
+            "status": "accepted"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      }
+    ],
+    "final": "accepted",
+    "relations": 1
+  },
+  {
+    "mode": "mixed-http",
+    "i": 6,
+    "results": [
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "accepted",
+            "createdAt": "2026-10-31T13:59:13.291Z",
+            "reviewedBy": "person:kai",
+            "reviewedAt": "2026-10-31T13:59:13.311Z"
+          },
+          "relation": {
+            "id": "rel_569629ba-d1ac-46ce-9e93-8035b240cd22",
+            "problemId": "commons:emmc-not-exposed",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "kind": "relates",
+            "createdBy": "person:kai",
+            "createdAt": "2026-10-31T13:59:13.311Z",
+            "fromProposalId": "commons:emmc-not-exposed:relation:0"
+          }
+        }
+      },
+      {
+        "status": 409,
+        "body": {
+          "error": "conflict",
+          "message": "Proposal has already been reviewed.",
+          "detail": {
+            "status": "accepted"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      }
+    ],
+    "final": "accepted",
+    "relations": 1
+  },
+  {
+    "mode": "mixed-http",
+    "i": 7,
+    "results": [
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "accepted",
+            "createdAt": "2026-10-31T13:59:13.378Z",
+            "reviewedBy": "person:kai",
+            "reviewedAt": "2026-10-31T13:59:13.424Z"
+          },
+          "relation": {
+            "id": "rel_683f89d5-f196-421e-9bc3-e1b65ce92b58",
+            "problemId": "commons:emmc-not-exposed",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "kind": "relates",
+            "createdBy": "person:kai",
+            "createdAt": "2026-10-31T13:59:13.424Z",
+            "fromProposalId": "commons:emmc-not-exposed:relation:0"
+          }
+        }
+      },
+      {
+        "status": 409,
+        "body": {
+          "error": "conflict",
+          "message": "Proposal has already been reviewed.",
+          "detail": {
+            "status": "accepted"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      }
+    ],
+    "final": "accepted",
+    "relations": 1
+  },
+  {
+    "mode": "mixed-http",
+    "i": 8,
+    "results": [
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "accepted",
+            "createdAt": "2026-10-31T13:59:13.484Z",
+            "reviewedBy": "person:kai",
+            "reviewedAt": "2026-10-31T13:59:13.543Z"
+          },
+          "relation": {
+            "id": "rel_4128ae7b-72b0-487d-967f-ed2ee61379df",
+            "problemId": "commons:emmc-not-exposed",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "kind": "relates",
+            "createdBy": "person:kai",
+            "createdAt": "2026-10-31T13:59:13.543Z",
+            "fromProposalId": "commons:emmc-not-exposed:relation:0"
+          }
+        }
+      },
+      {
+        "status": 409,
+        "body": {
+          "error": "conflict",
+          "message": "Proposal has already been reviewed.",
+          "detail": {
+            "status": "accepted"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      }
+    ],
+    "final": "accepted",
+    "relations": 1
+  },
+  {
+    "mode": "mixed-http",
+    "i": 9,
+    "results": [
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "accepted",
+            "createdAt": "2026-10-31T13:59:13.578Z",
+            "reviewedBy": "person:kai",
+            "reviewedAt": "2026-10-31T13:59:13.595Z"
+          },
+          "relation": {
+            "id": "rel_1a90a3d7-acf6-4fbc-8d17-01063fd02af8",
+            "problemId": "commons:emmc-not-exposed",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "kind": "relates",
+            "createdBy": "person:kai",
+            "createdAt": "2026-10-31T13:59:13.595Z",
+            "fromProposalId": "commons:emmc-not-exposed:relation:0"
+          }
+        }
+      },
+      {
+        "status": 409,
+        "body": {
+          "error": "conflict",
+          "message": "Proposal has already been reviewed.",
+          "detail": {
+            "status": "accepted"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      }
+    ],
+    "final": "accepted",
+    "relations": 1
+  },
+  {
+    "mode": "mixed-http",
+    "i": 10,
+    "results": [
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "accepted",
+            "createdAt": "2026-10-31T13:59:13.627Z",
+            "reviewedBy": "person:kai",
+            "reviewedAt": "2026-10-31T13:59:13.646Z"
+          },
+          "relation": {
+            "id": "rel_26560d5d-357e-41ea-9507-ecf54ad000ef",
+            "problemId": "commons:emmc-not-exposed",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "kind": "relates",
+            "createdBy": "person:kai",
+            "createdAt": "2026-10-31T13:59:13.646Z",
+            "fromProposalId": "commons:emmc-not-exposed:relation:0"
+          }
+        }
+      },
+      {
+        "status": 409,
+        "body": {
+          "error": "conflict",
+          "message": "Proposal has already been reviewed.",
+          "detail": {
+            "status": "accepted"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      }
+    ],
+    "final": "accepted",
+    "relations": 1
+  },
+  {
+    "mode": "mixed-http",
+    "i": 11,
+    "results": [
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "accepted",
+            "createdAt": "2026-10-31T13:59:13.680Z",
+            "reviewedBy": "person:kai",
+            "reviewedAt": "2026-10-31T13:59:13.698Z"
+          },
+          "relation": {
+            "id": "rel_e210c068-8463-424d-bcbb-f74943a2e2ce",
+            "problemId": "commons:emmc-not-exposed",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "kind": "relates",
+            "createdBy": "person:kai",
+            "createdAt": "2026-10-31T13:59:13.698Z",
+            "fromProposalId": "commons:emmc-not-exposed:relation:0"
+          }
+        }
+      },
+      {
+        "status": 409,
+        "body": {
+          "error": "conflict",
+          "message": "Proposal has already been reviewed.",
+          "detail": {
+            "status": "accepted"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      }
+    ],
+    "final": "accepted",
+    "relations": 1
+  },
+  {
+    "mode": "mixed-mcp-http",
+    "i": 0,
+    "results": [
+      {
+        "status": "tool-error",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"error\": \"invalid\",\n  \"message\": \"This proposal has already been reviewed.\",\n  \"detail\": {\n    \"proposalId\": \"commons:emmc-not-exposed:relation:0\",\n    \"status\": \"rejected\",\n    \"reviewedBy\": \"person:lea\"\n  }\n}"
+            }
+          ],
+          "structuredContent": {
+            "error": "invalid",
+            "message": "This proposal has already been reviewed.",
+            "detail": {
+              "proposalId": "commons:emmc-not-exposed:relation:0",
+              "status": "rejected",
+              "reviewedBy": "person:lea"
+            }
+          },
+          "isError": true
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "rejected",
+            "createdAt": "2026-10-31T13:59:13.722Z",
+            "reviewedBy": "person:lea",
+            "reviewedAt": "2026-10-31T13:59:13.921Z"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 0
+  },
+  {
+    "mode": "mixed-mcp-http",
+    "i": 1,
+    "results": [
+      {
+        "status": "tool-error",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"error\": \"invalid\",\n  \"message\": \"This proposal has already been reviewed.\",\n  \"detail\": {\n    \"proposalId\": \"commons:emmc-not-exposed:relation:0\",\n    \"status\": \"rejected\",\n    \"reviewedBy\": \"person:lea\"\n  }\n}"
+            }
+          ],
+          "structuredContent": {
+            "error": "invalid",
+            "message": "This proposal has already been reviewed.",
+            "detail": {
+              "proposalId": "commons:emmc-not-exposed:relation:0",
+              "status": "rejected",
+              "reviewedBy": "person:lea"
+            }
+          },
+          "isError": true
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "rejected",
+            "createdAt": "2026-10-31T13:59:13.956Z",
+            "reviewedBy": "person:lea",
+            "reviewedAt": "2026-10-31T13:59:14.061Z"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 0
+  },
+  {
+    "mode": "mixed-mcp-http",
+    "i": 2,
+    "results": [
+      {
+        "status": "tool-error",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"error\": \"invalid\",\n  \"message\": \"This proposal has already been reviewed.\",\n  \"detail\": {\n    \"proposalId\": \"commons:emmc-not-exposed:relation:0\",\n    \"status\": \"rejected\",\n    \"reviewedBy\": \"person:lea\"\n  }\n}"
+            }
+          ],
+          "structuredContent": {
+            "error": "invalid",
+            "message": "This proposal has already been reviewed.",
+            "detail": {
+              "proposalId": "commons:emmc-not-exposed:relation:0",
+              "status": "rejected",
+              "reviewedBy": "person:lea"
+            }
+          },
+          "isError": true
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "rejected",
+            "createdAt": "2026-10-31T13:59:14.105Z",
+            "reviewedBy": "person:lea",
+            "reviewedAt": "2026-10-31T13:59:14.169Z"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 0
+  },
+  {
+    "mode": "mixed-mcp-http",
+    "i": 3,
+    "results": [
+      {
+        "status": "tool-error",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"error\": \"invalid\",\n  \"message\": \"This proposal has already been reviewed.\",\n  \"detail\": {\n    \"proposalId\": \"commons:emmc-not-exposed:relation:0\",\n    \"status\": \"rejected\",\n    \"reviewedBy\": \"person:lea\"\n  }\n}"
+            }
+          ],
+          "structuredContent": {
+            "error": "invalid",
+            "message": "This proposal has already been reviewed.",
+            "detail": {
+              "proposalId": "commons:emmc-not-exposed:relation:0",
+              "status": "rejected",
+              "reviewedBy": "person:lea"
+            }
+          },
+          "isError": true
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "rejected",
+            "createdAt": "2026-10-31T13:59:14.204Z",
+            "reviewedBy": "person:lea",
+            "reviewedAt": "2026-10-31T13:59:14.254Z"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 0
+  },
+  {
+    "mode": "mixed-mcp-http",
+    "i": 4,
+    "results": [
+      {
+        "status": "tool-error",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"error\": \"invalid\",\n  \"message\": \"This proposal has already been reviewed.\",\n  \"detail\": {\n    \"proposalId\": \"commons:emmc-not-exposed:relation:0\",\n    \"status\": \"rejected\",\n    \"reviewedBy\": \"person:lea\"\n  }\n}"
+            }
+          ],
+          "structuredContent": {
+            "error": "invalid",
+            "message": "This proposal has already been reviewed.",
+            "detail": {
+              "proposalId": "commons:emmc-not-exposed:relation:0",
+              "status": "rejected",
+              "reviewedBy": "person:lea"
+            }
+          },
+          "isError": true
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "rejected",
+            "createdAt": "2026-10-31T13:59:14.302Z",
+            "reviewedBy": "person:lea",
+            "reviewedAt": "2026-10-31T13:59:14.373Z"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 0
+  },
+  {
+    "mode": "mixed-mcp-http",
+    "i": 5,
+    "results": [
+      {
+        "status": "tool-error",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"error\": \"invalid\",\n  \"message\": \"This proposal has already been reviewed.\",\n  \"detail\": {\n    \"proposalId\": \"commons:emmc-not-exposed:relation:0\",\n    \"status\": \"rejected\",\n    \"reviewedBy\": \"person:lea\"\n  }\n}"
+            }
+          ],
+          "structuredContent": {
+            "error": "invalid",
+            "message": "This proposal has already been reviewed.",
+            "detail": {
+              "proposalId": "commons:emmc-not-exposed:relation:0",
+              "status": "rejected",
+              "reviewedBy": "person:lea"
+            }
+          },
+          "isError": true
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "rejected",
+            "createdAt": "2026-10-31T13:59:14.409Z",
+            "reviewedBy": "person:lea",
+            "reviewedAt": "2026-10-31T13:59:14.465Z"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 0
+  },
+  {
+    "mode": "mixed-mcp-http",
+    "i": 6,
+    "results": [
+      {
+        "status": "tool-error",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"error\": \"invalid\",\n  \"message\": \"This proposal has already been reviewed.\",\n  \"detail\": {\n    \"proposalId\": \"commons:emmc-not-exposed:relation:0\",\n    \"status\": \"rejected\",\n    \"reviewedBy\": \"person:lea\"\n  }\n}"
+            }
+          ],
+          "structuredContent": {
+            "error": "invalid",
+            "message": "This proposal has already been reviewed.",
+            "detail": {
+              "proposalId": "commons:emmc-not-exposed:relation:0",
+              "status": "rejected",
+              "reviewedBy": "person:lea"
+            }
+          },
+          "isError": true
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "rejected",
+            "createdAt": "2026-10-31T13:59:14.498Z",
+            "reviewedBy": "person:lea",
+            "reviewedAt": "2026-10-31T13:59:14.555Z"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 0
+  },
+  {
+    "mode": "mixed-mcp-http",
+    "i": 7,
+    "results": [
+      {
+        "status": "tool-error",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"error\": \"invalid\",\n  \"message\": \"This proposal has already been reviewed.\",\n  \"detail\": {\n    \"proposalId\": \"commons:emmc-not-exposed:relation:0\",\n    \"status\": \"rejected\",\n    \"reviewedBy\": \"person:lea\"\n  }\n}"
+            }
+          ],
+          "structuredContent": {
+            "error": "invalid",
+            "message": "This proposal has already been reviewed.",
+            "detail": {
+              "proposalId": "commons:emmc-not-exposed:relation:0",
+              "status": "rejected",
+              "reviewedBy": "person:lea"
+            }
+          },
+          "isError": true
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "rejected",
+            "createdAt": "2026-10-31T13:59:14.591Z",
+            "reviewedBy": "person:lea",
+            "reviewedAt": "2026-10-31T13:59:14.674Z"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 0
+  },
+  {
+    "mode": "mixed-mcp-http",
+    "i": 8,
+    "results": [
+      {
+        "status": "tool-error",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"error\": \"invalid\",\n  \"message\": \"This proposal has already been reviewed.\",\n  \"detail\": {\n    \"proposalId\": \"commons:emmc-not-exposed:relation:0\",\n    \"status\": \"rejected\",\n    \"reviewedBy\": \"person:lea\"\n  }\n}"
+            }
+          ],
+          "structuredContent": {
+            "error": "invalid",
+            "message": "This proposal has already been reviewed.",
+            "detail": {
+              "proposalId": "commons:emmc-not-exposed:relation:0",
+              "status": "rejected",
+              "reviewedBy": "person:lea"
+            }
+          },
+          "isError": true
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "rejected",
+            "createdAt": "2026-10-31T13:59:14.709Z",
+            "reviewedBy": "person:lea",
+            "reviewedAt": "2026-10-31T13:59:14.771Z"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 0
+  },
+  {
+    "mode": "mixed-mcp-http",
+    "i": 9,
+    "results": [
+      {
+        "status": "tool-error",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"error\": \"invalid\",\n  \"message\": \"This proposal has already been reviewed.\",\n  \"detail\": {\n    \"proposalId\": \"commons:emmc-not-exposed:relation:0\",\n    \"status\": \"rejected\",\n    \"reviewedBy\": \"person:lea\"\n  }\n}"
+            }
+          ],
+          "structuredContent": {
+            "error": "invalid",
+            "message": "This proposal has already been reviewed.",
+            "detail": {
+              "proposalId": "commons:emmc-not-exposed:relation:0",
+              "status": "rejected",
+              "reviewedBy": "person:lea"
+            }
+          },
+          "isError": true
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "rejected",
+            "createdAt": "2026-10-31T13:59:14.842Z",
+            "reviewedBy": "person:lea",
+            "reviewedAt": "2026-10-31T13:59:14.903Z"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 0
+  },
+  {
+    "mode": "mixed-mcp-http",
+    "i": 10,
+    "results": [
+      {
+        "status": "tool-error",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"error\": \"invalid\",\n  \"message\": \"This proposal has already been reviewed.\",\n  \"detail\": {\n    \"proposalId\": \"commons:emmc-not-exposed:relation:0\",\n    \"status\": \"rejected\",\n    \"reviewedBy\": \"person:lea\"\n  }\n}"
+            }
+          ],
+          "structuredContent": {
+            "error": "invalid",
+            "message": "This proposal has already been reviewed.",
+            "detail": {
+              "proposalId": "commons:emmc-not-exposed:relation:0",
+              "status": "rejected",
+              "reviewedBy": "person:lea"
+            }
+          },
+          "isError": true
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "rejected",
+            "createdAt": "2026-10-31T13:59:14.929Z",
+            "reviewedBy": "person:lea",
+            "reviewedAt": "2026-10-31T13:59:14.975Z"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 0
+  },
+  {
+    "mode": "mixed-mcp-http",
+    "i": 11,
+    "results": [
+      {
+        "status": "tool-error",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"error\": \"invalid\",\n  \"message\": \"This proposal has already been reviewed.\",\n  \"detail\": {\n    \"proposalId\": \"commons:emmc-not-exposed:relation:0\",\n    \"status\": \"rejected\",\n    \"reviewedBy\": \"person:lea\"\n  }\n}"
+            }
+          ],
+          "structuredContent": {
+            "error": "invalid",
+            "message": "This proposal has already been reviewed.",
+            "detail": {
+              "proposalId": "commons:emmc-not-exposed:relation:0",
+              "status": "rejected",
+              "reviewedBy": "person:lea"
+            }
+          },
+          "isError": true
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "proposal": {
+            "id": "commons:emmc-not-exposed:relation:0",
+            "problemId": "commons:emmc-not-exposed",
+            "kind": "relation",
+            "sourceId": "commons:emmc-not-exposed",
+            "targetId": "commons:ums-drops-during-backup",
+            "relationKind": "relates",
+            "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+            "confidence": 0,
+            "proposedBy": "postack-agent",
+            "status": "rejected",
+            "createdAt": "2026-10-31T13:59:14.999Z",
+            "reviewedBy": "person:lea",
+            "reviewedAt": "2026-10-31T13:59:15.041Z"
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 0
+  },
+  {
+    "mode": "same-mcp",
+    "i": 0,
+    "results": [
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"accepted\",\n    \"createdAt\": \"2026-10-31T13:59:15.066Z\",\n    \"reviewedBy\": \"person:kai\",\n    \"reviewedAt\": \"2026-10-31T13:59:15.137Z\"\n  },\n  \"relation\": {\n    \"id\": \"rel_000001\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"kind\": \"relates\",\n    \"createdBy\": \"person:kai\",\n    \"createdAt\": \"2026-10-31T13:59:15.137Z\",\n    \"fromProposalId\": \"commons:emmc-not-exposed:relation:0\"\n  },\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "accepted",
+              "createdAt": "2026-10-31T13:59:15.066Z",
+              "reviewedBy": "person:kai",
+              "reviewedAt": "2026-10-31T13:59:15.137Z"
+            },
+            "relation": {
+              "id": "rel_000001",
+              "problemId": "commons:emmc-not-exposed",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "kind": "relates",
+              "createdBy": "person:kai",
+              "createdAt": "2026-10-31T13:59:15.137Z",
+              "fromProposalId": "commons:emmc-not-exposed:relation:0"
+            },
+            "conflict": null
+          }
+        }
+      },
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"rejected\",\n    \"createdAt\": \"2026-10-31T13:59:15.066Z\",\n    \"reviewedBy\": \"person:lea\",\n    \"reviewedAt\": \"2026-10-31T13:59:15.139Z\"\n  },\n  \"relation\": null,\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "rejected",
+              "createdAt": "2026-10-31T13:59:15.066Z",
+              "reviewedBy": "person:lea",
+              "reviewedAt": "2026-10-31T13:59:15.139Z"
+            },
+            "relation": null,
+            "conflict": null
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      },
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 1
+  },
+  {
+    "mode": "same-mcp",
+    "i": 1,
+    "results": [
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"accepted\",\n    \"createdAt\": \"2026-10-31T13:59:15.172Z\",\n    \"reviewedBy\": \"person:kai\",\n    \"reviewedAt\": \"2026-10-31T13:59:15.236Z\"\n  },\n  \"relation\": {\n    \"id\": \"rel_000001\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"kind\": \"relates\",\n    \"createdBy\": \"person:kai\",\n    \"createdAt\": \"2026-10-31T13:59:15.236Z\",\n    \"fromProposalId\": \"commons:emmc-not-exposed:relation:0\"\n  },\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "accepted",
+              "createdAt": "2026-10-31T13:59:15.172Z",
+              "reviewedBy": "person:kai",
+              "reviewedAt": "2026-10-31T13:59:15.236Z"
+            },
+            "relation": {
+              "id": "rel_000001",
+              "problemId": "commons:emmc-not-exposed",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "kind": "relates",
+              "createdBy": "person:kai",
+              "createdAt": "2026-10-31T13:59:15.236Z",
+              "fromProposalId": "commons:emmc-not-exposed:relation:0"
+            },
+            "conflict": null
+          }
+        }
+      },
+      {
+        "status": "tool-error",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"error\": \"invalid\",\n  \"message\": \"This proposal has already been reviewed.\",\n  \"detail\": {\n    \"proposalId\": \"commons:emmc-not-exposed:relation:0\",\n    \"status\": \"accepted\",\n    \"reviewedBy\": \"person:kai\"\n  }\n}"
+            }
+          ],
+          "structuredContent": {
+            "error": "invalid",
+            "message": "This proposal has already been reviewed.",
+            "detail": {
+              "proposalId": "commons:emmc-not-exposed:relation:0",
+              "status": "accepted",
+              "reviewedBy": "person:kai"
+            }
+          },
+          "isError": true
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      }
+    ],
+    "final": "accepted",
+    "relations": 1
+  },
+  {
+    "mode": "same-mcp",
+    "i": 2,
+    "results": [
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"accepted\",\n    \"createdAt\": \"2026-10-31T13:59:15.266Z\",\n    \"reviewedBy\": \"person:kai\",\n    \"reviewedAt\": \"2026-10-31T13:59:15.319Z\"\n  },\n  \"relation\": {\n    \"id\": \"rel_000001\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"kind\": \"relates\",\n    \"createdBy\": \"person:kai\",\n    \"createdAt\": \"2026-10-31T13:59:15.319Z\",\n    \"fromProposalId\": \"commons:emmc-not-exposed:relation:0\"\n  },\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "accepted",
+              "createdAt": "2026-10-31T13:59:15.266Z",
+              "reviewedBy": "person:kai",
+              "reviewedAt": "2026-10-31T13:59:15.319Z"
+            },
+            "relation": {
+              "id": "rel_000001",
+              "problemId": "commons:emmc-not-exposed",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "kind": "relates",
+              "createdBy": "person:kai",
+              "createdAt": "2026-10-31T13:59:15.319Z",
+              "fromProposalId": "commons:emmc-not-exposed:relation:0"
+            },
+            "conflict": null
+          }
+        }
+      },
+      {
+        "status": "tool-error",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"error\": \"invalid\",\n  \"message\": \"This proposal has already been reviewed.\",\n  \"detail\": {\n    \"proposalId\": \"commons:emmc-not-exposed:relation:0\",\n    \"status\": \"accepted\",\n    \"reviewedBy\": \"person:kai\"\n  }\n}"
+            }
+          ],
+          "structuredContent": {
+            "error": "invalid",
+            "message": "This proposal has already been reviewed.",
+            "detail": {
+              "proposalId": "commons:emmc-not-exposed:relation:0",
+              "status": "accepted",
+              "reviewedBy": "person:kai"
+            }
+          },
+          "isError": true
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      }
+    ],
+    "final": "accepted",
+    "relations": 1
+  },
+  {
+    "mode": "same-mcp",
+    "i": 3,
+    "results": [
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"accepted\",\n    \"createdAt\": \"2026-10-31T13:59:15.354Z\",\n    \"reviewedBy\": \"person:kai\",\n    \"reviewedAt\": \"2026-10-31T13:59:15.414Z\"\n  },\n  \"relation\": {\n    \"id\": \"rel_000001\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"kind\": \"relates\",\n    \"createdBy\": \"person:kai\",\n    \"createdAt\": \"2026-10-31T13:59:15.414Z\",\n    \"fromProposalId\": \"commons:emmc-not-exposed:relation:0\"\n  },\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "accepted",
+              "createdAt": "2026-10-31T13:59:15.354Z",
+              "reviewedBy": "person:kai",
+              "reviewedAt": "2026-10-31T13:59:15.414Z"
+            },
+            "relation": {
+              "id": "rel_000001",
+              "problemId": "commons:emmc-not-exposed",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "kind": "relates",
+              "createdBy": "person:kai",
+              "createdAt": "2026-10-31T13:59:15.414Z",
+              "fromProposalId": "commons:emmc-not-exposed:relation:0"
+            },
+            "conflict": null
+          }
+        }
+      },
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"rejected\",\n    \"createdAt\": \"2026-10-31T13:59:15.354Z\",\n    \"reviewedBy\": \"person:lea\",\n    \"reviewedAt\": \"2026-10-31T13:59:15.417Z\"\n  },\n  \"relation\": null,\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "rejected",
+              "createdAt": "2026-10-31T13:59:15.354Z",
+              "reviewedBy": "person:lea",
+              "reviewedAt": "2026-10-31T13:59:15.417Z"
+            },
+            "relation": null,
+            "conflict": null
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      },
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 1
+  },
+  {
+    "mode": "same-mcp",
+    "i": 4,
+    "results": [
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"accepted\",\n    \"createdAt\": \"2026-10-31T13:59:15.454Z\",\n    \"reviewedBy\": \"person:kai\",\n    \"reviewedAt\": \"2026-10-31T13:59:15.521Z\"\n  },\n  \"relation\": {\n    \"id\": \"rel_000001\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"kind\": \"relates\",\n    \"createdBy\": \"person:kai\",\n    \"createdAt\": \"2026-10-31T13:59:15.521Z\",\n    \"fromProposalId\": \"commons:emmc-not-exposed:relation:0\"\n  },\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "accepted",
+              "createdAt": "2026-10-31T13:59:15.454Z",
+              "reviewedBy": "person:kai",
+              "reviewedAt": "2026-10-31T13:59:15.521Z"
+            },
+            "relation": {
+              "id": "rel_000001",
+              "problemId": "commons:emmc-not-exposed",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "kind": "relates",
+              "createdBy": "person:kai",
+              "createdAt": "2026-10-31T13:59:15.521Z",
+              "fromProposalId": "commons:emmc-not-exposed:relation:0"
+            },
+            "conflict": null
+          }
+        }
+      },
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"rejected\",\n    \"createdAt\": \"2026-10-31T13:59:15.454Z\",\n    \"reviewedBy\": \"person:lea\",\n    \"reviewedAt\": \"2026-10-31T13:59:15.523Z\"\n  },\n  \"relation\": null,\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "rejected",
+              "createdAt": "2026-10-31T13:59:15.454Z",
+              "reviewedBy": "person:lea",
+              "reviewedAt": "2026-10-31T13:59:15.523Z"
+            },
+            "relation": null,
+            "conflict": null
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      },
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 1
+  },
+  {
+    "mode": "same-mcp",
+    "i": 5,
+    "results": [
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"accepted\",\n    \"createdAt\": \"2026-10-31T13:59:15.552Z\",\n    \"reviewedBy\": \"person:kai\",\n    \"reviewedAt\": \"2026-10-31T13:59:15.623Z\"\n  },\n  \"relation\": {\n    \"id\": \"rel_000001\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"kind\": \"relates\",\n    \"createdBy\": \"person:kai\",\n    \"createdAt\": \"2026-10-31T13:59:15.623Z\",\n    \"fromProposalId\": \"commons:emmc-not-exposed:relation:0\"\n  },\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "accepted",
+              "createdAt": "2026-10-31T13:59:15.552Z",
+              "reviewedBy": "person:kai",
+              "reviewedAt": "2026-10-31T13:59:15.623Z"
+            },
+            "relation": {
+              "id": "rel_000001",
+              "problemId": "commons:emmc-not-exposed",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "kind": "relates",
+              "createdBy": "person:kai",
+              "createdAt": "2026-10-31T13:59:15.623Z",
+              "fromProposalId": "commons:emmc-not-exposed:relation:0"
+            },
+            "conflict": null
+          }
+        }
+      },
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"rejected\",\n    \"createdAt\": \"2026-10-31T13:59:15.552Z\",\n    \"reviewedBy\": \"person:lea\",\n    \"reviewedAt\": \"2026-10-31T13:59:15.625Z\"\n  },\n  \"relation\": null,\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "rejected",
+              "createdAt": "2026-10-31T13:59:15.552Z",
+              "reviewedBy": "person:lea",
+              "reviewedAt": "2026-10-31T13:59:15.625Z"
+            },
+            "relation": null,
+            "conflict": null
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      },
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 1
+  },
+  {
+    "mode": "same-mcp",
+    "i": 6,
+    "results": [
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"accepted\",\n    \"createdAt\": \"2026-10-31T13:59:15.658Z\",\n    \"reviewedBy\": \"person:kai\",\n    \"reviewedAt\": \"2026-10-31T13:59:15.722Z\"\n  },\n  \"relation\": {\n    \"id\": \"rel_000001\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"kind\": \"relates\",\n    \"createdBy\": \"person:kai\",\n    \"createdAt\": \"2026-10-31T13:59:15.722Z\",\n    \"fromProposalId\": \"commons:emmc-not-exposed:relation:0\"\n  },\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "accepted",
+              "createdAt": "2026-10-31T13:59:15.658Z",
+              "reviewedBy": "person:kai",
+              "reviewedAt": "2026-10-31T13:59:15.722Z"
+            },
+            "relation": {
+              "id": "rel_000001",
+              "problemId": "commons:emmc-not-exposed",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "kind": "relates",
+              "createdBy": "person:kai",
+              "createdAt": "2026-10-31T13:59:15.722Z",
+              "fromProposalId": "commons:emmc-not-exposed:relation:0"
+            },
+            "conflict": null
+          }
+        }
+      },
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"rejected\",\n    \"createdAt\": \"2026-10-31T13:59:15.658Z\",\n    \"reviewedBy\": \"person:lea\",\n    \"reviewedAt\": \"2026-10-31T13:59:15.724Z\"\n  },\n  \"relation\": null,\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "rejected",
+              "createdAt": "2026-10-31T13:59:15.658Z",
+              "reviewedBy": "person:lea",
+              "reviewedAt": "2026-10-31T13:59:15.724Z"
+            },
+            "relation": null,
+            "conflict": null
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      },
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 1
+  },
+  {
+    "mode": "same-mcp",
+    "i": 7,
+    "results": [
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"accepted\",\n    \"createdAt\": \"2026-10-31T13:59:15.756Z\",\n    \"reviewedBy\": \"person:kai\",\n    \"reviewedAt\": \"2026-10-31T13:59:15.825Z\"\n  },\n  \"relation\": {\n    \"id\": \"rel_000001\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"kind\": \"relates\",\n    \"createdBy\": \"person:kai\",\n    \"createdAt\": \"2026-10-31T13:59:15.825Z\",\n    \"fromProposalId\": \"commons:emmc-not-exposed:relation:0\"\n  },\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "accepted",
+              "createdAt": "2026-10-31T13:59:15.756Z",
+              "reviewedBy": "person:kai",
+              "reviewedAt": "2026-10-31T13:59:15.825Z"
+            },
+            "relation": {
+              "id": "rel_000001",
+              "problemId": "commons:emmc-not-exposed",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "kind": "relates",
+              "createdBy": "person:kai",
+              "createdAt": "2026-10-31T13:59:15.825Z",
+              "fromProposalId": "commons:emmc-not-exposed:relation:0"
+            },
+            "conflict": null
+          }
+        }
+      },
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"rejected\",\n    \"createdAt\": \"2026-10-31T13:59:15.756Z\",\n    \"reviewedBy\": \"person:lea\",\n    \"reviewedAt\": \"2026-10-31T13:59:15.837Z\"\n  },\n  \"relation\": null,\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "rejected",
+              "createdAt": "2026-10-31T13:59:15.756Z",
+              "reviewedBy": "person:lea",
+              "reviewedAt": "2026-10-31T13:59:15.837Z"
+            },
+            "relation": null,
+            "conflict": null
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      },
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 1
+  },
+  {
+    "mode": "same-mcp",
+    "i": 8,
+    "results": [
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"accepted\",\n    \"createdAt\": \"2026-10-31T13:59:15.873Z\",\n    \"reviewedBy\": \"person:kai\",\n    \"reviewedAt\": \"2026-10-31T13:59:15.939Z\"\n  },\n  \"relation\": {\n    \"id\": \"rel_000001\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"kind\": \"relates\",\n    \"createdBy\": \"person:kai\",\n    \"createdAt\": \"2026-10-31T13:59:15.939Z\",\n    \"fromProposalId\": \"commons:emmc-not-exposed:relation:0\"\n  },\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "accepted",
+              "createdAt": "2026-10-31T13:59:15.873Z",
+              "reviewedBy": "person:kai",
+              "reviewedAt": "2026-10-31T13:59:15.939Z"
+            },
+            "relation": {
+              "id": "rel_000001",
+              "problemId": "commons:emmc-not-exposed",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "kind": "relates",
+              "createdBy": "person:kai",
+              "createdAt": "2026-10-31T13:59:15.939Z",
+              "fromProposalId": "commons:emmc-not-exposed:relation:0"
+            },
+            "conflict": null
+          }
+        }
+      },
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"rejected\",\n    \"createdAt\": \"2026-10-31T13:59:15.873Z\",\n    \"reviewedBy\": \"person:lea\",\n    \"reviewedAt\": \"2026-10-31T13:59:15.941Z\"\n  },\n  \"relation\": null,\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "rejected",
+              "createdAt": "2026-10-31T13:59:15.873Z",
+              "reviewedBy": "person:lea",
+              "reviewedAt": "2026-10-31T13:59:15.941Z"
+            },
+            "relation": null,
+            "conflict": null
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      },
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 1
+  },
+  {
+    "mode": "same-mcp",
+    "i": 9,
+    "results": [
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"accepted\",\n    \"createdAt\": \"2026-10-31T13:59:15.975Z\",\n    \"reviewedBy\": \"person:kai\",\n    \"reviewedAt\": \"2026-10-31T13:59:16.038Z\"\n  },\n  \"relation\": {\n    \"id\": \"rel_000001\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"kind\": \"relates\",\n    \"createdBy\": \"person:kai\",\n    \"createdAt\": \"2026-10-31T13:59:16.038Z\",\n    \"fromProposalId\": \"commons:emmc-not-exposed:relation:0\"\n  },\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "accepted",
+              "createdAt": "2026-10-31T13:59:15.975Z",
+              "reviewedBy": "person:kai",
+              "reviewedAt": "2026-10-31T13:59:16.038Z"
+            },
+            "relation": {
+              "id": "rel_000001",
+              "problemId": "commons:emmc-not-exposed",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "kind": "relates",
+              "createdBy": "person:kai",
+              "createdAt": "2026-10-31T13:59:16.038Z",
+              "fromProposalId": "commons:emmc-not-exposed:relation:0"
+            },
+            "conflict": null
+          }
+        }
+      },
+      {
+        "status": "tool-error",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"error\": \"invalid\",\n  \"message\": \"This proposal has already been reviewed.\",\n  \"detail\": {\n    \"proposalId\": \"commons:emmc-not-exposed:relation:0\",\n    \"status\": \"accepted\",\n    \"reviewedBy\": \"person:kai\"\n  }\n}"
+            }
+          ],
+          "structuredContent": {
+            "error": "invalid",
+            "message": "This proposal has already been reviewed.",
+            "detail": {
+              "proposalId": "commons:emmc-not-exposed:relation:0",
+              "status": "accepted",
+              "reviewedBy": "person:kai"
+            }
+          },
+          "isError": true
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      }
+    ],
+    "final": "accepted",
+    "relations": 1
+  },
+  {
+    "mode": "same-mcp",
+    "i": 10,
+    "results": [
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"accepted\",\n    \"createdAt\": \"2026-10-31T13:59:16.072Z\",\n    \"reviewedBy\": \"person:kai\",\n    \"reviewedAt\": \"2026-10-31T13:59:16.154Z\"\n  },\n  \"relation\": {\n    \"id\": \"rel_000001\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"kind\": \"relates\",\n    \"createdBy\": \"person:kai\",\n    \"createdAt\": \"2026-10-31T13:59:16.154Z\",\n    \"fromProposalId\": \"commons:emmc-not-exposed:relation:0\"\n  },\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "accepted",
+              "createdAt": "2026-10-31T13:59:16.072Z",
+              "reviewedBy": "person:kai",
+              "reviewedAt": "2026-10-31T13:59:16.154Z"
+            },
+            "relation": {
+              "id": "rel_000001",
+              "problemId": "commons:emmc-not-exposed",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "kind": "relates",
+              "createdBy": "person:kai",
+              "createdAt": "2026-10-31T13:59:16.154Z",
+              "fromProposalId": "commons:emmc-not-exposed:relation:0"
+            },
+            "conflict": null
+          }
+        }
+      },
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"rejected\",\n    \"createdAt\": \"2026-10-31T13:59:16.072Z\",\n    \"reviewedBy\": \"person:lea\",\n    \"reviewedAt\": \"2026-10-31T13:59:16.155Z\"\n  },\n  \"relation\": null,\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "rejected",
+              "createdAt": "2026-10-31T13:59:16.072Z",
+              "reviewedBy": "person:lea",
+              "reviewedAt": "2026-10-31T13:59:16.155Z"
+            },
+            "relation": null,
+            "conflict": null
+          }
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      },
+      {
+        "type": "RelationRejected",
+        "actor": "person:lea"
+      }
+    ],
+    "final": "rejected",
+    "relations": 1
+  },
+  {
+    "mode": "same-mcp",
+    "i": 11,
+    "results": [
+      {
+        "status": "tool-success",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"proposal\": {\n    \"id\": \"commons:emmc-not-exposed:relation:0\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"kind\": \"relation\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"relationKind\": \"relates\",\n    \"reason\": \"Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.\",\n    \"confidence\": 0,\n    \"proposedBy\": \"postack-agent\",\n    \"status\": \"accepted\",\n    \"createdAt\": \"2026-10-31T13:59:16.186Z\",\n    \"reviewedBy\": \"person:kai\",\n    \"reviewedAt\": \"2026-10-31T13:59:16.240Z\"\n  },\n  \"relation\": {\n    \"id\": \"rel_000001\",\n    \"problemId\": \"commons:emmc-not-exposed\",\n    \"sourceId\": \"commons:emmc-not-exposed\",\n    \"targetId\": \"commons:ums-drops-during-backup\",\n    \"kind\": \"relates\",\n    \"createdBy\": \"person:kai\",\n    \"createdAt\": \"2026-10-31T13:59:16.240Z\",\n    \"fromProposalId\": \"commons:emmc-not-exposed:relation:0\"\n  },\n  \"conflict\": null\n}"
+            }
+          ],
+          "structuredContent": {
+            "proposal": {
+              "id": "commons:emmc-not-exposed:relation:0",
+              "problemId": "commons:emmc-not-exposed",
+              "kind": "relation",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "relationKind": "relates",
+              "reason": "Unreviewed imported neighbour (source-declared): #99 names #16, #17 and #18 and calls its own failure different.; see original record and evidence.",
+              "confidence": 0,
+              "proposedBy": "postack-agent",
+              "status": "accepted",
+              "createdAt": "2026-10-31T13:59:16.186Z",
+              "reviewedBy": "person:kai",
+              "reviewedAt": "2026-10-31T13:59:16.240Z"
+            },
+            "relation": {
+              "id": "rel_000001",
+              "problemId": "commons:emmc-not-exposed",
+              "sourceId": "commons:emmc-not-exposed",
+              "targetId": "commons:ums-drops-during-backup",
+              "kind": "relates",
+              "createdBy": "person:kai",
+              "createdAt": "2026-10-31T13:59:16.240Z",
+              "fromProposalId": "commons:emmc-not-exposed:relation:0"
+            },
+            "conflict": null
+          }
+        }
+      },
+      {
+        "status": "tool-error",
+        "body": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"error\": \"invalid\",\n  \"message\": \"This proposal has already been reviewed.\",\n  \"detail\": {\n    \"proposalId\": \"commons:emmc-not-exposed:relation:0\",\n    \"status\": \"accepted\",\n    \"reviewedBy\": \"person:kai\"\n  }\n}"
+            }
+          ],
+          "structuredContent": {
+            "error": "invalid",
+            "message": "This proposal has already been reviewed.",
+            "detail": {
+              "proposalId": "commons:emmc-not-exposed:relation:0",
+              "status": "accepted",
+              "reviewedBy": "person:kai"
+            }
+          },
+          "isError": true
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "type": "RelationAccepted",
+        "actor": "person:kai"
+      }
+    ],
+    "final": "accepted",
+    "relations": 1
+  }
+]
