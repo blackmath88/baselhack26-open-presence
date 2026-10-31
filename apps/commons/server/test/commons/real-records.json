@@ -1,0 +1,328 @@
+[
+  {
+    "postackId": "emmc-not-exposed",
+    "title": "The eMMC never appears in U-Boot, so there is nothing to back up",
+    "device": [
+      "PF1007L (Allwinner A33)"
+    ],
+    "environment": [
+      "Route U (U-Boot over FEL)",
+      "Route S (U-Boot from SD)",
+      "larger 30,777,344-sector eMMC"
+    ],
+    "symptoms": [
+      "ums shows only the SD card",
+      "mmc dev 1 fails",
+      "emmc_dev=FAIL",
+      "unable to select a mode: -1"
+    ],
+    "aliases": [
+      "internal storage missing",
+      "only the sd card shows up",
+      "emmc not detected",
+      "backup disk never appears"
+    ],
+    "status": "partly-solved",
+    "statusNote": "Fixed on several units by two different changes, each of which failed on at least one other unit. #99 and #36 are still open.",
+    "evidence": [
+      {
+        "id": "e1",
+        "role": "report",
+        "source": {
+          "snapshotId": "commons-001@0bff55ef3fb2",
+          "objectId": "issue/99",
+          "permalink": "https://github.com/wesbos/photo-frame-dashboard/issues/99",
+          "author": "unknown",
+          "sourceTime": null,
+          "retrievedAt": "2026-10-29T16:19:22.411Z",
+          "digest": null,
+          "locator": null,
+          "availability": "cache-only",
+          "coverageNote": "Test fixture reads record file only; original author, time and digest not resolved."
+        },
+        "quote": "Here it never initialises, so there is nothing to read.",
+        "interpretation": "A January unit fails at `mmc dev 1` in both Route U and Route S, so the host is not the cause."
+      },
+      {
+        "id": "e2",
+        "role": "fix-report",
+        "source": {
+          "snapshotId": "commons-001@0bff55ef3fb2",
+          "objectId": "comment/6175633958",
+          "permalink": "https://github.com/wesbos/photo-frame-dashboard/issues/99#issuecomment-6175633958",
+          "author": "unknown",
+          "sourceTime": null,
+          "retrievedAt": "2026-10-29T16:19:22.411Z",
+          "digest": null,
+          "locator": null,
+          "availability": "cache-only",
+          "coverageNote": "Test fixture reads record file only; original author, time and digest not resolved."
+        },
+        "quote": "The no-HS patch, as you suggested, fixed it here.",
+        "interpretation": "Another January larger-eMMC unit with the same symptom recovered with the no-HS patch."
+      },
+      {
+        "id": "e3",
+        "role": "fix-report",
+        "source": {
+          "snapshotId": "commons-001@0bff55ef3fb2",
+          "objectId": "pull/113",
+          "permalink": "https://github.com/wesbos/photo-frame-dashboard/pull/113",
+          "author": "unknown",
+          "sourceTime": null,
+          "retrievedAt": "2026-10-29T16:19:22.411Z",
+          "digest": null,
+          "locator": null,
+          "availability": "cache-only",
+          "coverageNote": "Test fixture reads record file only; original author, time and digest not resolved."
+        },
+        "quote": "fixed by `docs/patches/pf1007l-v2025.10-no-mmc-hs.patch` (4-bit, 26 MHz, no HS) plus the START STOP correction.",
+        "interpretation": "A merged unit report documents the no-HS fix together with START STOP and the warm-up SPL."
+      },
+      {
+        "id": "e4",
+        "role": "maintainer",
+        "source": {
+          "snapshotId": "commons-001@0bff55ef3fb2",
+          "objectId": "comment/6182698073",
+          "permalink": "https://github.com/wesbos/photo-frame-dashboard/issues/98#issuecomment-6182698073",
+          "author": "unknown",
+          "sourceTime": null,
+          "retrievedAt": "2026-10-29T16:19:22.411Z",
+          "digest": null,
+          "locator": null,
+          "availability": "cache-only",
+          "coverageNote": "Test fixture reads record file only; original author, time and digest not resolved."
+        },
+        "quote": "it rules high-speed timing out on your unit, which narrows it down.",
+        "interpretation": "On a May 20260519 unit the no-HS patch did not help; the maintainer points to the 12 MHz low-power build instead."
+      },
+      {
+        "id": "e5",
+        "role": "fix-report",
+        "source": {
+          "snapshotId": "commons-001@0bff55ef3fb2",
+          "objectId": "comment/6276236728",
+          "permalink": "https://github.com/wesbos/photo-frame-dashboard/issues/98#issuecomment-6276236728",
+          "author": "unknown",
+          "sourceTime": null,
+          "retrievedAt": "2026-10-29T16:19:22.411Z",
+          "digest": null,
+          "locator": null,
+          "availability": "cache-only",
+          "coverageNote": "Test fixture reads record file only; original author, time and digest not resolved."
+        },
+        "quote": "Result: rooted on PF1007L 20260519 (larger eMMC).",
+        "interpretation": "The same unit later rooted with the 12 MHz build and a one-sector edit."
+      },
+      {
+        "id": "e6",
+        "role": "fix-report",
+        "source": {
+          "snapshotId": "commons-001@0bff55ef3fb2",
+          "objectId": "issue/189",
+          "permalink": "https://github.com/wesbos/photo-frame-dashboard/issues/189",
+          "author": "unknown",
+          "sourceTime": null,
+          "retrievedAt": "2026-10-29T16:19:22.411Z",
+          "digest": null,
+          "locator": null,
+          "availability": "cache-only",
+          "coverageNote": "Test fixture reads record file only; original author, time and digest not resolved."
+        },
+        "quote": "Rebuilt with start-stop + linux-12mhz patches (4-bit, 12 MHz, NO_PMIC, 408 MHz): UMS appeared read-only.",
+        "interpretation": "A second May unit exposed the eMMC with the 12 MHz build."
+      },
+      {
+        "id": "e7",
+        "role": "maintainer",
+        "source": {
+          "snapshotId": "commons-001@0bff55ef3fb2",
+          "objectId": "comment/6270081219",
+          "permalink": "https://github.com/wesbos/photo-frame-dashboard/issues/99#issuecomment-6270081219",
+          "author": "unknown",
+          "sourceTime": null,
+          "retrievedAt": "2026-10-29T16:19:22.411Z",
+          "digest": null,
+          "locator": null,
+          "availability": "cache-only",
+          "coverageNote": "Test fixture reads record file only; original author, time and digest not resolved."
+        },
+        "quote": "Still unsolved, so leaving this open.",
+        "interpretation": "The original report remains open; neither fix has been tried there."
+      },
+      {
+        "id": "e8",
+        "role": "synthesis",
+        "source": {
+          "snapshotId": "commons-001@0bff55ef3fb2",
+          "objectId": "docs/pf1007l-start-here.md",
+          "permalink": "https://github.com/wesbos/photo-frame-dashboard/blob/0bff55ef3fb2a3bfdab05bc8e3bd0c9d69f63189/docs/pf1007l-start-here.md",
+          "author": "unknown",
+          "sourceTime": null,
+          "retrievedAt": "2026-10-29T16:19:22.411Z",
+          "digest": null,
+          "locator": "[386, 386]",
+          "availability": "cache-only",
+          "coverageNote": "Test fixture reads record file only; original author, time and digest not resolved."
+        },
+        "quote": "U-Boot never initialises the eMMC",
+        "interpretation": "The maintainer's symptom table lists this row as Unsolved on #99 and names both fixes with their reports."
+      }
+    ],
+    "outcomes": [
+      "No-HS patch: legacy eMMC timing, 4-bit at 26 MHz; January 20260113 larger-eMMC units; May 20260529",
+      "12 MHz low-power build (SUNXI_NO_PMIC, CPU 408 MHz); May 20260519 units where no-HS did not help"
+    ],
+    "related": [
+      {
+        "problemId": "ums-drops-during-backup",
+        "relation": "neighbour",
+        "origin": "source",
+        "evidenceIds": [
+          "e1"
+        ]
+      },
+      {
+        "problemId": "gadget-error-71",
+        "relation": "neighbour",
+        "origin": "postack-agent",
+        "evidenceIds": []
+      }
+    ],
+    "corrections": [],
+    "provenance": {
+      "authoredBy": "agent:claude-opus-5-5",
+      "review": "unreviewed",
+      "originCommit": "9fffa36e04edc7fd76aaa82f36c5f1ef12cea5bf",
+      "snapshotRevision": "0bff55ef3fb2a3bfdab05bc8e3bd0c9d69f63189"
+    }
+  },
+  {
+    "postackId": "gadget-error-71",
+    "title": "U-Boot's USB gadget never enumerates: the host logs error -71",
+    "device": [
+      "PF1007L (Allwinner A33)"
+    ],
+    "environment": [
+      "Route U",
+      "January 20260113 and May 20260519 firmware"
+    ],
+    "symptoms": [
+      "error -71",
+      "ums gadget never enumerates",
+      "FEL and Android ADB still work"
+    ],
+    "aliases": [
+      "usb device not recognised after uboot",
+      "protocol error",
+      "uboot usb fails"
+    ],
+    "status": "unsolved",
+    "statusNote": "Unsolved in the maintainer's table. Its scope there, one May unit, is narrower than the reports (see the correction).",
+    "evidence": [
+      {
+        "id": "e1",
+        "role": "synthesis",
+        "source": {
+          "snapshotId": "commons-001@0bff55ef3fb2",
+          "objectId": "docs/pf1007l-start-here.md",
+          "permalink": "https://github.com/wesbos/photo-frame-dashboard/blob/0bff55ef3fb2a3bfdab05bc8e3bd0c9d69f63189/docs/pf1007l-start-here.md",
+          "author": "unknown",
+          "sourceTime": null,
+          "retrievedAt": "2026-10-29T16:19:22.411Z",
+          "digest": null,
+          "locator": "[390, 390]",
+          "availability": "cache-only",
+          "coverageNote": "Test fixture reads record file only; original author, time and digest not resolved."
+        },
+        "quote": "fail with error `-71`, while FEL and Android ADB work",
+        "interpretation": "The table lists this as Unsolved on one May 20260519 unit, citing #62 and #36."
+      },
+      {
+        "id": "e2",
+        "role": "correction",
+        "source": {
+          "snapshotId": "commons-001@0bff55ef3fb2",
+          "objectId": "comment/6137133782",
+          "permalink": "https://github.com/wesbos/photo-frame-dashboard/issues/12#issuecomment-6137133782",
+          "author": "unknown",
+          "sourceTime": null,
+          "retrievedAt": "2026-10-29T16:19:22.411Z",
+          "digest": null,
+          "locator": null,
+          "availability": "cache-only",
+          "coverageNote": "Test fixture reads record file only; original author, time and digest not resolved."
+        },
+        "quote": "**Route U didn't work on this January (`20260113`, boot `d71c313d`) unit.**",
+        "interpretation": "Posted the day after the issue was closed: on a January unit the gadget never enumerated, with error -71 twice."
+      },
+      {
+        "id": "e3",
+        "role": "report",
+        "source": {
+          "snapshotId": "commons-001@0bff55ef3fb2",
+          "objectId": "comment/6117554951",
+          "permalink": "https://github.com/wesbos/photo-frame-dashboard/issues/12#issuecomment-6117554951",
+          "author": "unknown",
+          "sourceTime": null,
+          "retrievedAt": "2026-10-29T16:19:22.411Z",
+          "digest": null,
+          "locator": null,
+          "availability": "cache-only",
+          "coverageNote": "Test fixture reads record file only; original author, time and digest not resolved."
+        },
+        "quote": "I can't say whether it is a power issue or a patch issue.",
+        "interpretation": "The reporter did not try a powered hub, so the cause is open."
+      },
+      {
+        "id": "e4",
+        "role": "report",
+        "source": {
+          "snapshotId": "commons-001@0bff55ef3fb2",
+          "objectId": "issue/36",
+          "permalink": "https://github.com/wesbos/photo-frame-dashboard/issues/36",
+          "author": "unknown",
+          "sourceTime": null,
+          "retrievedAt": "2026-10-29T16:19:22.411Z",
+          "digest": null,
+          "locator": null,
+          "availability": "cache-only",
+          "coverageNote": "Test fixture reads record file only; original author, time and digest not resolved."
+        },
+        "quote": "Route U U-Boot starts but ums never enumerates",
+        "interpretation": "A May unit on macOS with the same gadget failure."
+      }
+    ],
+    "outcomes": [],
+    "related": [
+      {
+        "problemId": "emmc-not-exposed",
+        "relation": "neighbour",
+        "origin": "postack-agent",
+        "evidenceIds": []
+      },
+      {
+        "problemId": "usb-c-no-data",
+        "relation": "precondition",
+        "origin": "postack-agent",
+        "evidenceIds": []
+      }
+    ],
+    "corrections": [
+      {
+        "id": "e2",
+        "note": "Posted the day after the issue was closed: on a January unit the gadget never enumerated, with error -71 twice.",
+        "evidenceIds": [
+          "e2"
+        ]
+      }
+    ],
+    "provenance": {
+      "authoredBy": "agent:claude-opus-5-5",
+      "review": "unreviewed",
+      "originCommit": "9fffa36e04edc7fd76aaa82f36c5f1ef12cea5bf",
+      "snapshotRevision": "0bff55ef3fb2a3bfdab05bc8e3bd0c9d69f63189"
+    }
+  }
+]
