@@ -25,6 +25,7 @@ import { DOMAIN_KIND_FOR } from './projection.js'
 import { createOutboxDrainer, enqueue, prepareIntent, type PublicationDeps } from './publication.js'
 import { browse, contextPacket, findContribution, loadCommons, prepareContribution, problemView, searchAll, threadView, type LoadedCommons } from './queries.js'
 import { resolveExternal, syncAuthor, type IngestDeps } from './ingestion.js'
+import { visibleRoomEvents } from './read-view.js'
 
 export interface CommonsServiceOptions {
   repository: TransactionalEventRepository
@@ -187,15 +188,17 @@ export function createCommonsService(options: CommonsServiceOptions) {
       authorize(actor, SCOPE_READ)
       return repository.transaction(async tx => {
         const roomId = id.startsWith('commons:') ? id : importedProblemSpaceId(id)
-        const history = await tx.repository.read(roomId)
+        const allHistory = await tx.repository.read()
+        const rawHistory = allHistory.filter(e => e.problemId === roomId)
+        const metadata = commonsMetadata(tx)
+        const history = visibleRoomEvents(allHistory, metadata).filter(e => e.problemId === roomId)
         const state = project(history)
         if (!state) throw notFound('Room', id)
-        const metadata = commonsMetadata(tx)
         const source = metadata.sources[roomId.slice('commons:'.length)]
         const edgeProvenance = (proposalId?: string) => proposalId && metadata.edges[proposalId]
           ? metadata.edges[proposalId] : { origin: 'machine-proposal' as const, evidenceIds: [] }
         return {
-          ...state, version: history.length, history, source: source ? structuredClone(source) : null,
+          ...state, version: rawHistory.length, history, source: source ? structuredClone(source) : null,
           proposals: state.proposals.map(p => ({ ...p, ...edgeProvenance(p.id) })),
           relations: state.relations.map(r => ({ ...r, ...edgeProvenance(r.fromProposalId), reviewedBy: r.createdBy })),
           contributions: state.contributions.map(c => ({ ...c, submission: metadata.submissions[c.id] ?? null })),
