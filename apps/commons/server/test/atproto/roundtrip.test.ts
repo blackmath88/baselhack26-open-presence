@@ -54,6 +54,18 @@ describe('isolated PDS round-trip', () => {
   let aliceCid = ''
   const aliceRkey = nextTid()
 
+  it('refuses a preview for a different account or service before creating a record', async () => {
+    if (guard()) return
+    const built = adapter.buildRecord(buildInput())
+    const rkey = nextTid()
+    const request = { actorId: 'person:kai', collection: built.collection, rkey, record: built.record, digest: built.digest }
+    expect(await adapter.publisher.reconcileOrCreate({ ...request, expectedSession: { did: bob.did, service: network!.pdsUrl } }))
+      .toMatchObject({ outcome: 'unreachable', error: expect.stringMatching(/account.*changed/i) })
+    expect(await adapter.publisher.reconcileOrCreate({ ...request, expectedSession: { did: alice.did, service: 'http://different.test' } }))
+      .toMatchObject({ outcome: 'unreachable', error: expect.stringMatching(/account.*changed/i) })
+    expect(await adapter.reader.getRecord(`at://${alice.did}/${built.collection}/${rkey}`)).toMatchObject({ status: 'missing' })
+  }, 20_000)
+
   it('publishes once and reconciles a repeat at the same key as existing', async () => {
     if (guard()) return
     const built = adapter.buildRecord(buildInput())
@@ -129,7 +141,7 @@ describe('isolated PDS round-trip', () => {
       const tail = await adapter.reader.listRecords(bob.did, built.collection, listedB.page.cursor, 10)
       expect(tail).toMatchObject({ status: 'page', page: { records: [] } })
     }
-  })
+  }, 20_000)
 
   it('paginates listRecords with a cursor', async () => {
     if (guard()) return
