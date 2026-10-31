@@ -5,6 +5,8 @@ BaselHack 2026 · Updated 31 October 2026
 
 Start with [the current concept](HUMAN-SIGNAL-CONCEPT.md).
 
+**[Open the live Observatory →](https://blackmath88.github.io/baselhack26-open-presence/)** — project direction, event countdown, declared milestones, remaining work and repository activity. The dashboard shows the published snapshot; it is separate from the local Commons app and NUC memory graph.
+
 ## The value we deliver
 
 **Find experience that fits your situation. Understand its limits. Leave something useful for the next person.**
@@ -32,9 +34,9 @@ The new plan advances the earlier local-draft-only target to a functioning local
 ## Hackathon project management
 - [Project and time plan](HACKATHON-PLAN.md) — milestones, acceptance criteria, Saturday/Sunday targets and scope cuts.
 - [Observstory dashboard and guide](OBSERVSTORY.md) — evidence-backed activity, overlaps and check-ins.
-- [Latest dashboard runs](https://github.com/blackmath88/baselhack26-open-presence/actions/workflows/observstory.yml) — download the dashboard and repository-growth replay. Pages deployment is prepared; see the guide for activation.
+- [Latest dashboard runs](https://github.com/blackmath88/baselhack26-open-presence/actions/workflows/observstory.yml) — download the dashboard and repository-growth replay. The dashboard is published automatically from `main`.
 
-Suggested schedule times are planning targets; the official submission deadline is not yet established.
+Suggested schedule times remain planning targets. The supplied event timetable declares hands-off on Sunday, 1 November at 12:00 Europe/Zurich; submission/upload details remain open.
 
 ## What we are building
 A real **Photo Frame Commons** pilot around [wesbos/photo-frame-dashboard](https://github.com/wesbos/photo-frame-dashboard): find a relevant experience, inspect its circumstances and original conversation, explore connections, and contribute a short observation back through a reviewable local draft.
