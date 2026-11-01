@@ -1,5 +1,5 @@
 # Hackathon plan — Photo Frame Commons
-31 October–1 November 2026 · Europe/Zurich (UTC+01:00)
+Build weekend: 31 October–1 November 2026 · Event: 30 October–1 November · Europe/Zurich (UTC+01:00)
 
 ## Current build direction — 31 October
 
@@ -8,7 +8,7 @@ Achim requested building the working loop from **br-ai-nstorm's existing applica
 - [Claude / Orca build plan](docs/build/CLAUDE-ORCA-BUILD.md): pinned inputs, parallel task packets, ownership and acceptance gates.
 - [Launch prompt](docs/build/CLAUDE-ORCA-PROMPT.md): coordinator instructions.
 
-The new plan advances the earlier local-draft-only target to a functioning local shared room with explicit submission and second-session rediscovery. It takes precedence over older static-only implementation suggestions for this build. The historical schedule below remains a proposal, not evidence of completion or a revised deadline. No implementation or worker dispatch is claimed by this documentation update.
+The new plan advances the earlier local-draft-only target to a functioning local shared room with explicit submission and second-session rediscovery. It takes precedence over older static-only implementation suggestions for this build. The historical schedule below remains a proposal, not evidence of completion or a revised deadline. The original brief did not claim implementation or dispatch; the Current state section below records the subsequent integrated build.
 
 ## Finish line
 One person can ask a real photo-frame question, inspect relevant experiences and their limits, follow original sources, explore attributable connections, and draft a small follow-up without publishing it.
@@ -16,12 +16,18 @@ One person can ask a real photo-frame question, inspect relevant experiences and
 Alongside that, explore a passage-grounded graph in Knowledge Lab. The user experience must remain usable from a local snapshot if the lab is unavailable. Adobe/PDF is an optional presentation, not a prerequisite.
 
 ## Current state
-Concept and repo scope are established. Implementation, corpus import and live graph results are not marked complete. Knowledge Lab has prior work on continuation branches; its runtime must be checked rather than inferred from its older main README.
+The local Commons implementation and multi-entry continuation are merged: 18 imported problem rooms, evidence inspection, repository browsing, search, shared contribution history, CLI/MCP and ATProto against an isolated local PDS. Publication and legacy moderation-read repairs are included. Combined checks: 188 tests, typecheck, index reproduction, build and both server smoke scripts pass. See [DEMO.md](DEMO.md) and [integration evidence](evidence/MODERATION-READS-20261031.md).
 
-NOW: select the bounded corpus for “My Mac cannot see my frame,” check Knowledge Lab's active state, and agree the export boundary.
+NOW: build on the consolidated main branch; run the real user journey and address usability gaps. Existing app UI remains the starting point. Knowledge Lab integration, cross-room Map edges, production identity and public activation are separate unfinished work; no live graph-service state or human UX acceptance is claimed.
+
+## Event timetable and project view
+
+The supplied event timetable sets **Sunday 1 November, 12:00 — Hands off!** and **13:00 — Pitching Info + Presentations**. See [the full timetable](EVENT-TIMETABLE.md) and machine-readable [.observstory/event.json](.observstory/event.json). These are user-supplied event times; independent organiser verification and the individual pitch/submission procedure remain open.
+
+The Observatory project view should combine current concept/decisions/research, remaining work, evidence of completion, dependencies, owners where declared, internal checkpoints and the event clock. Repository activity is one input; quiet activity does not mean an empty project or completed work. Implementation is to extend Claude's existing Observstory redesign, not start a parallel visual rewrite.
 
 ## Suggested time plan
-These are assistant-proposed working targets, **not official event deadlines or commitments made by Achim**. Sunday submission time is unknown. Bring the freeze/rehearsal forward if the real event cutoff is earlier. Owners remain unassigned until a check-in.
+These are assistant-proposed working targets, **not official event deadlines or commitments made by Achim**. The supplied event timetable establishes Sunday 12:00 hands-off. Internal Sunday targets below have been revised to fit before it; previous 13:00 feature freeze and 15:00 rehearsal are superseded proposals. Owners remain unassigned until a check-in. Earlier Saturday targets remain historical proposals, not completion claims.
 
 | Block (Zurich) | Focus | Exit evidence |
 | --- | --- | --- |
@@ -33,12 +39,15 @@ These are assistant-proposed working targets, **not official event deadlines or 
 | Sat 16:20–19:00 | M3/M4: contribution and graph | Local draft/preview; separately, first inspectable graph or recorded blocker |
 | Sat 19:00–20:00 | Integration and handoff | Same source IDs in the views; durable notes for tomorrow |
 | Sat after 20:00 | Optional play/rest | No critical dependency on an overnight run |
-| Sun 09:00–11:00 | M5: complete and test | Three real questions; failure states, mobile/keyboard, persistence |
-| Sun 11:00–12:00 | Try it with a person | Can they explain applicability, disagreement and an unknown? |
-| Sun 12:00–13:00 | Fix and reduce scope | Repair the demonstrated journey; remove unfinished claims |
-| Sun 13:00 | Feature freeze | No new features; fixes, evidence and presentation only |
-| Sun 13:00–15:00 | M6: demo and buffer | Reproducible local demo, standalone story, optional PDF opening |
-| Sun 15:00 | Rehearsal target | Run end to end and state exactly what is real |
+| Sun 09:00–10:00 | Integration | Run the shared journey; identify remaining blockers |
+| Sun 10:00–10:30 | Checkpoint and scope cut | Keep only work needed for a credible working demo |
+| Sun 10:30 | Internal feature freeze (proposed) | Fixes and verification; no new features |
+| Sun 10:30–11:15 | Final verification | Acceptance evidence, fallback snapshot, documented limits |
+| Sun 11:15–11:40 | Rehearsal and handoff | Run the demo; record what is real and what is unfinished |
+| Sun 11:40–12:00 | Buffer before hands-off | Follow organiser submission instructions; no new scope |
+| Sun 12:00 | Event hands-off (supplied timetable) | Stop hacking; completion is not inferred from the clock |
+| Sun 12:00–13:00 | Event lunch | Lobby / Foyer |
+| Sun 13:00 | Pitching Info + Presentations | Main Presentation Room; individual slot unknown |
 
 If starting late, retain the sequence and reduce breadth; do not compress validation to preserve extra features.
 

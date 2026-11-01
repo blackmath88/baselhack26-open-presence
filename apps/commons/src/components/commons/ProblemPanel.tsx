@@ -26,6 +26,7 @@ export function ProblemPanel({ token, problemId, actorId, canReview, focus, mode
   const [error, setError] = useState<string | null>(null)
   const [version, setVersion] = useState(0)
   const [composer, setComposer] = useState<{ relation: Relation; parent?: { id: string; label: string } } | null>(null)
+  const [citing, setCiting] = useState<string | undefined>(undefined)
   const load = useCallback(() => {
     commonsApi.problem(token, problemId).then((v) => { setView(v); setError(null) }, (e) => setError(e instanceof Error ? e.message : 'Could not load the problem.'))
   }, [token, problemId])
@@ -43,7 +44,7 @@ export function ProblemPanel({ token, problemId, actorId, canReview, focus, mode
     <div className="commons-problem">
       <div className="commons-detail">
         <div>
-          <Record problem={view.problem} />
+          <Record problem={view.problem} citations={view.evidenceCitations} shared={view.sharedSources} onCite={(id) => { setComposer(null); setCiting(id) }} />
           <section aria-label="Conversation" className="commons-conversation">
             <h3>
               Experiences and conversation · {view.contributions.length}
@@ -67,7 +68,7 @@ export function ProblemPanel({ token, problemId, actorId, canReview, focus, mode
             <Composer key={`${composer.relation}:${composer.parent?.id ?? ''}`} token={token} problem={view} relation={composer.relation} parent={composer.parent ?? null}
               onSubmitted={(r) => { setComposer(null); refresh(); onSubmitted(r.problemId) }} onCancel={() => setComposer(null)} />
           ) : (
-            <Composer key="root" token={token} problem={view} relation="root" onSubmitted={(r) => { refresh(); onSubmitted(r.problemId) }} />
+            <Composer key={`root:${citing ?? ''}`} token={token} problem={view} relation="root" {...(citing ? { focusEvidence: citing } : {})} onSubmitted={(r) => { setCiting(undefined); refresh(); onSubmitted(r.problemId) }} />
           )}
           <p className="commons-limit">
             Deep links: <a href={appLinks.problem(problemId)}>this problem</a> · <a href={appLinks.repository()}>repository</a>. Room version {view.version}.

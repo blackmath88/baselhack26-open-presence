@@ -1,0 +1,6 @@
+__pycache__/
+evidence/*.png
+evidence/previews/*.png
+evidence/recovered/
+output/bends/
+recovered/

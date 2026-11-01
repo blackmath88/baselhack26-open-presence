@@ -1,0 +1,93 @@
+%PDF-1.4
+% PDF LAB - authored ASCII specimen
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /H 4 0 R >>  >> /Contents 5 0 R  >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 2305  >>
+stream
+0.08 0.14 0.24 rg
+BT /H 11 Tf 1 0 0 1 48 741 Tm (PDF LAB / 08) Tj ET
+BT /H 30 Tf 1 0 0 1 48 697 Tm (Pictures that add.) Tj ET
+BT /H 12 Tf 1 0 0 1 48 663 Tm (A toy bitmap machine, built entirely from NAND operations.) Tj ET
+0.08 0.14 0.24 rg
+BT /H 18 Tf 1 0 0 1 48 590 Tm (N = NAND\(A, B\)) Tj ET
+BT /H 18 Tf 1 0 0 1 48 552 Tm (L = NAND\(A, N\)     R = NAND\(B, N\)) Tj ET
+BT /H 18 Tf 1 0 0 1 48 514 Tm (SUM = NAND\(L, R\)) Tj ET
+BT /H 18 Tf 1 0 0 1 48 476 Tm (CARRY = NAND\(N, N\)) Tj ET
+BT /H 18 Tf 1 0 0 1 48 382 Tm (A       B       SUM     CARRY) Tj ET
+0.90 0.92 0.95 rg 48 326 32 32 re f
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 59 336 Tm (0) Tj ET
+0.90 0.92 0.95 rg 156 326 32 32 re f
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 167 336 Tm (0) Tj ET
+0.90 0.92 0.95 rg 264 326 32 32 re f
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 275 336 Tm (0) Tj ET
+0.90 0.92 0.95 rg 372 326 32 32 re f
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 383 336 Tm (0) Tj ET
+0.90 0.92 0.95 rg 48 280 32 32 re f
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 59 290 Tm (0) Tj ET
+0.10 0.70 0.45 rg 156 280 32 32 re f
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 167 290 Tm (1) Tj ET
+0.10 0.70 0.45 rg 264 280 32 32 re f
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 275 290 Tm (1) Tj ET
+0.90 0.92 0.95 rg 372 280 32 32 re f
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 383 290 Tm (0) Tj ET
+0.10 0.70 0.45 rg 48 234 32 32 re f
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 59 244 Tm (1) Tj ET
+0.90 0.92 0.95 rg 156 234 32 32 re f
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 167 244 Tm (0) Tj ET
+0.10 0.70 0.45 rg 264 234 32 32 re f
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 275 244 Tm (1) Tj ET
+0.90 0.92 0.95 rg 372 234 32 32 re f
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 383 244 Tm (0) Tj ET
+0.10 0.70 0.45 rg 48 188 32 32 re f
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 59 198 Tm (1) Tj ET
+0.10 0.70 0.45 rg 156 188 32 32 re f
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 167 198 Tm (1) Tj ET
+0.90 0.92 0.95 rg 264 188 32 32 re f
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 275 198 Tm (0) Tj ET
+0.10 0.70 0.45 rg 372 188 32 32 re f
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 383 198 Tm (1) Tj ET
+BT /H 11 Tf 1 0 0 1 48 114 Tm (In the workbench, every pixel is an independent one-bit half-adder.) Tj ET
+BT /H 10 Tf 1 0 0 1 48 88 Tm (This is our own Boolean simulator, not JBIG2 and not an exploit reproduction.) Tj ET
+
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000045 00000 n 
+0000000094 00000 n 
+0000000151 00000 n 
+0000000278 00000 n 
+0000000348 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+2706
+%%EOF

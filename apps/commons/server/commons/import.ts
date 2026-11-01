@@ -1,6 +1,6 @@
 /** Bounded Postack bridge. Source text lives in metadata, never participant events. */
 import { createHash, randomUUID } from 'node:crypto'
-import type { AssistanceDeclaration, CommonsContributionKind, EdgeOrigin, ExternalAvailability, ImportedProblem, PublicationIntent, PublicationReceipt, Ref } from '../../src/commons/contracts.js'
+import type { AssistanceDeclaration, CommonsContributionKind, EdgeOrigin, ExternalAvailability, ImportedProblem, PublicationIntent, PublicationReceipt, Ref, SubmitEntrance } from '../../src/commons/contracts.js'
 import { COMMONS_SCHEMA_VERSION, importedContributionId, importedProblemSpaceId } from '../../src/commons/contracts.js'
 import { makeEvent, systemClock, type Clock, type MemoryEvent } from '../domain/events.js'
 import { conflictError, invalid } from '../domain/errors.js'
@@ -23,6 +23,10 @@ export interface SubmissionMeta {
   supersedes?: Ref
   contradicts?: Ref
   observedAt?: string
+  entrance?: SubmitEntrance
+  evidenceIds?: string[]
+  /** Server-resolved display name of the submitting participant at submission time; never client-supplied. */
+  authorName?: string
 }
 /** One observed remote record. Our copy is an attributed observation, never authority over the author's content. */
 export interface ExternalObservation {

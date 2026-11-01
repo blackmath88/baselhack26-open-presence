@@ -2,7 +2,7 @@
  * Unknown identity fields are stripped; authorization always comes from the session.
  */
 import * as z from 'zod/v4'
-import { ASSISTANCE_DECLARATIONS, COMMONS_CONTRIBUTION_KINDS } from '../../src/commons/contracts.js'
+import { ASSISTANCE_DECLARATIONS, COMMONS_CONTRIBUTION_KINDS, SUBMIT_ENTRANCES } from '../../src/commons/contracts.js'
 import { invalid } from '../domain/errors.js'
 
 const id = z.string().min(1).refine(value => value.trim().length > 0, 'Must not be blank')
@@ -12,6 +12,8 @@ const contributionInput = z.object({
     kind: z.enum(COMMONS_CONTRIBUTION_KINDS).optional(),
     circumstances: z.string().max(2000).optional(),
     sourceRefs: z.array(z.string()).max(50).optional().describe('objectIds from the problem evidence, e.g. issue/99'),
+    entrance: z.enum(SUBMIT_ENTRANCES).optional(),
+    evidenceIds: z.array(z.string()).max(50).optional().describe('Exact evidence passages, e.g. e2.'),
     assistance: z.enum(ASSISTANCE_DECLARATIONS).optional(),
     preparedBy: id.max(200).optional().describe('Model or agent that drafted the text.'),
     parentId: id.optional().describe('Reply target: a contribution id or an ingested at:// URI in the same problem.'),

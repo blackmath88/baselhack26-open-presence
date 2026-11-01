@@ -1,0 +1,191 @@
+{
+  "schema": "observstory.event-schedule/v0",
+  "title": "BaselHack 2026 · Event timetable",
+  "timezone": "Europe/Zurich",
+  "starts_on": "2026-10-30",
+  "ends_on": "2026-11-01",
+  "source": {
+    "kind": "user_supplied_event_timetable",
+    "provided_by": "Achim",
+    "recorded_at": "2026-10-31T14:24:45+01:00",
+    "independently_verified": false,
+    "note": "Event times transcribed from the timetable supplied in the project conversation. Calendar dates derived from Friday/Saturday/Sunday of this event weekend. Exact, approximate and after times are preserved."
+  },
+  "coding_deadline": {
+    "event_id": "sun-hands-off",
+    "at": "2026-11-01T12:00:00+01:00",
+    "label": "Hands off!",
+    "basis": "supplied_event_timetable",
+    "note": "End of hacking. Submission method, upload cutoff details and individual pitch slot are not specified."
+  },
+  "events": [
+    {
+      "id": "fri-registration",
+      "source_day": "Friday",
+      "source_time": "17:00",
+      "label": "Get-In / Registration",
+      "location": "Entrance Location @Memox Basel SBB",
+      "start_at": "2026-10-30T17:00:00+01:00",
+      "precision": "exact"
+    },
+    {
+      "id": "fri-opening",
+      "source_day": "Friday",
+      "source_time": "18:00",
+      "label": "Opening Presentation, Pitch Presentation",
+      "location": "Presentation Room",
+      "start_at": "2026-10-30T18:00:00+01:00",
+      "precision": "exact"
+    },
+    {
+      "id": "fri-challenges",
+      "source_day": "Friday",
+      "source_time": "18:45",
+      "label": "Challenge pitches",
+      "location": "Presentation Room",
+      "start_at": "2026-10-30T18:45:00+01:00",
+      "precision": "exact"
+    },
+    {
+      "id": "fri-teambuilding-dinner",
+      "source_day": "Friday",
+      "source_time": "19:45",
+      "label": "Teambuilding + Dinner",
+      "location": "Lobby / Foyer",
+      "start_at": "2026-10-30T19:45:00+01:00",
+      "precision": "exact"
+    },
+    {
+      "id": "fri-hacking-start",
+      "source_day": "Friday",
+      "source_time": "> 20:30",
+      "label": "Teambuilding End + Start Hacking",
+      "location": "Assigned Team Rooms",
+      "start_at": "2026-10-30T20:30:00+01:00",
+      "precision": "after"
+    },
+    {
+      "id": "fri-snacks",
+      "source_day": "Friday",
+      "source_time": "~ 21:00",
+      "label": "Drinks + Snacks",
+      "location": "Lobby / Foyer",
+      "start_at": "2026-10-30T21:00:00+01:00",
+      "precision": "approximate"
+    },
+    {
+      "id": "sat-breakfast",
+      "source_day": "Saturday",
+      "source_time": "08:00–09:00",
+      "label": "Breakfast",
+      "location": "Foyer / Lobby",
+      "start_at": "2026-10-31T08:00:00+01:00",
+      "precision": "exact",
+      "end_at": "2026-10-31T09:00:00+01:00"
+    },
+    {
+      "id": "sat-lunch",
+      "source_day": "Saturday",
+      "source_time": "12:00–13:00",
+      "label": "Lunch",
+      "location": "Lobby / Foyer",
+      "start_at": "2026-10-31T12:00:00+01:00",
+      "precision": "exact",
+      "end_at": "2026-10-31T13:00:00+01:00"
+    },
+    {
+      "id": "sat-dinner",
+      "source_day": "Saturday",
+      "source_time": "18:00–19:30",
+      "label": "Dinner",
+      "location": "Lobby / Foyer",
+      "start_at": "2026-10-31T18:00:00+01:00",
+      "precision": "exact",
+      "end_at": "2026-10-31T19:30:00+01:00"
+    },
+    {
+      "id": "sat-midnight-pushups",
+      "source_day": "Saturday",
+      "source_time": "00:00",
+      "label": "Voluntary \"Midnight-Pushups\" (:",
+      "location": "Presentation Room",
+      "start_at": "2026-11-01T00:00:00+01:00",
+      "precision": "day_boundary_assumed",
+      "optional": true
+    },
+    {
+      "id": "sun-breakfast",
+      "source_day": "Sunday",
+      "source_time": "08:00–09:00",
+      "label": "Breakfast",
+      "location": "Lobby / Foyer",
+      "start_at": "2026-11-01T08:00:00+01:00",
+      "precision": "exact",
+      "end_at": "2026-11-01T09:00:00+01:00"
+    },
+    {
+      "id": "sun-hands-off",
+      "source_day": "Sunday",
+      "source_time": "12:00",
+      "label": "Hands off!",
+      "location": "Assigned Team Rooms",
+      "start_at": "2026-11-01T12:00:00+01:00",
+      "precision": "exact",
+      "kind": "coding_deadline"
+    },
+    {
+      "id": "sun-lunch",
+      "source_day": "Sunday",
+      "source_time": "12:00–13:00",
+      "label": "Lunch",
+      "location": "Lobby / Foyer",
+      "start_at": "2026-11-01T12:00:00+01:00",
+      "precision": "exact",
+      "end_at": "2026-11-01T13:00:00+01:00"
+    },
+    {
+      "id": "sun-presentations",
+      "source_day": "Sunday",
+      "source_time": "13:00",
+      "label": "Pitching Info + Presentations",
+      "location": "Main Presentation Room",
+      "start_at": "2026-11-01T13:00:00+01:00",
+      "precision": "exact"
+    },
+    {
+      "id": "sun-photo",
+      "source_day": "Sunday",
+      "source_time": "~ 15:15",
+      "label": "Group Photo",
+      "location": "Lobby / Foyer",
+      "start_at": "2026-11-01T15:15:00+01:00",
+      "precision": "approximate"
+    },
+    {
+      "id": "sun-awards",
+      "source_day": "Sunday",
+      "source_time": "15:30",
+      "label": "Awarding",
+      "location": "Lobby / Foyer",
+      "start_at": "2026-11-01T15:30:00+01:00",
+      "precision": "exact"
+    },
+    {
+      "id": "sun-end",
+      "source_day": "Sunday",
+      "source_time": "16:00",
+      "label": "Event End / Networking",
+      "location": "Entrance",
+      "start_at": "2026-11-01T16:00:00+01:00",
+      "precision": "exact"
+    }
+  ],
+  "diagnostics": [
+    {
+      "code": "midnight_day_boundary",
+      "severity": "warning",
+      "event_id": "sat-midnight-pushups",
+      "message": "00:00 appears in the Saturday programme. Provisionally normalized as the end of Saturday (Sunday 1 November 00:00); confirm with organisers."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const {locations,hexWindow}=require('./cabinet.js');
+const get=n=>new Uint8Array(fs.readFileSync(path.join(__dirname,'output/pdf',n)));
+const mystery=get('05-object-17.pdf'),loc=locations(mystery);
+assert(loc.last>loc.first);assert(loc.xref>loc.last);
+assert.equal(Buffer.from(mystery.slice(loc.first,loc.first+8)).toString(),'17 0 obj');
+assert.equal(Buffer.from(mystery.slice(loc.xref,loc.xref+4)).toString(),'xref');
+assert(locations(get('04-two-identities.pdf')).zip>0);
+assert.equal(locations(get('01-one-letter.pdf')).first,null);
+assert(hexWindow(Uint8Array.from([0,60,62,255])).includes('00 3c 3e ff'));
+assert(hexWindow(Uint8Array.from([65,66]),999).includes('42'));
+assert.equal(hexWindow(new Uint8Array()),'');
+assert(!hexWindow(mystery,-1).includes('undefined'));
+console.log('Byte inspector: real xref/object/ZIP locations, hex display and edge cases passed.');

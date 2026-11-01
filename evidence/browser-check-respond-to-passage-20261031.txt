@@ -1,0 +1,25 @@
+Browser check — respond to a passage from the record (NUC window 2026-10-31 ~20:41 CET, Claude Code, self-run)
+Setup: temp data, API 127.0.0.1:8799, Vite dev 127.0.0.1:5199, headless Chromium driven by a CDP script (click, type via native input event, Preview, Submit), signed in as Mara.
+
+== Steps and observations (usb-c-no-data, passage e2)
+click: ok
+focused banner: Responding to passage e2 (correction) of doc/docs/pf1007l-start-here.md: “Treat the cable recommendation as a reliable starting point, rather than proof”
+checked passages: passage e2 · correction · L116-L117 · “T
+type: typed (autofocused)
+preview: ok
+preview line: Destination: local shared room on this server (participants who sign in here); not GitHub; room commons:usb-c-no-data. none: publishing to an ATProto repository is a separate, explicit step after submission
+
+Exact content: saffron-31: line 116 fixed it for me with a data-rated cable
+
+kind observation · prepared: none · cites doc/docs/pf1007l-start-here.md (exact passages e2)
+
+Submit to shared room
+submit: ok
+status: 
+evidence after: 0: - || 1: observation by Mara · via browser · 2026-10-31 · cites doc/docs/pf1007l-start-here.md (passage e2) · problem usb-c-no-data “saffron-31: line 116 fixed it for me with a data-rated cable” — no replies yet || 2: - || 3: - || 4: - || 5: - || 6: -
+
+== Rediscovery from another entrance: CLI as Kai, search saffron-31 → (displayName, entrance, sourceRefs)
+[('Mara', 'browser', ['doc/docs/pf1007l-start-here.md'])]
+
+Phone width (390px, mobile emulation): evidence/browser-phone-usb-c-evidence.png — evidence items, 'Respond to this passage' buttons and the cited-by list wrap without horizontal overflow (visual inspection).
+Preview screenshot: evidence/browser-respond-to-passage-preview.png. Not checked: keyboard-only traversal, screen readers.

@@ -1,0 +1,42 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "pdf-lab-two-poems-20261031",
+  "kind": "finding",
+  "title": "Two original readings can share identical mapped-artwork pixels in two engine families",
+  "statement": "The PDF worker reports that two original four-line poems share the same Type 3 line glyphs, with only the ToUnicode object changed between specimens. MuPDF and Poppler extract the intended different strings, and each engine renders the two mapped PDFs pixel-identically. Poppler concatenates or reorders the mapped lines. Draft PR #17, head 9ecbabd.",
+  "author": {
+    "name": "Codex (PDF worker); filed by Claude Code coordinator",
+    "kind": "assistant",
+    "via": "NUC build window 2026-10-31"
+  },
+  "submitted_at": "2026-10-31T20:28:00+01:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "b1af0128bfd48e5d6e8b8579f790858636b7d087",
+    "context_packet_id": "cp_2212467273a1e0bb3e2a0847"
+  },
+  "evidence": [
+    {
+      "path": "sideprojects/pdf-lab/evidence/poems-results.json"
+    },
+    {
+      "path": "sideprojects/pdf-lab/evidence/poems-browser-results.json"
+    },
+    {
+      "path": "sideprojects/pdf-lab/TWO-POEMS.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/poems.py"
+    }
+  ],
+  "conditions": [
+    "Evidence paths exist on PR #17 (turn 1 head 9ecbabd0a2272b86736cf6ef5d0d2bb66687b3ca; latest head 169714867da4e5a13cf9be8127c20469db882545 adds a transformation notebook, a minimised Ghostscript multi-character mapping loss at 24ae931 and a static source audit consistent with it), not on main.",
+    "Authored shortened ASCII fixtures and the named engine versions only; equality is within each engine.",
+    "Native interactive viewers, OCR and print/rewrite survival are unqualified.",
+    "Worker self-verification; the coordinator did not rerun these checks.",
+    "The Ghostscript source-path explanation (writer adds simple-font ToUnicode entries only for decoded length <=2 bytes) is a static reading of pinned source consistent with the A/Z/SEA observations, not an executed root-cause proof."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}

@@ -10,7 +10,7 @@ import { parseOperation } from './operation-schemas.js'
 import type {
   CommonsContribution, ImportedProblem, ModeratedContribution, Ref, ReviewCommand, SubmitContributionCommandV2,
 } from '../../src/commons/contracts.js'
-import { COMMONS_SCHEMA_VERSION, importedProblemSpaceId, isModerated } from '../../src/commons/contracts.js'
+import { COMMONS_SCHEMA_VERSION, SUBMIT_ENTRANCES, importedProblemSpaceId, isModerated } from '../../src/commons/contracts.js'
 import type { ActorContext } from '../auth/actor-context.js'
 import { hasScope, SCOPE_CONTRIBUTE, SCOPE_READ, SCOPE_REVIEW } from '../auth/actor-context.js'
 import { createContributionService } from '../application/contribution-service.js'
@@ -109,11 +109,14 @@ export function createCommonsService(options: CommonsServiceOptions) {
       input = parseOperation('submit_contribution', input)
       authorize(actor, SCOPE_CONTRIBUTE)
       if (!input || typeof input !== 'object') throw invalid('Invalid contribution command.')
-      const snapshot = structuredClone(input) as SubmitContributionCommandV2
+      const { entrance, ...snapshot } = structuredClone(input) as SubmitContributionCommandV2
+      if (entrance !== undefined && !(SUBMIT_ENTRANCES as readonly unknown[]).includes(entrance)) throw invalid(`entrance must be one of ${SUBMIT_ENTRANCES.join(', ')}.`)
+      // The entrance is transport metadata: a retry through another entrance replays instead of conflicting.
       return repository.transaction(tx => command(tx, actor, snapshot.commandId, { type: 'submit', command: snapshot }, async () => {
         const postackId = text(snapshot.problemId, 'problemId')
         const ctx = await loaded(tx)
         if (!ctx.metadata.sources[postackId]) throw notFound('Imported problem', postackId)
+        if (snapshot.sourceRefs !== undefined && (!Array.isArray(snapshot.sourceRefs) || snapshot.sourceRefs.some(s => typeof s !== 'string'))) throw invalid('sourceRefs must be a string array.')
         if (snapshot.preparedBy !== undefined) text(snapshot.preparedBy, 'preparedBy')
         const prepared = prepareContribution(ctx.loaded, ctx.metadata, snapshot)
         if (!prepared.ok || !prepared.command) throw invalid(prepared.errors.join(' '), { errors: prepared.errors })
@@ -132,6 +135,9 @@ export function createCommonsService(options: CommonsServiceOptions) {
           ...(cmd.circumstances !== undefined ? { circumstances: cmd.circumstances } : {}),
           ...(parent ? { parent } : {}), ...(supersedes ? { supersedes } : {}), ...(contradicts ? { contradicts } : {}),
           ...(cmd.observedAt ? { observedAt: cmd.observedAt } : {}),
+          ...(entrance ? { entrance } : {}),
+          ...(cmd.evidenceIds?.length ? { evidenceIds: [...cmd.evidenceIds] } : {}),
+          ...(actor.displayName ? { authorName: actor.displayName } : {}),
         }
         return { ...result, problemId: importedProblemSpaceId(postackId), contributionId: result.contribution.id, links: { app: `#/contributions/${encodeURIComponent(result.contribution.id)}` } }
       }))
@@ -218,9 +224,9 @@ export function createCommonsService(options: CommonsServiceOptions) {
       text(input?.query, 'query')
       return read(actor, ctx => searchAll(ctx.loaded, ctx.metadata, input))
     },
-    browseRepository(actor: ActorContext, input: Parameters<typeof browse>[1] = {}) {
+    browseRepository(actor: ActorContext, input: Parameters<typeof browse>[2] = {}) {
       input = parseOperation('browse_repository', input)
-      return read(actor, ctx => browse(ctx.metadata, input))
+      return read(actor, ctx => browse(ctx.loaded, ctx.metadata, input))
     },
     getProblem(actor: ActorContext, id: string) {
       id = parseOperation('get_problem', { problemId: id }).problemId

@@ -1,0 +1,2057 @@
+{
+  "date": "2026-10-31",
+  "scope": "Saved default configurations; no interactive viewer qualification",
+  "versions": {
+    "PyMuPDF": "1.26.6",
+    "MuPDF": "1.26.11",
+    "PDFium": "156.0.8076.0",
+    "pypdfium2": "5.14.0",
+    "Poppler": "pdftoppm version 26.05.0\nCopyright 2005-2026 The Poppler Developers - http://poppler.freedesktop.org\nCopyright 1996-2011, 2022 Glyph & Cog, LLC"
+  },
+  "checks": {
+    "identical_page_streams": true
+  },
+  "rows": [
+    {
+      "state": "000",
+      "sha256": "a9c44755d60f12b9876a308c4f25573b92f2696ee3980a8c6e5419629d67838d",
+      "expected": {
+        "A": false,
+        "B": false,
+        "C": false,
+        "gate": false,
+        "AnyOn": false,
+        "AllOn": false,
+        "AnyOff": true,
+        "AllOff": true
+      },
+      "engines": {
+        "mupdf": {
+          "observed": {
+            "A": false,
+            "B": false,
+            "C": false,
+            "gate": true,
+            "AnyOn": false,
+            "AllOn": true,
+            "AnyOff": false,
+            "AllOff": true
+          },
+          "matches_expected": false,
+          "sample_rgb": [
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              25,
+              178,
+              114
+            ]
+          ],
+          "pixel_sha256": "938a6d41373fefe02bff9ad51e1f8973097a242f7e5d129e6e1b6ee667a4329b",
+          "stderr": "",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import fitz,sys; d=fitz.open(sys.argv[1]); d[0].get_pixmap().save(sys.argv[2])",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-000.pdf",
+            "/tmp/tmpnfosnveh/mupdf-0.png"
+          ]
+        },
+        "poppler": {
+          "observed": {
+            "A": false,
+            "B": false,
+            "C": false,
+            "gate": false,
+            "AnyOn": false,
+            "AllOn": false,
+            "AnyOff": true,
+            "AllOff": true
+          },
+          "matches_expected": true,
+          "sample_rgb": [
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              25,
+              178,
+              115
+            ]
+          ],
+          "pixel_sha256": "fe63d1546316a35798ca21f0dd5753cd539f35012a8bb0b566941fcaf93177b8",
+          "stderr": "",
+          "command": [
+            "pdftoppm",
+            "-r",
+            "72",
+            "-png",
+            "-singlefile",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-000.pdf",
+            "/tmp/tmpnfosnveh/poppler-0"
+          ]
+        },
+        "pdfium": {
+          "observed": {
+            "A": false,
+            "B": false,
+            "C": false,
+            "gate": false,
+            "AnyOn": false,
+            "AllOn": false,
+            "AnyOff": true,
+            "AllOff": true
+          },
+          "matches_expected": true,
+          "sample_rgb": [
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              26,
+              179,
+              115
+            ]
+          ],
+          "pixel_sha256": "4da16571eaa3037773a46a608ef41fc82cb8025ac72948cd61cc935494c55dad",
+          "stderr": "",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import pypdfium2 as p,sys; d=p.PdfDocument(sys.argv[1]); d[0].render().to_pil().save(sys.argv[2])",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-000.pdf",
+            "/tmp/tmpnfosnveh/pdfium-0.png"
+          ]
+        }
+      }
+    },
+    {
+      "state": "001",
+      "sha256": "d7f9817b01ad8b532565b3eefa061e6cbdfa6d52e559d2001f8054cea6800bc1",
+      "expected": {
+        "A": false,
+        "B": false,
+        "C": true,
+        "gate": false,
+        "AnyOn": true,
+        "AllOn": false,
+        "AnyOff": true,
+        "AllOff": false
+      },
+      "engines": {
+        "mupdf": {
+          "observed": {
+            "A": false,
+            "B": false,
+            "C": true,
+            "gate": true,
+            "AnyOn": true,
+            "AllOn": true,
+            "AnyOff": false,
+            "AllOff": false
+          },
+          "matches_expected": false,
+          "sample_rgb": [
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              229,
+              234,
+              242
+            ]
+          ],
+          "pixel_sha256": "7fa37f5eae51eeb461d7936cb1c686d9d15f3ec0e2b98d8c2211e42b8959ff49",
+          "stderr": "",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import fitz,sys; d=fitz.open(sys.argv[1]); d[0].get_pixmap().save(sys.argv[2])",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-001.pdf",
+            "/tmp/tmpnfosnveh/mupdf-1.png"
+          ]
+        },
+        "poppler": {
+          "observed": {
+            "A": false,
+            "B": false,
+            "C": true,
+            "gate": false,
+            "AnyOn": true,
+            "AllOn": false,
+            "AnyOff": true,
+            "AllOff": false
+          },
+          "matches_expected": true,
+          "sample_rgb": [
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ]
+          ],
+          "pixel_sha256": "54654445b9d42974b334212a12afcbb84decb90398abc80bcc3f3a08e40bf2ea",
+          "stderr": "",
+          "command": [
+            "pdftoppm",
+            "-r",
+            "72",
+            "-png",
+            "-singlefile",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-001.pdf",
+            "/tmp/tmpnfosnveh/poppler-1"
+          ]
+        },
+        "pdfium": {
+          "observed": {
+            "A": false,
+            "B": false,
+            "C": true,
+            "gate": false,
+            "AnyOn": true,
+            "AllOn": false,
+            "AnyOff": true,
+            "AllOff": false
+          },
+          "matches_expected": true,
+          "sample_rgb": [
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ]
+          ],
+          "pixel_sha256": "2add9477aae2b809448aaed7619ff649db848b0afe0fab02ce9c8f8f31df9b93",
+          "stderr": "",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import pypdfium2 as p,sys; d=p.PdfDocument(sys.argv[1]); d[0].render().to_pil().save(sys.argv[2])",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-001.pdf",
+            "/tmp/tmpnfosnveh/pdfium-1.png"
+          ]
+        }
+      }
+    },
+    {
+      "state": "010",
+      "sha256": "70467388301d109b05b977e25ca5a7c80bd36e496e76c4b1e36d24ba7a493f11",
+      "expected": {
+        "A": false,
+        "B": true,
+        "C": false,
+        "gate": false,
+        "AnyOn": true,
+        "AllOn": false,
+        "AnyOff": true,
+        "AllOff": false
+      },
+      "engines": {
+        "mupdf": {
+          "observed": {
+            "A": false,
+            "B": true,
+            "C": false,
+            "gate": true,
+            "AnyOn": true,
+            "AllOn": true,
+            "AnyOff": false,
+            "AllOff": false
+          },
+          "matches_expected": false,
+          "sample_rgb": [
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              229,
+              234,
+              242
+            ]
+          ],
+          "pixel_sha256": "6cd2e0da63e0653114c590bae516e9885bbb7a9a180c99ddf68900b94f18259e",
+          "stderr": "",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import fitz,sys; d=fitz.open(sys.argv[1]); d[0].get_pixmap().save(sys.argv[2])",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-010.pdf",
+            "/tmp/tmpnfosnveh/mupdf-2.png"
+          ]
+        },
+        "poppler": {
+          "observed": {
+            "A": false,
+            "B": true,
+            "C": false,
+            "gate": false,
+            "AnyOn": true,
+            "AllOn": false,
+            "AnyOff": true,
+            "AllOff": false
+          },
+          "matches_expected": true,
+          "sample_rgb": [
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ]
+          ],
+          "pixel_sha256": "1de16e424f8d567873fbab16d9f6a490aeb7b971c62474ef89f80da4f39d7242",
+          "stderr": "",
+          "command": [
+            "pdftoppm",
+            "-r",
+            "72",
+            "-png",
+            "-singlefile",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-010.pdf",
+            "/tmp/tmpnfosnveh/poppler-2"
+          ]
+        },
+        "pdfium": {
+          "observed": {
+            "A": false,
+            "B": true,
+            "C": false,
+            "gate": false,
+            "AnyOn": true,
+            "AllOn": false,
+            "AnyOff": true,
+            "AllOff": false
+          },
+          "matches_expected": true,
+          "sample_rgb": [
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ]
+          ],
+          "pixel_sha256": "2541b3757a686c1419a756275b8c5ae005bdf5fe292121cdfa3e2153cf20acbc",
+          "stderr": "",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import pypdfium2 as p,sys; d=p.PdfDocument(sys.argv[1]); d[0].render().to_pil().save(sys.argv[2])",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-010.pdf",
+            "/tmp/tmpnfosnveh/pdfium-2.png"
+          ]
+        }
+      }
+    },
+    {
+      "state": "011",
+      "sha256": "c60ab8c9a24bb50d2f7d33ebb0c73e5e913e8657c82c44eef1ccedb88b514430",
+      "expected": {
+        "A": false,
+        "B": true,
+        "C": true,
+        "gate": false,
+        "AnyOn": true,
+        "AllOn": false,
+        "AnyOff": true,
+        "AllOff": false
+      },
+      "engines": {
+        "mupdf": {
+          "observed": {
+            "A": false,
+            "B": true,
+            "C": true,
+            "gate": true,
+            "AnyOn": true,
+            "AllOn": true,
+            "AnyOff": false,
+            "AllOff": false
+          },
+          "matches_expected": false,
+          "sample_rgb": [
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              229,
+              234,
+              242
+            ]
+          ],
+          "pixel_sha256": "730cba56ff80956726cd3ca512c1861ec658b2e28e6a71fcc5254f96bd3d55dd",
+          "stderr": "",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import fitz,sys; d=fitz.open(sys.argv[1]); d[0].get_pixmap().save(sys.argv[2])",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-011.pdf",
+            "/tmp/tmpnfosnveh/mupdf-3.png"
+          ]
+        },
+        "poppler": {
+          "observed": {
+            "A": false,
+            "B": true,
+            "C": true,
+            "gate": false,
+            "AnyOn": true,
+            "AllOn": false,
+            "AnyOff": true,
+            "AllOff": false
+          },
+          "matches_expected": true,
+          "sample_rgb": [
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ]
+          ],
+          "pixel_sha256": "dbac713f32217a5cf004b6540f22870560b2baf9f3d5f2c51082aefe9903e081",
+          "stderr": "",
+          "command": [
+            "pdftoppm",
+            "-r",
+            "72",
+            "-png",
+            "-singlefile",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-011.pdf",
+            "/tmp/tmpnfosnveh/poppler-3"
+          ]
+        },
+        "pdfium": {
+          "observed": {
+            "A": false,
+            "B": true,
+            "C": true,
+            "gate": false,
+            "AnyOn": true,
+            "AllOn": false,
+            "AnyOff": true,
+            "AllOff": false
+          },
+          "matches_expected": true,
+          "sample_rgb": [
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ]
+          ],
+          "pixel_sha256": "e33b7a498849de8ccade6c892f7c543152fe601e0a9331c7e88c30470ce61818",
+          "stderr": "",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import pypdfium2 as p,sys; d=p.PdfDocument(sys.argv[1]); d[0].render().to_pil().save(sys.argv[2])",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-011.pdf",
+            "/tmp/tmpnfosnveh/pdfium-3.png"
+          ]
+        }
+      }
+    },
+    {
+      "state": "100",
+      "sha256": "5d7d860dd67827c29a6757843307f8590c8b2491be9f2715667c5188870e577a",
+      "expected": {
+        "A": true,
+        "B": false,
+        "C": false,
+        "gate": false,
+        "AnyOn": true,
+        "AllOn": false,
+        "AnyOff": true,
+        "AllOff": false
+      },
+      "engines": {
+        "mupdf": {
+          "observed": {
+            "A": true,
+            "B": false,
+            "C": false,
+            "gate": true,
+            "AnyOn": true,
+            "AllOn": true,
+            "AnyOff": false,
+            "AllOff": false
+          },
+          "matches_expected": false,
+          "sample_rgb": [
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              229,
+              234,
+              242
+            ]
+          ],
+          "pixel_sha256": "3cdc43a14a834ef12dd765c1e7847f099a65af48cec534ef3d9d5abdbca7b6b9",
+          "stderr": "",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import fitz,sys; d=fitz.open(sys.argv[1]); d[0].get_pixmap().save(sys.argv[2])",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-100.pdf",
+            "/tmp/tmpnfosnveh/mupdf-4.png"
+          ]
+        },
+        "poppler": {
+          "observed": {
+            "A": true,
+            "B": false,
+            "C": false,
+            "gate": false,
+            "AnyOn": true,
+            "AllOn": false,
+            "AnyOff": true,
+            "AllOff": false
+          },
+          "matches_expected": true,
+          "sample_rgb": [
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ]
+          ],
+          "pixel_sha256": "21c5b79222af30d41d463d0084db93f702b227e2dafe7bab8ca38ec66fbfd6e8",
+          "stderr": "",
+          "command": [
+            "pdftoppm",
+            "-r",
+            "72",
+            "-png",
+            "-singlefile",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-100.pdf",
+            "/tmp/tmpnfosnveh/poppler-4"
+          ]
+        },
+        "pdfium": {
+          "observed": {
+            "A": true,
+            "B": false,
+            "C": false,
+            "gate": false,
+            "AnyOn": true,
+            "AllOn": false,
+            "AnyOff": true,
+            "AllOff": false
+          },
+          "matches_expected": true,
+          "sample_rgb": [
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ]
+          ],
+          "pixel_sha256": "346dad28822436c22a4d1a44d32b575fcd5f35ea7740c304293977ec9183de1d",
+          "stderr": "",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import pypdfium2 as p,sys; d=p.PdfDocument(sys.argv[1]); d[0].render().to_pil().save(sys.argv[2])",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-100.pdf",
+            "/tmp/tmpnfosnveh/pdfium-4.png"
+          ]
+        }
+      }
+    },
+    {
+      "state": "101",
+      "sha256": "1182f900293b19a3fe552cde7bae566b7dbcd6314b0a58c9501da58a794d3ae1",
+      "expected": {
+        "A": true,
+        "B": false,
+        "C": true,
+        "gate": true,
+        "AnyOn": true,
+        "AllOn": false,
+        "AnyOff": true,
+        "AllOff": false
+      },
+      "engines": {
+        "mupdf": {
+          "observed": {
+            "A": true,
+            "B": false,
+            "C": true,
+            "gate": true,
+            "AnyOn": true,
+            "AllOn": true,
+            "AnyOff": false,
+            "AllOff": false
+          },
+          "matches_expected": false,
+          "sample_rgb": [
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              229,
+              234,
+              242
+            ]
+          ],
+          "pixel_sha256": "4110b94aa97cfd66414dcaf6e2c70d15dd98b970fc19c1eb6dc3aceb3eae027c",
+          "stderr": "",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import fitz,sys; d=fitz.open(sys.argv[1]); d[0].get_pixmap().save(sys.argv[2])",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-101.pdf",
+            "/tmp/tmpnfosnveh/mupdf-5.png"
+          ]
+        },
+        "poppler": {
+          "observed": {
+            "A": true,
+            "B": false,
+            "C": true,
+            "gate": true,
+            "AnyOn": true,
+            "AllOn": false,
+            "AnyOff": true,
+            "AllOff": false
+          },
+          "matches_expected": true,
+          "sample_rgb": [
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ]
+          ],
+          "pixel_sha256": "2f51f7b5ed4bb1082ebe398240577970f843dbde46719f49c2bf36195edace68",
+          "stderr": "",
+          "command": [
+            "pdftoppm",
+            "-r",
+            "72",
+            "-png",
+            "-singlefile",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-101.pdf",
+            "/tmp/tmpnfosnveh/poppler-5"
+          ]
+        },
+        "pdfium": {
+          "observed": {
+            "A": true,
+            "B": false,
+            "C": true,
+            "gate": true,
+            "AnyOn": true,
+            "AllOn": false,
+            "AnyOff": true,
+            "AllOff": false
+          },
+          "matches_expected": true,
+          "sample_rgb": [
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ]
+          ],
+          "pixel_sha256": "44131d5318029a06b9c88c9669a5224048677e9631c5aa0bcb1991e253f8651e",
+          "stderr": "",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import pypdfium2 as p,sys; d=p.PdfDocument(sys.argv[1]); d[0].render().to_pil().save(sys.argv[2])",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-101.pdf",
+            "/tmp/tmpnfosnveh/pdfium-5.png"
+          ]
+        }
+      }
+    },
+    {
+      "state": "110",
+      "sha256": "ca05e39f5f005f027a8994d9bcd1cf7200a8a816a0b19fdb1811ebd4759f06e7",
+      "expected": {
+        "A": true,
+        "B": true,
+        "C": false,
+        "gate": false,
+        "AnyOn": true,
+        "AllOn": false,
+        "AnyOff": true,
+        "AllOff": false
+      },
+      "engines": {
+        "mupdf": {
+          "observed": {
+            "A": true,
+            "B": true,
+            "C": false,
+            "gate": true,
+            "AnyOn": true,
+            "AllOn": true,
+            "AnyOff": false,
+            "AllOff": false
+          },
+          "matches_expected": false,
+          "sample_rgb": [
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              229,
+              234,
+              242
+            ]
+          ],
+          "pixel_sha256": "122d83a6fb5fb5ea4d814fd078efb0bf1fab55dcf36224b6afbd32453c732b0d",
+          "stderr": "",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import fitz,sys; d=fitz.open(sys.argv[1]); d[0].get_pixmap().save(sys.argv[2])",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-110.pdf",
+            "/tmp/tmpnfosnveh/mupdf-6.png"
+          ]
+        },
+        "poppler": {
+          "observed": {
+            "A": true,
+            "B": true,
+            "C": false,
+            "gate": false,
+            "AnyOn": true,
+            "AllOn": false,
+            "AnyOff": true,
+            "AllOff": false
+          },
+          "matches_expected": true,
+          "sample_rgb": [
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ]
+          ],
+          "pixel_sha256": "c77fae86a091c89920fea1dc9278cbb99c1ae78082ca2b892918410ee28c0461",
+          "stderr": "",
+          "command": [
+            "pdftoppm",
+            "-r",
+            "72",
+            "-png",
+            "-singlefile",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-110.pdf",
+            "/tmp/tmpnfosnveh/poppler-6"
+          ]
+        },
+        "pdfium": {
+          "observed": {
+            "A": true,
+            "B": true,
+            "C": false,
+            "gate": false,
+            "AnyOn": true,
+            "AllOn": false,
+            "AnyOff": true,
+            "AllOff": false
+          },
+          "matches_expected": true,
+          "sample_rgb": [
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ]
+          ],
+          "pixel_sha256": "d4052c90da22fedef4eb0f933e87956712d7ef43cc30ac2ac3865ecf82ef3143",
+          "stderr": "",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import pypdfium2 as p,sys; d=p.PdfDocument(sys.argv[1]); d[0].render().to_pil().save(sys.argv[2])",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-110.pdf",
+            "/tmp/tmpnfosnveh/pdfium-6.png"
+          ]
+        }
+      }
+    },
+    {
+      "state": "111",
+      "sha256": "39745f38d17c991aa81de45e6ff9e29d258934fc0f5432a43b629270dcac5659",
+      "expected": {
+        "A": true,
+        "B": true,
+        "C": true,
+        "gate": false,
+        "AnyOn": true,
+        "AllOn": true,
+        "AnyOff": false,
+        "AllOff": false
+      },
+      "engines": {
+        "mupdf": {
+          "observed": {
+            "A": true,
+            "B": true,
+            "C": true,
+            "gate": true,
+            "AnyOn": true,
+            "AllOn": true,
+            "AnyOff": false,
+            "AllOff": false
+          },
+          "matches_expected": false,
+          "sample_rgb": [
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              25,
+              178,
+              114
+            ],
+            [
+              229,
+              234,
+              242
+            ],
+            [
+              229,
+              234,
+              242
+            ]
+          ],
+          "pixel_sha256": "67c8b7737cd6a65d63a2fdc43332aad1ce5337edbc97a1b6d1b72a64adae432d",
+          "stderr": "",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import fitz,sys; d=fitz.open(sys.argv[1]); d[0].get_pixmap().save(sys.argv[2])",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-111.pdf",
+            "/tmp/tmpnfosnveh/mupdf-7.png"
+          ]
+        },
+        "poppler": {
+          "observed": {
+            "A": true,
+            "B": true,
+            "C": true,
+            "gate": false,
+            "AnyOn": true,
+            "AllOn": true,
+            "AnyOff": false,
+            "AllOff": false
+          },
+          "matches_expected": true,
+          "sample_rgb": [
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              25,
+              178,
+              115
+            ],
+            [
+              229,
+              235,
+              242
+            ],
+            [
+              229,
+              235,
+              242
+            ]
+          ],
+          "pixel_sha256": "f9189def1984fa904fae835fee3797d8b731fd3fe5b044231a191eb850aa1075",
+          "stderr": "",
+          "command": [
+            "pdftoppm",
+            "-r",
+            "72",
+            "-png",
+            "-singlefile",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-111.pdf",
+            "/tmp/tmpnfosnveh/poppler-7"
+          ]
+        },
+        "pdfium": {
+          "observed": {
+            "A": true,
+            "B": true,
+            "C": true,
+            "gate": false,
+            "AnyOn": true,
+            "AllOn": true,
+            "AnyOff": false,
+            "AllOff": false
+          },
+          "matches_expected": true,
+          "sample_rgb": [
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              26,
+              179,
+              115
+            ],
+            [
+              230,
+              235,
+              242
+            ],
+            [
+              230,
+              235,
+              242
+            ]
+          ],
+          "pixel_sha256": "a8a60871e6174a00a7217a876672fd31727a65e0b6565b42a505cca5e3f47449",
+          "stderr": "",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import pypdfium2 as p,sys; d=p.PdfDocument(sys.argv[1]); d[0].render().to_pil().save(sys.argv[2])",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/07-layer-lock-111.pdf",
+            "/tmp/tmpnfosnveh/pdfium-7.png"
+          ]
+        }
+      }
+    }
+  ],
+  "colour_program": {
+    "sha256": "160293ff25fafe6e29e33ac4325f987f02525c0b563939213553f1840f61ff54",
+    "function_type": 4,
+    "shading_type": 1,
+    "runs": [
+      {
+        "engine": "mupdf",
+        "samples": [
+          {
+            "point": [
+              71,
+              201
+            ],
+            "rgb": [
+              140,
+              114,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.5684473124904138,
+              0.4315526875095862,
+              0.35
+            ],
+            "max_channel_error": 0.0194277046472765
+          },
+          {
+            "point": [
+              122,
+              252
+            ],
+            "rgb": [
+              150,
+              104,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.6098865202978839,
+              0.3901134797021161,
+              0.35
+            ],
+            "max_channel_error": 0.02165122618023685
+          },
+          {
+            "point": [
+              189,
+              313
+            ],
+            "rgb": [
+              138,
+              116,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.5490266445429439,
+              0.4509733554570561,
+              0.35
+            ],
+            "max_channel_error": 0.007850173954708661
+          },
+          {
+            "point": [
+              251,
+              394
+            ],
+            "rgb": [
+              217,
+              37,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.868417709862193,
+              0.13158229013780698,
+              0.35
+            ],
+            "max_channel_error": 0.017437317705330302
+          },
+          {
+            "point": [
+              322,
+              450
+            ],
+            "rgb": [
+              16,
+              238,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.05087464458501034,
+              0.9491253554149897,
+              0.35
+            ],
+            "max_channel_error": 0.01579202208165631
+          },
+          {
+            "point": [
+              415,
+              532
+            ],
+            "rgb": [
+              82,
+              172,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.3266682948033716,
+              0.6733317051966283,
+              0.35
+            ],
+            "max_channel_error": 0.005099667352391202
+          }
+        ],
+        "within_0_15_tolerance": true,
+        "pixel_sha256": "5d6538ac225e741ffffb4a4b712e5be909b18c4f958d02e0fa57d03dc953c9c7",
+        "stderr": "",
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import fitz,sys; d=fitz.open(sys.argv[1]); d[0].get_pixmap().save(sys.argv[2])",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/09-colour-program.pdf",
+          "/tmp/tmphmf20y4f/mupdf.png"
+        ]
+      },
+      {
+        "engine": "poppler",
+        "samples": [
+          {
+            "point": [
+              71,
+              201
+            ],
+            "rgb": [
+              141,
+              114,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.5684473124904138,
+              0.4315526875095862,
+              0.35
+            ],
+            "max_channel_error": 0.01550613601982559
+          },
+          {
+            "point": [
+              122,
+              252
+            ],
+            "rgb": [
+              154,
+              101,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.6098865202978839,
+              0.3901134797021161,
+              0.35
+            ],
+            "max_channel_error": 0.005964951670432983
+          },
+          {
+            "point": [
+              189,
+              313
+            ],
+            "rgb": [
+              142,
+              113,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.5490266445429439,
+              0.4509733554570561,
+              0.35
+            ],
+            "max_channel_error": 0.007836100555095316
+          },
+          {
+            "point": [
+              251,
+              394
+            ],
+            "rgb": [
+              224,
+              31,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.868417709862193,
+              0.13158229013780698,
+              0.35
+            ],
+            "max_channel_error": 0.010013662686826588
+          },
+          {
+            "point": [
+              322,
+              450
+            ],
+            "rgb": [
+              16,
+              239,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.05087464458501034,
+              0.9491253554149897,
+              0.35
+            ],
+            "max_channel_error": 0.011870453454205343
+          },
+          {
+            "point": [
+              415,
+              532
+            ],
+            "rgb": [
+              80,
+              175,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.3266682948033716,
+              0.6733317051966283,
+              0.35
+            ],
+            "max_channel_error": 0.012942804607293246
+          }
+        ],
+        "within_0_15_tolerance": true,
+        "pixel_sha256": "ff93f202560b60b099985df9877474b7ba0b010eee9d5448cba9297a15ae6b76",
+        "stderr": "",
+        "command": [
+          "pdftoppm",
+          "-r",
+          "72",
+          "-png",
+          "-singlefile",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/09-colour-program.pdf",
+          "/tmp/tmphmf20y4f/poppler"
+        ]
+      },
+      {
+        "engine": "pdfium",
+        "samples": [
+          {
+            "point": [
+              71,
+              201
+            ],
+            "rgb": [
+              141,
+              113,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.5684473124904138,
+              0.4315526875095862,
+              0.35
+            ],
+            "max_channel_error": 0.015506136019825534
+          },
+          {
+            "point": [
+              122,
+              252
+            ],
+            "rgb": [
+              153,
+              101,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.6098865202978839,
+              0.3901134797021161,
+              0.35
+            ],
+            "max_channel_error": 0.00988652029788395
+          },
+          {
+            "point": [
+              189,
+              313
+            ],
+            "rgb": [
+              142,
+              112,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.5490266445429439,
+              0.4509733554570561,
+              0.35
+            ],
+            "max_channel_error": 0.011757669182546282
+          },
+          {
+            "point": [
+              251,
+              394
+            ],
+            "rgb": [
+              223,
+              31,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.868417709862193,
+              0.13158229013780698,
+              0.35
+            ],
+            "max_channel_error": 0.010013662686826588
+          },
+          {
+            "point": [
+              322,
+              450
+            ],
+            "rgb": [
+              15,
+              239,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.05087464458501034,
+              0.9491253554149897,
+              0.35
+            ],
+            "max_channel_error": 0.011870453454205343
+          },
+          {
+            "point": [
+              415,
+              532
+            ],
+            "rgb": [
+              79,
+              175,
+              89
+            ],
+            "expected_rgb_unit": [
+              0.3266682948033716,
+              0.6733317051966283,
+              0.35
+            ],
+            "max_channel_error": 0.016864373234744157
+          }
+        ],
+        "within_0_15_tolerance": true,
+        "pixel_sha256": "84862760f730ea841e93404636636e3fa37cc66b2e562f0dc22f19e401b56990",
+        "stderr": "",
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+          "-c",
+          "import pypdfium2 as p,sys; d=p.PdfDocument(sys.argv[1]); d[0].render().to_pil().save(sys.argv[2])",
+          "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/09-colour-program.pdf",
+          "/tmp/tmphmf20y4f/pdfium.png"
+        ]
+      }
+    ],
+    "note": "Six interior samples at 72dpi; tolerance is an experiment threshold, not conformance certification."
+  }
+}

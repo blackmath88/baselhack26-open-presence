@@ -7,7 +7,7 @@
  */
 import { parseOperation } from './operation-schemas.js'
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import type { ReviewCommand } from '../../src/commons/contracts.js'
+import type { ReviewCommand, SubmitContributionCommandV2 } from '../../src/commons/contracts.js'
 import { resolveActor, type TokenVerifier } from '../auth/actor-context.js'
 import { invalid, isDomainError } from '../domain/errors.js'
 import type { CommonsService } from './service.js'
@@ -78,7 +78,7 @@ export function commonsRoutes(deps: CommonsRouteDeps): (req: IncomingMessage, re
       else if (get && head === 'rooms' && id && !tail) send(res, 200, await deps.commons.getRoom(actor, id))
       else if (post && head === 'contributions' && id === 'prepare') send(res, 200, await deps.commons.prepareContribution(actor, await readJson(req)))
       else if (post && head === 'contributions' && !id) {
-        const result = await deps.commons.submitContribution(actor, await readJson(req))
+        const result = await deps.commons.submitContribution(actor, { entrance: 'http', ...(await readJson(req)) } as unknown as SubmitContributionCommandV2)
         send(res, result.replayed ? 200 : 201, result)
       } else if (post && head === 'reviews' && !id) send(res, 200, await deps.commons.review(actor, (await readJson(req)) as unknown as ReviewCommand))
       else if (post && head === 'moderation' && !id) send(res, 200, await deps.commons.moderate(actor, parseOperation('moderate', await readJson(req)) as never))

@@ -1,0 +1,13 @@
+Browser check — passage citation + participant names (NUC window 2026-10-31 ~20:39 CET, Claude Code, self-run)
+Setup as before (127.0.0.1:8799 API, :5199 Vite, headless Chromium via CDP), signed in as Mara.
+Data via CLI: Kai attempt citing issue/148 (object-level); Lea outcome with --evidence e2 (doc passage L116-L117 of usb-c-no-data).
+
+== #/problems/usb-c-no-data (cited-by expanded), relevant lines
+39:1 contribution cite this source
+40:outcome by Lea · via cli · 2026-10-31 · cites doc/docs/pf1007l-start-here.md (passage e2) · problem usb-c-no-data
+54:1 contribution cite this source
+55:attempt by Kai · via cli · 2026-10-31 · cites issue/148 · problem usb-c-no-data
+100:cites doc/docs/pf1007l-start-here.md  (author unknown) · passage e2 of the record
+
+Result: Lea's passage citation appears only under evidence e2, not under e1/c-cable-* (other passages of the same doc); names render as Kai/Lea.
+Screenshot: evidence/browser-passage-citation-usb-c.png. Not checked: phone width, keyboard; the browser composer still selects whole source objects (passages via CLI/MCP/HTTP).

@@ -5,6 +5,7 @@
 import { ExternalLink } from 'lucide-react'
 import type { ImportedProblem, SearchHit, SourceRef } from '../../commons/contracts'
 import { appLinks } from '../../commons/contracts'
+import { CitingList, type Citing } from './CitingList'
 
 /** Only link out to the original public host; never render source HTML. */
 const safeHref = (url: string) => (/^https:\/\/github\.com\//.test(url) ? url : undefined)
@@ -29,7 +30,12 @@ export function SourceLine({ source }: { source: SourceRef }) {
   )
 }
 
-export function Record({ problem, hit }: { problem: ImportedProblem; hit?: SearchHit }) {
+type Shared = { problemId: string; title: string; objects: string[]; contributions: number; link: string }
+
+export function Record({ problem, hit, citations = {}, onCite, shared = [] }: { problem: ImportedProblem; hit?: SearchHit; citations?: Record<string, Citing[]>; onCite?: (evidenceId: string) => void; shared?: Shared[] }) {
+  // A later passage of an already-listed object repeats the list only when exactly the same contributions cite it.
+  const key = (id: string) => (citations[id] ?? []).map((c) => c.contributionId).join(' ')
+  const sameAsEarlier = (id: string, i: number) => problem.evidence.slice(0, i).some((x) => x.source.objectId === problem.evidence[i]!.source.objectId && key(x.id) === key(id))
   return (
     <article className="commons-record" aria-label={problem.title}>
       <div className="section-kicker">
@@ -60,7 +66,7 @@ export function Record({ problem, hit }: { problem: ImportedProblem; hit?: Searc
       </dl>
       <h3>Evidence</h3>
       <ol className="commons-evidence">
-        {problem.evidence.map((e) => (
+        {problem.evidence.map((e, i) => (
           <li key={e.id}>
             <span className="badge">{e.role}</span>
             {e.quote && (
@@ -74,6 +80,15 @@ export function Record({ problem, hit }: { problem: ImportedProblem; hit?: Searc
               </p>
             )}
             <SourceLine source={e.source} />
+            {onCite && <button className="button commons-cite" onClick={() => onCite(e.id)} aria-label={`Respond to passage ${e.id}`}>Respond to this passage</button>}
+            {citations[e.id]?.length && sameAsEarlier(e.id, i) ? (
+              <p className="commons-limit">Cited by the same {citations[e.id]!.length} contribution{citations[e.id]!.length === 1 ? '' : 's'} as above: they cite the whole source object, not one passage.</p>
+            ) : citations[e.id]?.length ? (
+              <details className="commons-cited-by">
+                <summary>{citations[e.id]!.length === 1 ? '1 contribution cites' : `${citations[e.id]!.length} contributions cite`} this source</summary>
+                <CitingList contributions={citations[e.id]!} label={`Contributions citing evidence ${e.id}`} />
+              </details>
+            ) : null}
           </li>
         ))}
       </ol>
@@ -84,6 +99,19 @@ export function Record({ problem, hit }: { problem: ImportedProblem; hit?: Searc
             {problem.corrections.map((c) => (
               <li key={c.id}>
                 {c.note} <span className="commons-limit">(source assertion, evidence {c.evidenceIds.join(', ')})</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+      {shared.length > 0 && (
+        <>
+          <h3>Shares cited sources with</h3>
+          <p className="commons-limit">Derived from the imported records' evidence: these problems cite the same issue or document. Not a reviewed relationship, and not a claim that they are the same problem.</p>
+          <ul aria-label="Problems sharing cited sources">
+            {shared.map((s) => (
+              <li key={s.problemId}>
+                <a href={s.link}>{s.title}</a> <span className="commons-limit">· {s.objects.join(', ')} · {s.contributions ? `${s.contributions} contribution${s.contributions === 1 ? '' : 's'} there` : 'no contributions there yet'}</span>
               </li>
             ))}
           </ul>

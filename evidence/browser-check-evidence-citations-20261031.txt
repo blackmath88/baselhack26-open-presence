@@ -1,0 +1,34 @@
+Browser + CLI check — problem → evidence → contribution → reply across problems (NUC window 2026-10-31 ~20:34 CET, Claude Code, self-run)
+Setup: temp data, API 127.0.0.1:8799, Vite dev 127.0.0.1:5199, headless Chromium via a minimal CDP script, signed in as Lea.
+Data (all via CLI): Kai attempt in usb-c-no-data citing issue/148; Lea replies to it; Mara observation in stock-root-adb citing issue/148 (issue/148 is evidence in both real records).
+
+== CLI: npm run commons -- inspect stock-root-adb → evidenceCitations
+{'e1': [('person:kai', 'cli', 'usb-c-no-data', 'other', 'replies', 1), ('person:mara', 'cli', 'stock-root-adb', 'same', 'replies', 0)]}
+
+== Browser #/problems/stock-root-adb, evidence section (cited-by expanded)
+Not a problem but a shortcut: the docs say to test ADB before any write.
+Evidence
+report
+“1f3a:1002, listed as `device` (root ADB, no key and no prompt).”
+
+Record writer's reading, not the author's words: A May 20260519 unit had persistent root ADB over USB.
+
+@Gazer · 2026-10-16 · issue/148 original  · full conversation not stored here (unavailable); follow the original
+2 contributions cite this source
+attempt by kai · via cli · 2026-10-31 · cites issue/148 · in another problem: usb-c-no-data
+“violet-marmot: issue 148 workaround works only with the USB-A hub” — 1 reply · 2 people · last 2026-10-31
+observation by mara · via cli · 2026-10-31 · cites issue/148 · problem stock-root-adb
+“Same thread 148: adb root only came back after the hub swap.” — no replies yet
+report
+“Note the product ID differs from the `1f3a:1002` in #148.”
+
+
+== Browser #/problems/usb-c-no-data, evidence issue/148 (cited-by expanded)
+2 contributions cite this source
+attempt by kai · via cli · 2026-10-31 · cites issue/148 · problem usb-c-no-data
+“violet-marmot: issue 148 workaround works only with the USB-A hub” — 1 reply · 2 people · last 2026-10-31
+observation by mara · via cli · 2026-10-31 · cites issue/148 · in another problem: stock-root-adb
+“Same thread 148: adb root only came back after the hub swap.” — no replies yet
+report
+
+Screenshot: evidence/browser-evidence-citations-stock-root-adb.png. Not checked: phone width, keyboard.

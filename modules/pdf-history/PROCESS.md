@@ -77,3 +77,14 @@ Implementation HTML and visual specimens were not inspected in this planning pas
 - PDF preserves selected representation; it does not establish truth or complete context.
 - ATProto record authentication/portability does not guarantee source availability, discovery, moderation or community.
 - The current project remains useful without the Adobe analogy.
+
+
+## Edition 02 editorial step — 31 October 2026
+
+Achim supplied the reassurance/human-signal framing and requested the implementation in [CLAUDE-002-REASSURANCE.md](prompts/CLAUDE-002-REASSURANCE.md), tracked by issue #1. The initial Orca Claude launch exited before work began. Codex completed the implementation in the same Orca-managed feature worktree after Achim asked to finish it.
+
+The new beat follows the technical/adoption/business story: “I know what I’m receiving.” One synthetic manual retains its identity through sender, receiving software and print. This is Achim’s situated experience and editorial hypothesis, not research establishing universal public trust. The six-act narrative and two primary operations remain: mutate the manual, then reframe what must travel.
+
+The layout experiment now moves the actual marked instruction onto a separate second sheet and restores it to page 1. Character loss is a separate labelled simulation with semantic intact text. No remote font or real missing-font dependency is introduced. The PDF act explains that pagination has already been chosen by authoring.
+
+Adobe’s current signature-validation help and its technical workflow guide were opened for the new factual distinctions; locators and caveats are in sources.json. The sample signature field performs no signing. Search/Google and LLM-chat examples express Achim’s observations and two hypotheses: inspectable context arriving with an answer, and a route for private investigations to become attributable shared contributions. The actual photo-frame case remains the pilot; no core pilot or original research dossier was changed. No deployment was performed.

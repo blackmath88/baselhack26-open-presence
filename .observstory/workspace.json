@@ -1,0 +1,79 @@
+{
+  "schema": "observstory.workspace/v1",
+  "records": [
+    {
+      "id": "ws-direction",
+      "title": "Human Signal \u00b7 discovery & community",
+      "kind": "workstream",
+      "context": "The current concept is Human Signal; the earlier business-presence scenario is superseded.",
+      "members": [
+        "concept-human-signal",
+        "decision-concept-current-decision",
+        "questions-what-we-want-to-learn",
+        "decision-build-pilot-here",
+        "coordination:D1",
+        "coordination:D2",
+        "coordination:D3",
+        "coordination:D4"
+      ],
+      "sources": [
+        "https://github.com/blackmath88/baselhack26-open-presence/blob/main/README.md"
+      ]
+    },
+    {
+      "id": "ws-research",
+      "title": "Research & source context",
+      "kind": "research",
+      "context": "Selected research inputs and historical briefs retain their source classifications.",
+      "members": [
+        "research-perplexity-prompt-2026-10-30",
+        "historical-domain-brief",
+        "historical-build-cases",
+        "historical-implementation-inputs",
+        "concept-earlier-business-presence"
+      ],
+      "sources": [
+        "https://github.com/blackmath88/baselhack26-open-presence/blob/main/README.md"
+      ]
+    },
+    {
+      "id": "ws-plan",
+      "title": "Hackathon planning",
+      "kind": "plan",
+      "context": "Suggested work targets and the user-supplied event programme. Targets are not commitments.",
+      "members": [
+        "plan-hackathon",
+        "plan-current-state",
+        "plan-event-timetable",
+        "coordination:S1.Q1",
+        "coordination:S1.Q2",
+        "coordination:S2.Q1",
+        "coordination:S2.Q2"
+      ],
+      "sources": [
+        "https://github.com/blackmath88/baselhack26-open-presence/blob/main/README.md"
+      ]
+    },
+    {
+      "id": "ws-pdf",
+      "title": "PDF history \u00b7 optional supporting module",
+      "kind": "support",
+      "context": "Optional framing: the concept and tool must stand without it. Research input is not independently verified.",
+      "members": [
+        "module-pdf-history",
+        "research-pdf-history-report",
+        "research-pdf-history-claims"
+      ],
+      "sources": [
+        "https://github.com/blackmath88/baselhack26-open-presence/blob/main/README.md"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "from": "ws-pdf",
+      "to": "ws-direction",
+      "type": "supports"
+    }
+  ]
+}

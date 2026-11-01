@@ -17,9 +17,9 @@ import type { ProblemState } from '../domain/types.js'
 import { invalid, notFound } from '../domain/errors.js'
 import type { CommonsMetadata } from './import.js'
 import { stableHash } from './import.js'
-import { buildThread, isImportedEvidence, revisionsFrom, roomToProblemId, threadParticipants, toCommonsContribution, type ThreadNode } from './projection.js'
+import { buildThread, isImportedEvidence, replyStats, revisionsFrom, roomToProblemId, threadParticipants, toCommonsContribution, type ThreadNode } from './projection.js'
 import { buildContributionIndex, searchContributions, type ContributionHit } from './search.js'
-import { coverage, getThreadObject, listPath, listThreads } from './repository-view.js'
+import { citationKeys, contributionCitationIndex, coverage, getThreadObject, listPath, listThreads, type CitingContribution } from './repository-view.js'
 import { MAX_CONTRIBUTION_LENGTH } from '../domain/policies.js'
 
 export const recordReader = createCommonsReader()
@@ -75,28 +75,54 @@ export function findContribution(loaded: LoadedCommons, id: string) {
 
 export interface SearchResponse {
   query: string
-  problems: Array<SearchHit & { title: string; link: string; roomId: string }>
+  problems: Array<SearchHit & { title: string; link: string; roomId: string; community: CommunitySummary }>
   contributions: Array<ContributionHit & { summary: ContributionSummary }>
   coverage: { records: number; contributions: number; snapshotAt: string; recordsAuthoredBy: string; lastSync: Array<{ did: string; status: string; completedAt?: string }> }
   note: string
 }
 
+/** What people added around a problem record: its own conversation plus contributions elsewhere citing the same sources. */
+export interface CommunitySummary {
+  contributions: number; replies: number; participants: string[]; latestAt: string | null
+  /** Visible contributions in other problems whose sources are also evidence of this record. */
+  citingFromOtherProblems: number
+}
+
+export function communitySummary(loaded: LoadedCommons, metadata: CommonsMetadata, problemId: string, community = communityCitations(loaded, metadata)): CommunitySummary {
+  const own = (loaded.byRoom.get(importedProblemSpaceId(problemId)) ?? []).map(id => loaded.contributions.get(id)!).filter((c): c is CommonsContribution => !isModerated(c))
+  // Roots are contributions without a local/ingested parent in this room; everything else counts as a reply.
+  const replies = own.filter(c => c.parent && c.parent.kind !== 'source').length
+  const others = new Set<string>()
+  for (const e of metadata.sources[problemId]?.evidence ?? []) {
+    for (const c of community.get(citationKeys(e.source.objectId)[0]!) ?? []) if (c.problemId !== problemId) others.add(c.contributionId)
+  }
+  const times = own.map(c => c.createdAt).sort()
+  return {
+    contributions: own.length - replies, replies, participants: [...new Set(own.map(c => c.actor.displayName ?? c.actor.id))],
+    latestAt: times[times.length - 1] ?? null, citingFromOtherProblems: others.size,
+  }
+}
+
 export interface ContributionSummary {
   id: string; problemId: string; kind: string; actor: CommonsContribution['actor']; revision: number
-  excerpt: string; createdAt: string; origin: CommonsContribution['origin']['kind']; publication: string; link: string
+  excerpt: string; createdAt: string; origin: CommonsContribution['origin']['kind']; entrance: CommonsContribution['entrance']; publication: string; link: string
+  /** What the contribution cites in the pinned snapshot, with the source's own author (never the contributor). */
+  sourceRefs: Array<{ objectId: string; permalink: string; author: string }>
 }
 
 export const summarize = (c: CommonsContribution): ContributionSummary => ({
   id: c.id, problemId: c.problemId, kind: c.kind, actor: c.actor, revision: c.revision,
   excerpt: c.text.length > 240 ? `${c.text.slice(0, 237)}…` : c.text, createdAt: c.createdAt,
-  origin: c.origin.kind, publication: c.publication?.status ?? 'local', link: c.links.app,
+  origin: c.origin.kind, entrance: c.entrance, publication: c.publication?.status ?? 'local', link: c.links.app,
+  sourceRefs: c.sourceRefs.map(r => ({ objectId: r.objectId, permalink: r.permalink, author: r.author })),
 })
 
 export function searchAll(loaded: LoadedCommons, metadata: CommonsMetadata, input: { query: string; limit?: number; include?: Array<'problems' | 'contributions'> }): SearchResponse {
   const limit = Math.min(Math.max(input.limit ?? 10, 1), 50)
   const include = input.include?.length ? input.include : ['problems', 'contributions'] as const
+  const community = communityCitations(loaded, metadata)
   const problems = include.includes('problems')
-    ? recordReader.search(input.query, limit).map(h => ({ ...h, title: recordReader.problem(h.problemId)?.title ?? h.problemId, link: appLinks.problem(h.problemId), roomId: importedProblemSpaceId(h.problemId) }))
+    ? recordReader.search(input.query, limit).map(h => ({ ...h, title: recordReader.problem(h.problemId)?.title ?? h.problemId, link: appLinks.problem(h.problemId), roomId: importedProblemSpaceId(h.problemId), community: communitySummary(loaded, metadata, h.problemId, community) }))
     : []
   const all = visible(loaded)
   const contributions = include.includes('contributions')
@@ -122,6 +148,16 @@ export interface ProblemView {
   version: number
   links: { app: string; thread: string }
   evidence: ImportedProblem['evidence']
+  /**
+   * evidenceId → visible contributions citing that evidence's source object (a comment cited
+   * inside a cited thread counts), from this problem and — flagged `otherProblem` — from others.
+   */
+  evidenceCitations: Record<string, Array<CitingContribution & { otherProblem: boolean }>>
+  /**
+   * Other problem records whose evidence cites the same source objects. Derived from the imported
+   * records only; not a reviewed relationship and not a claim that the problems are the same.
+   */
+  sharedSources: Array<{ problemId: string; title: string; objects: string[]; contributions: number; link: string }>
   contributions: Array<CommonsContribution | ModeratedContribution>
   related: Array<{ problemId: string; title?: string; relation: string; origin: string; link: string }>
   moderatedCount: number
@@ -140,6 +176,8 @@ export function problemView(loaded: LoadedCommons, metadata: CommonsMetadata, id
     problem, roomId, version: room.events.length,
     links: { app: appLinks.problem(problemId), thread: appLinks.thread(roomId) },
     evidence: problem.evidence,
+    evidenceCitations: evidenceCitations(problem, communityCitations(loaded, metadata)),
+    sharedSources: sharedSources(loaded, metadata, problem),
     contributions,
     related: problem.related.map(r => ({ problemId: r.problemId, ...(metadata.sources[r.problemId] ? { title: metadata.sources[r.problemId].title } : {}), relation: r.relation, origin: r.origin, link: appLinks.problem(r.problemId) })),
     moderatedCount: contributions.filter(isModerated).length,
@@ -149,6 +187,31 @@ export function problemView(loaded: LoadedCommons, metadata: CommonsMetadata, id
       failed: receipts.filter(r => r.status === 'failed' || r.status === 'conflict').length,
     },
   }
+}
+
+function sharedSources(loaded: LoadedCommons, metadata: CommonsMetadata, problem: ImportedProblem): ProblemView['sharedSources'] {
+  const mine = new Set(problem.evidence.map(e => citationKeys(e.source.objectId)[0]!))
+  const out: ProblemView['sharedSources'] = []
+  for (const other of Object.values(metadata.sources)) {
+    if (other.postackId === problem.postackId) continue
+    const objects = [...new Set(other.evidence.map(e => citationKeys(e.source.objectId)[0]!).filter(k => mine.has(k)))]
+    if (!objects.length) continue
+    const contributions = (loaded.byRoom.get(importedProblemSpaceId(other.postackId)) ?? []).filter(id => !isModerated(loaded.contributions.get(id)!)).length
+    out.push({ problemId: other.postackId, title: other.title, objects, contributions, link: appLinks.problem(other.postackId) })
+  }
+  // Most shared sources first, then by id for a stable order.
+  return out.sort((a, b) => b.objects.length - a.objects.length || a.problemId.localeCompare(b.problemId))
+}
+
+function evidenceCitations(problem: ImportedProblem, community: Map<string, CitingContribution[]>) {
+  const out: ProblemView['evidenceCitations'] = {}
+  for (const e of problem.evidence) {
+    // A contribution that named exact passages of this record attaches only to those; otherwise to every passage of the object.
+    const list = (community.get(citationKeys(e.source.objectId)[0]!) ?? [])
+      .filter(c => c.problemId !== problem.postackId || !c.evidenceIds?.length || c.evidenceIds.includes(e.id))
+    if (list.length) out[e.id] = list.map(c => ({ ...c, otherProblem: c.problemId !== problem.postackId }))
+  }
+  return out
 }
 
 export interface ThreadView { root: ThreadNode; participants: string[]; problemId: string; roomId: string; links: { app: string } }
@@ -181,8 +244,8 @@ export interface ContextPacket {
   freshness: { snapshotAt: string; snapshotRevision: string; recordsOriginCommit: string; roomVersion: number; lastSync: Array<{ did: string; status: string; completedAt?: string }> }
   problem: Pick<ImportedProblem, 'postackId' | 'title' | 'device' | 'environment' | 'symptoms' | 'status' | 'statusNote' | 'outcomes' | 'provenance'>
   sources: SourceRef[]
-  evidence: Array<{ id: string; role: string; quote: string | null; interpretation: string | null; objectId: string; permalink: string }>
-  contributions: Array<ContributionSummary & { text: string; truncated: boolean; sourceRefs: string[]; parent?: string; assistance: CommonsContribution['assistance'] }>
+  evidence: Array<{ id: string; role: string; quote: string | null; interpretation: string | null; objectId: string; permalink: string; citedBy: string[] }>
+  contributions: Array<Omit<ContributionSummary, 'sourceRefs'> & { text: string; truncated: boolean; sourceRefs: string[]; parent?: string; assistance: CommonsContribution['assistance'] }>
   corrections: ImportedProblem['corrections']
   related: ProblemView['related']
   omissions: string[]
@@ -198,7 +261,7 @@ export function contextPacket(loaded: LoadedCommons, metadata: CommonsMetadata, 
   const budget = Math.min(Math.max(input.budget ?? 12000, 1000), 60000)
   const omissions: string[] = []
   const sources = [...new Map(view.evidence.map(e => [e.source.objectId, e.source])).values()]
-  const evidence = view.evidence.map(e => ({ id: e.id, role: e.role, quote: e.quote, interpretation: e.interpretation, objectId: e.source.objectId, permalink: e.source.permalink }))
+  const evidence = view.evidence.map(e => ({ id: e.id, role: e.role, quote: e.quote, interpretation: e.interpretation, objectId: e.source.objectId, permalink: e.source.permalink, citedBy: (view.evidenceCitations[e.id] ?? []).map(c => c.contributionId) }))
   const ordered = view.contributions.filter((c): c is CommonsContribution => !isModerated(c)).sort((a, b) => a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id))
   if (input.contributionId) {
     const target = ordered.findIndex(c => c.id === input.contributionId)
@@ -241,25 +304,34 @@ export function contextPacket(loaded: LoadedCommons, metadata: CommonsMetadata, 
   }
 }
 
+/** Navigator key → visible contributions citing it, with reply stats. Moderated contributions never appear. */
+export function communityCitations(loaded: LoadedCommons, metadata: CommonsMetadata) {
+  const shown = visible(loaded)
+  return contributionCitationIndex(shown, replyStats(shown, metadata.external))
+}
+
 // --- browse --------------------------------------------------------------------
 
-export function browse(metadata: CommonsMetadata, input: { path?: string; object?: string; type?: 'issue' | 'pull' | 'discussion'; cursor?: string; limit?: number; linkedOnly?: boolean }) {
+export function browse(loaded: LoadedCommons, metadata: CommonsMetadata, input: { path?: string; object?: string; type?: 'issue' | 'pull' | 'discussion'; cursor?: string; limit?: number; linkedOnly?: boolean }) {
   const problems = Object.values(metadata.sources)
-  const base = { coverage: coverage(), problems: problems.length, link: appLinks.repository(input.path ?? '') }
+  // Moderated contributions are never visible here, so a hidden citation leaves no trace on the navigator.
+  const community = communityCitations(loaded, metadata)
+  const shown = visible(loaded)
+  const base = { coverage: coverage(), problems: problems.length, contributions: shown.length, link: appLinks.repository(input.path ?? '') }
   if (input.object) {
-    const thread = getThreadObject(input.object, problems)
+    const thread = getThreadObject(input.object, problems, community)
     if (!thread) throw notFound('Thread', input.object)
     return { ...base, view: 'thread' as const, thread }
   }
   if (input.type || input.cursor !== undefined || input.linkedOnly) {
-    return { ...base, view: 'threads' as const, ...listThreads(problems, { ...(input.type ? { type: input.type } : {}), ...(input.cursor ? { cursor: input.cursor } : {}), ...(input.limit ? { limit: input.limit } : {}), ...(input.linkedOnly ? { linkedOnly: true } : {}) }) }
+    return { ...base, view: 'threads' as const, ...listThreads(problems, { ...(input.type ? { type: input.type } : {}), ...(input.cursor ? { cursor: input.cursor } : {}), ...(input.limit ? { limit: input.limit } : {}), ...(input.linkedOnly ? { linkedOnly: true } : {}) }, community) }
   }
-  const listing = listPath(input.path ?? '', problems)
+  const listing = listPath(input.path ?? '', problems, community)
   if (!listing) throw notFound('Path', input.path ?? '')
   if (listing.doc) return { ...base, view: 'doc' as const, doc: listing.doc, path: listing.path }
   return {
     ...base, view: 'dir' as const, path: listing.path, entries: listing.entries,
-    ...(listing.path === '' ? { threads: { ...manifest.totals, linked: listThreads(problems, { linkedOnly: true, limit: 200 }).total } } : {}),
+    ...(listing.path === '' ? { threads: { ...manifest.totals, linked: listThreads(problems, { linkedOnly: true, limit: 200 }).total, citedByContributions: [...community.keys()].filter(k => !k.startsWith('doc/') && !k.startsWith('comment/')).length } } : {}),
   }
 }
 
@@ -296,8 +368,17 @@ export function prepareContribution(loaded: LoadedCommons, metadata: CommonsMeta
   if (!(COMMONS_CONTRIBUTION_KINDS as unknown[]).includes(kind)) errors.push(`kind must be one of ${COMMONS_CONTRIBUTION_KINDS.join(', ')}.`)
   const assistance = input.assistance === undefined ? (typeof input.preparedBy === 'string' && input.preparedBy && input.preparedBy !== 'browser-draft' ? 'ai-drafted' : 'none') : input.assistance
   if (!(ASSISTANCE_DECLARATIONS as unknown[]).includes(assistance)) errors.push(`assistance must be one of ${ASSISTANCE_DECLARATIONS.join(', ')}.`)
-  const sourceRefs = Array.isArray(input.sourceRefs) ? input.sourceRefs : []
+  const sourceRefs: unknown[] = Array.isArray(input.sourceRefs) ? [...input.sourceRefs] : []
   if (!Array.isArray(input.sourceRefs) && input.sourceRefs !== undefined) errors.push('sourceRefs must be an array of object ids.')
+  // Passage citations: each evidence id must belong to this record; its source object is cited too.
+  const evidenceIds: string[] = []
+  if (input.evidenceIds !== undefined && !Array.isArray(input.evidenceIds)) errors.push('evidenceIds must be an array of evidence ids.')
+  for (const eid of Array.isArray(input.evidenceIds) ? input.evidenceIds : []) {
+    const passage = typeof eid === 'string' ? source?.evidence.find(e => e.id === eid) : undefined
+    if (!passage) { errors.push(`Evidence ${JSON.stringify(eid)} is not a passage of this problem record.`); continue }
+    if (!evidenceIds.includes(passage.id)) evidenceIds.push(passage.id)
+    if (!sourceRefs.includes(passage.source.objectId)) sourceRefs.push(passage.source.objectId)
+  }
   const known = new Set((source?.evidence ?? []).map(e => e.source.objectId))
   for (const ref of sourceRefs) if (typeof ref !== 'string' || !known.has(ref)) errors.push(`Source reference ${JSON.stringify(ref)} does not belong to this problem.`)
   if (source && sourceRefs.length === 0) warnings.push('No source references selected; the contribution will not cite any evidence.')
@@ -324,8 +405,8 @@ export function prepareContribution(loaded: LoadedCommons, metadata: CommonsMeta
   if (input.observedAt !== undefined && (typeof input.observedAt !== 'string' || Number.isNaN(Date.parse(input.observedAt)))) errors.push('observedAt must be an ISO-8601 time.')
   if (input.circumstances !== undefined && typeof input.circumstances !== 'string') errors.push('circumstances must be a string.')
   const command: SubmitContributionCommandV2 | undefined = errors.length ? undefined : {
-    commandId: typeof input.commandId === 'string' && input.commandId.trim() ? input.commandId : `prepared:${stableHash({ problemId, text, kind, sourceRefs, circumstances: input.circumstances, parentId: input.parentId })}`,
-    problemId, text, sourceRefs: sourceRefs as string[], kind: kind as CommonsContributionKind, assistance: assistance as AssistanceDeclaration,
+    commandId: typeof input.commandId === 'string' && input.commandId.trim() ? input.commandId : `prepared:${stableHash({ problemId, text, kind, sourceRefs, evidenceIds, circumstances: input.circumstances, parentId: input.parentId })}`,
+    problemId, text, sourceRefs: sourceRefs as string[], ...(evidenceIds.length ? { evidenceIds } : {}), kind: kind as CommonsContributionKind, assistance: assistance as AssistanceDeclaration,
     ...(typeof input.circumstances === 'string' && input.circumstances.trim() ? { circumstances: input.circumstances.trim() } : {}),
     ...(typeof input.preparedBy === 'string' && input.preparedBy ? { preparedBy: input.preparedBy } : {}),
     ...(typeof input.parentId === 'string' ? { parentId: input.parentId } : {}),

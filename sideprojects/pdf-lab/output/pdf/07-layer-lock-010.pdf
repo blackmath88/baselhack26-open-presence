@@ -1,0 +1,108 @@
+%PDF-1.4
+% PDF LAB - authored ASCII specimen
+1 0 obj
+<< /Type /Catalog /Version /1.6 /Pages 2 0 R /PageMode /UseOC /OCProperties << /OCGs [5 0 R 6 0 R 7 0 R] /D << /Name (Layer lock) /BaseState /OFF /ON [6 0 R] /OFF [5 0 R 7 0 R] /Order [5 0 R 6 0 R 7 0 R] >> >> >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /H 4 0 R >> /Properties << /A 5 0 R /B 6 0 R /C 7 0 R /Gate 8 0 R /AnyOn 9 0 R /AllOn 10 0 R /AnyOff 11 0 R /AllOff 12 0 R >> >> /Contents 13 0 R  >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /OCG /Name (A) >>
+endobj
+6 0 obj
+<< /Type /OCG /Name (B) >>
+endobj
+7 0 obj
+<< /Type /OCG /Name (C) >>
+endobj
+8 0 obj
+<< /Type /OCMD /OCGs [5 0 R 6 0 R 7 0 R] /P /AllOn /VE [/And 5 0 R [/Not 6 0 R] 7 0 R] >>
+endobj
+9 0 obj
+<< /Type /OCMD /OCGs [5 0 R 6 0 R 7 0 R] /P /AnyOn >>
+endobj
+10 0 obj
+<< /Type /OCMD /OCGs [5 0 R 6 0 R 7 0 R] /P /AllOn >>
+endobj
+11 0 obj
+<< /Type /OCMD /OCGs [5 0 R 6 0 R 7 0 R] /P /AnyOff >>
+endobj
+12 0 obj
+<< /Type /OCMD /OCGs [5 0 R 6 0 R 7 0 R] /P /AllOff >>
+endobj
+13 0 obj
+<< /Length 2149  >>
+stream
+0.08 0.14 0.24 rg
+BT /H 11 Tf 1 0 0 1 48 741 Tm (PDF LAB / 07) Tj ET
+BT /H 30 Tf 1 0 0 1 48 697 Tm (The lock is the layers panel.) Tj ET
+BT /H 12 Tf 1 0 0 1 48 663 Tm (Three switches. One expression. No JavaScript.) Tj ET
+0.90 0.92 0.95 rg 48 550 164 54 re f
+/OC /A BDC 0.10 0.70 0.45 rg 48 550 164 54 re f EMC
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 60 565 Tm (A) Tj ET
+0.90 0.92 0.95 rg 224 550 164 54 re f
+/OC /B BDC 0.10 0.70 0.45 rg 224 550 164 54 re f EMC
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 236 565 Tm (B) Tj ET
+0.90 0.92 0.95 rg 400 550 164 54 re f
+/OC /C BDC 0.10 0.70 0.45 rg 400 550 164 54 re f EMC
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 412 565 Tm (C) Tj ET
+0.90 0.92 0.95 rg 48 360 516 140 re f
+/OC /Gate BDC 0.10 0.70 0.45 rg 48 360 516 140 re f EMC
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 60 375 Tm (A AND \(NOT B\) AND C) Tj ET
+0.08 0.14 0.24 rg
+BT /H 11 Tf 1 0 0 1 48 523 Tm (Green means visible. Grey means the conditional paint is absent.) Tj ET
+BT /H 11 Tf 1 0 0 1 48 326 Tm (Open the layers panel and find the combination. Inspect /VE to explain it.) Tj ET
+0.90 0.92 0.95 rg 48 230 120 55 re f
+/OC /AnyOn BDC 0.10 0.70 0.45 rg 48 230 120 55 re f EMC
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 60 245 Tm (AnyOn) Tj ET
+0.90 0.92 0.95 rg 180 230 120 55 re f
+/OC /AllOn BDC 0.10 0.70 0.45 rg 180 230 120 55 re f EMC
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 192 245 Tm (AllOn) Tj ET
+0.90 0.92 0.95 rg 312 230 120 55 re f
+/OC /AnyOff BDC 0.10 0.70 0.45 rg 312 230 120 55 re f EMC
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 324 245 Tm (AnyOff) Tj ET
+0.90 0.92 0.95 rg 444 230 120 55 re f
+/OC /AllOff BDC 0.10 0.70 0.45 rg 444 230 120 55 re f EMC
+0.08 0.14 0.24 rg
+BT /H 14 Tf 1 0 0 1 456 245 Tm (AllOff) Tj ET
+BT /H 11 Tf 1 0 0 1 48 194 Tm (These four controls use /P policies. The large gate uses /VE.) Tj ET
+BT /H 11 Tf 1 0 0 1 48 170 Tm (Its /P fallback is AllOn: a different answer exposes ignored expressions.) Tj ET
+BT /H 11 Tf 1 0 0 1 48 113 Tm (Same page stream in all eight fixtures; only default layer states change.) Tj ET
+BT /H 10 Tf 1 0 0 1 48 72 Tm (Layers hide paint, not secrets. Viewer controls require separate qualification.) Tj ET
+
+endstream
+endobj
+xref
+0 14
+0000000000 65535 f 
+0000000045 00000 n 
+0000000273 00000 n 
+0000000330 00000 n 
+0000000571 00000 n 
+0000000641 00000 n 
+0000000683 00000 n 
+0000000725 00000 n 
+0000000767 00000 n 
+0000000872 00000 n 
+0000000941 00000 n 
+0000001011 00000 n 
+0000001082 00000 n 
+0000001153 00000 n 
+trailer
+<< /Size 14 /Root 1 0 R >>
+startxref
+3356
+%%EOF

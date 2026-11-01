@@ -5,7 +5,7 @@ import { isModerated } from '../../src/commons/contracts.js'
 import { commonsMetadata, type CommonsMetadata } from './import.js'
 import { loadCommons } from './queries.js'
 
-const referenceKeys = new Set(['sourceId', 'targetId', 'leftObjectId', 'rightObjectId', 'proposalId', 'fromProposalId', 'supersededBy'])
+const referenceKeys = new Set(['sourceId', 'targetId', 'leftObjectId', 'rightObjectId', 'proposalId', 'supersededBy'])
 
 function referencesWithheld(value: unknown, withheld: Set<string>): boolean {
   if (!value || typeof value !== 'object') return false

@@ -14,6 +14,8 @@ export interface DraftV2 extends Draft {
   /** Reply target (a contribution id or evidence object id) and how the draft relates to it. */
   parentId?: string
   relation?: 'reply' | 'correction' | 'supersedes'
+  /** Exact evidence passages of the record this draft cites; their objects are also in sourceRefs. */
+  evidenceIds?: string[]
 }
 
 function readAll(): DraftV2[] {

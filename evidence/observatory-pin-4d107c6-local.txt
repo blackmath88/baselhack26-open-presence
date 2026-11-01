@@ -1,0 +1,39 @@
+Local consumer verification of Observatory producer 4d107c6cd8b045dce38f2c412712307fd4e25c3c (observstory PR #26, stacked on #24 @ 84c3c0a)
+Run by: Claude Code (assistant), NUC build window 2026-10-31 ~20:25 CET. Self-verified; not CI, not deployed.
+
+Producer extracted with `git archive 4d107c6` from the Observatory worker's repository (worker worktree not touched).
+Consumer: open-presence @ 3002474 (Commons branch head; workflow inputs as in .github/workflows/observstory.yml).
+Steps reproduced from action.yml (composite): scripts/observstory.py build; scripts/publish_workspace.py; frontend=observatory install.
+Output:
+  OBSERVSTORY_KNOWLEDGE_OK snapshot=ks_86a03e9abcb17553e83d commit=3002474d2167 complete=true changes=compared
+  OBSERVSTORY_OK repo=blackmath88/baselhack26-open-presence in_flight=4 areas_active=12 overlap=4 stale=0 waiting=0 burst=1 degraded=0
+  data/knowledge.json: complete=True diagnostics=0 records=25; data/workspace.json present (schema, records, relations, source_commit)
+Headless Chromium (127.0.0.1 static server, 1440x1000): Overview renders "42 of 42 records", category filters
+  All work 42 · Research 7 · Concepts 2 · Planning 4 · Implementation 13 · Other context 16, Find records search box, source revision 3002474.
+Not checked: GitHub Actions run with this pin, phone width, Pages deployment.
+
+Update ~20:35 CET: pin moved to f45775c2e163c1b3a097ed2569765f3977cba7d3 (observstory #26 turn 2 head, verified equal to the remote branch head).
+Same local procedure (producer via git archive; consumer at open-presence 280de64):
+  OBSERVSTORY_KNOWLEDGE_OK snapshot=ks_949aeb4377a74a4cb8a9 commit=280de645ae1b complete=true changes=compared
+  OBSERVSTORY_OK repo=blackmath88/baselhack26-open-presence in_flight=5 areas_active=12 overlap=4 stale=0 waiting=0 burst=1 degraded=0
+  data/knowledge.json: complete=True diagnostics=0 records=25
+Headless Chromium: desktop DOM shows 44 of 44 records with category filters; 390px phone screenshot renders the header,
+  Overview/Board toggle, wrapped category chips and search without horizontal overflow (visual inspection only).
+Still not checked: GitHub Actions run with this pin, Pages deployment.
+
+Update ~22:20 CET: pin moved to f0cbde87e167ff7f6c631b2c5e2b2cb6e14d074c (observstory #26 turn 5 head; fetched remote branch head equals it).
+Same local procedure (producer via git archive; consumer at this pin branch 27f9df5):
+  OBSERVSTORY_KNOWLEDGE_OK snapshot=ks_03b693d26f4dab9cb48b commit=27f9df5d2f7f complete=true changes=compared
+  OBSERVSTORY_OK repo=blackmath88/baselhack26-open-presence in_flight=5 areas_active=12 overlap=4 stale=0 waiting=0 burst=2 degraded=0
+  data/knowledge.json: complete=True diagnostics=0 records=25; installed index.html byte-identical to the producer's frontend/release/index.html
+Headless Chromium (127.0.0.1): 44 of 44 records, category filters, new "Recent window / Fit evidence" timeline controls render at 1440px;
+  390px screenshot captured. Still not checked: GitHub Actions run with this pin, Pages deployment.
+
+Update ~22:27 CET: pin moved to ae4f814f331566aa7dd2befa97d774ec194a3f5d (observstory #26 recovery head; fetched remote head equals it; worker message READY for this head).
+Same local procedure (consumer at pin branch 007b082):
+  OBSERVSTORY_KNOWLEDGE_OK snapshot=ks_3a1d58a3a76693dd0e12 commit=007b0824a9c4 complete=true changes=compared
+  OBSERVSTORY_OK repo=blackmath88/baselhack26-open-presence in_flight=5 areas_active=12 overlap=4 stale=0 waiting=0 burst=2 degraded=0
+  complete True diagnostics 0 records 25
+Headless Chromium (127.0.0.1): 44 of 44 records; opening the 'Human Signal · discovery & community' record shows the new drawer sections
+  clicked: Human Signal · discovery & community | drawer has "Sources and provenance": true | "Captured input revisions": true
+  390px screenshot captured. Still not checked: GitHub Actions run with this pin, Pages deployment.

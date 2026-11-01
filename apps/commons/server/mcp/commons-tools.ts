@@ -35,7 +35,7 @@ export function registerCommonsTools(server: McpServer, commons: CommonsService,
 
   server.registerTool('commons_browse_repository', {
     title: 'Browse the source repository snapshot',
-    description: 'Navigate the pinned source repository (paths, threads) and see which problem records cite each file or thread. Bounded snapshot metadata, not a live GitHub browser; coverage is disclosed.',
+    description: 'Navigate the pinned source repository (paths, threads) and see which problem records and which visible community contributions (with author and entrance) cite each file or thread. Bounded snapshot metadata, not a live GitHub browser; coverage is disclosed.',
     inputSchema: operationSchemas.browse_repository,
     outputSchema: z.object({ view: z.string(), coverage: loose, problems: z.number() }).and(loose),
     annotations: readOnly,
@@ -95,7 +95,7 @@ export function registerCommonsTools(server: McpServer, commons: CommonsService,
     inputSchema: operationSchemas.submit_contribution,
     outputSchema: z.object({ contribution: loose, contributionId: z.string(), problemId: z.string(), replayed: z.boolean() }).and(loose),
     annotations: mutating,
-  }, async (input) => guard(() => commons.submitContribution(actor, compact(input))))
+  }, async (input) => guard(() => commons.submitContribution(actor, { ...compact(input), entrance: 'mcp' } as never)))
 
   server.registerTool('commons_moderate', {
     title: 'Local moderation',

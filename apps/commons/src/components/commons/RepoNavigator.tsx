@@ -8,6 +8,7 @@ import { ExternalLink, FileText, Folder, MessageSquare } from 'lucide-react'
 import { appLinks } from '../../commons/contracts'
 import { commonsApi, type RepoView } from '../../commons/client/api'
 import { safeHref } from './ContributionCard'
+import { CitingList, citingCount } from './CitingList'
 
 type Linked = { problemId: string; title: string; evidenceIds: string[]; locators: string[]; link: string }
 
@@ -61,7 +62,7 @@ export function RepoNavigator({ token, path, object, type }: { token: string; pa
           {view.path === '' && 'threads' in view && view.threads && (
             <p>
               <MessageSquare size={14} /> Threads: <a href={`${appLinks.repository()}?type=issue`}>{view.threads.issues} issues</a> · <a href={`${appLinks.repository()}?type=pull`}>{view.threads.pulls} pull requests</a> · <a href={`${appLinks.repository()}?type=discussion`}>{view.threads.discussions} discussions</a>
-              <span className="commons-limit"> · {view.threads.linked} cited by a problem record</span>
+              <span className="commons-limit"> · {view.threads.linked} cited by a problem record or contribution · {view.contributions} visible contributions</span>
             </p>
           )}
           <ul className="commons-tree">
@@ -69,7 +70,7 @@ export function RepoNavigator({ token, path, object, type }: { token: string; pa
               <li key={e.path}>
                 {e.kind === 'dir' ? <Folder size={14} /> : <FileText size={14} />} <a href={appLinks.repository(e.path)}>{e.name}</a>
                 {e.kind === 'dir' && <span className="commons-limit"> ({e.children} files)</span>}
-                {' '}<span className="commons-limit">→ </span><Problems problems={e.problems} />
+                {' '}<span className="commons-limit">→ </span><Problems problems={e.problems} /> {citingCount(e.contributions.length)}
               </li>
             ))}
           </ul>
@@ -80,17 +81,18 @@ export function RepoNavigator({ token, path, object, type }: { token: string; pa
           <h3><FileText size={15} /> {view.doc.path}</h3>
           <p className="commons-limit">{view.doc.bytes} bytes · sha256 {view.doc.sha256?.slice(0, 16)}… · {safeHref(view.doc.url ?? '') ? <a href={view.doc.url} target="_blank" rel="noreferrer noopener">original at this revision <ExternalLink size={11} /></a> : 'no safe link'}. Full text is not stored here.</p>
           <p>Cited by: <Problems problems={view.doc.problems} /></p>
+          <CitingList contributions={view.doc.contributions} />
         </div>
       )}
       {(view.view === 'threads') && (
         <>
-          <label className="commons-limit"><input type="checkbox" checked={linkedOnly} onChange={(e) => setLinkedOnly(e.target.checked)} /> only threads cited by a problem record ({view.total} shown)</label>
+          <label className="commons-limit"><input type="checkbox" checked={linkedOnly} onChange={(e) => setLinkedOnly(e.target.checked)} /> only threads cited by a problem record or contribution ({view.total} shown)</label>
           <ul className="commons-tree">
             {[view, ...pages].flatMap((p) => p.threads).map((t) => (
               <li key={t.object}>
                 <a href={`${appLinks.repository()}?object=${encodeURIComponent(t.object)}`}>#{t.number} {t.title}</a>
                 <span className="commons-limit"> · {t.author ? `@${t.author}` : 'author unknown'} · {t.createdAt.slice(0, 10)} · {t.comments} comments</span>
-                {' '}<span className="commons-limit">→ </span><Problems problems={t.problems} />
+                {' '}<span className="commons-limit">→ </span><Problems problems={t.problems} /> {citingCount(t.contributions.length)}
               </li>
             ))}
           </ul>
@@ -102,9 +104,11 @@ export function RepoNavigator({ token, path, object, type }: { token: string; pa
           <h3><MessageSquare size={15} /> {view.thread.object}: {view.thread.title}</h3>
           <p className="commons-limit">{view.thread.author ? `@${view.thread.author}` : 'author unknown'} · opened {view.thread.createdAt.slice(0, 10)} · {view.thread.comments} comments by {view.thread.commentAuthors.map((a) => `@${a}`).join(', ') || 'nobody'} · {safeHref(view.thread.url) ? <a href={view.thread.url} target="_blank" rel="noreferrer noopener">original <ExternalLink size={11} /></a> : null}</p>
           <p>Cited by: <Problems problems={view.thread.problems} /></p>
+          {view.thread.contributions.length > 0 && <p>Community contributions citing this thread or its comments:</p>}
+          <CitingList contributions={view.thread.contributions} />
           <ul className="commons-tree">
-            {view.thread.commentList.filter((c) => c.problems.length > 0).map((c) => (
-              <li key={c.object}>{c.object} <span className="commons-limit">@{c.author} · {c.createdAt.slice(0, 10)}</span> → <Problems problems={c.problems} /></li>
+            {view.thread.commentList.filter((c) => c.problems.length > 0 || c.contributions.length > 0).map((c) => (
+              <li key={c.object}>{c.object} <span className="commons-limit">@{c.author} · {c.createdAt.slice(0, 10)}</span> → <Problems problems={c.problems} /> {citingCount(c.contributions.length)}</li>
             ))}
           </ul>
           <p className="commons-limit">Comment bodies are not stored here; only authors, times and hashes. Follow the original to read them.</p>

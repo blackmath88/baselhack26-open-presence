@@ -5,6 +5,8 @@ BaselHack 2026 · Updated 31 October 2026
 
 Start with [the current concept](HUMAN-SIGNAL-CONCEPT.md).
 
+**[Open the live Observatory →](https://blackmath88.github.io/baselhack26-open-presence/)** — project direction, event countdown, declared milestones, remaining work and repository activity. The dashboard shows the published snapshot; it is separate from the local Commons app and NUC memory graph.
+
 ## The value we deliver
 
 **Find experience that fits your situation. Understand its limits. Leave something useful for the next person.**
@@ -29,12 +31,20 @@ Achim requested building the working loop from **br-ai-nstorm's existing applica
 
 The new plan advances the earlier local-draft-only target to a functioning local shared room with explicit submission and second-session rediscovery. It takes precedence over older static-only implementation suggestions for this build. The historical schedule below remains a proposal, not evidence of completion or a revised deadline. No implementation or worker dispatch is claimed by this documentation update.
 
+## Observatory visual workspace — next implementation
+
+- [Implementation plan](docs/build/OBSERVATORY-VISUAL-WORKSPACE.md) — stable workstreams, timeline, branches, Board and detail; cool premium visual direction.
+- [Codex launch prompt](docs/build/CODEX-VISUAL-WORKSPACE-PROMPT.md).
+- [References and research boundary](docs/design/OBSERVATORY-VISUAL-REFERENCES.md).
+
+This is the agreed next UI direction and a proposed build sequence, not a claim that the redesign is deployed. The reusable frontend lives in `blackmath88/observstory/frontend`; this repository supplies the project declarations and deployment integration.
+
 ## Hackathon project management
 - [Project and time plan](HACKATHON-PLAN.md) — milestones, acceptance criteria, Saturday/Sunday targets and scope cuts.
 - [Observstory dashboard and guide](OBSERVSTORY.md) — evidence-backed activity, overlaps and check-ins.
-- [Latest dashboard runs](https://github.com/blackmath88/baselhack26-open-presence/actions/workflows/observstory.yml) — download the dashboard and repository-growth replay. Pages deployment is prepared; see the guide for activation.
+- [Latest dashboard runs](https://github.com/blackmath88/baselhack26-open-presence/actions/workflows/observstory.yml) — download the dashboard and repository-growth replay. The dashboard is published automatically from `main`.
 
-Suggested schedule times are planning targets; the official submission deadline is not yet established.
+Suggested schedule times remain planning targets. The supplied event timetable declares hands-off on Sunday, 1 November at 12:00 Europe/Zurich; submission/upload details remain open.
 
 ## What we are building
 A real **Photo Frame Commons** pilot around [wesbos/photo-frame-dashboard](https://github.com/wesbos/photo-frame-dashboard): find a relevant experience, inspect its circumstances and original conversation, explore connections, and contribute a short observation back through a reviewable local draft.
@@ -68,15 +78,21 @@ br-ai-nstorm supplies shared sensemaking concepts; ATProto is the candidate port
 
 ## Adobe is an optional narrative
 
-[PDF history scrolly module](modules/pdf-history/README.md) — original research, editorial provenance, claim-verification queue and [six-act build plan](modules/pdf-history/PLAN.md). [Edition 01](modules/pdf-history/index.html) is implemented as one offline HTML file; [design and browser checks](modules/pdf-history/DESIGN.md) document the working retro direction and limitations.
+[PDF history scrolly module](modules/pdf-history/README.md) — original research, editorial provenance, claim-verification queue and [six-act build plan](modules/pdf-history/PLAN.md). [Edition 02](modules/pdf-history/index.html) is implemented as one offline HTML file; [design and browser checks](modules/pdf-history/DESIGN.md) document the working retro direction and limitations.
 **“PDF helped us preserve a document when it travelled. What should we preserve when an answer travels through AI?”**
 
 The concept and tool must stand without this framing. Photoshop can introduce the familiar experience; photo-frame contributions are the actual case. PDF preserved form, not truth.
 
 A future name may be a PDF wordplay. Naming and repository renaming are deferred.
 
+## Side project: PDF LAB
+
+[PDF LAB](sideprojects/pdf-lab/README.md) explores PDF as a creative format and a forensic learning environment: one file, many interpreters. Includes a [build plan](sideprojects/pdf-lab/PLAN.md) and [research/sparring prompt](sideprojects/pdf-lab/RESEARCH-PROMPT.md). Agreed on 31 October: incubate here, then extract to a separate repository after the hackathon. Documentation stage; technical choices remain proposed and this does not replace the main pilot.
+
 ## Status and working boundaries
-This update is documentation only; no running pilot or federation is claimed. Inspect current code and Knowledge Lab's active branch/runtime before implementation or integration.
+The local Commons application is implemented in [apps/commons](apps/commons): repository browsing, search, CLI/MCP, shared contributions and isolated-development ATProto publication/ingestion. Start with [DEMO.md](DEMO.md); current evidence is in [BUILD-STATUS.md](BUILD-STATUS.md) and [the integration report](evidence/MODERATION-READS-20261031.md).
+
+PRs #4, #6, #8, #9, #11, #12, #13 and #14 are integrated. Combined local checks: 188 tests, typecheck, deterministic index, build and both server smoke scripts pass; PR #14 CI also passed. These are implementation/check results, not human UX acceptance. Public identity, hosting and federation activation remain separate; do not expose the prototype server publicly. Knowledge Lab's runtime must still be checked before integrating it.
 
 Use source snapshots, explicit attribution, reviewable interpretations and labelled local drafts. Do not publish to participant accounts, modify upstream repositories, ingest private chats or deploy as an incidental part of the prototype. Record licences and source revisions before reuse.
 

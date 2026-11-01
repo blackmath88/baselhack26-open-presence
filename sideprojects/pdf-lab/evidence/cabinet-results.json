@@ -1,0 +1,327 @@
+{
+  "date": "2026-10-31",
+  "kind": "local-observations",
+  "checks": {
+    "polyglot": {
+      "same_input_sha256": "a35c136cac06fde1057f5ea1d3dcde133c4ada57452118a717ce25507e26fbce",
+      "zip_member_sha256": {
+        "READ-ME.txt": "51dc73fc7c71ca291ed95a481ba4c4387908bb81cd442ac32e5445dcba082b7f",
+        "RECIPE.txt": "f2274d3f3cb8e1b38dbf7abdd15b078dce35a056ba39e44c381ff8e7736aa59f",
+        "source/exhibits.py": "09874e4a98b74e2467ad990067879204d1a6728f4ca1cd1bfce53cbd92c2b5b3",
+        "source/build.py": "929b6c0ce3724bf0a593def17f9731c07d51a130e4c51aa2af54e5e91641dc2c",
+        "source/weird.py": "5b03c87ae5935ce2b8226ea8f3b7864bd4af1d8c8c1831c0854f6d591c4bf6e7",
+        "source/machine.js": "ba219f5766699549c2863b8a4fe2b2132aa4676e7290983ca2616c98fc6f2f8c"
+      },
+      "pdf_no_embeddedfiles": true,
+      "readers": [
+        "Python zipfile",
+        "Info-ZIP unzip",
+        "pypdf",
+        "MuPDF",
+        "Poppler"
+      ],
+      "conformance": "not assessed; tolerated hybrid"
+    },
+    "history": {
+      "revisions": [
+        {
+          "xref": 1530,
+          "end": 1956,
+          "object_offsets": {
+            "1": 45,
+            "2": 94,
+            "3": 151,
+            "4": 277,
+            "5": 347,
+            "6": 367,
+            "7": 387,
+            "8": 407,
+            "9": 427,
+            "10": 447,
+            "11": 468,
+            "12": 489,
+            "13": 510,
+            "14": 531,
+            "15": 552,
+            "16": 573,
+            "17": 594
+          },
+          "sha256": "5b286749b8cf363156d6f682509c6f9091c0267f4d439f866a6b9d8ecc4c615d"
+        },
+        {
+          "xref": 3255,
+          "end": 3352,
+          "object_offsets": {
+            "17": 1956
+          },
+          "sha256": "b88a18f2f469eee03691cefe946a52512d1f07d253718620328f465b5756cb6a"
+        }
+      ],
+      "recovered_prefix_matches_original": true,
+      "current_and_rewritten_pixel_equal": true,
+      "rewritten_control_has_secret_bytes": false,
+      "invalid_input_rejected": true
+    },
+    "print": {
+      "ghostscript": "10.02.1",
+      "screen_pixel_sha256": "93abe6dc7c87295d5639f9264223090bd6d1d1b356c00617e241dbba7db08e04",
+      "print_pixel_sha256": "6f4da1ae5504041442c2e001016a10704203832e7106547a9d99883d06e07232",
+      "red_pixels_screen": 400,
+      "red_pixels_print": 41542,
+      "route_cells": 129,
+      "header_and_footer_unchanged": true,
+      "physical_printer": "not-run",
+      "other_viewers_print_modes": "not-run"
+    },
+    "mutation_renders": [
+      {
+        "file": "03-baseline.pdf",
+        "mupdf_pixel_sha256": "4d89bb574bfd0b3ff765171de66826eb17b5110ab20fd6b8da47caacf94cbd3a",
+        "mupdf_repaired": false,
+        "mupdf_warnings": "",
+        "mupdf_run": {
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import fitz,sys,json,hashlib; d=fitz.open(sys.argv[1]); p=d[0].get_pixmap(); print(json.dumps({'pixel_sha256':hashlib.sha256(p.samples).hexdigest(),'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-baseline.pdf"
+          ],
+          "status": "accepted",
+          "exit_code": 0,
+          "stdout": "{\"pixel_sha256\": \"4d89bb574bfd0b3ff765171de66826eb17b5110ab20fd6b8da47caacf94cbd3a\", \"repaired\": false, \"warnings\": \"\"}\n",
+          "stderr": ""
+        },
+        "poppler_run": {
+          "command": [
+            "pdftoppm",
+            "-r",
+            "72",
+            "-singlefile",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-baseline.pdf",
+            "/tmp/tmpgy2jljy7/render"
+          ],
+          "status": "accepted",
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        "poppler_ppm_sha256": "b5c9f49c469128b97a96caba94bf966061051b6bbb2abd224cfa273ca7fb9a0d"
+      },
+      {
+        "file": "03-wrong-xref.pdf",
+        "mupdf_pixel_sha256": "4d89bb574bfd0b3ff765171de66826eb17b5110ab20fd6b8da47caacf94cbd3a",
+        "mupdf_repaired": true,
+        "mupdf_warnings": "format error: cannot recognize xref format\ntrying to repair broken xref\nrepairing PDF document",
+        "mupdf_run": {
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import fitz,sys,json,hashlib; d=fitz.open(sys.argv[1]); p=d[0].get_pixmap(); print(json.dumps({'pixel_sha256':hashlib.sha256(p.samples).hexdigest(),'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-wrong-xref.pdf"
+          ],
+          "status": "accepted",
+          "exit_code": 0,
+          "stdout": "{\"pixel_sha256\": \"4d89bb574bfd0b3ff765171de66826eb17b5110ab20fd6b8da47caacf94cbd3a\", \"repaired\": true, \"warnings\": \"format error: cannot recognize xref format\\ntrying to repair broken xref\\nrepairing PDF document\"}\n",
+          "stderr": ""
+        },
+        "poppler_run": {
+          "command": [
+            "pdftoppm",
+            "-r",
+            "72",
+            "-singlefile",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-wrong-xref.pdf",
+            "/tmp/tmpn6_o6f9x/render"
+          ],
+          "status": "accepted",
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        "poppler_ppm_sha256": "b5c9f49c469128b97a96caba94bf966061051b6bbb2abd224cfa273ca7fb9a0d"
+      },
+      {
+        "file": "03-wrong-length.pdf",
+        "mupdf_pixel_sha256": "4d89bb574bfd0b3ff765171de66826eb17b5110ab20fd6b8da47caacf94cbd3a",
+        "mupdf_repaired": false,
+        "mupdf_warnings": "PDF stream Length incorrect",
+        "mupdf_run": {
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import fitz,sys,json,hashlib; d=fitz.open(sys.argv[1]); p=d[0].get_pixmap(); print(json.dumps({'pixel_sha256':hashlib.sha256(p.samples).hexdigest(),'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-wrong-length.pdf"
+          ],
+          "status": "accepted",
+          "exit_code": 0,
+          "stdout": "{\"pixel_sha256\": \"4d89bb574bfd0b3ff765171de66826eb17b5110ab20fd6b8da47caacf94cbd3a\", \"repaired\": false, \"warnings\": \"PDF stream Length incorrect\"}\n",
+          "stderr": ""
+        },
+        "poppler_run": {
+          "command": [
+            "pdftoppm",
+            "-r",
+            "72",
+            "-singlefile",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-wrong-length.pdf",
+            "/tmp/tmppb83o4j_/render"
+          ],
+          "status": "accepted",
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Syntax Error (8207): Missing 'endstream' or incorrect stream length\nSyntax Error: Unknown operator 'endstream'\n"
+        },
+        "poppler_ppm_sha256": "b5c9f49c469128b97a96caba94bf966061051b6bbb2abd224cfa273ca7fb9a0d"
+      },
+      {
+        "file": "03-truncated-update.pdf",
+        "mupdf_pixel_sha256": "4d89bb574bfd0b3ff765171de66826eb17b5110ab20fd6b8da47caacf94cbd3a",
+        "mupdf_repaired": false,
+        "mupdf_warnings": "",
+        "mupdf_run": {
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+            "-c",
+            "import fitz,sys,json,hashlib; d=fitz.open(sys.argv[1]); p=d[0].get_pixmap(); print(json.dumps({'pixel_sha256':hashlib.sha256(p.samples).hexdigest(),'repaired':d.is_repaired,'warnings':fitz.TOOLS.mupdf_warnings()}))",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-truncated-update.pdf"
+          ],
+          "status": "accepted",
+          "exit_code": 0,
+          "stdout": "{\"pixel_sha256\": \"4d89bb574bfd0b3ff765171de66826eb17b5110ab20fd6b8da47caacf94cbd3a\", \"repaired\": false, \"warnings\": \"\"}\n",
+          "stderr": ""
+        },
+        "poppler_run": {
+          "command": [
+            "pdftoppm",
+            "-r",
+            "72",
+            "-singlefile",
+            "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/03-truncated-update.pdf",
+            "/tmp/tmp2sphy__x/render"
+          ],
+          "status": "accepted",
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        "poppler_ppm_sha256": "b5c9f49c469128b97a96caba94bf966061051b6bbb2abd224cfa273ca7fb9a0d"
+      }
+    ],
+    "bend": {
+      "seed_changes_geometry": true,
+      "mapping_changes_extraction_not_pixels": true
+    }
+  },
+  "runs": [
+    {
+      "command": [
+        "unzip",
+        "-t",
+        "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/04-two-identities.pdf"
+      ],
+      "status": "accepted",
+      "exit_code": 0,
+      "stdout": "Archive:  /workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/04-two-identities.pdf\n\nstartxref\n1857\n%%EOF\n    testing: READ-ME.txt              OK\n    testing: RECIPE.txt               OK\n    testing: source/exhibits.py       OK\n    testing: source/build.py          OK\n    testing: source/weird.py          OK\n    testing: source/machine.js        OK\nNo errors detected in compressed data of /workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/04-two-identities.pdf.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "pdftotext",
+        "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/04-two-identities.pdf",
+        "-"
+      ],
+      "status": "accepted",
+      "exit_code": 0,
+      "stdout": "PDF LAB / 04\n\nI have another identity.\nThe file you are reading is also a ZIP archive.\n\nINTERPRETER 01 / PDF\n\nA document.\nThis page is the public face. Your PDF reader follows\ncross-references to assemble the page you see.\n\nINTERPRETER 02 / ZIP\n\nAn evidence bag.\nOpen the exact same bytes with an archive reader.\nInside: a message, a recipe and the construction source.\n\nNo attachment button. No second download.\nTry: python3 -m zipfile -l 04-two-identities.pdf\nCopy or rename it to .zip if your archive tool needs an extension.\n\nThe interesting question is which reader tolerates which boundaries.\n\nCompatibility exhibit. Standards conformance is not claimed.\n\n\f",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-c",
+        "import fitz,sys; print(fitz.open(sys.argv[1])[0].get_text())",
+        "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/04-two-identities.pdf"
+      ],
+      "status": "accepted",
+      "exit_code": 0,
+      "stdout": "PDF LAB / 04\nI have another identity.\nThe file you are reading is also a ZIP archive.\nINTERPRETER 01 / PDF\nA document.\nThis page is the public face. Your PDF reader follows\ncross-references to assemble the page you see.\nINTERPRETER 02 / ZIP\nAn evidence bag.\nOpen the exact same bytes with an archive reader.\nInside: a message, a recipe and the construction source.\nNo attachment button. No second download.\nTry: python3 -m zipfile -l 04-two-identities.pdf\nCopy or rename it to .zip if your archive tool needs an extension.\nThe interesting question is which reader tolerates which boundaries.\nCompatibility exhibit. Standards conformance is not claimed.\n\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "pdftotext",
+        "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/05-original-witness.pdf",
+        "-"
+      ],
+      "status": "accepted",
+      "exit_code": 0,
+      "stdout": "PDF LAB / 05\n\nObject 17 was here.\nA witness statement, before the amendment.\n\nWITNESS / ORIGINAL STATEMENT\n\nThe room was never empty.\nI left through the east door at 17:17.\nThe word I left behind was PALIMPSEST.\n\nObject number: 17. Generation: 0. This is a content stream.\nA later revision can change the current meaning of this reference.\n\nThis statement is synthetic. The revision mechanism is real.\n\n\f",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "pdftotext",
+        "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/05-object-17.pdf",
+        "-"
+      ],
+      "status": "accepted",
+      "exit_code": 0,
+      "stdout": "PDF LAB / 05\n\nWho killed object 17?\nA document can forget without losing its memory.\n\nCURRENT STATEMENT / AMENDED\n\nThere was nobody here.\nThe current cross-reference points to this replacement.\nThe earlier statement has disappeared from the page.\n\nYour case: recover the witness and explain the disappearance.\n\n01 Find the final startxref offset.\n02 Read its trailer. Follow /Prev.\n03 Recover the earlier complete revision.\n04 Compare object 17 in both revisions.\n\nWin condition: explain what changed, with byte offsets as evidence.\n\nHint: saving an update can append new objects while retaining old bytes.\n\n\f",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "pdftotext",
+        "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/05-rewritten-control.pdf",
+        "-"
+      ],
+      "status": "accepted",
+      "exit_code": 0,
+      "stdout": "PDF LAB / 05\n\nWho killed object 17?\nA document can forget without losing its memory.\n\nCURRENT STATEMENT / AMENDED\n\nThere was nobody here.\nThe current cross-reference points to this replacement.\nThe earlier statement has disappeared from the page.\n\nYour case: recover the witness and explain the disappearance.\n\n01 Find the final startxref offset.\n02 Read its trailer. Follow /Prev.\n03 Recover the earlier complete revision.\n04 Compare object 17 in both revisions.\n\nWin condition: explain what changed, with byte offsets as evidence.\n\nHint: saving an update can append new objects while retaining old bytes.\n\n\f",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "gs",
+        "-q",
+        "-dSAFER",
+        "-dBATCH",
+        "-dNOPAUSE",
+        "-dPrinted=false",
+        "-sDEVICE=png16m",
+        "-r96",
+        "-sOutputFile=/workspace/scratch/2201e9b972f6/pdf-lab/evidence/previews/06-screen.png",
+        "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/06-print-to-reveal.pdf"
+      ],
+      "status": "accepted",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "gs",
+        "-q",
+        "-dSAFER",
+        "-dBATCH",
+        "-dNOPAUSE",
+        "-dPrinted=true",
+        "-sDEVICE=png16m",
+        "-r96",
+        "-sOutputFile=/workspace/scratch/2201e9b972f6/pdf-lab/evidence/previews/06-print.png",
+        "/workspace/scratch/2201e9b972f6/pdf-lab/output/pdf/06-print-to-reveal.pdf"
+      ],
+      "status": "accepted",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "limits": {
+    "seconds": 10,
+    "cpu_seconds": 8,
+    "memory_MiB": 768,
+    "output_MiB": 2
+  },
+  "b02_interactive_pdf_viewer": "not-run: no interactive browser/PDF viewer installed"
+}
