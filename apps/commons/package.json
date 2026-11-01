@@ -25,7 +25,8 @@
     "test:e": "vitest run test/e-guide.test.ts test/e-behaviour.test.ts test/e-opening.test.ts",
     "build:edge": "VITE_COMMONS_EDGE=true npm run build",
     "dev:edge": "npm run build:edge && npx wrangler dev --config wrangler.edge.jsonc",
-    "deploy:edge": "npm run build:edge && npx wrangler deploy --config wrangler.edge.jsonc"
+    "deploy:edge": "npm run build:edge && npx wrangler deploy --config wrangler.edge.jsonc",
+    "smoke:edge": "node scripts/edge/runtime-smoke.mjs"
   },
   "dependencies": {
     "@atproto/api": "^0.30.0",
