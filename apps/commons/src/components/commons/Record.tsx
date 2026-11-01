@@ -44,6 +44,10 @@ export function Record({ problem, hit, citations = {}, onCite, shared = [] }: { 
         ({problem.provenance.authoredBy})
       </div>
       <h2>{problem.title}</h2>
+      <p className="phf-voices" role="note">
+        Two voices on this page: <span className="phf-voice-chip source">source authors</span> quoted and linked to the original, and the{' '}
+        <span className="phf-voice-chip agent">agent record writer</span> whose reading is labelled and unreviewed.
+      </p>
       {hit && <p className="commons-why">Why this matched: {hit.explanation}</p>}
       {hit?.nearMatch && (
         <p className="commons-near" role="note">
@@ -51,36 +55,40 @@ export function Record({ problem, hit, citations = {}, onCite, shared = [] }: { 
         </p>
       )}
       <dl className="commons-facts">
-        <dt>Device</dt>
+        <dt>Applies to</dt>
         <dd>{problem.device.join(', ') || '—'}</dd>
-        <dt>Reported conditions</dt>
+        <dt>When</dt>
         <dd>{problem.environment.join(' · ') || '—'}</dd>
         <dt>Symptoms</dt>
         <dd>{problem.symptoms.join(' · ') || '—'}</dd>
         {problem.statusNote && (
           <>
-            <dt>Limits</dt>
+            <dt>Limit</dt>
             <dd>{problem.statusNote}</dd>
           </>
         )}
       </dl>
-      <h3>Evidence</h3>
+      <h3>Evidence · what people actually wrote</h3>
       <ol className="commons-evidence">
         {problem.evidence.map((e, i) => (
-          <li key={e.id}>
-            <span className="badge">{e.role}</span>
-            {e.quote && (
-              <blockquote>
-                “{e.quote}”
-              </blockquote>
+          <li key={e.id} className="phf-evidence">
+            <div className="phf-evidence-head"><span className="badge">{e.role}</span> <span className="commons-limit">passage {e.id}</span></div>
+            {e.quote ? (
+              <figure className="phf-source-voice">
+                <figcaption className="phf-voice-tag">Original words · source author</figcaption>
+                <blockquote>“{e.quote}”</blockquote>
+                <SourceLine source={e.source} />
+              </figure>
+            ) : (
+              <SourceLine source={e.source} />
             )}
             {e.interpretation && (
-              <p className="commons-interp">
-                <em>Record writer's reading, not the author's words:</em> {e.interpretation}
-              </p>
+              <div className="phf-agent-voice">
+                <span className="phf-voice-tag">Agent interpretation · {problem.provenance.authoredBy} · {problem.provenance.review === 'unreviewed' ? 'not reviewed' : 'reviewed'}</span>
+                <p className="commons-interp">{e.interpretation}</p>
+              </div>
             )}
-            <SourceLine source={e.source} />
-            {onCite && <button className="button commons-cite" onClick={() => onCite(e.id)} aria-label={`Respond to passage ${e.id}`}>Respond to this passage</button>}
+            {onCite && <button className="button commons-cite primary" onClick={() => onCite(e.id)} aria-label={`Respond to passage ${e.id}`}>Respond to this passage</button>}
             {citations[e.id]?.length && sameAsEarlier(e.id, i) ? (
               <p className="commons-limit">Cited by the same {citations[e.id]!.length} contribution{citations[e.id]!.length === 1 ? '' : 's'} as above: they cite the whole source object, not one passage.</p>
             ) : citations[e.id]?.length ? (
