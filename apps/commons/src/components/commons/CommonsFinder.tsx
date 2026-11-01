@@ -1,3 +1,4 @@
+import { EDGE_MODE } from '../../lib/api'
 /**
  * Search entrance. Problem records are searched in the browser over the
  * committed record-only index (offline, deterministic); new contributions are
@@ -122,7 +123,7 @@ export function CommonsFinder({ reader, token, query, selected, compare = [] }: 
                 <a className="commons-hit phf-result" href={appLinks.contribution(h.contributionId)}>
                   <span className="phf-result-head">
                     <strong>{h.summary.kind} by {actorLabel(h.summary.actor)}</strong>
-                    <span className="badge">{h.summary.origin === 'atproto' ? 'ATProto' : h.summary.publication}</span>
+                    <span className="badge">{h.summary.origin === 'atproto' ? 'ATProto' : EDGE_MODE ? 'Public on this Commons' : h.summary.publication}</span>
                     <span className="badge">via {h.summary.entrance}</span>
                   </span>
                   <span>{h.summary.excerpt}</span>

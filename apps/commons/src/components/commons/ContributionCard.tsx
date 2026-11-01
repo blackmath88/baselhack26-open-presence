@@ -5,6 +5,7 @@
  * record shows only that it is unavailable, never its body.
  */
 import { useState } from 'react'
+import { EDGE_MODE } from '../../lib/api'
 import { CornerDownRight, ExternalLink, EyeOff, Globe, MessageSquare, Pencil } from 'lucide-react'
 import type { CommonsContribution, ModeratedContribution, SourceRef } from '../../commons/contracts'
 import { appLinks, isModerated } from '../../commons/contracts'
@@ -28,6 +29,7 @@ export function PublicationBadge({ c }: { c: CommonsContribution }) {
   if (c.origin.kind === 'atproto') {
     return <span className={`badge origin-${c.origin.availability}`} title={c.origin.uri}>ATProto · {c.origin.availability}{c.origin.selfPublicationOf ? ' · own' : ''}</span>
   }
+  if (EDGE_MODE) return <span className="badge pub-public" title="Anyone can read this contribution on this Commons website. ATProto publication is unavailable here.">Public on this Commons</span>
   const status = c.publication?.status ?? 'local'
   return <span className={`badge pub-${status}`} title={c.publication?.uri ?? 'Not published anywhere; visible to participants of this local room.'}>{PUBLICATION_LABEL[status] ?? status}</span>
 }
@@ -94,7 +96,7 @@ export function ContributionCard({ c, token, actorId, canReview, onReply, onCorr
     )
   }
   // A self-published contribution stays the participant's own: the publication panel keeps showing its receipt.
-  const own = actorId !== null && c.actor.id === actorId && (c.origin.kind === 'local' || Boolean(c.origin.selfPublicationOf))
+  const own = !EDGE_MODE && actorId !== null && c.actor.id === actorId && (c.origin.kind === 'local' || Boolean(c.origin.selfPublicationOf))
   return (
     <article className={`commons-card ${highlight ? 'highlight' : ''}`} id={`c-${c.id}`} aria-label={`${c.kind} by ${actorLabel(c.actor)}`}>
       <div className="commons-card-head">

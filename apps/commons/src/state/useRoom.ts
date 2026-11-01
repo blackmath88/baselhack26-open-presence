@@ -8,13 +8,13 @@
  */
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
-  api, ApiError,
+  api, ApiError, EDGE_MODE,
   type ActorContext, type ConflictRecord, type ContributionKind, type CurationProposal,
   type MemoryEvent, type OrchestrationMode, type OrchestrationOption, type Participant,
   type ParticipantProposalInput, type ProblemRecord, type ProblemState, type ProblemUpdates,
 } from '../lib/api'
 
-const SESSION_KEY = 'br-ai-nstorm.session'
+const SESSION_KEY = EDGE_MODE ? 'phf.edge.session' : 'br-ai-nstorm.session'
 
 export type Phase = 'connecting' | 'ready' | 'error'
 
@@ -35,7 +35,7 @@ export interface Room {
 
   participants: Participant[]
   actor: ActorContext | null
-  signIn: (participantId: string) => Promise<void>
+  signIn: (participantId: string) => Promise<boolean>
 
   problems: ProblemRecord[]
   problemId: string | null
@@ -70,7 +70,7 @@ interface StoredSession {
 
 function loadSession(): StoredSession | null {
   try {
-    const raw = localStorage.getItem(SESSION_KEY)
+    const raw = (EDGE_MODE ? sessionStorage : localStorage).getItem(SESSION_KEY)
     return raw ? (JSON.parse(raw) as StoredSession) : null
   } catch {
     return null
@@ -79,8 +79,8 @@ function loadSession(): StoredSession | null {
 
 function saveSession(session: StoredSession | null): void {
   try {
-    if (session) localStorage.setItem(SESSION_KEY, JSON.stringify(session))
-    else localStorage.removeItem(SESSION_KEY)
+    if (session && !(EDGE_MODE && session.token === 'public')) (EDGE_MODE ? sessionStorage : localStorage).setItem(SESSION_KEY, JSON.stringify(session))
+    else (EDGE_MODE ? sessionStorage : localStorage).removeItem(SESSION_KEY)
   } catch {
     /* private-mode browsers: the session simply does not persist */
   }
@@ -139,16 +139,39 @@ export function useRoom(): Room {
     [],
   )
 
+  // Every sign-in/sign-out bumps this; an older bootstrap or sign-in result must not overwrite a newer choice.
+  const authGeneration = useRef(0)
+
   // Bootstrap: roster, restored session, problem list.
   useEffect(() => {
     let cancelled = false
+    const generation = authGeneration.current
+    const stale = () => cancelled || generation !== authGeneration.current
     void (async () => {
       try {
+        if (EDGE_MODE) {
+          const restored = loadSession()
+          let next: StoredSession
+          try {
+            next = await api.startSession(restored?.token ?? 'public')
+          } catch (err) {
+            if (!(err instanceof ApiError) || err.status !== 401) throw err
+            if (stale()) return
+            saveSession(null)
+            next = await api.startSession('public')
+            if (!stale()) setError('Your contributor access code is invalid, expired or revoked. You are reading publicly. Enter a valid code to contribute again.')
+          }
+          if (stale()) return
+          setSession(next)
+          setPhase('ready')
+          return
+        }
         const { participants: roster } = await api.participants()
         if (cancelled) return
         setParticipants(roster)
 
-        const stored = loadSession()
+        const restored = loadSession()
+        const stored = restored
         if (!stored) {
           setPhase('ready')
           return
@@ -163,7 +186,7 @@ export function useRoom(): Room {
         if (first) await loadProblem(stored.token, first)
         else setPhase('ready')
       } catch (err) {
-        if (cancelled) return
+        if (stale()) return
         if (err instanceof ApiError && err.status === 401) {
           saveSession(null)
           setSession(null)
@@ -181,12 +204,29 @@ export function useRoom(): Room {
 
   const signIn = useCallback(
     async (participantId: string) => {
+      const generation = ++authGeneration.current
       setBusy(true)
       setError(null)
+      setNotice(null)
+      // Signing out clears the credential even if the service is unavailable.
+      if (EDGE_MODE && participantId === 'public') {
+        saveSession(null)
+        setSession({ token: 'public', actor: { actorId: 'person:public-reader', displayName: 'Public reader', scopes: ['memory:read'] } })
+        setPhase('ready')
+        setNotice('Reading publicly. Contributor session cleared.')
+        setBusy(false)
+        return true
+      }
       try {
         const next = await api.startSession(participantId)
+        if (EDGE_MODE && generation !== authGeneration.current) return false
         saveSession(next)
         setSession(next)
+        if (EDGE_MODE) {
+          setPhase('ready')
+          setNotice(next.token === 'public' ? 'Reading publicly. Contributor session cleared.' : `Signed in as ${next.actor.displayName}.`)
+          return true
+        }
         const { problems: list } = await api.problems(next.token)
         setProblems(list)
         const id = problemId && list.some((p) => p.id === problemId) ? problemId : (list[0]?.id ?? null)
@@ -194,14 +234,17 @@ export function useRoom(): Room {
         if (id) await loadProblem(next.token, id)
         else setPhase('ready')
         setNotice(`Signed in as ${next.actor.displayName}.`)
+        return true
       } catch (err) {
+        if (EDGE_MODE && generation !== authGeneration.current) return false
         setError(message(err))
-        setPhase('error')
+        setPhase(EDGE_MODE && session ? 'ready' : 'error')
+        return false
       } finally {
-        setBusy(false)
+        if (generation === authGeneration.current) setBusy(false)
       }
     },
-    [loadProblem, problemId],
+    [loadProblem, problemId, session],
   )
 
   const selectProblem = useCallback(
@@ -220,7 +263,7 @@ export function useRoom(): Room {
   /** Re-read the problem list (a Commons submission can open a new problem space) and open one. */
   const openProblem = useCallback(
     async (id: string) => {
-      if (!session) return
+      if (!session || EDGE_MODE) return
       const { problems: list } = await api.problems(session.token)
       setProblems(list)
       setProblemId(id)
