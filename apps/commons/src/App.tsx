@@ -192,8 +192,8 @@ export default function App() {
 
       {room.actor && room.token && (
         <>
-          <JourneyBar route={route} />
           <EntranceTabs route={route} />
+          <JourneyBar route={route} />
           <CommonsHub
             route={route}
             token={room.token}
