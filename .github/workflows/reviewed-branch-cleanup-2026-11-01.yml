@@ -16,9 +16,10 @@ jobs:
       - uses: actions/github-script@v7
         with:
           script: |
-            const candidates = [{"name":"blackmath88/commons-adapter-consistency","sha":"cfe1c7b8a46a172c533ccaa487a2d5cbde5ba5c6"},{"name":"blackmath88/nuc-20261031-commons","sha":"6c17695f7f23df2f48aafb692e2b20dd7a6cd53d"},{"name":"blackmath88/nuc-20261031-observatory-pin","sha":"bf466a16b641f6bec8d0692f2236d00973fdc299"},{"name":"blackmath88/nuc-20261031-pdf","sha":"169714867da4e5a13cf9be8127c20469db882545"},{"name":"blackmath88/pdf-history-reassurance","sha":"f32654ea81a64190d3e52012bbff95acd5e56ca5"},{"name":"docs/multi-entry-commons-plan","sha":"40b5e0fbcce713d81a3acd171f11859495cdc9d5"},{"name":"docs/nuc-build-window-2026-10-31","sha":"12318194e4cab3e471d47eb1d198b2ccd599872c"},{"name":"feat/commons-brainstorm-integration","sha":"e24838fe25a7aa1e4c9648f8dee03ce159883b28"},{"name":"feat/commons-multi-entry","sha":"86ec1a95abff46081ea63907197277543bae3c40"},{"name":"feat/hackathon-event-schedule","sha":"a6c09b7b90c003e3b20e054f5a464feda1a53f5e"},{"name":"feat/observatory-visual-workspace","sha":"0e099415f3d7571fbf9ec36bddb0fc74c8449219"},{"name":"feat/project-knowledge-manifest","sha":"8fcc07bf37da8350705aae972c0c10d3609f2cb8"},{"name":"feat/project-memory-writeback","sha":"6debacc1e614b20c471b83c7afe1a6be10804382"},{"name":"fix/activate-reviewed-observatory","sha":"2a806db33fca2b0dd8f7342d2b2ea36efba9cff9"},{"name":"fix/commons-moderation-reads","sha":"690b7b1338f4b15abf90ca1211c29147acf37dff"},{"name":"fix/commons-publication-review","sha":"dd8374fd1c34f887cc4dc5d0de98136d879ed8a8"},{"name":"fix/production-knowledge-ref","sha":"238f9cdb9036cf3789bbe1900ce922765bab4c38"}];
+            const candidates = [{"name":"feat/hackathon-event-schedule","sha":"a6c09b7b90c003e3b20e054f5a464feda1a53f5e"},{"name":"fix/activate-reviewed-observatory","sha":"2a806db33fca2b0dd8f7342d2b2ea36efba9cff9"},{"name":"fix/production-knowledge-ref","sha":"238f9cdb9036cf3789bbe1900ce922765bab4c38"}];
             const {owner, repo} = context.repo;
             const pulls = await github.paginate(github.rest.pulls.list, {owner,repo,state:'open',per_page:100});
+            const mergedPulls = (await github.paginate(github.rest.pulls.list, {owner,repo,state:'closed',per_page:100})).filter(p=>p.merged_at && p.base.ref==='main');
             const main = (await github.rest.git.getRef({owner,repo,ref:'heads/main'})).data.object.sha;
             const results = [];
             for (const candidate of candidates) {
@@ -30,7 +31,8 @@ jobs:
                 const live = (await github.rest.git.getRef({owner,repo,ref:'heads/'+name})).data.object.sha;
                 if (live !== candidate.sha) {results.push({branch:name,state:'preserved-moved'});continue;}
                 const compared = (await github.rest.repos.compareCommitsWithBasehead({owner,repo,basehead:live+'...'+main})).data;
-                if (compared.merge_base_commit.sha !== live) {results.push({branch:name,state:'preserved-unmerged'});continue;}
+                const landedBySquash = mergedPulls.some(p=>p.head.ref===name && p.head.sha===live);
+                if (compared.merge_base_commit.sha !== live && !landedBySquash) {results.push({branch:name,state:'preserved-unmerged'});continue;}
                 await github.rest.git.deleteRef({owner,repo,ref:'heads/'+name});
                 results.push({branch:name,sha:live,state:'deleted-merged'});
               } catch(error) {
