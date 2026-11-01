@@ -18,7 +18,11 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "index:check": "node scripts/corpus/check-index.mjs",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.server.json && tsc --noEmit -p tsconfig.worker.json"
+    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.server.json && tsc --noEmit -p tsconfig.worker.json",
+    "typecheck:e": "tsc --noEmit --jsx react-jsx --moduleResolution bundler --module esnext --target es2022 --skipLibCheck --esModuleInterop e-preview/main.tsx",
+    "build:e": "npm run typecheck:e && vite build --config vite.e-preview.config.ts",
+    "preview:e": "vite preview --config vite.e-preview.config.ts",
+    "test:e": "vitest run test/e-guide.test.ts test/e-behaviour.test.ts test/e-opening.test.ts"
   },
   "dependencies": {
     "@atproto/api": "^0.30.0",
