@@ -12,14 +12,14 @@ describe('compareSituation (word comparison, not compatibility)', () => {
     // "T3 USB data test" shares only words added by the explicit query expansion.
     const usb = checks.find((c) => c.label === 'T3 USB data test')!
     expect(usb.yourWords).toEqual([])
-    expect(usb.expandedWords.length).toBeGreaterThan(0)
+    expect(usb.expandedWords).toEqual(['usb', 'data'])
   })
   it('separates typed words from expanded ones', () => {
     const p = commonsReader.problem('reset-after-uboot')!
     const mac = compareSituation('My Mac cannot see my frame', p).find((c) => /macOS/.test(c.label))!
     expect(mac.yourWords).toEqual([])
-    expect(mac.expandedWords).toContain('maco') // stem of the expanded word macos
-    expect(compareSituation('macOS automount fails', p).find((c) => /macOS/.test(c.label))!.yourWords.length).toBeGreaterThan(0)
+    expect(mac.expandedWords).toEqual(['macos'])
+    expect(compareSituation('macOS automount fails', p).find((c) => /macOS/.test(c.label))!.yourWords).toEqual(['macOS', 'automount'])
   })
 })
 

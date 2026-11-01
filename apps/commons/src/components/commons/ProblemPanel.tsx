@@ -4,7 +4,7 @@
  * and publication actions. Reached from search, repository, deep link or a tab.
  */
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ArrowLeft, CheckCircle2 } from 'lucide-react'
+import { CheckCircle2 } from 'lucide-react'
 import { journey } from '../../commons/client/journey'
 import type { CommonsContribution, SearchHit } from '../../commons/contracts'
 import { ApiError } from '../../lib/api'
@@ -14,6 +14,7 @@ import { Record } from './Record'
 import { ContributionCard, actorLabel } from './ContributionCard'
 import { Composer, type Relation } from './Composer'
 import { ThreadView } from './ThreadView'
+import { SituationBar } from './SituationBar'
 
 export function ProblemPanel({ token, problemId, query, hit, passage, actorId, actorName, canReview, focus, mode, onSubmitted }: {
   token: string
@@ -56,17 +57,7 @@ export function ProblemPanel({ token, problemId, query, hit, passage, actorId, a
   useEffect(() => {
     if (focus && view) document.getElementById(`c-${focus}`)?.scrollIntoView({ block: 'center' })
   }, [focus, view])
-  const context = (
-    <nav className="cx-context" aria-label="Where you are">
-      <a className="cx-back" href={appLinks.search(query ?? '')}><ArrowLeft size={14} aria-hidden="true" /> {query ? 'Back to results' : 'Search'}</a>
-      {query && (
-        <span className="cx-situation">
-          <span className="cx-situation-k">Your situation</span> <q>{query}</q>
-        </span>
-      )}
-      <span className="cx-context-note">The Commons knows only what you typed — not your device, cable or setup.</span>
-    </nav>
-  )
+  const context = <SituationBar query={query} />
   // The situation and the way back stay on screen in every state.
   if (error && !view) return (
     <div className="commons-problem">

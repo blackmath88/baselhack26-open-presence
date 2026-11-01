@@ -146,6 +146,38 @@ html, body { background: var(--cx-canvas) }
   .commons-hub .cx-fit li { grid-template-columns: 1fr; gap: 0 }
 }
 
+/* Phase 2: comparison --------------------------------------------------- */
+.commons-hub .cx-hit-actions { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--cx-s1) var(--cx-s4) }
+.commons-hub .cx-hit-actions .cx-why { flex: 1 1 100% }
+.commons-hub .cx-hit-actions .cx-why:has(.cx-why-body[hidden]) { flex: 0 0 auto }
+.commons-hub .cx-compare-link { display: inline-flex; align-items: center; min-height: 36px; padding: 0 var(--cx-s2); border-radius: var(--cx-r2); color: var(--cx-accent-ink); font-size: 14px; font-weight: 600; text-decoration: none }
+.commons-hub .cx-compare-link:hover { background: var(--cx-accent-soft) }
+.commons-hub .cx-compare-entry { margin: var(--cx-s3) 0 0; margin-left: calc(-1 * var(--cx-s2)) }
+.commons-hub .cx-compare-heads { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cx-s4); margin: var(--cx-s4) 0 }
+.commons-hub .cx-compare-head { display: flex; flex-direction: column; align-items: flex-start; gap: var(--cx-s2); padding: var(--cx-s4); border: 1px solid var(--cx-divider); border-radius: var(--cx-r2); background: var(--cx-canvas) }
+.commons-hub .cx-side { font-family: var(--cx-mono); font-size: 13px; font-weight: 700; color: var(--cx-text-2) }
+.commons-hub .cx-compare-title { font-size: 17px; line-height: 24px; font-weight: 650; color: var(--cx-accent-ink) }
+.commons-hub .cx-compare-actions { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--cx-s2); margin-top: auto; width: 100% }
+.commons-hub .cx-pick { display: grid; gap: 2px; font-size: 13px; font-weight: 600; color: var(--cx-text-2); flex: 1 1 200px; min-width: 0 }
+.commons-hub .cx-pick select { min-height: 40px; width: 100%; border: 1px solid var(--cx-control); border-radius: var(--cx-r2); background: var(--cx-surface); color: var(--cx-text); font: inherit; font-size: 14px; font-weight: 400; padding: 0 var(--cx-s2) }
+.commons-hub .cx-compare-table { width: 100%; border-collapse: collapse; margin-top: var(--cx-s5); font-size: 15px; line-height: 22px; table-layout: fixed }
+.commons-hub .cx-compare-table th, .commons-hub .cx-compare-table td { text-align: left; vertical-align: top; padding: var(--cx-s3); border-top: 1px solid var(--cx-divider) }
+.commons-hub .cx-compare-table thead th { font-size: 14px; color: var(--cx-text-2); border-top: 0; border-bottom: 2px solid var(--cx-divider) }
+.commons-hub .cx-compare-table thead th:first-child, .commons-hub .cx-compare-table tbody th { width: 150px }
+.commons-hub .cx-compare-table tbody th { font-size: 14px; font-weight: 600; color: var(--cx-text-2) }
+.commons-hub .cx-compare-table ul { margin: 0; padding-left: 18px; display: grid; gap: var(--cx-s1) }
+.commons-hub .cx-compare-passages { list-style: none; padding-left: 0 !important }
+.commons-hub .cx-unknown { font-style: italic; color: var(--cx-text-2) }
+@media (max-width: 720px) {
+  .commons-hub .cx-compare-heads { grid-template-columns: 1fr }
+  /* Stack: one field at a time, each cell repeating which account and field it is. */
+  .commons-hub .cx-compare-table, .commons-hub .cx-compare-table tbody, .commons-hub .cx-compare-table tr, .commons-hub .cx-compare-table th, .commons-hub .cx-compare-table td { display: block; width: auto }
+  .commons-hub .cx-compare-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0) }
+  .commons-hub .cx-compare-table tbody th { padding: var(--cx-s4) 0 var(--cx-s1); border-top: 2px solid var(--cx-divider); width: auto }
+  .commons-hub .cx-compare-table td { border-top: 0; padding: var(--cx-s1) 0 var(--cx-s2) }
+  .commons-hub .cx-compare-table td::before { content: attr(data-side); display: block; font-size: 13px; font-weight: 600; color: var(--cx-text-2) }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .commons-hub .cx-hit .commons-hit, .commons-hub .cx-chevron { transition: none }
 }

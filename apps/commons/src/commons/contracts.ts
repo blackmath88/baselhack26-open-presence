@@ -264,6 +264,9 @@ export const appLinks = {
     `#/problems/${encodeURIComponent(problemId)}?${query ? `q=${encodeURIComponent(query)}&` : ''}passage=${encodeURIComponent(evidenceId)}`,
   contribution: (contributionId: string) => `#/contributions/${encodeURIComponent(contributionId)}`,
   thread: (contributionId: string) => `#/threads/${encodeURIComponent(contributionId)}`,
+  /** Up to two records side by side, keeping the searched situation when there is one. */
+  compare: (ids: string[], query?: string) =>
+    `#/compare?ids=${ids.slice(0, 2).map(encodeURIComponent).join(',')}${query ? `&q=${encodeURIComponent(query)}` : ''}`,
   repository: (path = '') => `#/repo${path ? `/${path.split('/').map(encodeURIComponent).join('/')}` : ''}`,
   search: (query: string) => `#/search?q=${encodeURIComponent(query)}`,
 };

@@ -82,7 +82,10 @@ export function CommonsFinder({ reader, token, query }: { reader: CommonsReader;
                     )}
                     <CommunityLine summary={server?.problems.find((s) => s.problemId === h.problemId)?.community} />
                   </a>
-                  <WhyMatched hit={h} />
+                  <div className="cx-hit-actions">
+                    <WhyMatched hit={h} />
+                    <a className="cx-compare-link" href={appLinks.compare([h.problemId], query)}>Compare with another account</a>
+                  </div>
                 </li>
               )
             })}

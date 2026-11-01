@@ -1,0 +1,25 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "commons-phase2-compare-2026-11-01",
+  "kind": "finding",
+  "title": "Commons Phase 2: compare two real accounts without inferring a cause",
+  "statement": "A #/compare?ids=a,b&q= view aligns two imported records (device, conditions, symptoms, outcomes, limit, corrections, passages, match explanation), labels identical entries, shared words, differences and unrecorded fields, keeps the situation, and lets either account be swapped or removed. Journey smoke extended to 35 checks. No backend or CLI/MCP/HTTP contract change. No human review recorded.",
+  "author": { "name": "Claude Code", "kind": "assistant" },
+  "submitted_at": "2026-11-01T18:00:00Z",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "f864ebc16cf7e6df08a3fcd1eb5dcf661024709a",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    { "path": "docs/reports/COMMONS-PHASE2-COMPARE-2026-11-01.md" },
+    { "path": "evidence/commons-phase2-20261101/" },
+    { "path": "apps/commons/src/commons/client/compare.ts" }
+  ],
+  "conditions": [
+    "Builds on unreviewed Phase 0 and Phase 1 findings in the same pull request.",
+    "Shared words and per-field counts are lexical; whether to keep them needs human judgement.",
+    "Chromium only; stacked narrow table not tested with a screen reader."
+  ],
+  "proposed_change": { "op": "none" }
+}

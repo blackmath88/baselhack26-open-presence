@@ -88,6 +88,7 @@ export function Record({ problem, hit, query, passage, citations = {}, onCite, s
         </section>
       )}
       {query && <FitPanel problem={problem} query={query} hit={hit} passageLink={passageLink} />}
+      <p className="cx-compare-entry"><a className="cx-compare-link" href={appLinks.compare([problem.postackId], query)}>Compare with another account</a> <span className="cx-meta">side by side: conditions, symptoms, outcomes, limits</span></p>
       <h3 id="cx-evidence-title">Evidence · what people actually wrote</h3>
       <nav className="cx-passage-index" aria-label="Passages in this record">
         <ol>
@@ -202,7 +203,7 @@ function FitPanel({ problem, query, hit, passageLink }: { problem: ImportedProbl
               {mentioned.map((c) => (
                 <li key={c.kind + c.label}>
                   <span className="cx-fit-k">{c.kind === 'device' ? 'Device' : 'Condition'}</span>
-                  <span>{c.label} <span className="cx-meta">— your words: {[...c.yourWords, ...c.expandedWords.map((w) => `${w} (expanded by search)`)].join(', ')}</span></span>
+                  <span>{c.label} <span className="cx-meta">— your words: {[...c.yourWords, ...c.expandedWords.map((w) => `${w} (added by search)`)].join(', ')}</span></span>
                 </li>
               ))}
             </ul>

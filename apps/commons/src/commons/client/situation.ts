@@ -12,22 +12,23 @@ import { queryVocabulary } from '../retrieval/index'
 export interface ConditionCheck {
   kind: 'device' | 'condition'
   label: string
-  /** Stemmed words shared with your situation; empty when you did not state it. */
+  /** Your own words (as typed) that this entry shares; empty when you did not state it. */
   yourWords: string[]
-  /** Shared words that exist only because search expanded your query (e.g. mac → macos). */
+  /** Words search added to your query (e.g. macos for mac) that this entry shares. */
   expandedWords: string[]
 }
 
 export function compareSituation(query: string, problem: Pick<ImportedProblem, 'device' | 'environment'>): ConditionCheck[] {
-  const typed = new Set(tokenize(query))
-  const expanded = new Set(tokenize(queryVocabulary(query).text))
+  // Matching is on stems (as in search); what is shown is the word as typed or as added by search.
+  const typed = asWritten(query.split(/\s+/))
+  const added = asWritten(queryVocabulary(query).added)
   const check = (kind: ConditionCheck['kind'], label: string): ConditionCheck => {
-    const words = [...new Set(tokenize(label))]
+    const stems = [...new Set(tokenize(label))]
     return {
       kind,
       label,
-      yourWords: words.filter((w) => typed.has(w)),
-      expandedWords: words.filter((w) => !typed.has(w) && expanded.has(w)),
+      yourWords: unique(stems.flatMap((w) => typed.get(w) ?? [])),
+      expandedWords: unique(stems.filter((w) => !typed.has(w)).flatMap((w) => added.get(w) ?? [])),
     }
   }
   return [...problem.device.map((d) => check('device', d)), ...problem.environment.map((e) => check('condition', e))]
@@ -46,4 +47,12 @@ export function evidenceRefs(text: string, evidenceIds: string[]): Array<{ text:
   }
   if (last < text.length) parts.push({ text: text.slice(last) })
   return parts
+}
+
+const unique = (xs: string[]) => [...new Set(xs)]
+/** Stem → the words that produced it, as written. */
+export function asWritten(words: string[]): Map<string, string[]> {
+  const out = new Map<string, string[]>()
+  for (const w of words.flatMap((x) => x.split(/[\s,;()]+/))) for (const stem of tokenize(w)) out.set(stem, unique([...(out.get(stem) ?? []), w.replace(/[^\p{L}\p{N}-]/gu, '')]))
+  return out
 }

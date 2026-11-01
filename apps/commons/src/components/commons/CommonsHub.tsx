@@ -9,6 +9,7 @@ import { CommonsFinder } from './CommonsFinder'
 import { RepoNavigator } from './RepoNavigator'
 import { ProblemPanel } from './ProblemPanel'
 import { ContributionLocator } from './ContributionLocator'
+import { CompareView } from './CompareView'
 
 export function CommonsHub({ route, token, actorId, actorName, canReview, reader, onSubmitted }: {
   route: Route
@@ -24,6 +25,7 @@ export function CommonsHub({ route, token, actorId, actorName, canReview, reader
       {(route.view === 'home' || route.view === 'search') && <CommonsFinder reader={reader} token={token} query={route.view === 'search' ? route.query : ''} />}
       {route.view === 'repo' && <RepoNavigator token={token} path={route.path} {...(route.object ? { object: route.object } : {})} {...(route.type ? { type: route.type } : {})} />}
       {route.view === 'problem' && <ProblemPanel key={route.problemId} token={token} problemId={route.problemId} {...(route.query ? { query: route.query, hit: reader.search(route.query, 20).find((h) => h.problemId === route.problemId) } : {})} {...(route.passage ? { passage: route.passage } : {})} actorId={actorId} actorName={actorName} canReview={canReview} mode="problem" onSubmitted={onSubmitted} />}
+      {route.view === 'compare' && <CompareView reader={reader} ids={route.ids} query={route.query} />}
       {(route.view === 'contribution' || route.view === 'thread') && (
         <ContributionLocator token={token} contributionId={route.contributionId}>
           {(problemId) => <ProblemPanel key={`${route.view}:${route.contributionId}`} token={token} problemId={problemId} actorId={actorId} actorName={actorName} canReview={canReview} focus={route.contributionId} mode={route.view === 'thread' ? 'thread' : 'problem'} onSubmitted={onSubmitted} />}
