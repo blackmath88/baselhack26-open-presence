@@ -1,0 +1,40 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "e-v2-integration-preview-20261101",
+  "kind": "finding",
+  "title": "E v2 integrated with current Commons and public component preview",
+  "statement": "Resolved App.tsx and styles.css conflicts against main, preserving the current Commons journey and workbench gating, with E mounted once. Added a backend-independent Pages preview using the same EGuide and EPixelSprite components. User explicitly requested conflict resolution, merge and a live page. Multi-frame animation, walking and presentation choreography remain planned.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T23:35:00+01:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "9e864a5f012856546f10ce8303487390c93d5fcb",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "apps/commons/src/App.tsx"
+    },
+    {
+      "path": "apps/commons/e-preview/main.tsx"
+    },
+    {
+      "path": ".github/workflows/observstory.yml"
+    },
+    {
+      "path": "docs/reports/E-V2-INTEGRATION-2026-11-01.md"
+    }
+  ],
+  "conditions": [
+    "Published knowledge read at 9e864a5: 15/15 selected sources read, no diagnostics; dated memory packet cutoff 93a5445 is historical.",
+    "Preview is the real component but does not connect to the Commons backend.",
+    "Local browser download failed; no local interactive browser check or screenshot claimed.",
+    "No human review record authored."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}

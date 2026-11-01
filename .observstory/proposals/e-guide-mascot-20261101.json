@@ -1,0 +1,41 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "e-guide-mascot-20261101",
+  "kind": "proposal",
+  "title": "Add 'E', a dopey letter-E on-screen guide, that sidetracks visitors into the side missions",
+  "statement": "A red letter-E mascot in the spirit of the Adobe brand mark (plain geometry, no trademark assets) is mounted at the top of the Commons app shell. It cycles greeting, sidetrack and return phases every 14 seconds; in the sidetrack phase it links out to the side missions (PDF Lab, PDF history), matching the optional Adobe/PDF presentation narrative with a light, funny moderator. The core experience remains fully usable without it, per the concept's requirement that the implementation make sense without the Adobe/PDF narrative.",
+  "author": {
+    "name": "Vibe Code (Mistral AI)",
+    "kind": "assistant",
+    "via": "coordinator session 2026-11-01"
+  },
+  "submitted_at": "2026-11-01T10:15:00+01:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "4c998e90408100de4b04c8af83b0024d9f3c0162",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "apps/commons/src/components/EGuide.tsx"
+    },
+    {
+      "path": "apps/commons/src/App.tsx"
+    },
+    {
+      "path": "apps/commons/test/e-guide.test.ts"
+    },
+    {
+      "path": "HUMAN-SIGNAL-CONCEPT.md"
+    }
+  ],
+  "conditions": [
+    "Presentation aid only; the Commons remains understandable and usable without the Adobe/PDF narrative (HUMAN-SIGNAL-CONCEPT.md line 145).",
+    "Uses plain geometric shapes and the colour #fa0f00; no Adobe trademark assets, logos or fonts are copied or referenced.",
+    "Side-mission links point to the repository paths of sideprojects/pdf-lab and modules/pdf-history on main.",
+    "Unreviewed until a human review record exists in .observstory/reviews/."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
