@@ -104,6 +104,10 @@ describe('two authors through a real isolated PDS, rebuilt by a fresh index', ()
     // Source identities (GitHub authors in the pinned snapshot) differ from contribution authors (DIDs).
     expect(fromAlice.sourceRefs.map(s => s.objectId)).toEqual([ref])
     expect(fromAlice.sourceRefs[0].author).not.toBe(alice.did)
+    // The fresh instance labels both as arriving over ATProto and rediscovers Alice's record from the cited source object.
+    expect([fromAlice.entrance, fromBob.entrance]).toEqual(['atproto', 'atproto'])
+    const browsed = await appB.browseRepository(kai, { object: ref })
+    expect(browsed.view === 'thread' && browsed.thread.contributions.map(c => [c.actor.id, c.entrance])).toEqual([[alice.did, 'atproto']])
     expect(fromBob.parent).toEqual({ kind: 'atproto', uri: publishedA.receipt.uri, cid: publishedA.receipt.cid })
     const thread = await appB.getThread(kai, fromBob.id)
     expect(thread.root.contribution.id).toBe(fromAlice.id)

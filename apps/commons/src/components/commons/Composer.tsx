@@ -12,11 +12,13 @@ import { commonsApi, type PreparedContribution, type ProblemView, type SubmitRes
 
 export type Relation = 'root' | 'reply' | 'correction' | 'supersedes'
 
-export function Composer({ token, problem, parent, relation, onSubmitted, onCancel }: {
+export function Composer({ token, problem, parent, relation, focusEvidence, onSubmitted, onCancel }: {
   token: string
   problem: ProblemView
   parent?: { id: string; label: string } | null
   relation: Relation
+  /** Evidence id to cite as an exact passage when the composer opens ("Respond to this passage"). */
+  focusEvidence?: string
   onSubmitted: (result: SubmitResult) => void
   onCancel?: () => void
 }) {
@@ -27,15 +29,29 @@ export function Composer({ token, problem, parent, relation, onSubmitted, onCanc
   const [circumstances, setCircumstances] = useState(existing?.circumstances ?? '')
   const [kind, setKind] = useState<CommonsContributionKind>(existing?.kind ?? (relation === 'correction' ? 'correction' : relation === 'reply' ? 'question' : 'observation'))
   const [assistance, setAssistance] = useState<AssistanceDeclaration>(existing?.assistance ?? 'none')
-  const [refs, setRefs] = useState<string[]>(existing?.sourceRefs ?? (relation === 'root' ? [...new Set(problem.evidence.map((e) => e.source.objectId))] : []))
+  const focused = focusEvidence ? problem.evidence.find((e) => e.id === focusEvidence) : undefined
+  const [refs, setRefs] = useState<string[]>(() => {
+    const base = existing?.sourceRefs ?? (focused ? [] : relation === 'root' ? [...new Set(problem.evidence.map((e) => e.source.objectId))] : [])
+    return focused && !base.includes(focused.source.objectId) ? [...base, focused.source.objectId] : base
+  })
+  const [passages, setPassages] = useState<string[]>(() => [...new Set([...(existing?.evidenceIds ?? []), ...(focused ? [focused.id] : [])])])
+  const togglePassage = (id: string, objectId: string, on: boolean) => {
+    setPassages(on ? [...passages, id] : passages.filter((p) => p !== id))
+    if (on && !refs.includes(objectId)) setRefs([...refs, objectId])
+  }
+  const toggleObject = (objectId: string, on: boolean) => {
+    setRefs(on ? [...refs, objectId] : refs.filter((r) => r !== objectId))
+    // Un-citing an object also un-cites its passages; the server would add the object back otherwise.
+    if (!on) setPassages(passages.filter((p) => problem.evidence.find((e) => e.id === p)?.source.objectId !== objectId))
+  }
   const [preview, setPreview] = useState<PreparedContribution | null>(null)
   const [status, setStatus] = useState<{ kind: 'notice' | 'error'; text: string } | null>(null)
   const [busy, setBusy] = useState(false)
-  useEffect(() => { setPreview(null) }, [text, circumstances, kind, assistance, refs])
+  useEffect(() => { setPreview(null) }, [text, circumstances, kind, assistance, refs, passages])
 
   const draftBody = () => ({
     problemId: problem.problem.postackId, text: text.trim(), kind, assistance,
-    circumstances: circumstances.trim() || undefined, sourceRefs: refs, parentId, relation: relation === 'root' ? undefined : relation,
+    circumstances: circumstances.trim() || undefined, sourceRefs: refs, ...(passages.length ? { evidenceIds: passages } : {}), parentId, relation: relation === 'root' ? undefined : relation,
   })
   const save = () => {
     if (!text.trim()) return
@@ -52,11 +68,13 @@ export function Composer({ token, problem, parent, relation, onSubmitted, onCanc
     const b = draftBody()
     return {
       commandId: id, problemId: b.problemId, text: b.text, kind: b.kind, assistance: b.assistance, sourceRefs: b.sourceRefs,
+      ...(b.evidenceIds ? { evidenceIds: b.evidenceIds } : {}),
       ...(b.circumstances ? { circumstances: b.circumstances } : {}),
       ...(relation === 'reply' && parentId ? { parentId } : {}),
       ...(relation === 'correction' && parentId ? { contradictsId: parentId, parentId } : {}),
       ...(relation === 'supersedes' && parentId ? { supersedesId: parentId } : {}),
       preparedBy: 'browser-draft',
+      entrance: 'browser' as const,
     }
   }
   const doPreview = async () => {
@@ -84,19 +102,27 @@ export function Composer({ token, problem, parent, relation, onSubmitted, onCanc
     <div className="commons-draft" role="form" aria-label={heading}>
       <h3><FileText size={15} /> {heading}</h3>
       <label htmlFor={`cm-text-${parentId ?? 'root'}`}>What happened for you?</label>
-      <textarea id={`cm-text-${parentId ?? 'root'}`} value={text} onChange={(e) => setText(e.target.value)} rows={4} />
+      {focused && <p className="commons-limit">Responding to passage {focused.id} ({focused.role}) of {focused.source.objectId}{focused.quote ? `: “${focused.quote.length > 120 ? `${focused.quote.slice(0, 117)}…` : focused.quote}”` : ''}</p>}
+      <textarea id={`cm-text-${parentId ?? 'root'}`} value={text} onChange={(e) => setText(e.target.value)} rows={4} autoFocus={Boolean(focused)} />
       <div className="commons-row">
         <label>Kind <select value={kind} onChange={(e) => setKind(e.target.value as CommonsContributionKind)}>{COMMONS_CONTRIBUTION_KINDS.map((k) => <option key={k}>{k}</option>)}</select></label>
         <label>Prepared <select value={assistance} onChange={(e) => setAssistance(e.target.value as AssistanceDeclaration)}>{ASSISTANCE_DECLARATIONS.map((a) => <option key={a} value={a}>{a === 'none' ? 'by me, no AI' : a}</option>)}</select></label>
       </div>
       <label htmlFor={`cm-circ-${parentId ?? 'root'}`}>Your circumstances (optional)</label>
       <input id={`cm-circ-${parentId ?? 'root'}`} value={circumstances} onChange={(e) => setCircumstances(e.target.value)} />
-      <details open={relation === 'root'}>
-        <summary>Source excerpts to cite ({refs.length})</summary>
+      <details open={relation === 'root' || Boolean(focused)}>
+        <summary>Sources to cite ({refs.length}{passages.length ? `, ${passages.length} exact passage${passages.length === 1 ? '' : 's'}` : ''})</summary>
         <ul className="commons-refs">
           {[...new Map(problem.evidence.map((e) => [e.source.objectId, e])).values()].map((e) => (
             <li key={e.source.objectId}>
-              <label><input type="checkbox" checked={refs.includes(e.source.objectId)} onChange={(ev) => setRefs(ev.target.checked ? [...refs, e.source.objectId] : refs.filter((r) => r !== e.source.objectId))} /> {e.source.objectId} <span className="commons-limit">({e.role}{e.source.author !== 'unknown' ? `, @${e.source.author}` : ''})</span></label>
+              <label><input type="checkbox" checked={refs.includes(e.source.objectId)} onChange={(ev) => toggleObject(e.source.objectId, ev.target.checked)} /> {e.source.objectId} <span className="commons-limit">(whole source; {e.role}{e.source.author !== 'unknown' ? `, @${e.source.author}` : ''})</span></label>
+              <ul className="commons-passages" aria-label={`Passages of ${e.source.objectId}`}>
+                {problem.evidence.filter((p) => p.source.objectId === e.source.objectId).map((p) => (
+                  <li key={p.id}>
+                    <label className="commons-limit"><input type="checkbox" checked={passages.includes(p.id)} onChange={(ev) => togglePassage(p.id, p.source.objectId, ev.target.checked)} /> passage {p.id} · {p.role}{p.source.locator ? ` · ${p.source.locator}` : ''}{p.quote ? ` · “${p.quote.length > 60 ? `${p.quote.slice(0, 57)}…` : p.quote}”` : ''}</label>
+                  </li>
+                ))}
+              </ul>
             </li>
           ))}
         </ul>
@@ -115,7 +141,7 @@ export function Composer({ token, problem, parent, relation, onSubmitted, onCanc
           {preview.command && (
             <>
               <p><strong>Exact content:</strong> {preview.command.text}</p>
-              <p className="commons-limit">kind {preview.command.kind} · prepared: {preview.command.assistance} · cites {preview.command.sourceRefs.join(', ') || 'nothing'}{preview.command.parentId ? ` · in reply to ${preview.command.parentId}` : ''}{preview.command.contradictsId ? ` · corrects ${preview.command.contradictsId}` : ''}</p>
+              <p className="commons-limit">kind {preview.command.kind} · prepared: {preview.command.assistance} · cites {preview.command.sourceRefs.join(', ') || 'nothing'}{preview.command.evidenceIds?.length ? ` (exact passages ${preview.command.evidenceIds.join(', ')})` : ''}{preview.command.parentId ? ` · in reply to ${preview.command.parentId}` : ''}{preview.command.contradictsId ? ` · corrects ${preview.command.contradictsId}` : ''}</p>
               <button className="button aperture" onClick={() => void submit()} disabled={busy}><Send size={14} /> {busy ? 'Submitting…' : 'Submit to shared room'}</button>
             </>
           )}

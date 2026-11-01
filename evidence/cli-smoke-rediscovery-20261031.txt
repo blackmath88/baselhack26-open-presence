@@ -1,0 +1,50 @@
+Photo Frame Commons: 18 imported rooms, 111 new import events
+Commons ATProto: not configured — publication and ingestion report that state
+== search (Kai)
+problems: [('usb-c-no-data', False), ('reset-after-uboot', False), ('ums-drops-during-backup', False)] contributions: 0
+== browse root
+dir ['.github', 'dashboard', 'docs', 'scripts', 'README.md'] issues 57 linked 32
+== browse thread issue/99
+issue/99 patrickmiltner cited by ['emmc-not-exposed']
+== inspect problem
+problem commons:usb-c-no-data evidence 7 contributions 0
+== draft (writes nothing)
+ok True destination commons:usb-c-no-data warnings []
+== submit
+id contrib_8a5cf0ab-f1f6-4e46-8244-7ae67eae61a7 replayed False author person:kai
+== submit again (same key)
+id contrib_8a5cf0ab-f1f6-4e46-8244-7ae67eae61a7 replayed True
+== submit again (same key, changed text) → exit code:
+exit 3
+{
+  "error": "POST /api/commons/contributions → HTTP 409 conflict",
+  "detail": {
+    "error": "conflict",
+    "messag
+== reply as Lea
+reply contrib_132d0af8-6ebd-4a22-9d39-4fee541e4771 author person:lea
+== thread
+root person:kai replies ['person:lea'] participants ['person:kai', 'person:lea']
+== search the phrase (Lea)
+[('contrib_8a5cf0ab-f1f6-4e46-8244-7ae67eae61a7', 'person:kai')]
+== rediscover from the repository (Lea): which threads/docs cite the CLI contribution
+doc docs/pf1007l-start-here.md [('person:kai', 'cli', 'replies', 1, ['person:kai', 'person:lea'])]
+== problem evidence → citing contributions (Lea)
+{'e1': [('person:kai', 'cli', 'replies', 1, 'same problem')], 'e2': [('person:kai', 'cli', 'replies', 1, 'same problem')], 'c-cable-qualified': [('person:kai', 'cli', 'replies', 1, 'same problem')], 'c-cable-qualified:qualifies': [('person:kai', 'cli', 'replies', 1, 'same problem')]}
+== passage citation (Lea, --evidence e2) attaches to that passage only
+{'e1': [], 'e2': [('Lea', ['e2'])], 'c-cable-qualified': [], 'c-cable-qualified:qualifies': []}
+== search the cited object (Lea)
+[('contrib_8a5cf0ab-f1f6-4e46-8244-7ae67eae61a7', 'person:kai', 'cli', ['doc/docs/pf1007l-start-here.md'])]
+== context
+contributions 1 omissions 2 limitations 4 sources 4
+== publish without an account → exit code:
+exit 4
+False no-account none
+== hide (Lea reviews) then inspect
+moderated True hidden text present False
+== status
+schema 2026-10-31.1 atproto none publications {'queued': 0, 'published': 0, 'failed': 0, 'conflict': 0, 'outbox': 0} problems 18
+== restart keeps everything
+after restart: replies 1
+== unreachable server → exit code:
+exit 6

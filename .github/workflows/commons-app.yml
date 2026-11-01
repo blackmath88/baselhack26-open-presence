@@ -34,3 +34,5 @@ jobs:
       - run: npx vite build
       - name: CLI smoke (real local server, temp data)
         run: bash scripts/smoke/multi-entry.sh
+      - name: Browser smoke (CLI → browser → CLI rediscovery; runner Chrome over DevTools, loopback only)
+        run: OUT=$RUNNER_TEMP/browser-smoke bash scripts/smoke/browser.sh

@@ -78,7 +78,7 @@ export function commonsRoutes(deps: CommonsRouteDeps): (req: IncomingMessage, re
       else if (get && head === 'rooms' && id && !tail) send(res, 200, await deps.commons.getRoom(actor, id))
       else if (post && head === 'contributions' && id === 'prepare') send(res, 200, await deps.commons.prepareContribution(actor, await readJson(req)))
       else if (post && head === 'contributions' && !id) {
-        const result = await deps.commons.submitContribution(actor, (await readJson(req)) as unknown as SubmitContributionCommandV2)
+        const result = await deps.commons.submitContribution(actor, { entrance: 'http', ...(await readJson(req)) } as unknown as SubmitContributionCommandV2)
         send(res, result.replayed ? 200 : 201, result)
       } else if (post && head === 'reviews' && !id) send(res, 200, await deps.commons.review(actor, (await readJson(req)) as unknown as ReviewCommand))
       else if (post && head === 'moderation' && !id) {

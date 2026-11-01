@@ -35,7 +35,7 @@ export function registerCommonsTools(server: McpServer, commons: CommonsService,
 
   server.registerTool('commons_browse_repository', {
     title: 'Browse the source repository snapshot',
-    description: 'Navigate the pinned source repository (paths, threads) and see which problem records cite each file or thread. Bounded snapshot metadata, not a live GitHub browser; coverage is disclosed.',
+    description: 'Navigate the pinned source repository (paths, threads) and see which problem records and which visible community contributions (with author and entrance) cite each file or thread. Bounded snapshot metadata, not a live GitHub browser; coverage is disclosed.',
     inputSchema: z.object({ path: z.string().max(500).optional(), object: z.string().max(100).optional().describe('e.g. issue/99, pull/113'), type: z.enum(['issue', 'pull', 'discussion']).optional(), cursor: z.string().optional(), limit: z.number().int().min(1).max(200).optional(), linkedOnly: z.boolean().optional() }),
     outputSchema: z.object({ view: z.string(), coverage: loose, problems: z.number() }).and(loose),
     annotations: readOnly,
@@ -87,6 +87,7 @@ export function registerCommonsTools(server: McpServer, commons: CommonsService,
     kind: z.enum(COMMONS_CONTRIBUTION_KINDS as [string, ...string[]]).optional(),
     circumstances: z.string().max(2000).optional(),
     sourceRefs: z.array(z.string()).max(50).optional().describe('objectIds from the problem evidence, e.g. issue/99'),
+    evidenceIds: z.array(z.string()).max(50).optional().describe('Exact evidence passages of the problem record, e.g. e2; their source objects are cited too.'),
     assistance: z.enum(ASSISTANCE_DECLARATIONS as [string, ...string[]]).optional(),
     preparedBy: z.string().max(200).optional().describe('Model or agent that drafted the text.'),
     parentId: z.string().optional().describe('Reply target: a contribution id or an ingested at:// URI in the same problem.'),
@@ -109,7 +110,7 @@ export function registerCommonsTools(server: McpServer, commons: CommonsService,
     inputSchema: contributionInput.extend({ commandId: z.string().min(1).max(200) }),
     outputSchema: z.object({ contribution: loose, contributionId: z.string(), problemId: z.string(), replayed: z.boolean() }).and(loose),
     annotations: mutating,
-  }, async (input) => guard(() => commons.submitContribution(actor, compact(input) as never)))
+  }, async (input) => guard(() => commons.submitContribution(actor, { ...compact(input), entrance: 'mcp' } as never)))
 
   server.registerTool('commons_moderate', {
     title: 'Local moderation',

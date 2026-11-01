@@ -51,6 +51,7 @@ export function CommonsFinder({ reader, token, query }: { reader: CommonsReader;
                     <strong>{p?.title ?? h.problemId}</strong>
                     {h.nearMatch && <span className="badge conflict">near-match</span>}
                     <span className="commons-why">{h.explanation}</span>
+                    <CommunityLine summary={server?.problems.find((s) => s.problemId === h.problemId)?.community} />
                   </a>
                 </li>
               )
@@ -68,6 +69,10 @@ export function CommonsFinder({ reader, token, query }: { reader: CommonsReader;
                   <strong>{h.summary.kind} by {actorLabel(h.summary.actor)}</strong>
                   <span className="badge">{h.summary.origin === 'atproto' ? 'ATProto' : h.summary.publication}</span>
                   <span>{h.summary.excerpt}</span>
+                  <span className="commons-limit">
+                    entered via {h.summary.entrance}
+                    {h.summary.sourceRefs.length ? <> · cites {h.summary.sourceRefs.map((r) => r.author === 'unknown' ? r.objectId : `${r.objectId} (source author @${r.author})`).join(', ')}</> : ' · cites no source'}
+                  </span>
                   <span className="commons-why">{h.explanation} · problem {h.problemId}</span>
                 </a>
               </li>
@@ -84,4 +89,19 @@ export function CommonsFinder({ reader, token, query }: { reader: CommonsReader;
       {serverError && <p className="commons-limit">Contribution search: {serverError}</p>}
     </section>
   )
+}
+
+type Community = NonNullable<Awaited<ReturnType<typeof commonsApi.search>>['problems'][number]['community']>
+/** People's activity around a record, so a search result says whether anyone has been here. */
+function CommunityLine({ summary }: { summary: Community | undefined }) {
+  if (!summary) return null
+  if (!summary.contributions && !summary.replies && !summary.citingFromOtherProblems) return <span className="commons-limit">No community contributions yet.</span>
+  const parts = [
+    `${summary.contributions} experience${summary.contributions === 1 ? '' : 's'}`,
+    ...(summary.replies ? [`${summary.replies} repl${summary.replies === 1 ? 'y' : 'ies'}`] : []),
+    ...(summary.participants.length ? [`from ${summary.participants.join(', ')}`] : []),
+    ...(summary.latestAt ? [`last ${summary.latestAt.slice(0, 10)}`] : []),
+    ...(summary.citingFromOtherProblems ? [`${summary.citingFromOtherProblems} more from other problems citing the same sources`] : []),
+  ]
+  return <span className="commons-limit">Community: {parts.join(' · ')}</span>
 }
