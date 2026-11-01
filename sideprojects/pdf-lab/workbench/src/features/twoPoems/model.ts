@@ -148,3 +148,22 @@ export function selectLine(r: Reading, index: number): Selection | null {
   correspondences.push({ from: 'engine text', to: 'copy and paste in a PDF viewer', kind: 'unknown', statement: 'Native viewer copy/paste was not run; the report lists it under not_run.', evidence: [ref(EVIDENCE_PATH, '/not_run')] })
   return { specimenId: SPECIMEN_ID, artefactSha256: artefact.sha256, region, regionOrigin, objectRefs, correspondences }
 }
+
+/** A line of a file made in this browser: parsed from its own bytes; no engine has read it. */
+export function selectVariantLine(fx: TwoPoemFixture, artefactSha256: string, index: number): Selection | null {
+  if (fx.kind !== 'type3-mapped' || index < 0 || index > 3) return null
+  const line = fx.lines[index]!
+  const [, llY, urX, urY] = fx.fontBBox
+  const here: EvidenceRef = { path: 'your file (made in this browser)', sourceCommit: null }
+  return {
+    specimenId: SPECIMEN_ID, artefactSha256, regionOrigin: 'declared-bbox',
+    region: { page: 1, pageWidth: PAGE.width, pageHeight: PAGE.height, x: line.x, y: line.y + llY, width: urX, height: urY - llY },
+    objectRefs: [`object ${fx.contentObject}: <${line.code}> Tj at ${line.x} ${line.y}`, `object ${line.charProcObject}: /${line.glyphName}`, `object ${fx.toUnicodeObject}: ToUnicode`],
+    correspondences: [
+      { from: 'Highlighted region', to: `code <${line.code}>`, kind: 'parsed', statement: `Your file still places code <${line.code}> at (${line.x}, ${line.y}).`, evidence: [here] },
+      { from: `code <${line.code}>`, to: 'what you see', kind: 'parsed', statement: `Glyph /${line.glyphName} still paints “${line.drawn}”: the writer does not touch glyph procedures.`, evidence: [here] },
+      { from: `code <${line.code}>`, to: 'what the file says it means', kind: 'parsed', statement: `Your ToUnicode (object ${fx.toUnicodeObject}) maps <${line.code}> to “${line.mapped}”`, evidence: [here] },
+      { from: 'what the file says it means', to: 'MuPDF and Poppler', kind: 'unknown', statement: 'Not measured. No PDF engine has read this file; the original\'s results do not transfer to it.', evidence: [] },
+    ],
+  }
+}

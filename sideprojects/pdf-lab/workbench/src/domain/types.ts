@@ -92,3 +92,23 @@ export interface Selection {
   objectRefs: string[]
   correspondences: Correspondence[]
 }
+
+/** Four replacement lines for the two-poem mapping, and exactly which bytes they were applied to. */
+export interface MappingRecipe {
+  schema: 'pdf-lab.two-poems.mapping-recipe'
+  schemaVersion: 1
+  operation: 'replace-tounicode-lines'
+  /** The writer that produced the output; parity with the legacy writer is tested, not assumed. */
+  writer: { id: 'workbench/mappingWriter'; parityWith: 'sideprojects/pdf-lab/poems.js bend()' }
+  parent: { path: string; sha256: string; bytes: number }
+  lines: [string, string, string, string]
+  output: { sha256: string; bytes: number }
+}
+
+/** A generated file. Immutable once made; never measured until an instrument runs on it. */
+export interface Variant {
+  id: string
+  recipe: MappingRecipe
+  bytes: Uint8Array
+  measured: false
+}

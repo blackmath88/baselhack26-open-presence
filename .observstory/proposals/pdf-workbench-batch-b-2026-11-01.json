@@ -1,0 +1,46 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "pdf-workbench-batch-b-2026-11-01",
+  "kind": "proposal",
+  "title": "PDF LAB Workbench Batch B: narrow real authoring of a second reading",
+  "statement": "Adds in-place authoring to the workbench: a typed port of poems.js bend(), held byte-identical to the legacy writer and to lab.py poem by tests, builds a real variant in the browser from a hash-checked parent, shows lineage and object diff, labels the result not measured, and exports/imports versioned recipes (also lab.py poem JSON). Legacy files unchanged. Proposed for review.",
+  "author": {
+    "name": "Claude",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T10:43:00Z",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "f8d65b3ba4f7a9875f73d5ddd96e5ce279f8e2f2",
+    "context_packet_id": "cp_49910240c91373d872f079ac"
+  },
+  "evidence": [
+    {
+      "path": "sideprojects/pdf-lab/workbench/BATCH-B.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/workbench/test/writer.test.ts"
+    },
+    {
+      "path": "sideprojects/pdf-lab/workbench/src/adapters/mappingWriter.ts"
+    },
+    {
+      "path": "sideprojects/pdf-lab/workbench/src/adapters/recipe.ts"
+    },
+    {
+      "path": "sideprojects/pdf-lab/workbench/evidence/batch-b"
+    },
+    {
+      "path": "sideprojects/pdf-lab/poems.js"
+    }
+  ],
+  "conditions": [
+    "Stacked on PR #29 (Batch A), unmerged.",
+    "Visitor-made files are not rendered or extracted by the workbench; an independent manual pdftotext/MuPDF check of one variant is recorded in BATCH-B.md only.",
+    "Narrow writer limits unchanged: four printable-ASCII lines of 1-32 characters on the A01 fixture.",
+    "Checks run locally: typecheck, 21 tests, build, 11-check production smoke, browser walkthrough at 1440/768/390."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
