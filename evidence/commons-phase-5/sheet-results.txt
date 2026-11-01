@@ -1,0 +1,24 @@
+ok   wide-dark: a name triggers the warning
+ok   wide-dark: export refuses a name
+ok   wide-dark: even code puts GitHub first
+ok   wide-dark: odd code puts the Commons first
+ok   wide-dark: timer records seconds — 0:01
+ok   wide-dark: Alt+H logs a hesitation against the current task
+ok   wide-dark: everything survives reload
+ok   wide-dark: JSON export holds code, task, hesitation and acceptance
+ok   wide-dark: Markdown export has the task table and hesitations
+ok   wide-dark: no horizontal scroll
+ok   wide-dark: clear empties the sheet
+ok   wide-dark: no page errors
+ok   narrow-light: a name triggers the warning
+ok   narrow-light: export refuses a name
+ok   narrow-light: even code puts GitHub first
+ok   narrow-light: odd code puts the Commons first
+ok   narrow-light: timer records seconds — 0:01
+ok   narrow-light: Alt+H logs a hesitation against the current task
+ok   narrow-light: everything survives reload
+ok   narrow-light: JSON export holds code, task, hesitation and acceptance
+ok   narrow-light: Markdown export has the task table and hesitations
+ok   narrow-light: no horizontal scroll
+ok   narrow-light: clear empties the sheet
+ok   narrow-light: no page errors
