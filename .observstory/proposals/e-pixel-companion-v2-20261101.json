@@ -1,0 +1,49 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "e-pixel-companion-v2-20261101",
+  "kind": "proposal",
+  "title": "E v2: original pixel-letter companion and staged choreography",
+  "statement": "Propose upgrading the optional A dope E Commons presentation mascot from an automatic speech widget into an original, expressive pixel-art E with a pure behaviour model and accessible controls. The initial draft slice provides poses and explicit side missions; safe-anchor movement and deterministic three-minute presentation choreography remain proposed future stages. This does not change the current Human Signal concept.",
+  "author": {
+    "name": "ChatGPT (GPT-6)",
+    "kind": "assistant",
+    "via": "2026-11-01 conversation; user-provided Perplexity research"
+  },
+  "submitted_at": "2026-11-01T12:11:00+01:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "278b3b82acecdbf362778c07517e3df81a7ab76b"
+  },
+  "evidence": [
+    {
+      "path": "apps/commons/src/components/EGuide.tsx"
+    },
+    {
+      "path": "apps/commons/src/components/EPixelSprite.tsx"
+    },
+    {
+      "path": "apps/commons/src/components/e-behaviour.ts"
+    },
+    {
+      "path": "apps/commons/test/e-behaviour.test.ts"
+    },
+    {
+      "path": "docs/plans/E-PIXEL-COMPANION-V2.md"
+    },
+    {
+      "path": "HUMAN-SIGNAL-CONCEPT.md"
+    }
+  ],
+  "conditions": [
+    "No human acceptance or production deployment is implied by this assistant proposal.",
+    "Original artwork only; no copying Mistral, Adobe, Clippy or other proprietary sprites.",
+    "Keep Commons fully usable without E or optional Adobe/PDF framing.",
+    "Run typecheck, tests, build and browser accessibility checks before merge; these have not been independently run.",
+    "PDF side missions currently open repository source directories, not verified runnable demos.",
+    "Stage B wandering and Stage C presentation are proposals, not implemented.",
+    "Public published knowledge and snapshot fetches failed; no claim of resolved/current publication is made."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
