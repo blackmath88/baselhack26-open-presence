@@ -12,3 +12,5 @@
    Only a human review record in `.observstory/reviews/` accepts it. See [.observstory/proposals/README.md](.observstory/proposals/README.md).
 5. **Keep attribution honest.** Name yourself as the author with `kind: assistant`; never write a review.
 6. Observstory observes; it does not assign or dispatch work. See [OBSERVSTORY.md](OBSERVSTORY.md).
+
+7. **Preserve the selected e character.** Before changing the e companion, read [the character contract](docs/design/DOPE-E.md). The lowercase logo-derived silhouette, joint/smoke opening, wonky red eyes and leisure personality are the user-selected baseline. Deployment or refactoring work must preserve that appearance and timing.
