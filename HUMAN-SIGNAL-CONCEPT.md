@@ -1,5 +1,9 @@
-# Human Signal — discovery and community
-31 October 2026 · Working concept · Name provisional
+# .phf — discovery and community
+31 October 2026 concept · Naming and presentation updated 1 November 2026
+
+**.phf [portable human format] — trust in ai driven webspace**
+
+Achim agreed the name and three-part presentation: past (PDF), future (.phf, the longest part), present (Observatory). See [the story](docs/pitch/PHF-STORY.md) and [build-fit review](docs/reports/PHF-STORY-BUILD-FIT-2026-11-01.md). The product still stands on its own; the Adobe presentation now deliberately uses this framing.
 
 ## Current decision
 Build a real Photo Frame Commons experiment around [wesbos/photo-frame-dashboard](https://github.com/wesbos/photo-frame-dashboard). The purpose is discoverable experience and shared sensemaking in an agent-mediated web. It must make sense with or without the Adobe/PDF narrative.
@@ -10,7 +14,7 @@ For these two days, the active repositories are:
 
 Postack Underflow and br-ai-nstorm supply research and reusable mechanisms. They are not additional weekend delivery destinations. This supersedes the earlier suggestion to implement the pilot inside Postack at /commons/. Wes's repository remains an external source, not a repository we modify.
 
-A future name may play on PDF. Do not rename either repository or settle the expansion yet. “Human Signal” and “Photo Frame Commons” are working labels, not final brands.
+The earlier naming deferral is superseded by Achim's choice: .phf [portable human format]. Keep repository names and implementation identifiers stable. “Human Signal” is the earlier concept label; “Photo Frame Commons” names the current demonstration implementation.
 
 ## The value we deliver
 
@@ -126,8 +130,10 @@ For the graph: does it reveal a useful relationship, or merely create an appeali
 
 A small test may demonstrate a discovery mechanism. Community value requires people using it over time. Do not call the theory proven because a graph renders or a demo succeeds.
 
-## Optional Adobe/PDF narrative
+## Adobe/PDF narrative — earlier outline
 **“PDF helped us preserve a document when it travelled. What should we preserve when an answer travels through AI?”**
+
+The following five movements preserve the earlier outline. The current presentation groups them into the [agreed three-part story](docs/pitch/PHF-STORY.md), with .phf as the longest part.
 
 Five movements:
 1. A document travels between systems. PDF preserves its intended form.
@@ -152,9 +158,9 @@ The existing challenge material emphasised local-business presence. Our broader 
 - Do not modify Wes's repository, Postack or br-ai-nstorm as part of this concept update.
 - No automatic outreach, account writes, production deployment or private-session ingestion.
 - No truth score, manufactured consensus or fictional testimonials.
-- Name, final stack and public presentation can follow the working experiment.
+- Name and three-part presentation are now agreed; detailed script, timing and demo readiness remain subject to rehearsal.
 
-Status: concept update only. This document does not claim a running Photo Frame Commons implementation or live ATProto federation.
+Status: this is the concept document, not runtime evidence. Commons implementation is now on main; see the [integration review](docs/reports/REPOSITORY-REVIEW-2026-11-01.md). Live public ATProto federation and installed NUC readiness are not established.
 
 ## Sources
 Historical and technical sources checked during the discussion on 31 October 2026:

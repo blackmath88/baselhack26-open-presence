@@ -1,4 +1,6 @@
-# DEMO — Photo Frame Commons, many entrances (local only)
+# DEMO — .phf / Photo Frame Commons, many entrances (local only)
+
+For presentation order, use the [three-part .phf story](docs/pitch/PHF-STORY.md): PDF past → **.phf concept and this working demo (longest)** → Observatory present. These technical commands remain the implementation runbook. [Story/build fit](docs/reports/PHF-STORY-BUILD-FIT-2026-11-01.md) separates source evidence from runtime readiness.
 
 One shared Commons over the pinned Wes Bos photo-frame corpus, entered through **search**, the **repository
 snapshot**, **direct links**, the **CLI** or **MCP**, and connected to **ATProto** for author-owned publication and

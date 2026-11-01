@@ -1,0 +1,33 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "phf-three-minute-video-2026-11-01",
+  "kind": "proposal",
+  "title": "Three-minute .phf animated demo video",
+  "statement": "Achim explicitly requested a three-minute animated video with narrative, demos, script and plan. The attached storyboard proposes 35 seconds PDF past, 115 seconds .phf future/demo, and 30 seconds Observatory present/close. It includes twelve timed narration segments, real capture requirements and production ownership. No video has been rendered and no new worker dispatched.",
+  "author": {
+    "name": "ChatGPT / Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T09:45:20.708Z",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "c50a013f313ee36ac46beeaffe340230a79a7672",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "docs/pitch/PHF-THREE-MINUTE-VIDEO.md"
+    },
+    {
+      "path": "docs/pitch/PHF-STORY.md"
+    }
+  ],
+  "conditions": [
+    "Detailed script and timings are proposed; the three-minute video target is user-requested.",
+    "Hosted knowledge and snapshot remain unreadable here; historical packet is not current runtime evidence.",
+    "Actual clip availability, voice choice and final render remain open."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}

@@ -1,5 +1,11 @@
-# Open Presence
-BaselHack 2026 · Updated 1 November 2026 · Working name
+# .phf [portable human format]
+**trust in ai driven webspace**
+
+BaselHack 2026 · Updated 1 November 2026
+
+[One-hour parallel UI sprint](docs/build/PHF-ONE-HOUR-SPRINT.md) · [Three-part pitch and demo story](docs/pitch/PHF-STORY.md): **past — PDF / future — .phf / present — Observatory**. The middle is the main concept and working demonstration. [Story/build fit and remaining checks](docs/reports/PHF-STORY-BUILD-FIT-2026-11-01.md).
+
+.phf is the agreed project name. The implementation remains Photo Frame Commons; this naming change does not introduce a .phf file format or certify human authorship.
 
 **Find experience that fits your situation. Understand its limits. Leave something useful for the next person.**
 
@@ -102,4 +108,4 @@ The concept and tool must stand without this framing. PDF preserved form, not tr
 
 Public identity/OAuth, owned ATProto namespace, federation, production Commons authentication and hosting remain separate work. No NUC service state is inferred from a merge or local screenshot. Selected project metadata still needs explicit implementation records if the workspace is to show build progress.
 
-The [earlier business-presence brief](EARLIER-BUSINESS-PRESENCE.md) is preserved for history. Its hotel/booking scenario is not the current build direction. Naming and repository renaming remain deferred.
+The [earlier business-presence brief](EARLIER-BUSINESS-PRESENCE.md) is preserved for history. Its hotel/booking scenario is not the current build direction. The project name is now .phf; repository renaming remains deferred.
