@@ -5,6 +5,10 @@ Updated 1 November 2026 · BaselHack side project · Cabinet 003 + A01
 
 A cabinet of strange PDFs: pictures made from letters, secret interfaces, visible computers, multiple file identities and readers repairing the same broken bytes.
 
+## Modern workbench build
+
+Achim requested a modular TanStack Start application with a clean, document-centred, Cisco-inspired shell. [Build blueprint and phases](WORKBENCH-BUILD.md) · [Claude execution brief](CLAUDE-WORKBENCH.md) · [Supplied research synthesis](research/2026-11-01-workbench-direction.md). Start with a polished encounter and inspection slice over the existing two-poem evidence. The workbench is planned, not implemented; the current cabinet remains the working product.
+
 ## Open the cabinet
 
 ```bash
