@@ -38,10 +38,13 @@ export function Record({ problem, hit, citations = {}, onCite, shared = [] }: { 
   const sameAsEarlier = (id: string, i: number) => problem.evidence.slice(0, i).some((x) => x.source.objectId === problem.evidence[i]!.source.objectId && key(x.id) === key(id))
   return (
     <article className="commons-record" aria-label={problem.title}>
-      <div className="section-kicker">
-        Problem record · {problem.status} ·{' '}
-        <strong>{problem.provenance.review === 'unreviewed' ? 'agent-written, not reviewed by a person' : 'reviewed'}</strong>{' '}
-        ({problem.provenance.authoredBy})
+      <div className="cx-record-status">
+        <span className="cx-type">Problem record</span>
+        <span className="cx-status neutral">{problem.status}</span>
+        <span className={`cx-status ${problem.provenance.review === 'unreviewed' ? 'warn' : 'ok'}`}>
+          {problem.provenance.review === 'unreviewed' ? 'Agent-written · not reviewed by a person' : 'Reviewed'}
+        </span>
+        <span className="cx-meta">written by {problem.provenance.authoredBy}</span>
       </div>
       <h2>{problem.title}</h2>
       <p className="phf-voices" role="note">

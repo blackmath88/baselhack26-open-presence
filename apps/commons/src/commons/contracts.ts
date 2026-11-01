@@ -257,7 +257,8 @@ export interface CommandReceipt {
 
 /** Canonical deep links. Hash routes so a static UI resolves them after reload. */
 export const appLinks = {
-  problem: (problemId: string) => `#/problems/${encodeURIComponent(problemId)}`,
+  /** `query`: the situation searched for, kept so the record can lead back to the same results. */
+  problem: (problemId: string, query?: string) => `#/problems/${encodeURIComponent(problemId)}${query ? `?q=${encodeURIComponent(query)}` : ''}`,
   contribution: (contributionId: string) => `#/contributions/${encodeURIComponent(contributionId)}`,
   thread: (contributionId: string) => `#/threads/${encodeURIComponent(contributionId)}`,
   repository: (path = '') => `#/repo${path ? `/${path.split('/').map(encodeURIComponent).join('/')}` : ''}`,

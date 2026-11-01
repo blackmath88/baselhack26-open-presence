@@ -4,7 +4,7 @@
  * and publication actions. Reached from search, repository, deep link or a tab.
  */
 import { useCallback, useEffect, useState } from 'react'
-import { CheckCircle2 } from 'lucide-react'
+import { ArrowLeft, CheckCircle2 } from 'lucide-react'
 import { journey } from '../../commons/client/journey'
 import type { CommonsContribution } from '../../commons/contracts'
 import { appLinks } from '../../commons/contracts'
@@ -14,9 +14,11 @@ import { ContributionCard, actorLabel } from './ContributionCard'
 import { Composer, type Relation } from './Composer'
 import { ThreadView } from './ThreadView'
 
-export function ProblemPanel({ token, problemId, actorId, actorName, canReview, focus, mode, onSubmitted }: {
+export function ProblemPanel({ token, problemId, query, actorId, actorName, canReview, focus, mode, onSubmitted }: {
   token: string
   problemId: string
+  /** The situation searched for, when the record was opened from search results. */
+  query?: string
   actorId: string | null
   actorName?: string
   canReview: boolean
@@ -47,6 +49,15 @@ export function ProblemPanel({ token, problemId, actorId, actorName, canReview, 
   const refresh = () => setVersion((v) => v + 1)
   return (
     <div className="commons-problem">
+      <nav className="cx-context" aria-label="Where you are">
+        <a className="cx-back" href={appLinks.search(query ?? '')}><ArrowLeft size={14} aria-hidden="true" /> {query ? 'Back to results' : 'Search'}</a>
+        {query && (
+          <span className="cx-situation">
+            <span className="cx-situation-k">Your situation</span> <q>{query}</q>
+          </span>
+        )}
+        <span className="cx-context-note">The Commons knows only what you typed — not your device, cable or setup.</span>
+      </nav>
       <div className="commons-detail">
         <div>
           <Record problem={view.problem} citations={view.evidenceCitations} shared={view.sharedSources} onCite={(id) => { journey.mark('inspect'); setComposer(null); setRecorded(null); setCiting(id); openComposer() }} />

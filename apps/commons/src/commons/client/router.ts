@@ -1,6 +1,6 @@
 /**
  * Hash routes: every entrance has a URL that survives reload and the back
- * button, with no server routing. `#/problems/<id>`, `#/contributions/<id>`,
+ * button, with no server routing. `#/problems/<id>[?q=…]`, `#/contributions/<id>`,
  * `#/threads/<id>`, `#/repo[/path][?object=issue/99]`, `#/search?q=…`.
  */
 import { useEffect, useState } from 'react'
@@ -9,7 +9,8 @@ export type Route =
   | { view: 'home' }
   | { view: 'search'; query: string }
   | { view: 'repo'; path: string; object?: string; type?: 'issue' | 'pull' | 'discussion' }
-  | { view: 'problem'; problemId: string }
+  /** `query` is the situation the reader searched for, carried so the record can show it and lead back. */
+  | { view: 'problem'; problemId: string; query?: string }
   | { view: 'contribution'; contributionId: string }
   | { view: 'thread'; contributionId: string }
 
@@ -24,7 +25,7 @@ export function parseRoute(hash: string): Route {
     const type = params.get('type')
     return { view: 'repo', path: rest.join('/'), ...(params.get('object') ? { object: params.get('object')! } : {}), ...(type === 'issue' || type === 'pull' || type === 'discussion' ? { type } : {}) }
   }
-  if (head === 'problems' && rest[0]) return { view: 'problem', problemId: rest[0] }
+  if (head === 'problems' && rest[0]) return { view: 'problem', problemId: rest[0], ...(params.get('q') ? { query: params.get('q')! } : {}) }
   if (head === 'contributions' && rest[0]) return { view: 'contribution', contributionId: rest[0] }
   if (head === 'threads' && rest[0]) return { view: 'thread', contributionId: rest[0] }
   return { view: 'home' }

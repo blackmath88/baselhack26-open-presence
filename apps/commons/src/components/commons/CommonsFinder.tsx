@@ -4,9 +4,9 @@
  * searched on the server, where they live. Selecting a result navigates to
  * its deep link, so the URL always says where you are.
  */
-import { useEffect, useMemo, useState } from 'react'
-import { Search } from 'lucide-react'
-import type { CommonsReader } from '../../commons/contracts'
+import { useEffect, useId, useMemo, useState } from 'react'
+import { ChevronRight, Search } from 'lucide-react'
+import type { CommonsReader, SearchHit } from '../../commons/contracts'
 import { appLinks } from '../../commons/contracts'
 import { commonsApi, type SearchResponse } from '../../commons/client/api'
 import { navigate } from '../../commons/client/router'
@@ -49,18 +49,21 @@ export function CommonsFinder({ reader, token, query }: { reader: CommonsReader;
         </div>
       )}
       {hits.length > 0 && (
-        <>
-          <h3 className="phf-section-title">Accounts that may apply <span className="commons-limit">· {hits.length} problem record{hits.length === 1 ? '' : 's'}</span></h3>
-          <ol className="commons-hits">
+        <section className="cx-results" aria-labelledby="cx-results-title">
+          <header className="cx-results-head">
+            <h3 id="cx-results-title" className="phf-section-title">Accounts that may apply</h3>
+            <span className="cx-meta">{hits.length} problem record{hits.length === 1 ? '' : 's'} · ordered by word matches, not by confidence</span>
+          </header>
+          <ol className="commons-hits cx-hit-list">
             {hits.map((h) => {
               const p = reader.problem(h.problemId)
               const quoted = p?.evidence.find((e) => e.quote)
               return (
-                <li key={h.problemId}>
-                  <a className="commons-hit phf-result" href={appLinks.problem(h.problemId)}>
+                <li key={h.problemId} className="cx-hit">
+                  <a className="commons-hit phf-result" href={appLinks.problem(h.problemId, query)}>
                     <span className="phf-result-head">
-                      <strong>{p?.title ?? h.problemId}</strong>
-                      {h.nearMatch && <span className="badge conflict">near-match: conditions differ</span>}
+                      <strong className="cx-hit-title">{p?.title ?? h.problemId}</strong>
+                      {h.nearMatch && <span className="cx-status warn">Near match · conditions differ</span>}
                     </span>
                     {p && (
                       <span className="phf-applies">
@@ -70,16 +73,20 @@ export function CommonsFinder({ reader, token, query }: { reader: CommonsReader;
                       </span>
                     )}
                     {quoted?.quote && (
-                      <span className="phf-result-quote">“{quoted.quote.length > 160 ? `${quoted.quote.slice(0, 157)}…` : quoted.quote}” <span className="commons-limit">— {quoted.source.author === 'unknown' ? 'author unknown' : `@${quoted.source.author}`}, {quoted.source.objectId}</span></span>
+                      <span className="phf-result-quote">
+                        <span className="cx-voice-label">Original words</span>
+                        <span className="cx-quote">“{quoted.quote.length > 160 ? `${quoted.quote.slice(0, 157)}…` : quoted.quote}”</span>
+                        <span className="commons-limit">{quoted.source.author === 'unknown' ? 'author unknown' : `@${quoted.source.author}`} · {quoted.source.objectId}</span>
+                      </span>
                     )}
-                    <span className="commons-why phf-clamp" title={h.explanation}>Why it matched: {h.explanation}</span>
                     <CommunityLine summary={server?.problems.find((s) => s.problemId === h.problemId)?.community} />
                   </a>
+                  <WhyMatched hit={h} />
                 </li>
               )
             })}
           </ol>
-        </>
+        </section>
       )}
       {server && server.contributions.length > 0 && (
         <>
@@ -128,4 +135,44 @@ function CommunityLine({ summary }: { summary: Community | undefined }) {
     ...(summary.citingFromOtherProblems ? [`${summary.citingFromOtherProblems} more from other problems citing the same sources`] : []),
   ]
   return <span className="commons-limit">Community: {parts.join(' · ')}</span>
+}
+
+const FIELD_LABEL: Record<SearchHit['matches'][number]['field'], string> = {
+  title: 'title', symptoms: 'symptoms', aliases: 'search words', environment: 'conditions', device: 'device', quote: 'quoted source',
+}
+
+/**
+ * Why a result is on the list, from the ranking's own output: which record
+ * fields matched which (stemmed) index terms, then the rest of the recorded
+ * explanation verbatim. Nothing here is written after the fact.
+ */
+function WhyMatched({ hit }: { hit: SearchHit }) {
+  const [open, setOpen] = useState(false)
+  const id = useId()
+  const byField = new Map<string, { terms: Set<string>; writer: boolean }>()
+  for (const m of hit.matches) {
+    const entry = byField.get(m.field) ?? { terms: new Set<string>(), writer: m.writerVocabulary }
+    entry.terms.add(m.term)
+    byField.set(m.field, entry)
+  }
+  const notes = hit.explanation.split(/(?<=\.)\s+(?=[A-Z])/).filter((s) => !s.startsWith('Matched '))
+  return (
+    <div className="cx-why">
+      <button type="button" className="cx-disclosure" aria-expanded={open} aria-controls={id} onClick={() => setOpen((v) => !v)}>
+        <ChevronRight size={14} aria-hidden="true" className="cx-chevron" /> Why it matched
+      </button>
+      <div id={id} className="cx-why-body" hidden={!open}>
+        <p className="cx-why-lead">Your words matched these parts of the record <span className="commons-limit">(index terms are word stems)</span>:</p>
+        <dl className="cx-why-fields">
+          {[...byField].map(([field, { terms, writer }]) => (
+            <div key={field}>
+              <dt>{FIELD_LABEL[field as keyof typeof FIELD_LABEL] ?? field}{writer && <span className="cx-status neutral">added by the record writer</span>}</dt>
+              <dd>{[...terms].map((t) => <code key={t} className="cx-term">{t}</code>)}</dd>
+            </div>
+          ))}
+        </dl>
+        <ul className="cx-why-notes">{notes.map((n) => <li key={n}>{n}</li>)}</ul>
+      </div>
+    </div>
+  )
 }
