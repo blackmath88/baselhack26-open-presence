@@ -4,6 +4,7 @@
  * the server's prepare operation, so what is shown is what gets recorded.
  */
 import { useEffect, useState } from 'react'
+import { EDGE_MODE } from '../../lib/api'
 import { FileText, Send, Trash2 } from 'lucide-react'
 import type { AssistanceDeclaration, CommonsContributionKind } from '../../commons/contracts'
 import { ASSISTANCE_DECLARATIONS, COMMONS_CONTRIBUTION_KINDS } from '../../commons/contracts'
@@ -13,7 +14,7 @@ import { commonsApi, type PreparedContribution, type ProblemView, type SubmitRes
 
 export type Relation = 'root' | 'reply' | 'correction' | 'supersedes'
 
-export function Composer({ token, problem, parent, relation, focusEvidence, actorName, onSubmitted, onCancel }: {
+export function Composer({ token, problem, parent, relation, focusEvidence, actorName, onSubmitted, onCancel, onEditing }: {
   token: string
   /** Display name of the session's participant: the voice this contribution will carry. */
   actorName?: string
@@ -24,6 +25,7 @@ export function Composer({ token, problem, parent, relation, focusEvidence, acto
   focusEvidence?: string
   onSubmitted: (result: SubmitResult) => void
   onCancel?: () => void
+  onEditing?: () => void
 }) {
   const parentId = relation === 'root' ? undefined : parent?.id
   const existing = drafts.forProblem(problem.problem.postackId, parentId)
@@ -50,15 +52,23 @@ export function Composer({ token, problem, parent, relation, focusEvidence, acto
   const [preview, setPreview] = useState<PreparedContribution | null>(null)
   const [status, setStatus] = useState<{ kind: 'notice' | 'error'; text: string } | null>(null)
   const [busy, setBusy] = useState(false)
-  useEffect(() => { setPreview(null) }, [text, circumstances, kind, assistance, refs, passages])
+  useEffect(() => { setPreview(null) }, [text, circumstances, kind, assistance, refs, passages, token])
 
   const draftBody = () => ({
     problemId: problem.problem.postackId, text: text.trim(), kind, assistance,
-    circumstances: circumstances.trim() || undefined, sourceRefs: refs, ...(passages.length ? { evidenceIds: passages } : {}), parentId, relation: relation === 'root' ? undefined : relation,
+    circumstances: circumstances.trim() || undefined, sourceRefs: refs, evidenceIds: passages.length ? passages : undefined, parentId, relation: relation === 'root' ? undefined : relation,
   })
+  const persist = () => {
+    const body = draftBody()
+    // Edited content gets a new command key; an unchanged retry keeps its key.
+    const unchanged = draft && Object.entries(body).every(([key, value]) => JSON.stringify(draft[key as keyof DraftV2]) === JSON.stringify(value))
+    const result = drafts.save({ ...(unchanged ? { id: draft.id } : {}), ...body })
+    setDraft(result.draft)
+    return result
+  }
   const save = () => {
     if (!text.trim()) return
-    const { draft: saved, persisted } = drafts.save({ id: draft?.id, ...draftBody() })
+    const { draft: saved, persisted } = persist()
     setDraft(saved)
     setStatus(persisted ? { kind: 'notice', text: 'Draft saved in this browser only. Nobody else can see it.' } : { kind: 'error', text: 'This browser refused local storage; the draft will be lost on reload.' })
   }
@@ -81,19 +91,23 @@ export function Composer({ token, problem, parent, relation, focusEvidence, acto
     }
   }
   const doPreview = async () => {
-    if (!draft) save()
+    onEditing?.()
+    const { draft: saved } = persist()
     setBusy(true)
-    try { setPreview(await commonsApi.prepare(token, command(draft?.id ?? 'preview'))) } catch (e) { setStatus({ kind: 'error', text: e instanceof Error ? e.message : 'Preview failed.' }) } finally { setBusy(false) }
+    setStatus(null)
+    setPreview(null)
+    try { setPreview(await commonsApi.prepare(token, command(saved.id))) } catch (e) { setStatus({ kind: 'error', text: e instanceof Error ? e.message : 'Preview failed.' }) } finally { setBusy(false) }
   }
   const submit = async () => {
-    const saved = draft ?? drafts.save({ ...draftBody() }).draft
+    const { draft: saved, persisted } = persist()
     setBusy(true)
+    setStatus(null)
     try {
       // The draft id is the idempotency key: retrying the same draft never duplicates.
       const result = await commonsApi.submit(token, command(saved.id))
       drafts.remove(problem.problem.postackId, parentId)
       setDraft(undefined); setText(''); setCircumstances(''); setPreview(null)
-      setStatus({ kind: 'notice', text: result.replayed ? 'Already recorded earlier — no duplicate created.' : 'Recorded in the local shared room.' })
+      setStatus({ kind: 'notice', text: result.replayed ? 'Already recorded earlier — no duplicate created.' : EDGE_MODE ? 'Recorded publicly on this Commons.' : 'Recorded in the local shared room.' })
       if (relation === 'root') {
         const words = text.trim().replace(/^\[[^\]]*\]\s*/, '').split(/\s+/).slice(0, 6).join(' ')
         journey.follow({ contributionId: result.contributionId, problemId: problem.problem.postackId, author: actorName ?? 'this participant', excerpt: words, cites: refs })
@@ -101,7 +115,7 @@ export function Composer({ token, problem, parent, relation, focusEvidence, acto
       onSubmitted(result)
     } catch (e) {
       const msg = e instanceof Error ? e.message : 'Submission failed.'
-      setStatus({ kind: 'error', text: msg.includes('draft is still saved') ? msg : `${msg} The draft stays in this browser.` })
+      setStatus({ kind: 'error', text: `${msg} ${persisted ? 'The draft is saved in this browser.' : 'Keep this page open: local storage is unavailable, so reload will lose the draft.'}` })
     } finally { setBusy(false) }
   }
   const heading = relation === 'root' ? 'Your experience (private draft)' : relation === 'reply' ? `Reply to ${parent?.label ?? ''}` : relation === 'correction' ? `Correction of ${parent?.label ?? ''} (the original stays)` : `Supersede ${parent?.label ?? ''}`
@@ -111,7 +125,7 @@ export function Composer({ token, problem, parent, relation, focusEvidence, acto
       <h3><FileText size={15} /> {heading}</h3>
       <div className="phf-field">
         <span className="phf-field-k">Voice</span>
-        <span>Speaking as <strong>{actorName ?? 'this participant'}</strong> <span className="commons-limit">(prototype participant; switch with Voice above)</span></span>
+        <span>Speaking as <strong>{actorName ?? 'this participant'}</strong> <span className="commons-limit">{EDGE_MODE ? '(contributor access code; identity is not verified)' : '(prototype participant; switch with Voice above)'}</span></span>
       </div>
       {focused && (
         <div className="phf-field phf-cited">
@@ -120,23 +134,23 @@ export function Composer({ token, problem, parent, relation, focusEvidence, acto
         </div>
       )}
       <label htmlFor={`cm-text-${field}`} className="phf-field-k">{relation === 'root' ? 'What happened for you?' : relation === 'correction' ? 'What is different in your experience?' : 'Your reply or question'}</label>
-      <textarea id={`cm-text-${field}`} value={text} onChange={(e) => setText(e.target.value)} rows={4} autoFocus={Boolean(focused) || relation !== 'root'} />
+      <textarea id={`cm-text-${field}`} value={text} disabled={busy} onChange={(e) => { onEditing?.(); setText(e.target.value) }} rows={4} autoFocus={Boolean(focused) || relation !== 'root'} />
       <label htmlFor={`cm-circ-${field}`} className="phf-field-k">Your circumstances <span className="commons-limit">(device, OS, cable, what you tried — optional)</span></label>
-      <input id={`cm-circ-${field}`} value={circumstances} onChange={(e) => setCircumstances(e.target.value)} placeholder="e.g. macOS 15, USB-C cable direct, no hub" />
+      <input id={`cm-circ-${field}`} value={circumstances} disabled={busy} onChange={(e) => setCircumstances(e.target.value)} placeholder="e.g. macOS 15, USB-C cable direct, no hub" />
       <div className="commons-row">
-        <label className="phf-field-k">Kind <select value={kind} onChange={(e) => setKind(e.target.value as CommonsContributionKind)}>{COMMONS_CONTRIBUTION_KINDS.map((k) => <option key={k}>{k}</option>)}</select></label>
-        <label className="phf-field-k">How it was prepared <select value={assistance} onChange={(e) => setAssistance(e.target.value as AssistanceDeclaration)}>{ASSISTANCE_DECLARATIONS.map((a) => <option key={a} value={a}>{a === 'none' ? 'by me, no AI' : a}</option>)}</select></label>
+        <label className="phf-field-k">Kind <select value={kind} disabled={busy} onChange={(e) => setKind(e.target.value as CommonsContributionKind)}>{COMMONS_CONTRIBUTION_KINDS.map((k) => <option key={k}>{k}</option>)}</select></label>
+        <label className="phf-field-k">How it was prepared <select value={assistance} disabled={busy} onChange={(e) => setAssistance(e.target.value as AssistanceDeclaration)}>{ASSISTANCE_DECLARATIONS.map((a) => <option key={a} value={a}>{a === 'none' ? 'by me, no AI' : a}</option>)}</select></label>
       </div>
       <details>
         <summary>Sources to cite ({refs.length}{passages.length ? `, ${passages.length} exact passage${passages.length === 1 ? '' : 's'}` : ''})</summary>
         <ul className="commons-refs">
           {[...new Map(problem.evidence.map((e) => [e.source.objectId, e])).values()].map((e) => (
             <li key={e.source.objectId}>
-              <label><input type="checkbox" checked={refs.includes(e.source.objectId)} onChange={(ev) => toggleObject(e.source.objectId, ev.target.checked)} /> {e.source.objectId} <span className="commons-limit">(whole source; {e.role}{e.source.author !== 'unknown' ? `, @${e.source.author}` : ''})</span></label>
+              <label><input type="checkbox" disabled={busy} checked={refs.includes(e.source.objectId)} onChange={(ev) => toggleObject(e.source.objectId, ev.target.checked)} /> {e.source.objectId} <span className="commons-limit">(whole source; {e.role}{e.source.author !== 'unknown' ? `, @${e.source.author}` : ''})</span></label>
               <ul className="commons-passages" aria-label={`Passages of ${e.source.objectId}`}>
                 {problem.evidence.filter((p) => p.source.objectId === e.source.objectId).map((p) => (
                   <li key={p.id}>
-                    <label className="commons-limit"><input type="checkbox" checked={passages.includes(p.id)} onChange={(ev) => togglePassage(p.id, p.source.objectId, ev.target.checked)} /> passage {p.id} · {p.role}{p.source.locator ? ` · ${p.source.locator}` : ''}{p.quote ? ` · “${p.quote.length > 60 ? `${p.quote.slice(0, 57)}…` : p.quote}”` : ''}</label>
+                    <label className="commons-limit"><input type="checkbox" disabled={busy} checked={passages.includes(p.id)} onChange={(ev) => togglePassage(p.id, p.source.objectId, ev.target.checked)} /> passage {p.id} · {p.role}{p.source.locator ? ` · ${p.source.locator}` : ''}{p.quote ? ` · “${p.quote.length > 60 ? `${p.quote.slice(0, 57)}…` : p.quote}”` : ''}</label>
                   </li>
                 ))}
               </ul>
@@ -144,17 +158,18 @@ export function Composer({ token, problem, parent, relation, focusEvidence, acto
           ))}
         </ul>
       </details>
-      <p className="phf-dest"><strong>Destination:</strong> the local shared room of this Commons — not GitHub, not ATProto. Only what the preview shows is sent; no chat or draft history leaves this browser.</p>
+      <p className="phf-dest"><strong>Destination:</strong> {EDGE_MODE ? 'public on this Commons website — anyone can read it. ATProto publication is unavailable here.' : 'the local shared room of this Commons — not GitHub, not ATProto.'} Only what the preview shows is sent; no chat or draft history leaves this browser.</p>
+      {EDGE_MODE && token === 'public' && <p role="note">You are reading publicly. Sign in with a contributor access code using Voice above to share. You can keep a private draft here.</p>}
       <div className="commons-actions">
-        <button className="button" onClick={save} disabled={!text.trim()}>Save draft</button>
-        <button className="button" onClick={remove} disabled={!draft}><Trash2 size={14} /> Remove draft</button>
-        <button className="button primary" onClick={() => void doPreview()} disabled={!text.trim() || busy}>Preview what leaves</button>
-        {onCancel && <button className="button" onClick={onCancel}>Cancel</button>}
+        <button className="button" onClick={save} disabled={!text.trim() || busy}>Save draft</button>
+        <button className="button" onClick={remove} disabled={!draft || busy}><Trash2 size={14} /> Remove draft</button>
+        <button className="button primary" onClick={() => void doPreview()} disabled={!text.trim() || busy || (EDGE_MODE && token === 'public')}>Preview what leaves</button>
+        {onCancel && <button className="button" onClick={onCancel} disabled={busy}>Cancel</button>}
       </div>
       {preview && (
         <div className="commons-preview" role="region" aria-label="Submission preview">
           <p className="phf-kicker">Exactly what will be recorded</p>
-          <p><strong>Destination:</strong> {preview.destination.visibility}; room <code>{preview.destination.roomId}</code>. {preview.destination.publication}</p>
+          <p><strong>Destination:</strong> {preview.destination.visibility}; room <code>{preview.destination.roomId}</code>. {EDGE_MODE ? 'ATProto publication is unavailable in this hosted release.' : preview.destination.publication}</p>
           {preview.errors.map((e) => <p key={e} className="banner error">{e}</p>)}
           {preview.warnings.map((w) => <p key={w} className="commons-near" role="note">{w}</p>)}
           {preview.command && (

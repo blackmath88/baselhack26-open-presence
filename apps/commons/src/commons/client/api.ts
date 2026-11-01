@@ -3,7 +3,7 @@
  * CLI and MCP use. The participant is resolved by the server from the bearer
  * token; no body ever names who is acting.
  */
-import { ApiError } from '../../lib/api'
+import { ApiError, EDGE_MODE } from '../../lib/api'
 import type { CommonsContribution, ModeratedContribution, ReviewCommand, SubmitContributionCommandV2 } from '../contracts'
 import type { ContextPacket, PreparedContribution, ProblemView, SearchResponse, ThreadView } from '../../../server/commons/queries'
 import type { CommonsService } from '../../../server/commons/service'
@@ -16,7 +16,7 @@ export type PublicationView = Awaited<ReturnType<CommonsService['getPublication'
 export type PublishResult = Awaited<ReturnType<CommonsService['publishContribution']>>
 export type SubmitResult = Awaited<ReturnType<CommonsService['submitContribution']>>
 
-const BASE = import.meta.env.VITE_API_BASE ?? ''
+const BASE = EDGE_MODE ? '' : import.meta.env.VITE_API_BASE ?? ''
 
 async function request<T>(method: 'GET' | 'POST', path: string, token: string, body?: unknown): Promise<T> {
   let response: Response
@@ -27,7 +27,7 @@ async function request<T>(method: 'GET' | 'POST', path: string, token: string, b
       ...(body === undefined ? {} : { body: JSON.stringify(body) }),
     })
   } catch {
-    throw new ApiError(0, 'network_error', 'Could not reach the local shared room. Your draft is still saved in this browser.')
+    throw new ApiError(0, 'network_error', `Could not reach ${EDGE_MODE ? 'the Commons service' : 'the local shared room'}. Your draft stays in this browser.`)
   }
   const text = await response.text()
   let payload: Record<string, unknown> = {}
@@ -37,7 +37,7 @@ async function request<T>(method: 'GET' | 'POST', path: string, token: string, b
     // Not our API's JSON: typically the dev proxy answering for a stopped backend.
   }
   if (!response.ok && response.status >= 500 && payload.error === undefined) {
-    throw new ApiError(response.status, 'network_error', `The local shared room did not answer (HTTP ${response.status}). Your draft is still saved in this browser.`)
+    throw new ApiError(response.status, 'network_error', `The ${EDGE_MODE ? 'Commons service' : 'local shared room'} did not answer (HTTP ${response.status}). Your draft stays in this browser.`)
   }
   if (!response.ok) {
     throw new ApiError(response.status, String(payload.error ?? 'error'), String(payload.message ?? response.statusText), payload.detail)

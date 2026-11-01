@@ -29,7 +29,7 @@ export type {
 
 /** Same-origin by default; the Vite dev server proxies /api to the backend. */
 export const EDGE_MODE = import.meta.env.VITE_COMMONS_EDGE === 'true'
-const BASE = import.meta.env.VITE_API_BASE ?? ''
+const BASE = EDGE_MODE ? '' : import.meta.env.VITE_API_BASE ?? ''
 
 export class ApiError extends Error {
   constructor(readonly status: number, readonly code: string, message: string, readonly detail?: unknown) {
@@ -50,7 +50,7 @@ async function request<T>(path: string, options: { token?: string; method?: stri
       ...(options.body === undefined ? {} : { body: JSON.stringify(options.body) }),
     })
   } catch {
-    throw new ApiError(0, 'network_error', 'Could not reach the br-ai-nstorm server. Is `npm run dev:server` running?')
+    throw new ApiError(0, 'network_error', EDGE_MODE ? 'The Commons service is unavailable. Try again shortly; your saved drafts stay in this browser.' : 'Could not reach the br-ai-nstorm server. Is `npm run dev:server` running?')
   }
 
   const text = await response.text()
@@ -62,7 +62,7 @@ async function request<T>(path: string, options: { token?: string; method?: stri
   }
 
   if (!response.ok && response.status >= 500 && payload.error === undefined) {
-    throw new ApiError(response.status, 'network_error', `The br-ai-nstorm server did not answer (HTTP ${response.status}). Is \`npm run dev:server\` running?`)
+    throw new ApiError(response.status, 'network_error', EDGE_MODE ? `The Commons service did not answer (HTTP ${response.status}). Try again shortly.` : `The br-ai-nstorm server did not answer (HTTP ${response.status}). Is \`npm run dev:server\` running?`)
   }
   if (!response.ok) {
     throw new ApiError(

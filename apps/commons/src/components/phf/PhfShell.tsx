@@ -25,7 +25,7 @@ export function PhfHeader({ actorName, onSwitchVoice }: { actorName?: string; on
         </span>
       </a>
       {actorName && (
-        <button className="phf-voice" onClick={onSwitchVoice} aria-label={`Acting as ${actorName}. Switch participant`}>
+        <button className="phf-voice" onClick={onSwitchVoice} aria-label={`Acting as ${actorName}. ${EDGE_MODE ? 'Manage contributor session' : 'Switch participant'}`}>
           <span className="phf-voice-label">Voice</span> {actorName}
         </button>
       )}
@@ -136,7 +136,7 @@ export function EntranceTabs({ route }: { route: Route }) {
       <a className={`phf-tab ${at(['home', 'search', 'compare'])}`} href={appLinks.search('')} aria-current={at(['home', 'search', 'compare']) ? 'page' : undefined}><Search size={14} /> Search</a>
       <a className={`phf-tab ${at(['repo'])}`} href={appLinks.repository()} aria-current={at(['repo']) ? 'page' : undefined}><FolderGit2 size={14} /> Repository</a>
       {(route.view === 'contribution' || route.view === 'thread') && <span className="phf-tab active" aria-current="page"><MessageSquare size={14} /> Direct link</span>}
-      <span className="phf-entrances-note">Also CLI and MCP — one shared Commons.</span>
+      <span className="phf-entrances-note">{EDGE_MODE ? 'Commons HTTP API available; remote MCP unavailable in this release.' : 'Also CLI and MCP — one shared Commons.'}</span>
     </nav>
   )
 }
