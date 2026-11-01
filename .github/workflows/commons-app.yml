@@ -40,3 +40,5 @@ jobs:
         run: |
           npm run build:edge
           npx wrangler@4.45.0 deploy --dry-run --config wrangler.edge.jsonc
+      - name: Edge runtime smoke (real workerd + D1; two contributors, reply, rediscovery, restart persistence)
+        run: npm run smoke:edge
