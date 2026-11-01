@@ -40,6 +40,18 @@ await page('Page.enable'); await page('Runtime.enable')
 await page('Page.navigate', { url: `${origin}/` }); await wait(1500)
 await js(`localStorage.setItem('br-ai-nstorm.session', JSON.stringify({ token: ${JSON.stringify(token)}, actor: ${actorJson} }))`)
 
+// 0. Find → inspect → back: the situation travels with the record, and the way back re-selects it.
+await js(`location.hash = '#/search?q=' + encodeURIComponent('My Mac cannot see my frame')`); await page('Page.reload', {})
+await until('search lists problem records', `!!document.querySelector('.commons-hits .phf-result')`)
+const firstHit = await js(`document.querySelector('.commons-hits .phf-result').getAttribute('href')`)
+check('result link carries the situation', firstHit.startsWith('#/problems/') && firstHit.includes('?q='), firstHit)
+await js(`document.querySelector('.commons-hits .phf-result').click()`)
+await until('record shows the situation', `document.querySelector('.cc-situation-text')?.innerText === 'My Mac cannot see my frame'`)
+check('record says why it may fit, what may differ and what is unknown', await js(`['Why it may fit', 'What may differ', 'Not known here'].every(t => (document.querySelector('.cc-fit')?.innerText ?? '').includes(t))`))
+await js(`document.querySelector('.cc-crumbs a').click()`)
+await until('back to results re-selects the record', `document.querySelector('.phf-result.selected')?.getAttribute('href') === ${JSON.stringify(firstHit)}`)
+await shot('smoke-0-find-inspect-back')
+
 // 1. Repository entrance: the cited thread names the CLI contribution with author and entrance.
 await js(`location.hash = '#/repo?object=issue%2F148'`); await page('Page.reload', {})
 await until('repository view lists the citing contribution', `!!document.querySelector('.commons-citing a[href="#/contributions/${contributionId}"]')`)
@@ -75,8 +87,8 @@ await until('passage response appears', `document.body.innerText.includes('smoke
 check('draft count settles', (await draftCount()) === 1)
 // 5. Search entrance: the problem hit now says people have been here.
 await js(`location.hash = '#/search?q=' + encodeURIComponent('frame charges but no usb data')`)
-await until('search shows community activity on the problem hit', `[...document.querySelectorAll('.commons-hit')].some(a => a.getAttribute('href') === '#/problems/${problemId}' && /Community: \\d+ experience/.test(a.innerText))`)
-log.push('ok   search hit: ' + (await js(`[...document.querySelectorAll('.commons-hit')].find(a => a.getAttribute('href') === '#/problems/${problemId}')?.innerText.split('\\n').find(l => l.startsWith('Community')) ?? ''`)))
+await until('search shows community activity on the problem hit', `[...document.querySelectorAll('.commons-hit')].some(a => a.getAttribute('href').split('?')[0] === '#/problems/${problemId}' && /Community: \\d+ experience/.test(a.innerText))`)
+log.push('ok   search hit: ' + (await js(`[...document.querySelectorAll('.commons-hit')].find(a => a.getAttribute('href').split('?')[0] === '#/problems/${problemId}')?.innerText.split('\\n').find(l => l.startsWith('Community')) ?? ''`)))
 await shot('smoke-3-search')
 // 6. .phf frame: product name, search hits say when they apply, the journey guide follows the passage response.
 check('.phf is the product name', (await js('document.title')).startsWith('.phf') && await js(`!!document.querySelector('.phf-mark')`))

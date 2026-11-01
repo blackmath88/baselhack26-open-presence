@@ -255,11 +255,17 @@ export interface CommandReceipt {
   replayed: boolean;
 }
 
-/** Canonical deep links. Hash routes so a static UI resolves them after reload. */
+/**
+ * Canonical deep links. Hash routes so a static UI resolves them after reload.
+ * The optional query/selection only carry the searcher's context (which situation led here, which
+ * result to return to); without them a link is exactly the canonical one.
+ */
 export const appLinks = {
-  problem: (problemId: string) => `#/problems/${encodeURIComponent(problemId)}`,
+  problem: (problemId: string, query?: string) =>
+    `#/problems/${encodeURIComponent(problemId)}${query ? `?q=${encodeURIComponent(query)}` : ''}`,
   contribution: (contributionId: string) => `#/contributions/${encodeURIComponent(contributionId)}`,
   thread: (contributionId: string) => `#/threads/${encodeURIComponent(contributionId)}`,
   repository: (path = '') => `#/repo${path ? `/${path.split('/').map(encodeURIComponent).join('/')}` : ''}`,
-  search: (query: string) => `#/search?q=${encodeURIComponent(query)}`,
+  search: (query: string, selected?: string) =>
+    `#/search?q=${encodeURIComponent(query)}${selected ? `&selected=${encodeURIComponent(selected)}` : ''}`,
 };

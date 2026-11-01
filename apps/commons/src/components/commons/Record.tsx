@@ -38,12 +38,15 @@ export function Record({ problem, hit, citations = {}, onCite, shared = [] }: { 
   const sameAsEarlier = (id: string, i: number) => problem.evidence.slice(0, i).some((x) => x.source.objectId === problem.evidence[i]!.source.objectId && key(x.id) === key(id))
   return (
     <article className="commons-record" aria-label={problem.title}>
-      <div className="section-kicker">
-        Problem record · {problem.status} ·{' '}
-        <strong>{problem.provenance.review === 'unreviewed' ? 'agent-written, not reviewed by a person' : 'reviewed'}</strong>{' '}
-        ({problem.provenance.authoredBy})
-      </div>
-      <h2>{problem.title}</h2>
+      <p className="section-kicker commons-record-status">
+        <span className="badge">Problem record</span>
+        <span className="badge">{problem.status}</span>
+        <span className={`badge ${problem.provenance.review === 'unreviewed' ? 'status-unreviewed' : 'status-reviewed'}`}>
+          {problem.provenance.review === 'unreviewed' ? 'Agent-written · not reviewed by a person' : 'Reviewed'}
+        </span>
+        <span className="commons-limit">by {problem.provenance.authoredBy}</span>
+      </p>
+      <h2 id="commons-record-title" tabIndex={-1}>{problem.title}</h2>
       <p className="phf-voices" role="note">
         Two voices on this page: <span className="phf-voice-chip source">source authors</span> quoted and linked to the original, and the{' '}
         <span className="phf-voice-chip agent">agent record writer</span> whose reading is labelled and unreviewed.

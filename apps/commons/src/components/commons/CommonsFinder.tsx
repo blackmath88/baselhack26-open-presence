@@ -4,7 +4,7 @@
  * searched on the server, where they live. Selecting a result navigates to
  * its deep link, so the URL always says where you are.
  */
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Search } from 'lucide-react'
 import type { CommonsReader } from '../../commons/contracts'
 import { appLinks } from '../../commons/contracts'
@@ -14,12 +14,18 @@ import { actorLabel } from './ContributionCard'
 
 const EXAMPLE = 'My Mac cannot see my frame'
 
-export function CommonsFinder({ reader, token, query }: { reader: CommonsReader; token: string; query: string }) {
+export function CommonsFinder({ reader, token, query, selected }: { reader: CommonsReader; token: string; query: string; selected?: string }) {
   const [input, setInput] = useState(query)
   const [server, setServer] = useState<SearchResponse | null>(null)
   const [serverError, setServerError] = useState<string | null>(null)
   useEffect(() => { setInput(query) }, [query])
   const hits = useMemo(() => (query ? reader.search(query, 8) : []), [reader, query])
+  // Returning from a record: bring the result you came from back into view and give it focus.
+  const selectedRef = useRef<HTMLAnchorElement>(null)
+  useEffect(() => {
+    selectedRef.current?.scrollIntoView({ block: 'center' })
+    selectedRef.current?.focus({ preventScroll: true })
+  }, [selected, query])
   useEffect(() => {
     if (!query) { setServer(null); return }
     let cancelled = false
@@ -57,7 +63,8 @@ export function CommonsFinder({ reader, token, query }: { reader: CommonsReader;
               const quoted = p?.evidence.find((e) => e.quote)
               return (
                 <li key={h.problemId}>
-                  <a className="commons-hit phf-result" href={appLinks.problem(h.problemId)}>
+                  <a className={`commons-hit phf-result${h.problemId === selected ? ' selected' : ''}`} href={appLinks.problem(h.problemId, query)}
+                    {...(h.problemId === selected ? { ref: selectedRef, 'aria-current': 'true' as const } : {})}>
                     <span className="phf-result-head">
                       <strong>{p?.title ?? h.problemId}</strong>
                       {h.nearMatch && <span className="badge conflict">near-match: conditions differ</span>}

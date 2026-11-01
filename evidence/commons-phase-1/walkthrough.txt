@@ -1,0 +1,32 @@
+ok   wide: result link carries the situation — #/problems/usb-c-no-data?q=My%20Mac%20cannot%20see%20my%20frame
+ok   wide: focus moves to the record heading
+ok   wide: breadcrumb and situation show the query — Results for “My Mac cannot see my frame” | My Mac cannot see my frame
+ok   wide: why/differs/unknown are present
+info Why it may fit “mac” quoted source words “frame” title, symptoms, device, quoted source words · also record writer’s vocabulary “see” only the record writer’s vocabulary, not the source added the search added “data”, “usb” to your words Your words, and where they matched. Ranked 1 by lexical field matches, not by confidence. What may differ Reported conditions: T3 USB data test · any host. Compare them, and “Applies to”, with your setup. Not known here The Commons has only the words you typed. Your frame model, computer, cable and what you already tried are unknown to it. Your words that match
+ok   wide: status badges
+ok   wide: original source opens GitHub in a new tab — https://github.com/wesbos/photo-frame-dashboard/blob/0bff55ef3fb2a3bfdab05bc8e3bd0c9d69f63189/docs/pf1007l-start-here.md#L108-L108
+ok   wide: no horizontal scroll on record — scrollWidth 1440
+ok   wide: reload keeps record and situation
+ok   wide: back keeps the query and focuses the result you came from — {"q":"My Mac cannot see my frame","sel":"#/problems/usb-c-no-data?q=My%20Mac%20cannot%20see%20my%20frame","focused":true}
+ok   wide: browser back returns to the results
+ok   wide: missing record says so, keeps the way back, offers no pointless retry — There is no problem record
+no-such-record
+in this Commons.
+ok   wide: canonical deep link shows no invented situation
+ok   wide: no page errors
+ok   narrow: result link carries the situation — #/problems/usb-c-no-data?q=My%20Mac%20cannot%20see%20my%20frame
+ok   narrow: focus moves to the record heading
+ok   narrow: breadcrumb and situation show the query — Results for “My Mac cannot see my frame” | My Mac cannot see my frame
+ok   narrow: why/differs/unknown are present
+info Why it may fit “mac” quoted source words “frame” title, symptoms, device, quoted source words · also record writer’s vocabulary “see” only the record writer’s vocabulary, not the source added the search added “data”, “usb” to your words Your words, and where they matched. Ranked 1 by lexical field matches, not by confidence. What may differ Reported conditions: T3 USB data test · any host. Compare them, and “Applies to”, with your setup. Not known here The Commons has only the words you typed. Your frame model, computer, cable and what you already tried are unknown to it. Your words that match
+ok   narrow: status badges
+ok   narrow: original source opens GitHub in a new tab — https://github.com/wesbos/photo-frame-dashboard/blob/0bff55ef3fb2a3bfdab05bc8e3bd0c9d69f63189/docs/pf1007l-start-here.md#L108-L108
+ok   narrow: no horizontal scroll on record — scrollWidth 390
+ok   narrow: reload keeps record and situation
+ok   narrow: back keeps the query and focuses the result you came from — {"q":"My Mac cannot see my frame","sel":"#/problems/usb-c-no-data?q=My%20Mac%20cannot%20see%20my%20frame","focused":true}
+ok   narrow: browser back returns to the results
+ok   narrow: missing record says so, keeps the way back, offers no pointless retry — There is no problem record
+no-such-record
+in this Commons.
+ok   narrow: canonical deep link shows no invented situation
+ok   narrow: no page errors

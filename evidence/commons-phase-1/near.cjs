@@ -1,0 +1,7 @@
+const { chromium } = require('playwright')
+;(async () => { const b = await chromium.launch({ executablePath: '/usr/bin/chromium' }); const p = await (await b.newContext({ viewport: { width: 1440, height: 900 } })).newPage()
+const s = await (await fetch('http://127.0.0.1:8811/api/auth/session', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ participantId: 'lea' }) })).json()
+await p.goto('http://127.0.0.1:5211/'); await p.evaluate(([t, a]) => localStorage.setItem('br-ai-nstorm.session', JSON.stringify({ token: t, actor: a })), [s.token, s.actor])
+await p.goto('http://127.0.0.1:5211/#/problems/wsl-usbipd-ums?q=' + encodeURIComponent('backup disk disappears on my Mac')); await p.reload(); await p.waitForSelector('.cc-fit')
+console.log(await p.$eval('.cc-fit', e => e.innerText.replace(/\s+/g, ' ')))
+await p.screenshot({ path: process.argv[2] + '/p1-nearmatch-wide.png', clip: { x: 0, y: 180, width: 1440, height: 520 } }); await b.close() })()
