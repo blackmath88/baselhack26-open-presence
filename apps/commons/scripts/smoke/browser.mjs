@@ -84,7 +84,7 @@ check('search hits state applicability', await js(`[...document.querySelectorAll
 // 7. Survives reload: the passage response is still on its problem, attributed, on a fresh page load.
 await js(`location.hash = '#/problems/${problemId}'`); await page('Page.reload', {})
 await until('passage response survives reload', `document.body.innerText.includes('smoke-passage-bergamot')`)
-check('inspector separates source words from agent interpretation', await js(`!!document.querySelector('.phf-source-voice') && !!document.querySelector('.phf-agent-voice')`))
+if (await until('inspector separates source words from agent interpretation', `!!document.querySelector('.phf-source-voice') && !!document.querySelector('.phf-agent-voice')`)) check('inspector separates source words from agent interpretation', true)
 await until('journey guide reached reply', `[...document.querySelectorAll('.phf-journey li.done')].map(l => l.innerText).join(' ').includes('Contribute')`)
 // 8. Phone width: no horizontal page scroll on the problem view.
 await page('Emulation.setDeviceMetricsOverride', { width: 375, height: 812, deviceScaleFactor: 1, mobile: true })

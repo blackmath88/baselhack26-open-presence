@@ -1,0 +1,203 @@
+{
+  "label": "dark",
+  "ui": "http://127.0.0.1:5211",
+  "qs": "",
+  "checks": [
+    {
+      "name": "wide: real search returns records",
+      "pass": true,
+      "detail": "9 hits; first The frame shows no USB data, or no power, on the computer"
+    },
+    {
+      "name": "wide: Tab from search moves to a visibly focused control",
+      "pass": true,
+      "detail": "BUTTON.button primary outline=solid rgb(155, 186, 244) 2px"
+    },
+    {
+      "name": "wide: passage keeps original/agent labels and source link",
+      "pass": true,
+      "detail": "{\"orig\":true,\"agent\":true,\"src\":true}"
+    },
+    {
+      "name": "wide: reload keeps the record route",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "narrow: real search returns records",
+      "pass": true,
+      "detail": "9 hits; first The frame shows no USB data, or no power, on the computer"
+    },
+    {
+      "name": "narrow: Tab from search moves to a visibly focused control",
+      "pass": true,
+      "detail": "BUTTON.button primary outline=solid rgb(155, 186, 244) 2px"
+    },
+    {
+      "name": "narrow: passage keeps original/agent labels and source link",
+      "pass": true,
+      "detail": "{\"orig\":true,\"agent\":true,\"src\":true}"
+    },
+    {
+      "name": "narrow: reload keeps the record route",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "360px: no horizontal page scroll at #/search?q=My%20Mac%20ca",
+      "pass": true,
+      "detail": "scrollWidth 360"
+    },
+    {
+      "name": "360px: no horizontal page scroll at #/problems/usb-c-no-data",
+      "pass": true,
+      "detail": "scrollWidth 360"
+    },
+    {
+      "name": "reduced motion: transitions removed",
+      "pass": true,
+      "detail": "transition-duration 0s"
+    },
+    {
+      "name": "no console or page errors",
+      "pass": false,
+      "detail": "wide: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    }
+  ],
+  "contrast": {
+    "search": {
+      "body": {
+        "ratio": 16.6,
+        "size": "30px",
+        "sample": "What happened with your photo frame?"
+      },
+      "muted": {
+        "ratio": 7.91,
+        "size": "13px",
+        "sample": "Photo Frame Commons: agent-written recor"
+      },
+      "link": {
+        "ratio": 16.6,
+        "size": "16px",
+        "sample": ".phf\nportable human format\nHuman context"
+      },
+      "primary": {
+        "ratio": 8.69,
+        "size": "14px",
+        "sample": "Search"
+      },
+      "badge": {
+        "ratio": 6.51,
+        "size": "12px",
+        "sample": "local"
+      },
+      "why": {
+        "ratio": 7.07,
+        "size": "13px",
+        "sample": "Why it matched: Matched aliases: see (wr"
+      }
+    },
+    "record": {
+      "body": {
+        "ratio": 14.85,
+        "size": "28px",
+        "sample": "The frame shows no USB data, or no power"
+      },
+      "muted": {
+        "ratio": 7.29,
+        "size": "13px",
+        "sample": "passage e1"
+      },
+      "link": {
+        "ratio": 16.6,
+        "size": "16px",
+        "sample": ".phf\nportable human format\nHuman context"
+      },
+      "primary": {
+        "ratio": 8.01,
+        "size": "14px",
+        "sample": "Respond to this passage"
+      },
+      "badge": {
+        "ratio": 6.51,
+        "size": "12px",
+        "sample": "synthesis"
+      },
+      "quote": {
+        "ratio": 15.31,
+        "size": "16px",
+        "sample": "“A USB-C to USB-C cable gave unit C **no"
+      },
+      "interp": {
+        "ratio": 13.66,
+        "size": "14px",
+        "sample": "The frame appears to lack the USB-C CC p"
+      },
+      "tag": {
+        "ratio": 7.29,
+        "size": "12px",
+        "sample": "Original words · source author"
+      },
+      "source": {
+        "ratio": 7.29,
+        "size": "13px",
+        "sample": "author unknown · doc/docs/pf1007l-start-"
+      }
+    }
+  },
+  "trace": {
+    "hits": [
+      {
+        "href": "#/problems/usb-c-no-data",
+        "title": "The frame shows no USB data, or no power, on the computer",
+        "near": false
+      },
+      {
+        "href": "#/problems/reset-after-uboot",
+        "title": "The disk vanishes about 45 seconds after U-Boot starts, or when the computer ejects it",
+        "near": false
+      },
+      {
+        "href": "#/problems/ums-drops-during-backup",
+        "title": "The backup disk appears, then drops or errors partway through reading",
+        "near": false
+      },
+      {
+        "href": "#/problems/launcher-lockout",
+        "title": "After choosing a new Home app, a PF1506 stays on its boot animation",
+        "near": false
+      },
+      {
+        "href": "#/problems/stock-root-adb",
+        "title": "Some frames already ship with root ADB switched on",
+        "near": false
+      },
+      {
+        "href": "#/problems/emmc-not-exposed",
+        "title": "The eMMC never appears in U-Boot, so there is nothing to back up",
+        "near": false
+      },
+      {
+        "href": "#/problems/frameo-adb-unauthorized",
+        "title": "A Frameo frame lists ADB as unauthorized and never shows the prompt",
+        "near": false
+      },
+      {
+        "href": "#/problems/gadget-error-71",
+        "title": "U-Boot's USB gadget never enumerates: the host logs error -71",
+        "near": false
+      },
+      {
+        "href": "#/contributions/contrib_be964ad4-800b-404c-9f8e-a310e9da10f0",
+        "title": "attempt by Kai",
+        "near": false
+      }
+    ],
+    "record": {
+      "url": "#/problems/usb-c-no-data",
+      "title": "The frame shows no USB data, or no power, on the computer",
+      "kicker": "Problem record · documented · agent-written, not reviewed by a person (agent:claude-opus-5-5)",
+      "firstPassage": "synthesis\npassage e1\nOriginal words · source author\n“A USB-C to USB-C cable gave unit C **no power and no data**.”\nauthor unknown · doc/docs/pf1007l-start-here.md original  · full conversation not stored here (unavailable); follow the original\nAgent interpretation · agent:claude-opus-5-5 · not reviewed\n\nThe frame appears to lack the USB-C CC pull-downs, so use a USB-A to USB-C data cable.\n\nRespond to this passage"
+    }
+  }
+}
