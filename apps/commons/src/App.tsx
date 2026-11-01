@@ -186,14 +186,14 @@ export default function App() {
 
       {room.phase === 'connecting' && <div className="empty-state">Connecting to the Commons service…</div>}
 
-      {room.phase === 'error' && room.participants.length === 0 && <PhfUnavailable error={room.error} />}
+      {room.phase === 'error' && !room.actor && room.participants.length === 0 && <PhfUnavailable error={room.error} />}
 
-      {room.phase !== 'connecting' && !room.actor && room.participants.length > 0 && (
+      {!EDGE_MODE && room.phase !== 'connecting' && !room.actor && room.participants.length > 0 && (
         <PhfEntry participants={room.participants} onSelect={(id) => void room.signIn(id)} busy={room.busy} />
       )}
 
       {EDGE_MODE && (voiceOpen || !room.actor || room.actor.actorId === 'person:public-reader') && (
-        <EdgeSignIn busy={room.busy} onSignIn={async code => { await room.signIn(code); setVoiceOpen(false) }} />
+        <EdgeSignIn busy={room.busy} onSignIn={async code => { const ok = await room.signIn(code); if (ok) setVoiceOpen(false); return ok }} />
       )}
       <EGuide />
 
@@ -217,8 +217,8 @@ export default function App() {
         </>
       )}
 
-      {room.actor && (
-        <div className="phf-workbench-toggle" hidden={EDGE_MODE}>
+      {!EDGE_MODE && room.actor && (
+        <div className="phf-workbench-toggle">
           <button className="button" onClick={() => setWorkbench((v) => !v)} aria-expanded={workbench}>
             <LayoutList size={14} /> {workbench ? 'Hide room workbench' : 'Room workbench (state, map, timeline, curation)'}
           </button>

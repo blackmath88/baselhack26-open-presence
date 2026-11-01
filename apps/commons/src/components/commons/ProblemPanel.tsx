@@ -14,7 +14,7 @@ import { ContributionCard, actorLabel } from './ContributionCard'
 import { Composer, type Relation } from './Composer'
 import { ThreadView } from './ThreadView'
 import { Investigation } from './Investigation'
-import { ApiError } from '../../lib/api'
+import { ApiError, EDGE_MODE } from '../../lib/api'
 import { navigation } from '../../commons/client/router'
 
 export function ProblemPanel({ token, problemId, query, reader, actorId, actorName, canReview, focus, mode, onSubmitted }: {
@@ -95,10 +95,10 @@ export function ProblemPanel({ token, problemId, query, reader, actorId, actorNa
         <div id="phf-composer" className="phf-composer-col">
           {recorded && <Recorded id={recorded.id} relation={recorded.relation} problemId={problemId} />}
           {composer ? (
-            <Composer key={`${composer.relation}:${composer.parent?.id ?? ''}`} token={token} actorName={actorName} problem={view} relation={composer.relation} parent={composer.parent ?? null}
+            <Composer key={`${composer.relation}:${composer.parent?.id ?? ''}`} token={token} actorName={actorName} onEditing={() => setRecorded(null)} problem={view} relation={composer.relation} parent={composer.parent ?? null}
               onSubmitted={(r) => { setRecorded({ id: r.contributionId, relation: composer.relation }); setComposer(null); refresh(); openComposer(); onSubmitted(r.problemId) }} onCancel={() => setComposer(null)} />
           ) : (
-            <Composer key={`root:${citing ?? ''}`} token={token} actorName={actorName} problem={view} relation="root" {...(citing ? { focusEvidence: citing } : {})} onSubmitted={(r) => { setRecorded({ id: r.contributionId, relation: 'root' }); setCiting(undefined); refresh(); openComposer(); onSubmitted(r.problemId) }} />
+            <Composer key={`root:${citing ?? ''}`} token={token} actorName={actorName} onEditing={() => setRecorded(null)} problem={view} relation="root" {...(citing ? { focusEvidence: citing } : {})} onSubmitted={(r) => { setRecorded({ id: r.contributionId, relation: 'root' }); setCiting(undefined); refresh(); openComposer(); onSubmitted(r.problemId) }} />
           )}
           <p className="commons-limit">
             Deep links: <a href={appLinks.problem(problemId)}>this problem</a> · <a href={appLinks.repository()}>repository</a>. Room version {view.version}.
@@ -113,14 +113,14 @@ export function ProblemPanel({ token, problemId, query, reader, actorId, actorNa
 function Recorded({ id, relation, problemId }: { id: string; relation: Relation; problemId: string }) {
   return (
     <div className="phf-recorded" role="status">
-      <p><CheckCircle2 size={16} /> <strong>{relation === 'root' ? 'Recorded in the local shared room.' : 'Added to the conversation. The original stays as it was.'}</strong></p>
+      <p><CheckCircle2 size={16} /> <strong>{relation === 'root' ? (EDGE_MODE ? 'Recorded publicly on this Commons.' : 'Recorded in the local shared room.') : 'Added to the conversation. The original stays as it was.'}</strong></p>
       <p className="commons-limit">It survives reload and is reachable by its own link from any entrance.</p>
       <div className="commons-actions">
         <a className="button" href={appLinks.thread(id)}>Open the conversation</a>
         <a className="button" href={appLinks.contribution(id)}>Permalink</a>
         {relation === 'root' && <a className="button" href={appLinks.problem(problemId)}>Back to the record</a>}
       </div>
-      {relation === 'root' && <p className="commons-limit">Next: switch <strong>Voice</strong> at the top to another participant and reply or correct.</p>}
+      {relation === 'root' && <p className="commons-limit">{EDGE_MODE ? 'Next: invite another contributor to open the conversation and reply or correct.' : <>Next: switch <strong>Voice</strong> at the top to another participant and reply or correct.</>}</p>}
     </div>
   )
 }
