@@ -7,6 +7,7 @@
     "dev": "node scripts/ingest.mjs && vite dev",
     "build": "node scripts/ingest.mjs && vite build",
     "start": "node scripts/serve.mjs",
+    "runner": "node runner/server.mjs",
     "typecheck": "node scripts/ingest.mjs && tsc --noEmit",
     "test": "node scripts/ingest.mjs && vitest run"
   },

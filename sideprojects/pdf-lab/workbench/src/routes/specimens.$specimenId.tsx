@@ -9,6 +9,8 @@ import { CompareView, TextView } from '../features/twoPoems/Readings'
 import { Download } from '../features/twoPoems/Download'
 import { AuthorPanel, Lineage, VariantDownload, VariantInspector, VariantStage, VariantText, useVariant, type Lines, type Parent } from '../features/twoPoems/variant'
 import { legacyCabinetUrl, useClientValue } from '../features/legacy'
+import { MeasurePanel } from '../features/twoPoems/Measure'
+import type { LiveMeasurement } from '../adapters/liveRuns'
 
 const VIEWS = ['page', 'text', 'compare'] as const
 type View = (typeof VIEWS)[number]
@@ -76,6 +78,9 @@ function Specimen() {
   const variant = useVariant(search.from ?? 'other', search.mine)
   const mine = reading === 'mine'
   const built = variant?.status === 'ready' ? variant.variant : null
+  // Live results belong to exact bytes; a different file starts unmeasured. Not persisted.
+  const [liveRuns, setLiveRuns] = useState<LiveMeasurement | null>(null)
+  const live = built && liveRuns?.inputSha256 === built.recipe.output.sha256 ? liveRuns : null
 
   // Opening a line moves focus into the inspector; closing returns it to the line's guide.
   useEffect(() => { if (line !== null && lastTrigger.current === line) inspectorHeading.current?.focus() }, [line, built])
@@ -105,7 +110,7 @@ function Specimen() {
           <h1>A lamp beside the rain</h1>
           <p className="lead">{mine ? 'Same picture. Your reading.' : 'Two readings. One picture.'}</p>
         </div>
-        {mine ? (built ? <VariantDownload variant={built} /> : null) : <Download reading={reading} />}
+        {mine ? (built ? <VariantDownload variant={built} measured={Boolean(live)} /> : null) : <Download reading={reading} />}
       </div>
       {lab.errors.length > 0 && <div className="notice warn" role="status" style={{ marginBottom: 16 }}>{lab.errors.join(' ')}</div>}
 
@@ -129,7 +134,7 @@ function Specimen() {
       </div>
 
       {mine && variant?.status === 'error' && <div className="notice bad" role="alert" style={{ marginBottom: 16 }}><strong>Your file could not be built.</strong> {variant.message}</div>}
-      {mine && built && <Lineage variant={built} {...(search.expect ? { expected: search.expect } : {})} />}
+      {mine && built && <Lineage variant={built} {...(search.expect ? { expected: search.expect } : {})} {...(live ? { measuredAt: live.finishedAt } : {})} />}
 
       <div className={`workspace ${line !== null && (!mine || built) ? 'inspecting' : ''}`} style={{ marginTop: mine && built ? 16 : 0 }}>
         <div id="specimen-view" role="tabpanel" style={{ minWidth: 0, display: 'grid', gap: 16 }}>
@@ -147,14 +152,15 @@ function Specimen() {
                   </button>
                 )}
               </div>
-              {mine && built ? <VariantStage variant={built} from={search.from ?? 'other'} line={line} reveal={reveal} onSelect={select} /> : !mine && <Stage reading={reading as Reading} line={line} reveal={reveal} onSelect={select} />}
+              {mine && built ? <VariantStage variant={built} from={search.from ?? 'other'} line={line} reveal={reveal} onSelect={select} measurement={live} /> : !mine && <Stage reading={reading as Reading} line={line} reveal={reveal} onSelect={select} />}
             </div>
           )}
-          {view === 'text' && (mine ? built && <VariantText variant={built} /> : <TextView reading={reading as Reading} line={line} />)}
+          {view === 'text' && (mine ? built && <VariantText variant={built} measurement={live} line={line} /> : <TextView reading={reading as Reading} line={line} />)}
+          {mine && built && <MeasurePanel variant={built} from={search.from ?? 'other'} measurement={live} onMeasured={setLiveRuns} />}
           {view === 'compare' && (mine ? built && <VariantCompare lines={built.fixture.kind === 'type3-mapped' ? built.fixture.lines.map((l) => l.mapped) : []} from={search.from ?? 'other'} line={line} /> : <CompareView line={line} />)}
         </div>
         {line !== null && (mine
-          ? built && <VariantInspector key={`mine:${line}`} variant={built} line={line} onClose={close} headingRef={inspectorHeading} />
+          ? built && <VariantInspector key={`mine:${line}`} variant={built} line={line} onClose={close} headingRef={inspectorHeading} measurement={live} />
           : <Inspector key={`${reading}:${line}`} ref={inspectorHeading} reading={reading as Reading} line={line} onClose={close} onRewrite={rewrite} />)}
       </div>
       <div style={{ marginTop: 16 }}>

@@ -17,6 +17,12 @@ npm run build          # ingest, then vite build → dist/
 npm start              # node scripts/serve.mjs → http://127.0.0.1:3100/ (HOST/PORT to override)
 node scripts/smoke.mjs # production smoke on :3199 (needs a build)
 ```
+Optional live measurement (phase 4), on the same computer as the browser:
+```sh
+PDF_CHECK_PYTHON=/path/to/python-with-pymupdf-and-pillow npm run runner   # http://127.0.0.1:3110/
+```
+It accepts requests only from the workbench origins in `RUNNER_ALLOW_ORIGINS` (default `http://127.0.0.1:3100,http://localhost:3100`).
+
 Checks: `npm run typecheck` (strict TypeScript) and `npm test` (adapter contract tests).
 Existing legacy tests still run from the parent folder: `node test-poems.js`, `node test-cabinet.js`.
 
@@ -44,7 +50,12 @@ Open directly: `/specimens/a01-two-poems?reading=other&line=2&reveal=true` (also
   lineage (original → recipe → your file), the objects that changed, its own inspector and downloads for the PDF and a
   versioned recipe. The URL carries the four lines, so reload or a shared link rebuilds identical bytes. **Open a
   recipe…** reads a workbench recipe or a `lab.py poem` JSON locally and reports whether the rebuild matches its hash.
-  Your file is always labelled *not measured*.
+  Your file is labelled *not measured* until you measure it.
+- **Measure your file (phase 4):** with the local runner started, **Measure with local engines** sends your PDF (only that)
+  to this computer's runner. It runs MuPDF (check-poems.py worker), `pdftotext -layout` and `pdftoppm -r 72` with the lab's
+  limits and no network, then shows whether all four of your lines came back and whether your pixels are identical to the
+  original's recorded render in each engine. Live runs are labelled *live* with their time and exact tool versions, and are
+  shown beside recorded ones, never merged. They are not saved.
 
 ## How it is built
 - `scripts/ingest.mjs` — deterministic, read-only: copies an allowlist (the four poem PDFs, their previews, two
@@ -56,6 +67,7 @@ Open directly: `/specimens/a01-two-poems?reading=other&line=2&reveal=true` (also
   inputs), `poemsTransforms` (stored source renders only), `twoPoemFixture` (static parse of the fixture bytes; rejects
   any structure it was not written for).
 - `src/features/twoPoems/` — the model that composes adapters into selections, and the stage, inspector and views.
+- `runner/` — the optional loopback measurement runner (`server.mjs`) and its bounded process launcher (`bounded.mjs`).
 - `src/routes/` — TanStack Start file routes: `/` and `/specimens/$specimenId` with validated search params.
 
 Pinned: TanStack Start 1.169.4, Router 1.170.46, React 19.3.1, Vite 8.3.5, TypeScript 5.9.3 (strict), Vitest 5.0.5.
@@ -72,5 +84,5 @@ TypeScript 7 (the new native compiler) was available; 5.9 was chosen as the esta
 - Authoring is the lab's narrow writer: four printable-ASCII lines of 1–32 characters, on the two-poem fixture only.
   `src/adapters/mappingWriter.ts` is a port of `poems.js` `bend()`; `test/writer.test.ts` holds it byte-identical to the
   legacy writer (40 inputs) and to `lab.py poem` (when Python is available). The legacy files are unchanged.
-- A file you make is never rendered or extracted here. The stage shows the original's recorded render, which is valid
+- Without the runner, a file you make is never rendered or extracted here. The stage shows the original's recorded render, which is valid
   only because the object diff shows the character map is the sole change.

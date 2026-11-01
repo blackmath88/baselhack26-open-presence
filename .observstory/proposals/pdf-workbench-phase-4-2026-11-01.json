@@ -1,0 +1,44 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "pdf-workbench-phase-4-2026-11-01",
+  "kind": "proposal",
+  "title": "PDF LAB Workbench phase 4: bounded local live measurement",
+  "statement": "Adds an optional loopback runner that measures a browser-made two-poem variant with the same MuPDF/Poppler commands the recorded evidence used, under the lab's limits and an empty network namespace, and shows live results beside recorded ones. Proposed for review; runner boundaries are implementation choices, not an accepted arbitrary-upload policy.",
+  "author": {
+    "name": "Claude",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T11:02:00Z",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "1b96128b557df1e97039da98545d731f2cb0bdc6",
+    "context_packet_id": "cp_49910240c91373d872f079ac"
+  },
+  "evidence": [
+    {
+      "path": "sideprojects/pdf-lab/workbench/PHASE-4.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/workbench/runner/server.mjs"
+    },
+    {
+      "path": "sideprojects/pdf-lab/workbench/runner/bounded.mjs"
+    },
+    {
+      "path": "sideprojects/pdf-lab/workbench/test/runner.test.ts"
+    },
+    {
+      "path": "sideprojects/pdf-lab/workbench/evidence/phase-4"
+    }
+  ],
+  "conditions": [
+    "Stacked on PR #30 and PR #29, both unmerged.",
+    "Loopback only; accepts only the two-poem fixture family; not a bring-your-own-PDF service.",
+    "Network isolation depends on unshare -rn being available on the host and is reported per result.",
+    "Live runs are not persisted.",
+    "Checks run locally: typecheck, 30 tests (none skipped), build, 11-check smoke, legacy tests, browser at 1440 and 375."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
