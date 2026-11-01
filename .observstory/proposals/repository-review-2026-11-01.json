@@ -1,0 +1,33 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "repository-review-2026-11-01",
+  "kind": "finding",
+  "title": "Yesterday's build integrated and merged branches cleaned",
+  "statement": "13 PRs from the dated build work were merged across Open Presence, Observstory and Knowledge Lab. 36 merged branches were deleted after exact-head, dependency and merge checks. Four local app screens render without JavaScript errors. The NUC installed runtime is not verified by local screenshots. See the report for tests and remaining work.",
+  "author": {
+    "name": "ChatGPT / Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T08:00:00+01:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "8f24bd071dbdb48d1a9a42c7987a6df2ad1d90b2",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "docs/reports/REPOSITORY-REVIEW-2026-11-01.md"
+    },
+    {
+      "path": "docs/build/NUC-WINDOW-2026-10-31-RESULTS.md"
+    }
+  ],
+  "conditions": [
+    "The checked-in context packet is historical; current GitHub and local source were inspected directly.",
+    "Merging a proposal file does not record human acceptance.",
+    "Local screenshots do not prove NUC deployment."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
