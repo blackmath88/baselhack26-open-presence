@@ -1,0 +1,37 @@
+name: PDF Workbench
+on:
+  push:
+    branches: [main]
+    paths: ['sideprojects/pdf-lab/**', '.github/workflows/pdf-workbench.yml']
+  pull_request:
+    paths: ['sideprojects/pdf-lab/**', '.github/workflows/pdf-workbench.yml']
+permissions:
+  contents: read
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: sideprojects/pdf-lab/workbench
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: sideprojects/pdf-lab/workbench/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci
+      - name: Generate routes, build and typecheck from clean checkout
+        run: npm run typecheck
+      - run: npm test
+      - run: node scripts/smoke.mjs
+      - name: Legacy PDF regression checks
+        working-directory: sideprojects/pdf-lab
+        run: |
+          node test-poems.js
+          node test-cabinet.js
+          node test-machine.js
