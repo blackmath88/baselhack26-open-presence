@@ -291,7 +291,11 @@
   & .phf-dest { font-size: 13px; background: var(--cc-accent-soft); color: var(--cc-text); border-left: 3px solid var(--cc-accent); border-radius: 0 var(--cc-radius) var(--cc-radius) 0; }
   & .phf-cited { background: var(--cc-subtle); border-left-color: var(--cc-quote-rule); }
   & .commons-preview, & .phf-recorded { background: var(--cc-surface); border: 1px solid var(--cc-accent); border-radius: var(--cc-radius); }
-  & .phf-recorded p:first-child { color: var(--cc-success); }
+  & .phf-recorded #cc-recorded-title { color: var(--cc-success); }
+  & .cc-kv dt { color: var(--cc-text); }
+  & .cc-kv dd { color: var(--cc-text-2); }
+  & .cc-outgoing { color: var(--cc-text); background: var(--cc-subtle); border-left-color: var(--cc-accent); }
+  & .cc-disclosure.stale { border-color: var(--cc-border-strong); }
   & .commons-card { background: var(--cc-surface); border-color: var(--cc-border-strong); border-radius: var(--cc-radius); }
   & .commons-card.highlight { outline-color: var(--cc-accent); }
   & .commons-thread-node { border-left-color: var(--cc-border-strong); }

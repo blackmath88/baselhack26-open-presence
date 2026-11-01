@@ -31,4 +31,5 @@ ok   narrow: a record offers a comparison with the top result — #/compare?a=us
 ok   narrow: missing record in a comparison says so and keeps the way back
 ok   narrow: no page errors
 ok   control: the older query shows what people added
-ok   stale contribution results for an older query do not replace the newer query — {"q":"zzqx nothing here","people":false}
+ok   precondition: the newer query has no contributions on the server — 0
+ok   stale contribution results for an older query do not replace the newer query — {"q":"zzqx qqvv","people":false}

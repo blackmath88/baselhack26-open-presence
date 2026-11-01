@@ -77,7 +77,7 @@ check('reply composer opens', await js(`(() => { const b = [...document.getEleme
 await until('reply composer heading', `[...document.querySelectorAll('.commons-draft h3')].some(h => h.innerText.includes('Reply to'))`)
 await type('smoke-reply-quillwort: which hub did you use, powered or not?')
 check('reply preview requested', await clickButton('.commons-draft', 'Preview'))
-await until('reply preview names the parent', `(document.querySelector('.commons-preview')?.innerText ?? '').includes('in reply to ${contributionId}')`)
+await until('reply preview names the parent', `(document.querySelector('.commons-preview')?.innerText ?? '').includes('reply to ${contributionId}')`)
 check('reply submitted', await clickButton('.commons-preview', 'Submit'))
 await until('reply appears in the conversation', `document.body.innerText.includes('smoke-reply-quillwort')`)
 
@@ -87,7 +87,7 @@ check(`respond to passage ${passageId}`, await js(`(() => { const b = document.q
 await until('composer focuses the passage', `(document.querySelector('.commons-draft .phf-cited')?.innerText ?? '').includes('passage ${passageId} (')`)
 await type('smoke-passage-bergamot: this passage matches my unit')
 check('passage preview requested', await clickButton('.commons-draft', 'Preview'))
-await until('preview states the exact passage', `(document.querySelector('.commons-preview')?.innerText ?? '').includes('exact passages ${passageId}')`)
+await until('preview states the exact passage', `(document.querySelector('.commons-preview')?.innerText ?? '').includes('exact passage ${passageId}')`)
 await shot('smoke-2-passage-preview')
 check('passage response submitted', await clickButton('.commons-preview', 'Submit'))
 await until('passage response appears', `document.body.innerText.includes('smoke-passage-bergamot')`)

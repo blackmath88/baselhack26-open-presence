@@ -1,0 +1,35 @@
+ok   wide: review names destination, voice and exact words
+ok   wide: review says search words and the other draft stay in this browser
+ok   wide: a changed draft marks the preview stale and blocks submit
+ok   wide: undoing the change makes the preview current again
+ok   wide: a rejection keeps the text and shows the room's reason without a retry button
+ok   wide: failed submit keeps the text and says so
+ok   wide: outgoing body equals the previewed command — {"problemId":"usb-c-no-data","text":"Kestrelcable kmvy3qr2d wide: plugging the frame straight into the Mac with a data cable worked","sourceRefs":["doc/docs/pf1007l-start-here.md","comment/6113789229","issue/148","issue/38"],"kind":"observation","assistance":"none","circumstances":"macOS 15, no hub","preparedBy":"browser-draft"}
+ok   wide: outgoing body excludes search words and the other draft
+ok   wide: retry reuses the same draft id
+ok   wide: confirmation is read back from the room — contrib_32529941-3e1e-4741-b121-7530d41546c3
+ok   wide: no duplicate success banner under the confirmation
+ok   wide: exactly one contribution with these words
+ok   wide: draft removed from this browser after success, other draft kept
+ok   wide: search for its words finds it
+ok   wide: no horizontal scroll
+ok   wide: no page errors
+ok   narrow: review names destination, voice and exact words
+ok   narrow: review says search words and the other draft stay in this browser
+ok   narrow: a changed draft marks the preview stale and blocks submit
+ok   narrow: undoing the change makes the preview current again
+ok   narrow: a rejection keeps the text and shows the room's reason without a retry button
+ok   narrow: failed submit keeps the text and says so
+ok   narrow: outgoing body equals the previewed command — {"problemId":"usb-c-no-data","text":"Kestrelcable kmvy3qr2d narrow: plugging the frame straight into the Mac with a data cable worked","sourceRefs":["doc/docs/pf1007l-start-here.md","comment/6113789229","issue/148","issue/38"],"kind":"observation","assistance":"none","circumstances":"macOS 15, no hub","preparedBy":"browser-draft"}
+ok   narrow: outgoing body excludes search words and the other draft
+ok   narrow: retry reuses the same draft id
+ok   narrow: confirmation is read back from the room — contrib_a442f0bb-720e-46dd-bafe-cb059517d861
+ok   narrow: no duplicate success banner under the confirmation
+ok   narrow: exactly one contribution with these words
+ok   narrow: draft removed from this browser after success, other draft kept
+ok   narrow: search for its words finds it
+ok   narrow: no horizontal scroll
+ok   narrow: no page errors
+ok   second participant (Kai) finds it by search
+ok   second participant opens the permalink and sees it attributed to Lea
+IDS {"wide":"contrib_32529941-3e1e-4741-b121-7530d41546c3","narrow":"contrib_a442f0bb-720e-46dd-bafe-cb059517d861"}
