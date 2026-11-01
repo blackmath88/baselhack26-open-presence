@@ -1,3 +1,8 @@
+> **.phf — portable human format.** The browser UI in this folder is the .phf demo: **Photo Frame Commons**, a
+> real-source demonstration. Journey: find → inspect → contribute → reply → rediscover. Run with `npm run dev:server`
+> and `npm run dev`, open `http://<demo-host>:5173/`. "Presentation" links to port 8001 on the same host unless
+> `VITE_PHF_PRESENTATION_URL` is set. Room workbench views (state, map, timeline, curation) are one click away.
+
 > **Imported upstream documentation.** This file preserves br-ai-nstorm’s original feature history and deployment examples. For Photo Frame Commons in this repository, use [the current demo/run guide](../../DEMO.md) and [integration review](../../docs/reports/REPOSITORY-REVIEW-2026-11-01.md). Commons uses the local Node backend; the upstream Cloudflare examples below do not provide the Commons service.
 
 <!-- BEGIN public-repo-header -->

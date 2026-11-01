@@ -1,5 +1,7 @@
 /**
- * br-ai-nstorm — v0.3 "Real Shared Room".
+ * .phf — portable human format, over Photo Frame Commons. The Commons journey
+ * leads; the br-ai-nstorm v0.3 "Real Shared Room" views stay one click away as
+ * the room workbench.
  *
  * The frontend holds no canonical state. Everything on screen is read from the
  * backend, and every contribution and review is written through it, so what a
@@ -8,7 +10,7 @@
  * State stays canonical. Map and Timeline are projections over the same data.
  */
 import { useEffect, useMemo, useState } from 'react'
-import { BrainCircuit, GitBranch, History, LayoutList, ListChecks, RefreshCw, Search, Sparkles } from 'lucide-react'
+import { BrainCircuit, GitBranch, History, LayoutList, ListChecks, RefreshCw, Sparkles } from 'lucide-react'
 import { useRoom } from './state/useRoom'
 import { ProblemTabs } from './components/ProblemTabs'
 import { StateView } from './components/StateView'
@@ -24,6 +26,8 @@ import { CommonsHub } from './components/commons/CommonsHub'
 import { commonsReader } from './commons/reader'
 import { useRoute } from './commons/client/router'
 import { importedProblemSpaceId } from './commons/contracts'
+import { journey } from './commons/client/journey'
+import { EntranceTabs, JourneyBar, PhfEntry, PhfHeader, PhfUnavailable } from './components/phf/PhfShell'
 
 type ViewMode = 'state' | 'map' | 'timeline' | 'curation'
 type ModalMode = 'export' | 'import' | null
@@ -36,8 +40,16 @@ export default function App() {
   const [modalMode, setModalMode] = useState<ModalMode>(null)
   const [modalValue, setModalValue] = useState('')
   const [importError, setImportError] = useState<string | null>(null)
-  const [finding, setFinding] = useState(true)
+  const [workbench, setWorkbench] = useState(false)
+  const [voiceOpen, setVoiceOpen] = useState(false)
   const route = useRoute()
+
+  // Presenter guide: reaching a step marks it in this browser only.
+  useEffect(() => {
+    const state = journey.read()
+    if (route.view === 'search' && route.query) journey.mark(state.done.includes('reply') ? 'rediscover' : 'find')
+    if (route.view === 'repo' && state.followed) journey.mark('rediscover')
+  }, [route])
 
   // A problem deep link (from search, the repository or a shared URL) opens that room, once the session exists.
   const routedProblem = route.view === 'problem' ? importedProblemSpaceId(route.problemId) : null
@@ -148,37 +160,18 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <header className="topbar">
-        <div>
-          <div className="brand">
-            br-<span>ai</span>-nstorm
-          </div>
-          <div className="tagline">a living map of collective problem solving</div>
-        </div>
-        <div className="top-actions">
-          <button className="button" onClick={() => setFinding((v) => !v)} aria-pressed={finding}>
-            <Search size={15} /> {finding ? 'Hide Commons' : 'Commons: search, repository, threads'}
-          </button>
-          <button className="button" onClick={() => void room.refresh()} disabled={room.busy || !data}>
-            <RefreshCw size={15} /> {room.busy ? 'Refreshing…' : 'Refresh'}
-          </button>
-          <button className="button aperture" onClick={() => void openExport('')} disabled={!data}>
-            <BrainCircuit size={16} /> Think with my AI ↗
-          </button>
-          <button className="button" onClick={openImport} disabled={!data}>
-            Import AI result
-          </button>
-        </div>
-      </header>
+      <PhfHeader actorName={room.actor?.displayName} onSwitchVoice={() => setVoiceOpen((v) => !v)} />
 
-      <ParticipantSwitcher
-        participants={room.participants}
-        actor={room.actor}
-        onSelect={(id) => void room.signIn(id)}
-        busy={room.busy}
-      />
+      {room.actor && voiceOpen && (
+        <ParticipantSwitcher
+          participants={room.participants}
+          actor={room.actor}
+          onSelect={(id) => { setVoiceOpen(false); void room.signIn(id) }}
+          busy={room.busy}
+        />
+      )}
 
-      {room.error && (
+      {room.error && room.participants.length > 0 && (
         <div className="banner error" role="alert">
           {room.error}
         </div>
@@ -189,34 +182,56 @@ export default function App() {
         </div>
       )}
 
-      {room.phase === 'connecting' && <div className="empty-state">Connecting to the shared room…</div>}
+      {room.phase === 'connecting' && <div className="empty-state">Connecting to the Commons service…</div>}
 
-      {room.phase !== 'connecting' && !room.actor && (
-        <div className="empty-state">
-          <h2>Choose a participant to enter the room.</h2>
-          <p>
-            The server issues a session token and attributes everything you contribute to it. This prototype
-            sign-in is the only fake part of the identity model.
-          </p>
+      {room.phase === 'error' && room.participants.length === 0 && <PhfUnavailable error={room.error} />}
+
+      {room.phase !== 'connecting' && !room.actor && room.participants.length > 0 && (
+        <PhfEntry participants={room.participants} onSelect={(id) => void room.signIn(id)} busy={room.busy} />
+      )}
+
+      {room.actor && room.token && (
+        <>
+          <JourneyBar route={route} />
+          <EntranceTabs route={route} />
+          <CommonsHub
+            route={route}
+            token={room.token}
+            actorId={room.actor.actorId}
+            actorName={room.actor.displayName}
+            canReview={room.actor.scopes.includes('memory:review')}
+            reader={commonsReader}
+            onSubmitted={(id) => {
+              setSelectedId(undefined)
+              setView('state')
+              void room.openProblem(id)
+            }}
+          />
+        </>
+      )}
+
+      {room.actor && (
+        <div className="phf-workbench-toggle">
+          <button className="button" onClick={() => setWorkbench((v) => !v)} aria-expanded={workbench}>
+            <LayoutList size={14} /> {workbench ? 'Hide room workbench' : 'Room workbench (state, map, timeline, curation)'}
+          </button>
+          {workbench && (
+            <span className="top-actions">
+              <button className="button" onClick={() => void room.refresh()} disabled={room.busy || !data}>
+                <RefreshCw size={15} /> {room.busy ? 'Refreshing…' : 'Refresh'}
+              </button>
+              <button className="button aperture" onClick={() => void openExport('')} disabled={!data}>
+                <BrainCircuit size={16} /> Think with my AI ↗
+              </button>
+              <button className="button" onClick={openImport} disabled={!data}>
+                Import AI result
+              </button>
+            </span>
+          )}
         </div>
       )}
 
-      {room.actor && room.token && finding && (
-        <CommonsHub
-          route={route}
-          token={room.token}
-          actorId={room.actor.actorId}
-          canReview={room.actor.scopes.includes('memory:review')}
-          reader={commonsReader}
-          onSubmitted={(id) => {
-            setSelectedId(undefined)
-            setView('state')
-            void room.openProblem(id)
-          }}
-        />
-      )}
-
-      {room.actor && room.problems.length > 0 && (
+      {workbench && room.actor && room.problems.length > 0 && (
         <ProblemTabs
           problems={room.problems}
           activeId={room.problemId ?? room.problems[0].id}
@@ -227,9 +242,9 @@ export default function App() {
         />
       )}
 
-      {room.actor && !data && room.phase !== 'error' && <div className="empty-state">Loading problem…</div>}
+      {workbench && room.actor && !data && room.phase !== 'error' && <div className="empty-state">Loading problem…</div>}
 
-      {data && problem && (
+      {workbench && data && problem && (
         <main className="workspace">
           <section className="main-panel">
             <div className="problem-header">
@@ -307,8 +322,9 @@ export default function App() {
       )}
 
       <footer className="footer-note">
-        <Sparkles size={14} /> Canonical state lives on the server. Map and Timeline are projections over the same
-        event history. AI may propose; only a participant makes something canonical.
+        <Sparkles size={14} /> .phf is a proposal for portable human context, not a file format, humanity check or truth
+        certificate. Built on Photo Frame Commons (br-ai-nstorm, Open Presence). AI may interpret and propose; only a
+        participant makes something part of the shared record.
       </footer>
 
       {modalMode && (

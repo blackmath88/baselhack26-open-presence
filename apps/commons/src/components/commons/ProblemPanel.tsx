@@ -4,6 +4,8 @@
  * and publication actions. Reached from search, repository, deep link or a tab.
  */
 import { useCallback, useEffect, useState } from 'react'
+import { CheckCircle2 } from 'lucide-react'
+import { journey } from '../../commons/client/journey'
 import type { CommonsContribution } from '../../commons/contracts'
 import { appLinks } from '../../commons/contracts'
 import { commonsApi, type ProblemView } from '../../commons/client/api'
@@ -12,10 +14,11 @@ import { ContributionCard, actorLabel } from './ContributionCard'
 import { Composer, type Relation } from './Composer'
 import { ThreadView } from './ThreadView'
 
-export function ProblemPanel({ token, problemId, actorId, canReview, focus, mode, onSubmitted }: {
+export function ProblemPanel({ token, problemId, actorId, actorName, canReview, focus, mode, onSubmitted }: {
   token: string
   problemId: string
   actorId: string | null
+  actorName?: string
   canReview: boolean
   /** Contribution to highlight (deep link) and, in thread mode, to open as a conversation. */
   focus?: string
@@ -27,6 +30,8 @@ export function ProblemPanel({ token, problemId, actorId, canReview, focus, mode
   const [version, setVersion] = useState(0)
   const [composer, setComposer] = useState<{ relation: Relation; parent?: { id: string; label: string } } | null>(null)
   const [citing, setCiting] = useState<string | undefined>(undefined)
+  const [recorded, setRecorded] = useState<{ id: string; relation: Relation } | null>(null)
+  const openComposer = () => requestAnimationFrame(() => document.getElementById('phf-composer')?.scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }))
   const load = useCallback(() => {
     commonsApi.problem(token, problemId).then((v) => { setView(v); setError(null) }, (e) => setError(e instanceof Error ? e.message : 'Could not load the problem.'))
   }, [token, problemId])
@@ -37,14 +42,14 @@ export function ProblemPanel({ token, problemId, actorId, canReview, focus, mode
   if (error) return <div className="banner error" role="alert">{error}</div>
   if (!view) return <div className="empty-state">Loading problem…</div>
   const label = (c: CommonsContribution) => `${c.kind} by ${actorLabel(c.actor)}`
-  const reply = (c: CommonsContribution) => setComposer({ relation: 'reply', parent: { id: c.id, label: label(c) } })
-  const correct = (c: CommonsContribution) => setComposer({ relation: 'correction', parent: { id: c.id, label: label(c) } })
+  const reply = (c: CommonsContribution) => { setRecorded(null); setComposer({ relation: 'reply', parent: { id: c.id, label: label(c) } }); openComposer() }
+  const correct = (c: CommonsContribution) => { setRecorded(null); setComposer({ relation: 'correction', parent: { id: c.id, label: label(c) } }); openComposer() }
   const refresh = () => setVersion((v) => v + 1)
   return (
     <div className="commons-problem">
       <div className="commons-detail">
         <div>
-          <Record problem={view.problem} citations={view.evidenceCitations} shared={view.sharedSources} onCite={(id) => { setComposer(null); setCiting(id) }} />
+          <Record problem={view.problem} citations={view.evidenceCitations} shared={view.sharedSources} onCite={(id) => { journey.mark('inspect'); setComposer(null); setRecorded(null); setCiting(id); openComposer() }} />
           <section aria-label="Conversation" className="commons-conversation">
             <h3>
               Experiences and conversation · {view.contributions.length}
@@ -63,18 +68,35 @@ export function ProblemPanel({ token, problemId, actorId, canReview, focus, mode
             {mode === 'thread' && <p><a href={appLinks.problem(problemId)}>All contributions to this problem</a></p>}
           </section>
         </div>
-        <div>
+        <div id="phf-composer" className="phf-composer-col">
+          {recorded && <Recorded id={recorded.id} relation={recorded.relation} problemId={problemId} />}
           {composer ? (
-            <Composer key={`${composer.relation}:${composer.parent?.id ?? ''}`} token={token} problem={view} relation={composer.relation} parent={composer.parent ?? null}
-              onSubmitted={(r) => { setComposer(null); refresh(); onSubmitted(r.problemId) }} onCancel={() => setComposer(null)} />
+            <Composer key={`${composer.relation}:${composer.parent?.id ?? ''}`} token={token} actorName={actorName} problem={view} relation={composer.relation} parent={composer.parent ?? null}
+              onSubmitted={(r) => { setRecorded({ id: r.contributionId, relation: composer.relation }); setComposer(null); refresh(); openComposer(); onSubmitted(r.problemId) }} onCancel={() => setComposer(null)} />
           ) : (
-            <Composer key={`root:${citing ?? ''}`} token={token} problem={view} relation="root" {...(citing ? { focusEvidence: citing } : {})} onSubmitted={(r) => { setCiting(undefined); refresh(); onSubmitted(r.problemId) }} />
+            <Composer key={`root:${citing ?? ''}`} token={token} actorName={actorName} problem={view} relation="root" {...(citing ? { focusEvidence: citing } : {})} onSubmitted={(r) => { setRecorded({ id: r.contributionId, relation: 'root' }); setCiting(undefined); refresh(); openComposer(); onSubmitted(r.problemId) }} />
           )}
           <p className="commons-limit">
             Deep links: <a href={appLinks.problem(problemId)}>this problem</a> · <a href={appLinks.repository()}>repository</a>. Room version {view.version}.
           </p>
         </div>
       </div>
+    </div>
+  )
+}
+
+/** After a submission: where it now lives and the next moves of the journey. */
+function Recorded({ id, relation, problemId }: { id: string; relation: Relation; problemId: string }) {
+  return (
+    <div className="phf-recorded" role="status">
+      <p><CheckCircle2 size={16} /> <strong>{relation === 'root' ? 'Recorded in the local shared room.' : 'Added to the conversation. The original stays as it was.'}</strong></p>
+      <p className="commons-limit">It survives reload and is reachable by its own link from any entrance.</p>
+      <div className="commons-actions">
+        <a className="button" href={appLinks.thread(id)}>Open the conversation</a>
+        <a className="button" href={appLinks.contribution(id)}>Permalink</a>
+        {relation === 'root' && <a className="button" href={appLinks.problem(problemId)}>Back to the record</a>}
+      </div>
+      {relation === 'root' && <p className="commons-limit">Next: switch <strong>Voice</strong> at the top to another participant and reply or correct.</p>}
     </div>
   )
 }

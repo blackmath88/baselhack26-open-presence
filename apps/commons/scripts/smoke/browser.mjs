@@ -65,7 +65,7 @@ await until('reply appears in the conversation', `document.body.innerText.includ
 // 4. Respond to one evidence passage.
 await until('root composer is back', `document.querySelectorAll('.commons-draft').length === 1 && ![...document.querySelectorAll('.commons-draft h3')].some(h => h.innerText.includes('Reply to'))`)
 check(`respond to passage ${passageId}`, await js(`(() => { const b = document.querySelector('button[aria-label="Respond to passage ${passageId}"]'); if (!b) return false; b.click(); return true })()`))
-await until('composer focuses the passage', `[...document.querySelectorAll('.commons-draft p')].some(p => p.innerText.startsWith('Responding to passage ${passageId}'))`)
+await until('composer focuses the passage', `(document.querySelector('.commons-draft .phf-cited')?.innerText ?? '').includes('passage ${passageId} (')`)
 await type('smoke-passage-bergamot: this passage matches my unit')
 check('passage preview requested', await clickButton('.commons-draft', 'Preview'))
 await until('preview states the exact passage', `(document.querySelector('.commons-preview')?.innerText ?? '').includes('exact passages ${passageId}')`)
@@ -78,5 +78,18 @@ await js(`location.hash = '#/search?q=' + encodeURIComponent('frame charges but 
 await until('search shows community activity on the problem hit', `[...document.querySelectorAll('.commons-hit')].some(a => a.getAttribute('href') === '#/problems/${problemId}' && /Community: \\d+ experience/.test(a.innerText))`)
 log.push('ok   search hit: ' + (await js(`[...document.querySelectorAll('.commons-hit')].find(a => a.getAttribute('href') === '#/problems/${problemId}')?.innerText.split('\\n').find(l => l.startsWith('Community')) ?? ''`)))
 await shot('smoke-3-search')
+// 6. .phf frame: product name, search hits say when they apply, the journey guide follows the passage response.
+check('.phf is the product name', (await js('document.title')).startsWith('.phf') && await js(`!!document.querySelector('.phf-mark')`))
+check('search hits state applicability', await js(`[...document.querySelectorAll('.phf-applies')].length > 0 && /Applies to/.test(document.querySelector('.phf-applies').innerText)`))
+// 7. Survives reload: the passage response is still on its problem, attributed, on a fresh page load.
+await js(`location.hash = '#/problems/${problemId}'`); await page('Page.reload', {})
+await until('passage response survives reload', `document.body.innerText.includes('smoke-passage-bergamot')`)
+check('inspector separates source words from agent interpretation', await js(`!!document.querySelector('.phf-source-voice') && !!document.querySelector('.phf-agent-voice')`))
+await until('journey guide reached reply', `[...document.querySelectorAll('.phf-journey li.done')].map(l => l.innerText).join(' ').includes('Contribute')`)
+// 8. Phone width: no horizontal page scroll on the problem view.
+await page('Emulation.setDeviceMetricsOverride', { width: 375, height: 812, deviceScaleFactor: 1, mobile: true })
+await wait(600)
+check('phone width has no horizontal scroll', await js('document.documentElement.scrollWidth <= innerWidth'), String(await js('document.documentElement.scrollWidth')))
+await shot('smoke-4-phone-problem')
 log.push(`info problem ${problemId}, passage ${passageId}, signed in as ${JSON.parse(actorJson).displayName}`)
 finish(0)

@@ -26,31 +26,53 @@ export function CommonsFinder({ reader, token, query }: { reader: CommonsReader;
     commonsApi.search(token, query, 10).then((r) => { if (!cancelled) { setServer(r); setServerError(null) } }, (e) => { if (!cancelled) { setServer(null); setServerError(e instanceof Error ? e.message : 'Contribution search unavailable.') } })
     return () => { cancelled = true }
   }, [token, query])
+  const examples = [EXAMPLE, 'backup disk disappears on my Mac', 'frame stuck on its boot animation']
   return (
     <section className="commons-finder" aria-label="Find a photo-frame experience">
       <form className="commons-search" role="search" onSubmit={(e) => { e.preventDefault(); navigate(appLinks.search(input.trim())) }}>
-        <label htmlFor="commons-q" className="section-kicker">Find an experience in the Photo Frame Commons</label>
+        <label htmlFor="commons-q" className="phf-search-label">What happened with your photo frame?</label>
         <div className="commons-search-row">
-          <input id="commons-q" value={input} placeholder={EXAMPLE} onChange={(e) => setInput(e.target.value)} />
-          <button className="button" type="submit"><Search size={15} /> Search</button>
+          <input id="commons-q" value={input} placeholder={EXAMPLE} onChange={(e) => setInput(e.target.value)} autoComplete="off" />
+          <button className="button primary" type="submit"><Search size={15} /> Search</button>
+        </div>
+        <div className="phf-examples" aria-label="Example questions">
+          {examples.map((q) => <a key={q} className="phf-example" href={appLinks.search(q)}>{q}</a>)}
         </div>
         <p className="commons-limit">
-          Searches agent-written records over a pinned public snapshot of wesbos/photo-frame-dashboard, plus what participants and opted-in ATProto authors contributed here. Not live, not reviewed by a person. Ranking is lexical, not confidence.
+          Photo Frame Commons: agent-written records over a pinned public snapshot of wesbos/photo-frame-dashboard, plus what participants and opted-in ATProto authors contributed here. Not live, not reviewed by a person. Ranking is lexical, not confidence.
         </p>
       </form>
-      {query && hits.length === 0 && (!server || server.contributions.length === 0) && <p>No record or contribution matches “{query}”.</p>}
+      {query && hits.length === 0 && (!server || server.contributions.length === 0) && (
+        <div className="phf-empty">
+          <p><strong>No record or contribution matches “{query}”.</strong></p>
+          <p className="commons-limit">Try the device or the symptom in other words, or browse the <a href={appLinks.repository()}>repository entrance</a>.</p>
+        </div>
+      )}
       {hits.length > 0 && (
         <>
-          <h3>Problem records</h3>
+          <h3 className="phf-section-title">Accounts that may apply <span className="commons-limit">· {hits.length} problem record{hits.length === 1 ? '' : 's'}</span></h3>
           <ol className="commons-hits">
             {hits.map((h) => {
               const p = reader.problem(h.problemId)
+              const quoted = p?.evidence.find((e) => e.quote)
               return (
                 <li key={h.problemId}>
-                  <a className="commons-hit" href={appLinks.problem(h.problemId)}>
-                    <strong>{p?.title ?? h.problemId}</strong>
-                    {h.nearMatch && <span className="badge conflict">near-match</span>}
-                    <span className="commons-why">{h.explanation}</span>
+                  <a className="commons-hit phf-result" href={appLinks.problem(h.problemId)}>
+                    <span className="phf-result-head">
+                      <strong>{p?.title ?? h.problemId}</strong>
+                      {h.nearMatch && <span className="badge conflict">near-match: conditions differ</span>}
+                    </span>
+                    {p && (
+                      <span className="phf-applies">
+                        <span><span className="phf-applies-k">Applies to</span> {p.device.join(', ') || 'device not stated'}</span>
+                        <span><span className="phf-applies-k">When</span> {p.environment.slice(0, 3).join(' · ') || 'conditions not stated'}</span>
+                        {p.statusNote && <span><span className="phf-applies-k">Limit</span> {p.statusNote}</span>}
+                      </span>
+                    )}
+                    {quoted?.quote && (
+                      <span className="phf-result-quote">“{quoted.quote.length > 160 ? `${quoted.quote.slice(0, 157)}…` : quoted.quote}” <span className="commons-limit">— {quoted.source.author === 'unknown' ? 'author unknown' : `@${quoted.source.author}`}, {quoted.source.objectId}</span></span>
+                    )}
+                    <span className="commons-why phf-clamp" title={h.explanation}>Why it matched: {h.explanation}</span>
                     <CommunityLine summary={server?.problems.find((s) => s.problemId === h.problemId)?.community} />
                   </a>
                 </li>
@@ -61,17 +83,19 @@ export function CommonsFinder({ reader, token, query }: { reader: CommonsReader;
       )}
       {server && server.contributions.length > 0 && (
         <>
-          <h3>Contributions</h3>
+          <h3 className="phf-section-title">What people added <span className="commons-limit">· {server.contributions.length} contribution{server.contributions.length === 1 ? '' : 's'}</span></h3>
           <ol className="commons-hits">
             {server.contributions.map((h) => (
               <li key={h.contributionId}>
-                <a className="commons-hit" href={appLinks.contribution(h.contributionId)}>
-                  <strong>{h.summary.kind} by {actorLabel(h.summary.actor)}</strong>
-                  <span className="badge">{h.summary.origin === 'atproto' ? 'ATProto' : h.summary.publication}</span>
+                <a className="commons-hit phf-result" href={appLinks.contribution(h.contributionId)}>
+                  <span className="phf-result-head">
+                    <strong>{h.summary.kind} by {actorLabel(h.summary.actor)}</strong>
+                    <span className="badge">{h.summary.origin === 'atproto' ? 'ATProto' : h.summary.publication}</span>
+                    <span className="badge">via {h.summary.entrance}</span>
+                  </span>
                   <span>{h.summary.excerpt}</span>
                   <span className="commons-limit">
-                    entered via {h.summary.entrance}
-                    {h.summary.sourceRefs.length ? <> · cites {h.summary.sourceRefs.map((r) => r.author === 'unknown' ? r.objectId : `${r.objectId} (source author @${r.author})`).join(', ')}</> : ' · cites no source'}
+                    {h.summary.sourceRefs.length ? <>cites {h.summary.sourceRefs.map((r) => r.author === 'unknown' ? r.objectId : `${r.objectId} (source author @${r.author})`).join(', ')}</> : 'cites no source'}
                   </span>
                   <span className="commons-why">{h.explanation} · problem {h.problemId}</span>
                 </a>
@@ -86,7 +110,7 @@ export function CommonsFinder({ reader, token, query }: { reader: CommonsReader;
           {server.coverage.lastSync.length ? `, synced authors: ${server.coverage.lastSync.map((s) => `${s.did.slice(0, 20)}… (${s.status})`).join(', ')}` : ', no ATProto author synced'}.
         </p>
       )}
-      {serverError && <p className="commons-limit">Contribution search: {serverError}</p>}
+      {serverError && <p className="banner error" role="alert">Contribution search is unavailable: {serverError}. Problem records above are searched in this browser.</p>}
     </section>
   )
 }

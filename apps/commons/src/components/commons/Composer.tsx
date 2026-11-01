@@ -8,12 +8,15 @@ import { FileText, Send, Trash2 } from 'lucide-react'
 import type { AssistanceDeclaration, CommonsContributionKind } from '../../commons/contracts'
 import { ASSISTANCE_DECLARATIONS, COMMONS_CONTRIBUTION_KINDS } from '../../commons/contracts'
 import { drafts, type DraftV2 } from '../../commons/client/drafts'
+import { journey } from '../../commons/client/journey'
 import { commonsApi, type PreparedContribution, type ProblemView, type SubmitResult } from '../../commons/client/api'
 
 export type Relation = 'root' | 'reply' | 'correction' | 'supersedes'
 
-export function Composer({ token, problem, parent, relation, focusEvidence, onSubmitted, onCancel }: {
+export function Composer({ token, problem, parent, relation, focusEvidence, actorName, onSubmitted, onCancel }: {
   token: string
+  /** Display name of the session's participant: the voice this contribution will carry. */
+  actorName?: string
   problem: ProblemView
   parent?: { id: string; label: string } | null
   relation: Relation
@@ -91,6 +94,10 @@ export function Composer({ token, problem, parent, relation, focusEvidence, onSu
       drafts.remove(problem.problem.postackId, parentId)
       setDraft(undefined); setText(''); setCircumstances(''); setPreview(null)
       setStatus({ kind: 'notice', text: result.replayed ? 'Already recorded earlier — no duplicate created.' : 'Recorded in the local shared room.' })
+      if (relation === 'root') {
+        const words = text.trim().replace(/^\[[^\]]*\]\s*/, '').split(/\s+/).slice(0, 6).join(' ')
+        journey.follow({ contributionId: result.contributionId, problemId: problem.problem.postackId, author: actorName ?? 'this participant', excerpt: words, cites: refs })
+      } else journey.mark('reply')
       onSubmitted(result)
     } catch (e) {
       const msg = e instanceof Error ? e.message : 'Submission failed.'
@@ -98,19 +105,29 @@ export function Composer({ token, problem, parent, relation, focusEvidence, onSu
     } finally { setBusy(false) }
   }
   const heading = relation === 'root' ? 'Your experience (private draft)' : relation === 'reply' ? `Reply to ${parent?.label ?? ''}` : relation === 'correction' ? `Correction of ${parent?.label ?? ''} (the original stays)` : `Supersede ${parent?.label ?? ''}`
+  const field = parentId ?? 'root'
   return (
     <div className="commons-draft" role="form" aria-label={heading}>
       <h3><FileText size={15} /> {heading}</h3>
-      <label htmlFor={`cm-text-${parentId ?? 'root'}`}>What happened for you?</label>
-      {focused && <p className="commons-limit">Responding to passage {focused.id} ({focused.role}) of {focused.source.objectId}{focused.quote ? `: “${focused.quote.length > 120 ? `${focused.quote.slice(0, 117)}…` : focused.quote}”` : ''}</p>}
-      <textarea id={`cm-text-${parentId ?? 'root'}`} value={text} onChange={(e) => setText(e.target.value)} rows={4} autoFocus={Boolean(focused)} />
-      <div className="commons-row">
-        <label>Kind <select value={kind} onChange={(e) => setKind(e.target.value as CommonsContributionKind)}>{COMMONS_CONTRIBUTION_KINDS.map((k) => <option key={k}>{k}</option>)}</select></label>
-        <label>Prepared <select value={assistance} onChange={(e) => setAssistance(e.target.value as AssistanceDeclaration)}>{ASSISTANCE_DECLARATIONS.map((a) => <option key={a} value={a}>{a === 'none' ? 'by me, no AI' : a}</option>)}</select></label>
+      <div className="phf-field">
+        <span className="phf-field-k">Voice</span>
+        <span>Speaking as <strong>{actorName ?? 'this participant'}</strong> <span className="commons-limit">(prototype participant; switch with Voice above)</span></span>
       </div>
-      <label htmlFor={`cm-circ-${parentId ?? 'root'}`}>Your circumstances (optional)</label>
-      <input id={`cm-circ-${parentId ?? 'root'}`} value={circumstances} onChange={(e) => setCircumstances(e.target.value)} />
-      <details open={relation === 'root' || Boolean(focused)}>
+      {focused && (
+        <div className="phf-field phf-cited">
+          <span className="phf-field-k">Source passage</span>
+          <span>{focused.quote ? `“${focused.quote.length > 160 ? `${focused.quote.slice(0, 157)}…` : focused.quote}”` : `passage ${focused.id}`} <span className="commons-limit">— {focused.source.author === 'unknown' ? 'author unknown' : `@${focused.source.author}`}, {focused.source.objectId}, passage {focused.id} ({focused.role})</span></span>
+        </div>
+      )}
+      <label htmlFor={`cm-text-${field}`} className="phf-field-k">{relation === 'root' ? 'What happened for you?' : relation === 'correction' ? 'What is different in your experience?' : 'Your reply or question'}</label>
+      <textarea id={`cm-text-${field}`} value={text} onChange={(e) => setText(e.target.value)} rows={4} autoFocus={Boolean(focused) || relation !== 'root'} />
+      <label htmlFor={`cm-circ-${field}`} className="phf-field-k">Your circumstances <span className="commons-limit">(device, OS, cable, what you tried — optional)</span></label>
+      <input id={`cm-circ-${field}`} value={circumstances} onChange={(e) => setCircumstances(e.target.value)} placeholder="e.g. macOS 15, USB-C cable direct, no hub" />
+      <div className="commons-row">
+        <label className="phf-field-k">Kind <select value={kind} onChange={(e) => setKind(e.target.value as CommonsContributionKind)}>{COMMONS_CONTRIBUTION_KINDS.map((k) => <option key={k}>{k}</option>)}</select></label>
+        <label className="phf-field-k">How it was prepared <select value={assistance} onChange={(e) => setAssistance(e.target.value as AssistanceDeclaration)}>{ASSISTANCE_DECLARATIONS.map((a) => <option key={a} value={a}>{a === 'none' ? 'by me, no AI' : a}</option>)}</select></label>
+      </div>
+      <details>
         <summary>Sources to cite ({refs.length}{passages.length ? `, ${passages.length} exact passage${passages.length === 1 ? '' : 's'}` : ''})</summary>
         <ul className="commons-refs">
           {[...new Map(problem.evidence.map((e) => [e.source.objectId, e])).values()].map((e) => (
@@ -127,20 +144,23 @@ export function Composer({ token, problem, parent, relation, focusEvidence, onSu
           ))}
         </ul>
       </details>
+      <p className="phf-dest"><strong>Destination:</strong> the local shared room of this Commons — not GitHub, not ATProto. Only what the preview shows is sent; no chat or draft history leaves this browser.</p>
       <div className="commons-actions">
         <button className="button" onClick={save} disabled={!text.trim()}>Save draft</button>
         <button className="button" onClick={remove} disabled={!draft}><Trash2 size={14} /> Remove draft</button>
-        <button className="button" onClick={() => void doPreview()} disabled={!text.trim() || busy}>Preview</button>
+        <button className="button primary" onClick={() => void doPreview()} disabled={!text.trim() || busy}>Preview what leaves</button>
         {onCancel && <button className="button" onClick={onCancel}>Cancel</button>}
       </div>
       {preview && (
         <div className="commons-preview" role="region" aria-label="Submission preview">
+          <p className="phf-kicker">Exactly what will be recorded</p>
           <p><strong>Destination:</strong> {preview.destination.visibility}; room <code>{preview.destination.roomId}</code>. {preview.destination.publication}</p>
           {preview.errors.map((e) => <p key={e} className="banner error">{e}</p>)}
           {preview.warnings.map((w) => <p key={w} className="commons-near" role="note">{w}</p>)}
           {preview.command && (
             <>
-              <p><strong>Exact content:</strong> {preview.command.text}</p>
+              <p><strong>Voice:</strong> {actorName ?? 'this participant'} · <strong>Exact content:</strong> {preview.command.text}</p>
+              {preview.command.circumstances && <p><strong>Circumstances:</strong> {preview.command.circumstances}</p>}
               <p className="commons-limit">kind {preview.command.kind} · prepared: {preview.command.assistance} · cites {preview.command.sourceRefs.join(', ') || 'nothing'}{preview.command.evidenceIds?.length ? ` (exact passages ${preview.command.evidenceIds.join(', ')})` : ''}{preview.command.parentId ? ` · in reply to ${preview.command.parentId}` : ''}{preview.command.contradictsId ? ` · corrects ${preview.command.contradictsId}` : ''}</p>
               <button className="button aperture" onClick={() => void submit()} disabled={busy}><Send size={14} /> {busy ? 'Submitting…' : 'Submit to shared room'}</button>
             </>
