@@ -259,6 +259,9 @@ export interface CommandReceipt {
 export const appLinks = {
   /** `query`: the situation searched for, kept so the record can lead back to the same results. */
   problem: (problemId: string, query?: string) => `#/problems/${encodeURIComponent(problemId)}${query ? `?q=${encodeURIComponent(query)}` : ''}`,
+  /** One evidence passage on a record, keeping the searched situation when there is one. */
+  passage: (problemId: string, evidenceId: string, query?: string) =>
+    `#/problems/${encodeURIComponent(problemId)}?${query ? `q=${encodeURIComponent(query)}&` : ''}passage=${encodeURIComponent(evidenceId)}`,
   contribution: (contributionId: string) => `#/contributions/${encodeURIComponent(contributionId)}`,
   thread: (contributionId: string) => `#/threads/${encodeURIComponent(contributionId)}`,
   repository: (path = '') => `#/repo${path ? `/${path.split('/').map(encodeURIComponent).join('/')}` : ''}`,

@@ -4,13 +4,14 @@
  * searched on the server, where they live. Selecting a result navigates to
  * its deep link, so the URL always says where you are.
  */
-import { useEffect, useId, useMemo, useState } from 'react'
-import { ChevronRight, Search } from 'lucide-react'
-import type { CommonsReader, SearchHit } from '../../commons/contracts'
+import { useEffect, useMemo, useState } from 'react'
+import { Search } from 'lucide-react'
+import type { CommonsReader } from '../../commons/contracts'
 import { appLinks } from '../../commons/contracts'
 import { commonsApi, type SearchResponse } from '../../commons/client/api'
 import { navigate } from '../../commons/client/router'
 import { actorLabel } from './ContributionCard'
+import { WhyMatched } from './WhyMatched'
 
 const EXAMPLE = 'My Mac cannot see my frame'
 
@@ -137,42 +138,3 @@ function CommunityLine({ summary }: { summary: Community | undefined }) {
   return <span className="commons-limit">Community: {parts.join(' · ')}</span>
 }
 
-const FIELD_LABEL: Record<SearchHit['matches'][number]['field'], string> = {
-  title: 'title', symptoms: 'symptoms', aliases: 'search words', environment: 'conditions', device: 'device', quote: 'quoted source',
-}
-
-/**
- * Why a result is on the list, from the ranking's own output: which record
- * fields matched which (stemmed) index terms, then the rest of the recorded
- * explanation verbatim. Nothing here is written after the fact.
- */
-function WhyMatched({ hit }: { hit: SearchHit }) {
-  const [open, setOpen] = useState(false)
-  const id = useId()
-  const byField = new Map<string, { terms: Set<string>; writer: boolean }>()
-  for (const m of hit.matches) {
-    const entry = byField.get(m.field) ?? { terms: new Set<string>(), writer: m.writerVocabulary }
-    entry.terms.add(m.term)
-    byField.set(m.field, entry)
-  }
-  const notes = hit.explanation.split(/(?<=\.)\s+(?=[A-Z])/).filter((s) => !s.startsWith('Matched '))
-  return (
-    <div className="cx-why">
-      <button type="button" className="cx-disclosure" aria-expanded={open} aria-controls={id} onClick={() => setOpen((v) => !v)}>
-        <ChevronRight size={14} aria-hidden="true" className="cx-chevron" /> Why it matched
-      </button>
-      <div id={id} className="cx-why-body" hidden={!open}>
-        <p className="cx-why-lead">Your words matched these parts of the record <span className="commons-limit">(index terms are word stems)</span>:</p>
-        <dl className="cx-why-fields">
-          {[...byField].map(([field, { terms, writer }]) => (
-            <div key={field}>
-              <dt>{FIELD_LABEL[field as keyof typeof FIELD_LABEL] ?? field}{writer && <span className="cx-status neutral">added by the record writer</span>}</dt>
-              <dd>{[...terms].map((t) => <code key={t} className="cx-term">{t}</code>)}</dd>
-            </div>
-          ))}
-        </dl>
-        <ul className="cx-why-notes">{notes.map((n) => <li key={n}>{n}</li>)}</ul>
-      </div>
-    </div>
-  )
-}

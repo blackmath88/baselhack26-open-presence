@@ -6,7 +6,7 @@ import { search as bm25Search, tokenize } from './bm25';
 import { recordFields } from './records';
 
 /** Query-side vocabulary is explicit in every explanation where it is used. */
-function queryVocabulary(query: string): { text: string; added: string[] } {
+export function queryVocabulary(query: string): { text: string; added: string[] } {
   const added: string[] = [];
   if (/\bmac(?:os)?\b/i.test(query)) added.push('mac', 'macos');
   if (/\bframe\b/i.test(query) && /(?:cannot|can.t|doesn.t|not|no|never)\s+(?:\w+\s+)?(?:see|detect|appear|recogniz|find)/i.test(query)) added.push('usb', 'disk', 'data');

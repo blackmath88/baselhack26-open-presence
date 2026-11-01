@@ -108,6 +108,44 @@ html, body { background: var(--cx-canvas) }
   .commons-hub .cx-context-note { margin-left: 0 }
   .commons-hub .commons-record h2 { font-size: 24px; line-height: 30px }
 }
+/* Phase 1: fit, outcomes, passages, states --------------------------------- */
+.commons-hub .cx-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap }
+.commons-hub .cx-state { background: var(--cx-surface); border: 1px solid var(--cx-divider); border-radius: var(--cx-r3); padding: var(--cx-s4) var(--cx-s5); font-size: 15px; line-height: 22px; margin: 0 0 var(--cx-s4) }
+.commons-hub .cx-state p { margin: 0 0 var(--cx-s2) }
+.commons-hub .cx-outcomes ul, .commons-hub .cx-fit ul { margin: 0; padding-left: 18px; display: grid; gap: var(--cx-s2); font-size: 15px; line-height: 22px }
+.commons-hub .cx-fit { margin-top: var(--cx-s5); border: 1px solid var(--cx-divider); border-radius: var(--cx-r2); padding: var(--cx-s4) }
+.commons-hub .cx-fit h3 { margin: 0 0 var(--cx-s1) }
+.commons-hub .cx-fit > .cx-meta { margin: 0 0 var(--cx-s3) }
+.commons-hub .cx-fit-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cx-s4) }
+.commons-hub .cx-fit-col { min-width: 0; display: grid; align-content: start; gap: var(--cx-s2) }
+.commons-hub .cx-fit-col + .cx-fit-col { border-left: 1px solid var(--cx-divider); padding-left: var(--cx-s4) }
+.commons-hub .cx-fit h4 { margin: 0; font-size: 15px; line-height: 22px; font-weight: 650 }
+.commons-hub .cx-fit ul { list-style: none; padding: 0 }
+.commons-hub .cx-fit li { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: var(--cx-s2) }
+.commons-hub .cx-fit-k { font-size: 13px; line-height: 22px; font-weight: 600; color: var(--cx-text-2) }
+.commons-hub .cx-fit .cx-status { white-space: normal }
+.commons-hub .cx-passage-index ol { list-style: none; margin: 0 0 var(--cx-s3); padding: 0; display: flex; flex-wrap: wrap; gap: var(--cx-s2) }
+.commons-hub .cx-passage-index a { display: inline-flex; align-items: center; gap: var(--cx-s1); min-height: 32px; padding: 0 var(--cx-s2); border: 1px solid var(--cx-divider); border-radius: var(--cx-r2); background: var(--cx-surface); color: var(--cx-text); font-size: 13px; text-decoration: none }
+.commons-hub .cx-passage-index a:hover { border-color: var(--cx-accent); background: var(--cx-accent-soft) }
+.commons-hub .cx-passage-index a[aria-current] { border-color: var(--cx-accent); background: var(--cx-accent-soft); color: var(--cx-accent-ink); font-weight: 600 }
+.commons-hub .cx-pi-id { font-family: var(--cx-mono); font-weight: 600 }
+.commons-hub .phf-evidence { scroll-margin-top: var(--cx-s4) }
+/* Selection = accent outline plus a text label; focus keeps its own darker ring. */
+.commons-hub .phf-evidence.cx-selected { border-color: var(--cx-accent); box-shadow: 0 0 0 1px var(--cx-accent); background: #fbfdff }
+.commons-hub .phf-evidence.cx-selected:focus-visible { outline: 2px solid var(--cx-focus); outline-offset: 3px }
+.commons-hub .phf-evidence.cx-selected:focus:not(:focus-visible) { outline: none }
+.commons-hub .cx-status.selected { color: var(--cx-accent-ink); background: var(--cx-accent-soft); border-color: #b9d3f3 }
+.commons-hub .phf-evidence-head { flex-wrap: wrap }
+.commons-hub .cx-passage-link { margin-left: auto; display: inline-flex; align-items: center; gap: var(--cx-s1); min-height: 32px; padding: 0 var(--cx-s2); border-radius: var(--cx-r2); font-size: 13px; color: var(--cx-accent-ink); text-decoration: none }
+.commons-hub .cx-passage-link:hover { background: var(--cx-accent-soft) }
+.commons-hub .cx-original { font-weight: 600; color: var(--cx-accent-ink) }
+@media (max-width: 720px) {
+  .commons-hub .cx-fit-cols { grid-template-columns: 1fr }
+  .commons-hub .cx-fit-col + .cx-fit-col { border-left: 0; padding-left: 0; border-top: 1px solid var(--cx-divider); padding-top: var(--cx-s3) }
+  .commons-hub .cx-passage-link { margin-left: 0 }
+  .commons-hub .cx-fit li { grid-template-columns: 1fr; gap: 0 }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .commons-hub .cx-hit .commons-hit, .commons-hub .cx-chevron { transition: none }
 }

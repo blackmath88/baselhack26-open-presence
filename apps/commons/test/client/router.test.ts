@@ -12,3 +12,10 @@ describe('problem links carry the searched situation', () => {
     expect(parseRoute('#/problems/usb-c-no-data')).toEqual({ view: 'problem', problemId: 'usb-c-no-data' })
   })
 })
+
+describe('passage links', () => {
+  it('carries situation and passage, and parses back', () => {
+    expect(parseRoute(appLinks.passage('usb-c-no-data', 'e3', 'My Mac'))).toEqual({ view: 'problem', problemId: 'usb-c-no-data', query: 'My Mac', passage: 'e3' })
+    expect(parseRoute(appLinks.passage('usb-c-no-data', 'c-cable-qualified:qualifies'))).toEqual({ view: 'problem', problemId: 'usb-c-no-data', passage: 'c-cable-qualified:qualifies' })
+  })
+})
