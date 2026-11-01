@@ -1,0 +1,37 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "nuc-window-2026-10-31",
+  "kind": "proposal",
+  "title": "Timed NUC orchestration for Commons, PDF Lab, Observatory UI and memory",
+  "statement": "Prepare and execute the user-requested 20:10–23:00 Europe/Zurich window via ChatGPT on NUC supervising Claude Code. Include PDF Lab and Observatory UI alongside Commons; partial experiments are acceptable. Packet ordering and local scheduling design in the linked handoff are assistant proposals. This record claims neither armed scheduling nor launched work.",
+  "author": {
+    "name": "ChatGPT",
+    "kind": "assistant",
+    "via": "ChatGPT Work"
+  },
+  "submitted_at": "2026-10-31T18:35:03.784Z",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "77b1845be84a788355b2b87dc6e3a3283f962d09",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "docs/build/NUC-WINDOW-2026-10-31.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/PLAN.md"
+    },
+    {
+      "path": "docs/build/CLAUDE-MULTI-ENTRY-PROMPT.md"
+    }
+  ],
+  "conditions": [
+    "The context packet cutoff 93a5445 predates current main; Git and runtime state must be refreshed.",
+    "No NUC timer, credentials or launch capability has been verified from this planning environment.",
+    "Only the dated window is authorized here; no overnight extension, paid API calls, merges or deployments."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
