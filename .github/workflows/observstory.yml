@@ -44,9 +44,14 @@ jobs:
         working-directory: apps/commons
         run: |
           npm ci
-          npm run build:e
+          npx tsc --noEmit --jsx react-jsx --moduleResolution bundler --module esnext --target es2022 --skipLibCheck --esModuleInterop e-preview/main.tsx
+          npx vite build --config vite.e-preview.config.ts
           mkdir -p ../../observstory/e
           cp -R dist-e/. ../../observstory/e/
+      - name: Build .phf story and publish PDF experiments
+        run: |
+          node --test scripts/site/site.test.mjs
+          node scripts/site/package-public.mjs observstory
       - name: Save dashboard artifact
         uses: actions/upload-artifact@v4
         with:

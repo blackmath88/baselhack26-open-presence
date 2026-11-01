@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A journey through documents, human experience and the way we build with AI. Explore .phf Commons, PDF Lab and Observatory.">
+<meta name="theme-color" content="#f4f7fb">
+<title>.phf — portable human format</title>
+<link rel="stylesheet" href="story.css"><script src="story.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to story</a>
+<header class="site-header">
+<a class="brand" href="#main" aria-label=".phf home">.phf<span>portable human format</span></a>
+<nav aria-label="Experiences"><a href="#past">Story</a><a data-dest="commonsHome" href="#commons-access">Commons</a><a data-dest="pdfCabinet" href="../pdf-lab/">PDF Lab</a><a data-dest="observatoryHome" href="../">Observatory ↗</a></nav>
+</header>
+<main id="main">
+<section class="hero">
+<div class="hero-copy"><p class="eyebrow">BASELHACK 2026 / AN EXPERIMENT IN TRUST</p>
+<h1>Human context.<br><span>Made to travel.</span></h1>
+<p class="subtitle">.phf [portable human format]<br>trust in ai driven webspace</p>
+<p class="lede">An answer can travel anywhere. What about the person, the circumstances and the conversation behind it?</p>
+<div class="actions"><a class="button primary" href="#past">Follow the story <span>↓</span></a><a class="button" data-dest="commonsExample" href="#commons-access" data-commons-label>Explore Commons <span>↗</span></a></div>
+<p class="caption">Three chapters. Working experiments. One question: what survives the journey?</p></div>
+<div class="journey-visual" aria-label="A document, an answer, and a project all carry context">
+<div class="visual-top"><span>CONTEXT / IN TRANSIT</span><span class="dot"></span></div>
+<div class="paper"><span class="file-type">.pdf</span><p>A lamp beside<br>the rain.</p><span class="rule"></span><small>The picture travels.<br>Does the reading?</small></div>
+<div class="context-sheet"><span class="file-type">.phf / THE IDEA</span><p>“Yes. That’s<br>my situation.”</p><div class="context-labels"><span>Person</span><span>Source</span><span>Conditions</span><span>Corrections</span></div><small>Keep the context attached.</small></div>
+<div class="visual-bottom">APPEARANCE → EXPERIENCE → PRACTICE</div>
+</div>
+</section>
+<nav class="chapter-index" aria-label="Story chapters">
+<a href="#past"><span>01 / PAST</span><strong>What travels?</strong><span>PDF Lab ↗</span></a>
+<a href="#future"><span>02 / FUTURE</span><strong>What stays human?</strong><span>.phf Commons ↗</span></a>
+<a href="#now"><span>03 / NOW</span><strong>How do we build it?</strong><span>Observatory ↗</span></a>
+</nav>
+<section class="chapter past" id="past">
+<div class="section-label"><span>01 / LOOKING BACK</span><span>THE DOCUMENT</span></div>
+<div class="two-column"><div><h2>One file.<br>Two readings.</h2><p class="body-copy">A PDF carries a familiar promise: what I send is what you receive. But preserving a picture and preserving its meaning are different things.</p><p>In this experiment, the page looks the same while its character map tells another story.</p><a class="text-link" data-dest="pdfOpening" href="../pdf-lab/opening.html">Enter the guided experiment ↗</a></div>
+<figure class="poem-figure"><img src="poem.webp" width="612" height="792" alt="Recorded PDF render: the four-line visible poem beginning A lamp beside the rain." loading="lazy"><figcaption>Recorded render from PDF Lab. Open the experiment to inspect the actual file and extraction evidence.</figcaption></figure></div>
+<div class="chapter-foot"><a data-dest="pdfCabinet" href="../pdf-lab/">Explore the full PDF cabinet ↗</a><a href="#future">Now let an answer travel →</a></div>
+</section>
+<section class="chapter future" id="future">
+<div class="section-label"><span>02 / LOOKING FORWARD</span><span>THE HUMAN SIGNAL</span></div>
+<h2>Not just an answer.<br><span>A situation you recognise.</span></h2>
+<p class="section-intro">In an agent-driven web, we want human experience to remain attributable, inspectable and open to correction. Commons is our working experiment.</p>
+<div class="question"><span>START WITH SOMETHING REAL</span><p>“My Mac cannot see my frame.”</p><a class="button primary" data-dest="commonsExample" href="#commons-access" data-commons-label>Explore this example ↗</a></div>
+<div class="sequence">
+<article><span class="step">01</span><h3>Find your situation.</h3><p>Discover an account in a pinned public photo-frame community. See the conditions and the limits of the match.</p></article>
+<article><span class="step">02</span><h3>Look behind the answer.</h3><p>Read the exact passage. Separate the original author’s words from an interpretation. Follow the source.</p></article>
+<article><span class="step">03</span><h3>Leave something useful.</h3><p>Preview an observation, share it in the demo room, and let another participant reply and rediscover it.</p></article>
+</div>
+<div class="entrances"><strong>More than one way in.</strong><p>Search, repository navigation, direct links, CLI and MCP connect to the same Commons service.</p><span>BROWSER · REPOSITORY · AGENT</span></div>
+<p class="boundary">Prototype participants are demo identities. Attribution helps you judge a claim; it does not certify that a claim is true or written without AI.</p>
+<div class="access" id="commons-access"><h3>Use Commons</h3><p data-commons-status>Commons needs its Node service. This public story does not include a hosted Commons backend yet.</p><a class="text-link" data-dest="commonsExample" data-live-commons hidden>Open the working Commons ↗</a><details data-local-help><summary>Run the complete experience locally</summary><p>From a checkout of the repository with Node.js 22+:</p><pre><code>node scripts/site/rehearse.mjs</code></pre><p>The launcher installs missing dependencies, builds the apps, and starts the connected experience. Demo data is kept in a separate local folder.</p><a data-dest="sourceRepository" href="https://github.com/blackmath88/baselhack26-open-presence">Get the source ↗</a></details></div>
+<div class="access" id="workbench-access"><h3>Go deeper in PDF Workbench</h3><p data-workbench-status>Inspect a specimen, write a second reading and download your PDF. The Workbench server runs in the local experience.</p><a data-dest="pdfWorkbench" data-live-workbench hidden>Open PDF Workbench ↗</a><a data-dest="pdfCabinet" href="../pdf-lab/">The browser-based PDF cabinet is available here ↗</a></div>
+<div class="chapter-foot"><a data-dest="pdfWorkbench" href="#workbench-access">Open PDF Workbench ↗</a><a href="#now">Back to the present →</a></div>
+</section>
+<section class="chapter now" id="now">
+<div class="section-label"><span>03 / RIGHT NOW</span><span>THE WAY WE WORK</span></div>
+<div class="two-column"><div><h2>The future is built<br>in the present.</h2><p class="body-copy">People and AI are already making software together. Observatory keeps the research, decisions, proposals and code connected to their evidence.</p><p>A shared project memory you can inspect—and a history you can question.</p><a class="button primary" data-dest="observatoryHome" href="../">Open Observatory ↗</a></div>
+<div class="observatory"><span class="eyebrow">PROJECT MEMORY / SOURCE-BASED SNAPSHOT</span><div class="record"><span>Research</span><strong>What do we know?</strong></div><div class="record"><span>Concept</span><strong>What are we proposing?</strong></div><div class="record"><span>Build</span><strong>What actually exists?</strong></div><p>Illustration of the workspace’s purpose. Open Observatory for actual records and statuses.</p></div></div>
+</section>
+<section class="closing"><p class="eyebrow">PAST → FUTURE → NOW</p><h2>Keep the human<br>in the context.</h2><p>Explore the experiments. Inspect the sources. Add to the conversation.</p><div class="actions"><a class="button primary" data-dest="commonsExample" href="#commons-access">Explore Commons ↗</a><a class="button" data-dest="ePreview" href="../e/">Meet e, our distracted guide ↗</a></div></section>
+</main>
+<footer><span><strong>.phf</strong> portable human format</span><p>A BaselHack experiment. A product idea, not an established file standard.</p><a data-dest="sourceRepository" href="https://github.com/blackmath88/baselhack26-open-presence">Source & evidence ↗</a></footer>
+</body></html>

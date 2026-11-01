@@ -13,7 +13,8 @@ describe('E guide', () => {
     expect(ids).toContain('pdf-lab')
     expect(ids).toContain('pdf-history')
     for (const mission of SIDE_MISSIONS) {
-      expect(mission.href).toContain('github.com/blackmath88/baselhack26-open-presence')
+      expect(new URL(mission.href).protocol).toMatch(/^https?:$/)
+      expect(mission.href).not.toContain('/tree/main/')
       expect(mission.title.length).toBeGreaterThan(0)
       expect(mission.blurb.length).toBeGreaterThan(0)
     }

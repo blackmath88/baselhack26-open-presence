@@ -15,7 +15,7 @@ export const DEMO_QUESTION = 'My Mac cannot see my frame'
 export function PhfHeader({ actorName, onSwitchVoice }: { actorName?: string; onSwitchVoice?: () => void }) {
   return (
     <header className="phf-header">
-      <a className="phf-back" href={presentationUrl()}><ArrowLeft size={14} /> Presentation</a>
+      <a className="phf-back" href={presentationUrl()}><ArrowLeft size={14} /> .phf story</a>
       <a className="phf-brand" href={appLinks.search('')} aria-label=".phf home">
         <span className="phf-mark">.phf</span>
         <span className="phf-brand-lines">
