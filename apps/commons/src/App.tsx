@@ -21,6 +21,7 @@ import { ParticipantSwitcher } from './components/ParticipantSwitcher'
 import { createContextPackage, validateContributionPackage } from './lib/aperture'
 import { api } from './lib/api'
 import { CommonsHub } from './components/commons/CommonsHub'
+import { EGuide } from './components/EGuide'
 import { commonsReader } from './commons/reader'
 import { useRoute } from './commons/client/router'
 import { importedProblemSpaceId } from './commons/contracts'
@@ -200,6 +201,8 @@ export default function App() {
           </p>
         </div>
       )}
+
+      <EGuide />
 
       {room.actor && room.token && finding && (
         <CommonsHub
