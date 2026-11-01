@@ -1,12 +1,11 @@
-/**
- * E — the dopey letter-E guide for the presentation.
- *
- * A red "E" mascot in the spirit of the Adobe brand mark (plain geometry, no
- * trademark assets) that tags along on screen. It greets the visitor and, being
- * easily sidetracked, drifts into the side missions (PDF Lab, PDF history) and
- * brings the visitor back.
+/** E — an original pixel-art, optional character in the Commons shell.
+ * The Adobe -> "a dope E" pun is narrative; no third-party brand assets are used.
+ * Behaviour is event-driven; ambient motion never changes navigation or focus.
  */
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useReducer, useState } from 'react'
+import { EPixelSprite, type EPose } from './EPixelSprite'
+import { INITIAL_E_STATE, reduceE, resolveMissionIndex } from './e-behaviour'
+import './e-pixel.css'
 
 export type SideMission = {
   id: string
@@ -15,105 +14,105 @@ export type SideMission = {
   href: string
   label: string
 }
-
 export const SIDE_MISSIONS: SideMission[] = [
   {
     id: 'pdf-lab',
     title: 'PDF Lab',
     blurb: 'A cabinet of strange PDFs — one-letter mazes, hidden machines, two identities in one file.',
     href: 'https://github.com/blackmath88/baselhack26-open-presence/tree/main/sideprojects/pdf-lab',
-    label: 'Open PDF Lab',
+    label: 'Explore PDF Lab source',
   },
   {
     id: 'pdf-history',
     title: 'PDF history',
-    blurb: 'The optional story of one recognisable page travelling between software and people.',
+    blurb: 'The optional story of a recognisable document travelling between people and software.',
     href: 'https://github.com/blackmath88/baselhack26-open-presence/tree/main/modules/pdf-history',
-    label: 'Open PDF history',
+    label: 'Explore PDF history source',
   },
 ]
 
-const GREETINGS = [
-  'Hi! I\u2019m E. I\u2019ll take you around \u2014 mind the side doors, I get distracted easily.',
-  'E here. Main stage this way! \u2026Wait, was that a side mission over there?',
-  'Hello! Follow the big E. If I wander off, that\u2019s just me being dopey.',
-]
-
-const SIDETRACK_LINES = [
-  'Ooh — a side build! This one\u2019s about bending documents until they confess.',
-  'Hold on, hold on — over here there\u2019s a whole cabinet of weird PDFs. Worth it.',
-  'I was supposed to show you the main thing, but look: side mission!',
-]
-
-const RETURN_LINES = [
-  'Okay, back on track! Where were we\u2026 right, the Commons.',
-  'Sorry, sorry — easily sidetracked, me. Main stage again!',
-]
-
 export function pickLine(lines: string[], seed: number): string {
-  return lines[Math.abs(seed) % lines.length]
+  return lines[Math.abs(Math.trunc(seed)) % lines.length]
 }
 
+/** Compatibility for existing imports, with the original pixel face. */
 export function EMark({ size = 34 }: { size?: number }) {
-  return (
-    <svg
-      className="e-guide-mark"
-      width={size}
-      height={size}
-      viewBox="0 0 64 64"
-      role="img"
-      aria-label="E, the guide"
-    >
-      <path
-        d="M14 6h36v12H28v10h18v12H28v12h22v12H14z"
-        fill="#fa0f00"
-        stroke="#c40c00"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-      <circle cx="24" cy="22" r="3.2" fill="#fff" />
-      <circle cx="24" cy="43" r="3.2" fill="#fff" />
-    </svg>
-  )
+  return <EPixelSprite size={size} />
 }
+
+const IDLE_CUES: readonly ('blink' | 'look-left' | 'look-right' | 'sleep')[] =
+  ['blink', 'look-right', 'blink', 'look-left', 'sleep']
 
 export function EGuide({ missionIndex = 0 }: { missionIndex?: number }) {
-  const [phase, setPhase] = useState<'greeting' | 'sidetrack' | 'return'>('greeting')
-  const [tick, setTick] = useState(0)
-  const mission = SIDE_MISSIONS[missionIndex % SIDE_MISSIONS.length]
+  const [state, dispatch] = useReducer(reduceE, INITIAL_E_STATE)
+  const [cueIndex, setCueIndex] = useState(0)
+  const [reduceMotion, setReduceMotion] = useState(true)
+  const [visible, setVisible] = useState(true)
+  const mission = SIDE_MISSIONS[resolveMissionIndex(missionIndex, SIDE_MISSIONS.length)]
+  const activeMission = SIDE_MISSIONS.find((item) => item.id === state.missionId)
 
   useEffect(() => {
-    const id = window.setInterval(() => setTick((t) => t + 1), 14000)
-    return () => window.clearInterval(id)
+    const query = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => setReduceMotion(query.matches)
+    update()
+    query.addEventListener('change', update)
+    return () => query.removeEventListener('change', update)
   }, [])
 
   useEffect(() => {
-    if (tick === 0) return
-    setPhase((p) => (p === 'greeting' ? 'sidetrack' : p === 'sidetrack' ? 'return' : 'greeting'))
-  }, [tick])
+    const update = () => setVisible(!document.hidden)
+    document.addEventListener('visibilitychange', update)
+    update()
+    return () => document.removeEventListener('visibilitychange', update)
+  }, [])
 
-  const line = useMemo(() => {
-    if (phase === 'greeting') return pickLine(GREETINGS, tick)
-    if (phase === 'sidetrack') return pickLine(SIDETRACK_LINES, tick)
-    return pickLine(RETURN_LINES, tick)
-  }, [phase, tick])
+  useEffect(() => {
+    if (state.paused || state.dismissed || state.mode !== 'ambient' || state.missionId || reduceMotion || !visible) return
+    const timer = window.setTimeout(() => {
+      dispatch({ type: 'IDLE_CUE', cue: IDLE_CUES[cueIndex % IDLE_CUES.length] })
+      setCueIndex((n) => n + 1)
+    }, 8500)
+    return () => window.clearTimeout(timer)
+  }, [cueIndex, reduceMotion, visible, state.paused, state.dismissed, state.mode, state.missionId])
+
+  useEffect(() => {
+    if (state.pose === 'idle' || state.missionId || state.paused || state.dismissed || reduceMotion || !visible) return
+    const timer = window.setTimeout(() => dispatch({ type: 'RETURN' }), state.pose === 'sleep' ? 2600 : 700)
+    return () => window.clearTimeout(timer)
+  }, [state.pose, state.missionId, state.paused, state.dismissed, reduceMotion, visible])
+
+  if (state.dismissed) {
+    return <div className="e-pixel-restore"><button type="button" onClick={() => dispatch({ type: 'RESTORE' })}>Bring E back</button></div>
+  }
+
+  const pose: EPose = reduceMotion || state.paused || !visible ? 'idle' : state.pose
 
   return (
-    <aside className={`e-guide e-guide-${phase}`} aria-live="polite">
-      <EMark />
-      <div className="e-guide-text">
-        <strong>E says</strong>
-        <p>{line}</p>
-        {phase === 'sidetrack' && (
-          <a className="e-guide-link" href={mission.href} target="_blank" rel="noreferrer">
-            {mission.label}: {mission.title} — {mission.blurb}
-          </a>
+    <aside className="e-pixel-guide" aria-label="E, the optional dopey guide">
+      <div className="e-pixel-character">
+        <EPixelSprite pose={pose} size={64} />
+        <span className="e-pixel-name">a dope E</span>
+      </div>
+      <div className="e-pixel-content">
+        <p className="e-pixel-intro"><strong>Hi, I'm E.</strong> I'll show you around… unless I get distracted.</p>
+        {activeMission ? (
+          <div className="e-pixel-mission">
+            <strong>Oh! A side mission: {activeMission.title}</strong>
+            <p>{activeMission.blurb}</p>
+            <a href={activeMission.href} target="_blank" rel="noreferrer">{activeMission.label}</a>
+            <button type="button" onClick={() => dispatch({ type: 'RETURN' })}>Back to the main story</button>
+          </div>
+        ) : (
+          <button type="button" className="e-pixel-discover" onClick={() => dispatch({ type: 'NOTICE_MISSION', missionId: mission.id })}>
+            E spotted a side mission…
+          </button>
         )}
       </div>
-      <div className="e-guide-dots" aria-hidden="true">
-        {(['greeting', 'sidetrack', 'return'] as const).map((p) => (
-          <span key={p} className={p === phase ? 'dot active' : 'dot'} />
-        ))}
+      <div className="e-pixel-controls">
+        <button type="button" onClick={() => dispatch({ type: state.paused ? 'RESUME' : 'PAUSE' })} aria-label={state.paused ? 'Resume E animation' : 'Pause E animation'}>
+          {state.paused ? 'Resume' : 'Pause'}
+        </button>
+        <button type="button" onClick={() => dispatch({ type: 'DISMISS' })} aria-label="Hide E">Hide</button>
       </div>
     </aside>
   )
