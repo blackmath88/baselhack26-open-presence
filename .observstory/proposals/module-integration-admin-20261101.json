@@ -1,0 +1,32 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "module-integration-admin-20261101",
+  "kind": "finding",
+  "title": "Commons integration and module directory",
+  "statement": "Commons Cisco PRs 35–37 merged after combined verification. MODULES.md identifies public and local modules; public Commons and Workbench hosting remains outstanding.",
+  "author": {
+    "name": "ChatGPT / Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T17:16:37.397Z",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "efc1ec0e2e6d5961a09a0d19da8ad0aae6921b2a",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "MODULES.md"
+    },
+    {
+      "path": ".github/workflows/cleanup-merged-branches.yml"
+    }
+  ],
+  "conditions": [
+    "No human acceptance record created.",
+    "Draft and blocked work remains separate."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
