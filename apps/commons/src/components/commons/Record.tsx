@@ -6,6 +6,10 @@ import { ExternalLink } from 'lucide-react'
 import type { ImportedProblem, SearchHit, SourceRef } from '../../commons/contracts'
 import { appLinks } from '../../commons/contracts'
 import { CitingList, type Citing } from './CitingList'
+import { useEffect, useRef } from 'react'
+import { Lineage } from './Lineage'
+import { passageLineage } from '../../commons/client/lineage'
+import { actorLabel } from './ContributionCard'
 
 /** Only link out to the original public host; never render source HTML. */
 const safeHref = (url: string) => (/^https:\/\/github\.com\//.test(url) ? url : undefined)
@@ -32,7 +36,19 @@ export function SourceLine({ source }: { source: SourceRef }) {
 
 type Shared = { problemId: string; title: string; objects: string[]; contributions: number; link: string }
 
-export function Record({ problem, hit, citations = {}, onCite, shared = [] }: { problem: ImportedProblem; hit?: SearchHit; citations?: Record<string, Citing[]>; onCite?: (evidenceId: string) => void; shared?: Shared[] }) {
+export type Trace = { passage: string; stage?: string }
+
+export function Record({ problem, hit, citations = {}, onCite, shared = [], trace, onTrace, matchHit, query }: {
+  problem: ImportedProblem; hit?: SearchHit; citations?: Record<string, Citing[]>; onCite?: (evidenceId: string) => void; shared?: Shared[]
+  /** The passage whose lineage is open, and at which stage; kept in the URL by the caller. */
+  trace?: Trace; onTrace?: (trace: Trace | null) => void
+  /** The search hit for the situation that led here, used only to say whether a quote matched it. */
+  matchHit?: SearchHit; query?: string
+}) {
+  const traced = useRef<HTMLLIElement | null>(null)
+  // A shared link to a trace opens at that passage.
+  const tracedOnLoad = useRef(trace?.passage)
+  useEffect(() => { if (tracedOnLoad.current) traced.current?.scrollIntoView({ block: 'start' }) }, [])
   // A later passage of an already-listed object repeats the list only when exactly the same contributions cite it.
   const key = (id: string) => (citations[id] ?? []).map((c) => c.contributionId).join(' ')
   const sameAsEarlier = (id: string, i: number) => problem.evidence.slice(0, i).some((x) => x.source.objectId === problem.evidence[i]!.source.objectId && key(x.id) === key(id))
@@ -74,7 +90,7 @@ export function Record({ problem, hit, citations = {}, onCite, shared = [] }: { 
       <h3>Evidence · what people actually wrote</h3>
       <ol className="commons-evidence">
         {problem.evidence.map((e, i) => (
-          <li key={e.id} className="phf-evidence">
+          <li key={e.id} className="phf-evidence" id={`passage-${e.id}`} ref={trace?.passage === e.id ? traced : undefined}>
             <div className="phf-evidence-head"><span className="badge">{e.role}</span> <span className="commons-limit">passage {e.id}</span></div>
             {e.quote ? (
               <figure className="phf-source-voice">
@@ -91,7 +107,24 @@ export function Record({ problem, hit, citations = {}, onCite, shared = [] }: { 
                 <p className="commons-interp">{e.interpretation}</p>
               </div>
             )}
-            {onCite && <button className="button commons-cite primary" onClick={() => onCite(e.id)} aria-label={`Respond to passage ${e.id}`}>Respond to this passage</button>}
+            <div className="commons-actions">
+              {onCite && <button className="button commons-cite primary" onClick={() => onCite(e.id)} aria-label={`Respond to passage ${e.id}`}>Respond to this passage</button>}
+              {onTrace && (
+                <button className="button" aria-expanded={trace?.passage === e.id} aria-controls={`lineage-${e.id}`} onClick={() => onTrace(trace?.passage === e.id ? null : { passage: e.id })}>
+                  How this reached you<span className="sr-only">: passage {e.id}</span>
+                </button>
+              )}
+            </div>
+            {onTrace && trace?.passage === e.id && (
+              <div id={`lineage-${e.id}`}>
+                <Lineage id={`lineage-${e.id}-v`} title={`How passage ${e.id} reached you`}
+                  stages={passageLineage(problem, e.id, {
+                    ...(matchHit ? { hit: matchHit } : {}), ...(query ? { query } : {}),
+                    citing: (citations[e.id] ?? []).map((c) => ({ contributionId: c.contributionId, kind: c.kind, author: actorLabel(c.actor), createdAt: c.createdAt, exact: Boolean(c.evidenceIds?.includes(e.id)) })),
+                  })!}
+                  selected={trace.stage ?? 'source'} onSelect={(stage) => onTrace({ passage: e.id, stage })} />
+              </div>
+            )}
             {citations[e.id]?.length && sameAsEarlier(e.id, i) ? (
               <p className="commons-limit">Cited by the same {citations[e.id]!.length} contribution{citations[e.id]!.length === 1 ? '' : 's'} as above: they cite the whole source object, not one passage.</p>
             ) : citations[e.id]?.length ? (

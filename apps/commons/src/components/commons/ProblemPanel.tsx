@@ -10,19 +10,21 @@ import type { CommonsContribution, CommonsReader, ModeratedContribution } from '
 import { isModerated } from '../../commons/contracts'
 import { appLinks } from '../../commons/contracts'
 import { commonsApi, type ProblemView } from '../../commons/client/api'
-import { Record } from './Record'
+import { Record, type Trace } from './Record'
 import { ContributionCard, actorLabel } from './ContributionCard'
 import { Composer, type Relation } from './Composer'
 import { ThreadView } from './ThreadView'
-import { Investigation } from './Investigation'
+import { Investigation, findHit } from './Investigation'
 import { ApiError } from '../../lib/api'
 import { navigation } from '../../commons/client/router'
 
-export function ProblemPanel({ token, problemId, query, reader, actorId, actorName, canReview, focus, mode, onSubmitted }: {
+export function ProblemPanel({ token, problemId, query, trace, reader, actorId, actorName, canReview, focus, mode, onSubmitted }: {
   token: string
   problemId: string
   /** The situation typed in search, when the record was reached from results. */
   query?: string
+  /** The passage whose lineage is open (from the URL). */
+  trace?: Trace
   reader: CommonsReader
   actorId: string | null
   actorName?: string
@@ -54,6 +56,7 @@ export function ProblemPanel({ token, problemId, query, reader, actorId, actorNa
   useEffect(() => {
     if (loaded && !focus && navigation.inApp && (!document.activeElement || document.activeElement === document.body)) document.getElementById('commons-record-title')?.focus({ preventScroll: true })
   }, [loaded, focus])
+  const matchHit = query ? findHit(reader, query, problemId) : undefined
   const context = mode === 'problem' && !focus ? <Investigation reader={reader} problemId={problemId} query={query} /> : null
   if (error) return (
     <div className="commons-problem">
@@ -74,7 +77,9 @@ export function ProblemPanel({ token, problemId, query, reader, actorId, actorNa
       {context}
       <div className="commons-detail">
         <div>
-          <Record problem={view.problem} citations={view.evidenceCitations} shared={view.sharedSources} onCite={(id) => { journey.mark('inspect'); setComposer(null); setRecorded(null); setCiting(id); openComposer() }} />
+          <Record problem={view.problem} citations={view.evidenceCitations} shared={view.sharedSources}
+            {...(trace ? { trace } : {})} {...(query ? { query } : {})} {...(matchHit ? { matchHit } : {})}
+            onTrace={(t) => location.replace(appLinks.problem(problemId, query, t ?? undefined))} onCite={(id) => { journey.mark('inspect'); setComposer(null); setRecorded(null); setCiting(id); openComposer() }} />
           <section aria-label="Conversation" className="commons-conversation">
             <h3>
               Experiences and conversation · {view.contributions.length}

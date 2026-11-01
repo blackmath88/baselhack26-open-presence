@@ -1,0 +1,6 @@
+dark         passage, one stage   2 SPAN.e-pixel-name 2.82 "a dope e" | BUTTON.e-pixel-discover 2.63 "E spotted a side mission…"
+dark         passage, all stages  2 SPAN.e-pixel-name 2.82 "a dope e" | BUTTON.e-pixel-discover 2.63 "E spotted a side mission…"
+dark         contribution         2 SPAN.e-pixel-name 2.82 "a dope e" | BUTTON.e-pixel-discover 2.63 "E spotted a side mission…"
+?theme=light passage, one stage   0 
+?theme=light passage, all stages  0 
+?theme=light contribution         0 

@@ -1,0 +1,35 @@
+ok   setup: a staged contribution cites passage e2 — contrib_e7e63ded-1bd6-4590-9826-217d43fb2d4a
+ok   wide: opening a trace puts passage and situation in the URL
+ok   wide: the open button reports expanded
+ok   wide: source stage names the recorded author and links the original
+ok   wide: capture stage shows snapshot, fingerprint scope and what is not known
+ok   wide: the chosen stage is marked current
+ok   wide: reload keeps passage, stage and situation
+ok   wide: a shared trace link opens at its passage
+ok   wide: all five stages readable as text — Original source recorded | Captured partly recorded | Interpreted recorded | In the record recorded | Since, in this room 10 contributions
+ok   wide: every stage shows recorded facts or says what is not known
+ok   wide: record stage says whether the quote matched your words
+ok   wide: a document passage says its author is not recorded
+ok   wide: closing the trace keeps the situation
+ok   wide: contribution lineage shows entrance, room, responses and publication honestly
+ok   wide: a cited passage in a contribution's lineage opens that passage's trace
+ok   wide: that passage's "since" stage lists the contribution as citing this exact passage
+ok   wide: no horizontal scroll
+ok   wide: no page errors
+ok   narrow: opening a trace puts passage and situation in the URL
+ok   narrow: the open button reports expanded
+ok   narrow: source stage names the recorded author and links the original
+ok   narrow: capture stage shows snapshot, fingerprint scope and what is not known
+ok   narrow: the chosen stage is marked current
+ok   narrow: reload keeps passage, stage and situation
+ok   narrow: a shared trace link opens at its passage
+ok   narrow: all five stages readable as text — Original source recorded | Captured partly recorded | Interpreted recorded | In the record recorded | Since, in this room 10 contributions
+ok   narrow: every stage shows recorded facts or says what is not known
+ok   narrow: record stage says whether the quote matched your words
+ok   narrow: a document passage says its author is not recorded
+ok   narrow: closing the trace keeps the situation
+ok   narrow: contribution lineage shows entrance, room, responses and publication honestly
+ok   narrow: a cited passage in a contribution's lineage opens that passage's trace
+ok   narrow: that passage's "since" stage lists the contribution as citing this exact passage
+ok   narrow: no horizontal scroll
+ok   narrow: no page errors
