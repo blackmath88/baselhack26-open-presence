@@ -13,6 +13,22 @@ Start with [the current concept](HUMAN-SIGNAL-CONCEPT.md).
 
 [Shared website and end-to-end integration plan](docs/build/PHF-WEBSITE-END-TO-END.md) — proposed landing page, app navigation and public-runtime delivery.
 
+## Open the story
+
+[.phf story](https://blackmath88.github.io/baselhack26-open-presence/story/) connects the three chapters,
+the published PDF experiments, Observatory and e. Commons and Workbench still require their Node runtimes;
+the hosted story labels that boundary.
+
+Run the connected local experience (Node.js 22+ and npm):
+
+~~~bash
+node scripts/site/rehearse.mjs
+~~~
+
+Open http://127.0.0.1:8001/. The launcher builds the applications and keeps demo data separately in
+.phf-demo/commons.json; it does not publish to ATProto or use an AI API key.
+[Run, verify and configure hosting](apps/story/README.md).
+
 ## Start here
 
 | Experience | What it does | Open / run |

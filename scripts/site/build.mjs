@@ -1,0 +1,12 @@
+import { mkdirSync, copyFileSync, writeFileSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { destinations } from '../../site/destinations.mjs';
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
+const out = resolve(root, process.argv[3] || 'apps/story/dist');
+const d = destinations(process.argv[2] || 'hosted', { commons: process.env.PHF_COMMONS_URL, workbench: process.env.PHF_WORKBENCH_URL });
+mkdirSync(out, { recursive: true });
+for (const name of ['index.html','story.css','story.js']) copyFileSync(resolve(root,'apps/story',name),resolve(out,name));
+copyFileSync(resolve(root,'sideprojects/pdf-lab/evidence/previews/01-poem-other.webp'),resolve(out,'poem.webp'));
+writeFileSync(resolve(out,'destinations.json'),JSON.stringify(d,null,2)+'\n');
+console.log('Story built:',out,'profile:',d.profile);

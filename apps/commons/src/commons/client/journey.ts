@@ -59,11 +59,10 @@ export function useJourney(): Journey {
 }
 
 /**
- * Where "back to the presentation" goes. Defaults to the presentation shell on
- * port 8001 of whichever host serves this page, so a phone pointed at the demo
- * host is not sent to its own localhost. `VITE_PHF_PRESENTATION_URL` overrides.
+ * Where "back to the presentation" goes. Defaults to the published story’s future chapter. The local rehearsal sets
+ * its configured chapter URL explicitly. `VITE_PHF_PRESENTATION_URL` overrides.
  */
 export function presentationUrl(): string {
   const configured = import.meta.env.VITE_PHF_PRESENTATION_URL
-  return configured || `${location.protocol}//${location.hostname}:8001/`
+  return configured || `https://blackmath88.github.io/baselhack26-open-presence/story/#future`
 }

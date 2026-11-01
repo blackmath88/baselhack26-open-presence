@@ -1,3 +1,4 @@
+/// <reference path="../vite-env.d.ts" />
 /** E — an original pixel-art, optional character in the Commons shell.
  * The Adobe -> "a dope E" pun is narrative; no third-party brand assets are used.
  * Behaviour is event-driven; ambient motion never changes navigation or focus.
@@ -20,15 +21,15 @@ export const SIDE_MISSIONS: SideMission[] = [
     id: 'pdf-lab',
     title: 'PDF Lab',
     blurb: 'A cabinet of strange PDFs — one-letter mazes, hidden machines, two identities in one file.',
-    href: 'https://github.com/blackmath88/baselhack26-open-presence/tree/main/sideprojects/pdf-lab',
-    label: 'Explore PDF Lab source',
+    href: import.meta.env.VITE_PHF_PDF_URL || 'https://blackmath88.github.io/baselhack26-open-presence/pdf-lab/',
+    label: 'Open PDF Lab',
   },
   {
     id: 'pdf-history',
     title: 'PDF history',
     blurb: 'The optional story of a recognisable document travelling between people and software.',
-    href: 'https://github.com/blackmath88/baselhack26-open-presence/tree/main/modules/pdf-history',
-    label: 'Explore PDF history source',
+    href: import.meta.env.VITE_PHF_HISTORY_URL || 'https://blackmath88.github.io/baselhack26-open-presence/pdf-history/',
+    label: 'Open PDF history',
   },
 ]
 

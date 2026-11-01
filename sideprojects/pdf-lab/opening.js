@@ -37,9 +37,9 @@ function poemLines(seenText,gotText){
 function returnTarget(loc){
   const asked=new URLSearchParams(loc.search).get('return');
   if(asked){try{const u=new URL(asked,loc.href);if(u.protocol==='http:'||u.protocol==='https:')return u.href;}catch(e){}}
-  if(loc.port==='8000')return loc.protocol+'//'+loc.hostname+':8001/';
-  if(/\/pdf-lab\//.test(loc.pathname)&&!/\/sideprojects\//.test(loc.pathname))return new URL('../presentation/',loc.href).href;
-  return new URL('../../presentation/',loc.href).href;
+  if(loc.port==='8000')return loc.protocol+'//'+loc.hostname+':8001/#past';
+  if(/\/pdf-lab\//.test(loc.pathname)&&!/\/sideprojects\//.test(loc.pathname))return new URL('../story/#past',loc.href).href;
+  return 'https://blackmath88.github.io/baselhack26-open-presence/story/#past';
 }
 if(typeof module!=='undefined'&&module.exports)module.exports={readPoemMap,poemLines,returnTarget};
 if(typeof document==='undefined')return;

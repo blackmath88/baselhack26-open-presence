@@ -53,7 +53,7 @@ const http=require('node:http'),fs=require('node:fs/promises'),path=require('nod
       if(shots)await page.waitForTimeout(600),await page.screenshot({path:path.join(out,`opening-5-travel-${name}.png`),fullPage:true});
       await page.keyboard.press('ArrowRight');assert.equal(await visible(),'6');
       assert.match(await page.locator('#s6-title').textContent(),/What should survive when an answer travels through AI\?/);
-      assert.equal(await page.locator('#return-link').getAttribute('href'),base+'/presentation/');
+      assert.equal(await page.locator('#return-link').getAttribute('href'),'https://blackmath88.github.io/baselhack26-open-presence/story/#past');
       if(shots)await page.waitForTimeout(600),await page.screenshot({path:path.join(out,`opening-6-bridge-${name}.png`)});
       await page.keyboard.press('ArrowRight');assert.equal(await visible(),'6','stays on last scene');
       await page.keyboard.press('ArrowLeft');assert.equal(await visible(),'5');

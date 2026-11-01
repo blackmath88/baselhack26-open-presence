@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 /** Default: port 8000 on the host serving this page, so a phone is not sent to its own localhost. */
 export function legacyCabinetUrl(anchor?: string): string {
   const configured = import.meta.env.VITE_LEGACY_CABINET_URL
-  const base = configured || `${location.protocol}//${location.hostname}:8000/index.html`
+  const base = configured || 'https://blackmath88.github.io/baselhack26-open-presence/pdf-lab/index.html'
   return anchor ? `${base}#${anchor}` : base
 }
 

@@ -24,6 +24,7 @@ export function Shell({ children }: { children: ReactNode }) {
           <div className="nav-section">Specimens</div>
           <Link to="/specimens/$specimenId" params={{ specimenId: 'a01-two-poems' }} search={{}} className="nav-item" activeProps={{ className: 'nav-item active' }}>A01 · Two poems</Link>
           <div className="nav-section">Elsewhere</div>
+          <a className="nav-item" href={import.meta.env.VITE_PHF_STORY_URL || "https://blackmath88.github.io/baselhack26-open-presence/story/#past"}>← .phf story</a>
           <a className="nav-item" href={legacy || undefined} target="_blank" rel="noreferrer">Legacy cabinet ↗</a>
         </div>
         <p className="nav-foot">Recorded evidence. No uploads, no live engines in this version.</p>
