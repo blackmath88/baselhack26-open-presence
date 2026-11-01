@@ -38,7 +38,7 @@ export function createD1Repository(db: Database): TransactionalEventRepository {
         return structuredClone(result)
       } catch (error) {
         // Retry ONLY the known optimistic-lock constraint, not capacity/network errors.
-        if (!String(error).includes('commons_revision_matches')) throw error
+        if (!String(error).includes('CHECK constraint failed: commons_revision_matches')) throw error
       }
     }
     throw new Error('Concurrent updates exceeded the retry budget; retry the same command ID.')
