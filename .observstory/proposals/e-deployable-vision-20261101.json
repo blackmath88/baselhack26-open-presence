@@ -1,0 +1,40 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "e-deployable-vision-20261101",
+  "kind": "finding",
+  "title": "Preserve selected e vision and provide independent static release",
+  "statement": "User explicitly selected the lowercase joint/smoke/red-eyed leisure character and requested deployability without drifting from that vision. Added a character contract referenced from AGENTS.md, named preview build/test/serve commands, a deployment guide and an independent artifact workflow. Existing Pages deployment uses the same build command and shared components. No art or opening-timing change intended.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T16:00:00+01:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "e3cdab0b6ab8e1d8ce6f215aece7487d8f70949c",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "docs/design/DOPE-E.md"
+    },
+    {
+      "path": "apps/commons/e-preview/README.md"
+    },
+    {
+      "path": ".github/workflows/e-companion.yml"
+    },
+    {
+      "path": "AGENTS.md"
+    }
+  ],
+  "conditions": [
+    "Selected character baseline is PR #41; user explicitly said they love the result and asked to preserve it.",
+    "Published knowledge resolves e3cdab0 with 15/15 selected sources read and no diagnostics; snapshot read. Historical memory packet remains older.",
+    "Static artifact is backend-independent; complete Commons service deployment remains separate.",
+    "No human review record authored."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
