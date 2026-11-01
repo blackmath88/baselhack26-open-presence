@@ -36,4 +36,4 @@ Local/Mistral: Mistral Vibe is configured locally (`mistral-large-4-0-3`), but i
 2. MAJOR: a delayed session bootstrap could undo a sign-out or a newer login. **Fixed:** an auth generation is shared by bootstrap and sign-in. Browser regression `delayed bootstrap cannot undo sign-out` added; it was confirmed to fail without the fix.
 3. MINOR: capacity overflow returned a generic 500. **Fixed:** it now returns a typed 409 `conflict` with `reason: capacity`.
 
-After the fixes: typecheck passes; 37/37 client and edge tests; `smoke:edge` PASS; browser journey 37/37 on workerd and 37/37 on SQLite; local browser smoke PASS.
+After the fixes: full `npx vitest run` 244/244 (26 files) when the machine is not loaded by workers; typecheck passes; 37/37 client and edge tests; `smoke:edge` PASS; browser journey 37/37 on workerd and 37/37 on SQLite; local browser smoke PASS.
