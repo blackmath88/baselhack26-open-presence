@@ -1,0 +1,183 @@
+/*
+ * Commons visual checkpoint (Phase 0). A provisional token layer inspired by the
+ * operational clarity of Cisco Cloud Control: our own values from
+ * docs/product/COMMONS-EXPERIENCE-BLUEPRINT.md §6, not Cisco tokens. Scoped to the
+ * Commons search results and record page; the room workbench keeps its styles.
+ */
+:root {
+  --cx-canvas: #f5f7fa; --cx-surface: #ffffff; --cx-subtle: #eef2f6;
+  --cx-text: #17212b; --cx-text-2: #526170; --cx-divider: #d7dee6; --cx-control: #8795a3;
+  --cx-accent: #146bd1; --cx-accent-ink: #0f559f; --cx-accent-soft: #e8f1fc; --cx-focus: #005fcc;
+  --cx-ok: #18734a; --cx-ok-soft: #e8f5ee; --cx-warn: #8a5700; --cx-warn-soft: #fdf3e1; --cx-bad: #b42318;
+  --cx-s1: 4px; --cx-s2: 8px; --cx-s3: 12px; --cx-s4: 16px; --cx-s5: 24px; --cx-s6: 32px; --cx-s7: 48px;
+  --cx-r1: 4px; --cx-r2: 8px; --cx-r3: 12px;
+  --cx-elev-1: 0 1px 2px rgba(23, 33, 43, .06);
+  --cx-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --cx-motion: 150ms;
+}
+html, body { background: var(--cx-canvas) }
+
+/* Shared primitives ------------------------------------------------------- */
+.commons-hub :focus-visible { outline: 2px solid var(--cx-focus); outline-offset: 2px }
+.commons-hub .cx-meta { font-size: 13px; line-height: 18px; color: var(--cx-text-2) }
+.commons-hub .commons-limit { font-size: 13px; line-height: 18px; color: var(--cx-text-2); opacity: 1 }
+/* Status is a label, not a control: square corners, no hover, never accent blue. */
+.commons-hub .cx-status { display: inline-flex; align-items: center; gap: var(--cx-s1); min-height: 22px; padding: 0 var(--cx-s2); border-radius: var(--cx-r1); border: 1px solid var(--cx-divider); background: var(--cx-subtle); color: var(--cx-text-2); font-size: 13px; font-weight: 600; line-height: 18px; white-space: nowrap }
+.commons-hub .cx-status.warn { color: var(--cx-warn); background: var(--cx-warn-soft); border-color: #e9cf9f }
+.commons-hub .cx-status.ok { color: var(--cx-ok); background: var(--cx-ok-soft); border-color: #a9d3bb }
+.commons-hub .button { min-height: 40px; border-radius: var(--cx-r2); font-size: 14px; font-weight: 600; padding: 0 var(--cx-s4); border-color: var(--cx-control); background: var(--cx-surface); color: var(--cx-text) }
+.commons-hub .button:hover:not(:disabled) { background: var(--cx-subtle) }
+.commons-hub .button.primary { background: var(--cx-accent); border-color: var(--cx-accent); color: #fff }
+.commons-hub .button.primary:hover:not(:disabled) { background: var(--cx-accent-ink); border-color: var(--cx-accent-ink) }
+.commons-hub .button.primary:disabled { opacity: .45 }
+
+/* Search ------------------------------------------------------------------ */
+.commons-hub .commons-finder { background: var(--cx-surface); border: 1px solid var(--cx-divider); border-radius: var(--cx-r3); box-shadow: var(--cx-elev-1); padding: var(--cx-s5) }
+.commons-hub .phf-search-label { font-size: 22px; line-height: 28px; font-weight: 650; color: var(--cx-text) }
+.commons-hub .commons-search-row input { min-height: 44px; border: 1px solid var(--cx-control); border-radius: var(--cx-r2); font-size: 16px; padding: 0 var(--cx-s3) }
+.commons-hub .commons-search-row input:focus { outline: 2px solid var(--cx-focus); outline-offset: 1px; border-color: var(--cx-focus) }
+.commons-hub .commons-search-row .button { min-height: 44px }
+.commons-hub .phf-example { border-radius: var(--cx-r2); border-color: var(--cx-divider); color: var(--cx-text); font-size: 14px }
+
+.commons-hub .cx-results { margin-top: var(--cx-s5) }
+.commons-hub .cx-results-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--cx-s2) var(--cx-s4); flex-wrap: wrap; padding-bottom: var(--cx-s2); border-bottom: 1px solid var(--cx-divider) }
+.commons-hub .cx-results-head .phf-section-title { margin: 0; font-size: 18px; line-height: 24px; font-weight: 650 }
+/* One list surface with fine dividers instead of a stack of cards. */
+.commons-hub .cx-hit-list { gap: 0; margin: 0; border: 0 }
+.commons-hub .cx-hit { border-bottom: 1px solid var(--cx-divider); padding: var(--cx-s2) 0 var(--cx-s3) }
+.commons-hub .cx-hit .commons-hit { display: grid; gap: var(--cx-s2); padding: var(--cx-s3) var(--cx-s4); margin: 0 calc(-1 * var(--cx-s4)); border: 0; border-left: 3px solid transparent; border-radius: 0; background: transparent; box-shadow: none; transition: background var(--cx-motion), border-color var(--cx-motion) }
+.commons-hub .cx-hit .commons-hit:hover { background: var(--cx-canvas); border-left-color: var(--cx-accent); outline: none; box-shadow: none }
+.commons-hub .cx-hit .commons-hit:focus-visible { outline: 2px solid var(--cx-focus); outline-offset: -2px; border-left-color: var(--cx-accent); box-shadow: none }
+.commons-hub .cx-hit-title { font-size: 17px; line-height: 24px; font-weight: 650; color: var(--cx-text) }
+.commons-hub .cx-hit .commons-hit:hover .cx-hit-title { color: var(--cx-accent-ink); text-decoration: underline; text-underline-offset: 3px }
+.commons-hub .phf-applies { display: grid; gap: 2px; border: 0; padding: 0; font-size: 14px; line-height: 20px; color: var(--cx-text) }
+.commons-hub .phf-applies > span { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: var(--cx-s3) }
+.commons-hub .phf-applies-k { min-width: 0; font-weight: 600; color: var(--cx-text-2) }
+.commons-hub .phf-result-quote { display: grid; gap: 2px; font-style: normal; font-size: 14px; line-height: 20px; color: var(--cx-text); padding-left: var(--cx-s3); border-left: 2px solid var(--cx-text) }
+.commons-hub .cx-voice-label { font-size: 13px; font-weight: 600; color: var(--cx-text-2) }
+.commons-hub .cx-quote { font-family: Georgia, "Iowan Old Style", "Times New Roman", serif; font-size: 15px }
+
+.commons-hub .cx-why { padding: 0 0 0 var(--cx-s1) }
+.commons-hub .cx-disclosure { width: auto; text-align: left; display: inline-flex; align-items: center; gap: var(--cx-s1); min-height: 36px; padding: 0 var(--cx-s2); margin-left: calc(-1 * var(--cx-s2)); border: 0; border-radius: var(--cx-r2); background: transparent; color: var(--cx-accent-ink); font-size: 14px; font-weight: 600; cursor: pointer }
+.commons-hub .cx-disclosure:hover { background: var(--cx-accent-soft) }
+.commons-hub .cx-chevron { transition: transform var(--cx-motion) }
+.commons-hub .cx-disclosure[aria-expanded="true"] .cx-chevron { transform: rotate(90deg) }
+.commons-hub .cx-why-body { margin-top: var(--cx-s1); padding: var(--cx-s3) var(--cx-s4); background: var(--cx-canvas); border: 1px solid var(--cx-divider); border-radius: var(--cx-r2); font-size: 14px; line-height: 20px }
+.commons-hub .cx-why-body[hidden] { display: none }
+.commons-hub .cx-why-lead { margin: 0 0 var(--cx-s2) }
+.commons-hub .cx-why-fields { display: grid; gap: var(--cx-s1); margin: 0 0 var(--cx-s2) }
+.commons-hub .cx-why-fields > div { display: grid; grid-template-columns: minmax(120px, max-content) minmax(0, 1fr); gap: var(--cx-s3); align-items: start }
+.commons-hub .cx-why-fields dt { font-weight: 600; color: var(--cx-text-2); display: flex; flex-wrap: wrap; gap: var(--cx-s1) var(--cx-s2); align-items: center }
+.commons-hub .cx-why-fields dd { margin: 0; display: flex; flex-wrap: wrap; gap: var(--cx-s1) }
+.commons-hub .cx-term { font-family: var(--cx-mono); font-size: 13px; padding: 0 6px; border: 1px solid var(--cx-divider); border-radius: var(--cx-r1); background: var(--cx-surface) }
+.commons-hub .cx-why-notes { margin: 0; padding-left: 18px; color: var(--cx-text-2) }
+
+/* Record page ------------------------------------------------------------- */
+.commons-hub .cx-context { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cx-s2) var(--cx-s4); padding: var(--cx-s2) var(--cx-s4); margin-bottom: var(--cx-s4); background: var(--cx-surface); border: 1px solid var(--cx-divider); border-radius: var(--cx-r3) }
+.commons-hub .cx-back { display: inline-flex; align-items: center; gap: var(--cx-s1); min-height: 36px; padding: 0 var(--cx-s2); margin-left: calc(-1 * var(--cx-s2)); border-radius: var(--cx-r2); color: var(--cx-accent-ink); font-weight: 600; font-size: 14px; text-decoration: none }
+.commons-hub .cx-back:hover { background: var(--cx-accent-soft) }
+.commons-hub .cx-situation { font-size: 15px; color: var(--cx-text) }
+.commons-hub .cx-situation-k { font-size: 13px; font-weight: 600; color: var(--cx-text-2); margin-right: var(--cx-s1) }
+.commons-hub .cx-situation q { font-weight: 600 }
+.commons-hub .cx-context-note { margin-left: auto; font-size: 13px; color: var(--cx-text-2) }
+
+.commons-hub .commons-record, .commons-hub .commons-draft, .commons-hub .commons-conversation { border-color: var(--cx-divider); border-radius: var(--cx-r3); box-shadow: var(--cx-elev-1); padding: var(--cx-s5) }
+.commons-hub .cx-record-status { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cx-s2) }
+.commons-hub .cx-type { font-size: 13px; font-weight: 700; letter-spacing: .02em; color: var(--cx-text-2); margin-right: var(--cx-s1) }
+.commons-hub .commons-record h2 { font-size: 28px; line-height: 36px; letter-spacing: -.01em; margin: var(--cx-s3) 0 var(--cx-s2) }
+.commons-hub .commons-record h3 { font-size: 18px; line-height: 24px; margin: var(--cx-s5) 0 var(--cx-s3) }
+.commons-hub .phf-voices { font-size: 14px; line-height: 20px; color: var(--cx-text-2) }
+.commons-hub .commons-facts { background: var(--cx-canvas); border: 1px solid var(--cx-divider); border-radius: var(--cx-r2); padding: var(--cx-s3) var(--cx-s4); font-size: 15px; line-height: 22px; gap: var(--cx-s1) var(--cx-s4) }
+.commons-hub .commons-facts dt { color: var(--cx-text-2); font-weight: 600 }
+.commons-hub .commons-evidence { display: grid; gap: var(--cx-s3) }
+.commons-hub .phf-evidence { border-color: var(--cx-divider); border-radius: var(--cx-r2); padding: var(--cx-s4) }
+.commons-hub .phf-evidence .badge { border-radius: var(--cx-r1); font-size: 13px; font-weight: 600; color: var(--cx-text-2); background: var(--cx-subtle); border-color: var(--cx-divider); min-height: 22px }
+.commons-hub .phf-source-voice { border-left: 3px solid var(--cx-text); padding: var(--cx-s2) var(--cx-s4) }
+.commons-hub .phf-source-voice blockquote { font-family: Georgia, "Iowan Old Style", "Times New Roman", serif; font-size: 17px; line-height: 26px; color: var(--cx-text) }
+.commons-hub .phf-voice-tag { font-size: 13px; letter-spacing: .01em; text-transform: none; font-weight: 600; color: var(--cx-text-2) }
+.commons-hub .phf-agent-voice { background: var(--cx-canvas); border: 1px dashed var(--cx-control); border-radius: var(--cx-r2); padding: var(--cx-s2) var(--cx-s4) }
+.commons-hub .phf-agent-voice .commons-interp { font-size: 15px; line-height: 22px; color: var(--cx-text) }
+/* Responding is secondary to reading the passage. */
+.commons-hub .commons-cite.primary { margin-top: var(--cx-s3); background: var(--cx-surface); color: var(--cx-accent-ink); border-color: var(--cx-accent) }
+.commons-hub .commons-cite.primary:hover { background: var(--cx-accent-soft) }
+
+@media (max-width: 720px) {
+  .commons-hub .commons-finder, .commons-hub .commons-record, .commons-hub .commons-draft, .commons-hub .commons-conversation { padding: var(--cx-s4) }
+  .commons-hub .phf-applies > span { grid-template-columns: 1fr; gap: 0 }
+  .commons-hub .cx-why-fields > div { grid-template-columns: 1fr; gap: 2px }
+  .commons-hub .cx-context-note { margin-left: 0 }
+  .commons-hub .commons-record h2 { font-size: 24px; line-height: 30px }
+}
+/* Phase 1: fit, outcomes, passages, states --------------------------------- */
+.commons-hub .cx-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap }
+.commons-hub .cx-state { background: var(--cx-surface); border: 1px solid var(--cx-divider); border-radius: var(--cx-r3); padding: var(--cx-s4) var(--cx-s5); font-size: 15px; line-height: 22px; margin: 0 0 var(--cx-s4) }
+.commons-hub .cx-state p { margin: 0 0 var(--cx-s2) }
+.commons-hub .cx-outcomes ul, .commons-hub .cx-fit ul { margin: 0; padding-left: 18px; display: grid; gap: var(--cx-s2); font-size: 15px; line-height: 22px }
+.commons-hub .cx-fit { margin-top: var(--cx-s5); border: 1px solid var(--cx-divider); border-radius: var(--cx-r2); padding: var(--cx-s4) }
+.commons-hub .cx-fit h3 { margin: 0 0 var(--cx-s1) }
+.commons-hub .cx-fit > .cx-meta { margin: 0 0 var(--cx-s3) }
+.commons-hub .cx-fit-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cx-s4) }
+.commons-hub .cx-fit-col { min-width: 0; display: grid; align-content: start; gap: var(--cx-s2) }
+.commons-hub .cx-fit-col + .cx-fit-col { border-left: 1px solid var(--cx-divider); padding-left: var(--cx-s4) }
+.commons-hub .cx-fit h4 { margin: 0; font-size: 15px; line-height: 22px; font-weight: 650 }
+.commons-hub .cx-fit ul { list-style: none; padding: 0 }
+.commons-hub .cx-fit li { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: var(--cx-s2) }
+.commons-hub .cx-fit-k { font-size: 13px; line-height: 22px; font-weight: 600; color: var(--cx-text-2) }
+.commons-hub .cx-fit .cx-status { white-space: normal }
+.commons-hub .cx-passage-index ol { list-style: none; margin: 0 0 var(--cx-s3); padding: 0; display: flex; flex-wrap: wrap; gap: var(--cx-s2) }
+.commons-hub .cx-passage-index a { display: inline-flex; align-items: center; gap: var(--cx-s1); min-height: 32px; padding: 0 var(--cx-s2); border: 1px solid var(--cx-divider); border-radius: var(--cx-r2); background: var(--cx-surface); color: var(--cx-text); font-size: 13px; text-decoration: none }
+.commons-hub .cx-passage-index a:hover { border-color: var(--cx-accent); background: var(--cx-accent-soft) }
+.commons-hub .cx-passage-index a[aria-current] { border-color: var(--cx-accent); background: var(--cx-accent-soft); color: var(--cx-accent-ink); font-weight: 600 }
+.commons-hub .cx-pi-id { font-family: var(--cx-mono); font-weight: 600 }
+.commons-hub .phf-evidence { scroll-margin-top: var(--cx-s4) }
+/* Selection = accent outline plus a text label; focus keeps its own darker ring. */
+.commons-hub .phf-evidence.cx-selected { border-color: var(--cx-accent); box-shadow: 0 0 0 1px var(--cx-accent); background: #fbfdff }
+.commons-hub .phf-evidence.cx-selected:focus-visible { outline: 2px solid var(--cx-focus); outline-offset: 3px }
+.commons-hub .phf-evidence.cx-selected:focus:not(:focus-visible) { outline: none }
+.commons-hub .cx-status.selected { color: var(--cx-accent-ink); background: var(--cx-accent-soft); border-color: #b9d3f3 }
+.commons-hub .phf-evidence-head { flex-wrap: wrap }
+.commons-hub .cx-passage-link { margin-left: auto; display: inline-flex; align-items: center; gap: var(--cx-s1); min-height: 32px; padding: 0 var(--cx-s2); border-radius: var(--cx-r2); font-size: 13px; color: var(--cx-accent-ink); text-decoration: none }
+.commons-hub .cx-passage-link:hover { background: var(--cx-accent-soft) }
+.commons-hub .cx-original { font-weight: 600; color: var(--cx-accent-ink) }
+@media (max-width: 720px) {
+  .commons-hub .cx-fit-cols { grid-template-columns: 1fr }
+  .commons-hub .cx-fit-col + .cx-fit-col { border-left: 0; padding-left: 0; border-top: 1px solid var(--cx-divider); padding-top: var(--cx-s3) }
+  .commons-hub .cx-passage-link { margin-left: 0 }
+  .commons-hub .cx-fit li { grid-template-columns: 1fr; gap: 0 }
+}
+
+/* Phase 2: comparison --------------------------------------------------- */
+.commons-hub .cx-hit-actions { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--cx-s1) var(--cx-s4) }
+.commons-hub .cx-hit-actions .cx-why { flex: 1 1 100% }
+.commons-hub .cx-hit-actions .cx-why:has(.cx-why-body[hidden]) { flex: 0 0 auto }
+.commons-hub .cx-compare-link { display: inline-flex; align-items: center; min-height: 36px; padding: 0 var(--cx-s2); border-radius: var(--cx-r2); color: var(--cx-accent-ink); font-size: 14px; font-weight: 600; text-decoration: none }
+.commons-hub .cx-compare-link:hover { background: var(--cx-accent-soft) }
+.commons-hub .cx-compare-entry { margin: var(--cx-s3) 0 0; margin-left: calc(-1 * var(--cx-s2)) }
+.commons-hub .cx-compare-heads { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cx-s4); margin: var(--cx-s4) 0 }
+.commons-hub .cx-compare-head { display: flex; flex-direction: column; align-items: flex-start; gap: var(--cx-s2); padding: var(--cx-s4); border: 1px solid var(--cx-divider); border-radius: var(--cx-r2); background: var(--cx-canvas) }
+.commons-hub .cx-side { font-family: var(--cx-mono); font-size: 13px; font-weight: 700; color: var(--cx-text-2) }
+.commons-hub .cx-compare-title { font-size: 17px; line-height: 24px; font-weight: 650; color: var(--cx-accent-ink) }
+.commons-hub .cx-compare-actions { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--cx-s2); margin-top: auto; width: 100% }
+.commons-hub .cx-pick { display: grid; gap: 2px; font-size: 13px; font-weight: 600; color: var(--cx-text-2); flex: 1 1 200px; min-width: 0 }
+.commons-hub .cx-pick select { min-height: 40px; width: 100%; border: 1px solid var(--cx-control); border-radius: var(--cx-r2); background: var(--cx-surface); color: var(--cx-text); font: inherit; font-size: 14px; font-weight: 400; padding: 0 var(--cx-s2) }
+.commons-hub .cx-compare-table { width: 100%; border-collapse: collapse; margin-top: var(--cx-s5); font-size: 15px; line-height: 22px; table-layout: fixed }
+.commons-hub .cx-compare-table th, .commons-hub .cx-compare-table td { text-align: left; vertical-align: top; padding: var(--cx-s3); border-top: 1px solid var(--cx-divider) }
+.commons-hub .cx-compare-table thead th { font-size: 14px; color: var(--cx-text-2); border-top: 0; border-bottom: 2px solid var(--cx-divider) }
+.commons-hub .cx-compare-table thead th:first-child, .commons-hub .cx-compare-table tbody th { width: 150px }
+.commons-hub .cx-compare-table tbody th { font-size: 14px; font-weight: 600; color: var(--cx-text-2) }
+.commons-hub .cx-compare-table ul { margin: 0; padding-left: 18px; display: grid; gap: var(--cx-s1) }
+.commons-hub .cx-compare-passages { list-style: none; padding-left: 0 !important }
+.commons-hub .cx-unknown { font-style: italic; color: var(--cx-text-2) }
+@media (max-width: 720px) {
+  .commons-hub .cx-compare-heads { grid-template-columns: 1fr }
+  /* Stack: one field at a time, each cell repeating which account and field it is. */
+  .commons-hub .cx-compare-table, .commons-hub .cx-compare-table tbody, .commons-hub .cx-compare-table tr, .commons-hub .cx-compare-table th, .commons-hub .cx-compare-table td { display: block; width: auto }
+  .commons-hub .cx-compare-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0) }
+  .commons-hub .cx-compare-table tbody th { padding: var(--cx-s4) 0 var(--cx-s1); border-top: 2px solid var(--cx-divider); width: auto }
+  .commons-hub .cx-compare-table td { border-top: 0; padding: var(--cx-s1) 0 var(--cx-s2) }
+  .commons-hub .cx-compare-table td::before { content: attr(data-side); display: block; font-size: 13px; font-weight: 600; color: var(--cx-text-2) }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .commons-hub .cx-hit .commons-hit, .commons-hub .cx-chevron { transition: none }
+}

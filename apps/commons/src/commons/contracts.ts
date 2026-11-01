@@ -257,9 +257,16 @@ export interface CommandReceipt {
 
 /** Canonical deep links. Hash routes so a static UI resolves them after reload. */
 export const appLinks = {
-  problem: (problemId: string) => `#/problems/${encodeURIComponent(problemId)}`,
+  /** `query`: the situation searched for, kept so the record can lead back to the same results. */
+  problem: (problemId: string, query?: string) => `#/problems/${encodeURIComponent(problemId)}${query ? `?q=${encodeURIComponent(query)}` : ''}`,
+  /** One evidence passage on a record, keeping the searched situation when there is one. */
+  passage: (problemId: string, evidenceId: string, query?: string) =>
+    `#/problems/${encodeURIComponent(problemId)}?${query ? `q=${encodeURIComponent(query)}&` : ''}passage=${encodeURIComponent(evidenceId)}`,
   contribution: (contributionId: string) => `#/contributions/${encodeURIComponent(contributionId)}`,
   thread: (contributionId: string) => `#/threads/${encodeURIComponent(contributionId)}`,
+  /** Up to two records side by side, keeping the searched situation when there is one. */
+  compare: (ids: string[], query?: string) =>
+    `#/compare?ids=${ids.slice(0, 2).map(encodeURIComponent).join(',')}${query ? `&q=${encodeURIComponent(query)}` : ''}`,
   repository: (path = '') => `#/repo${path ? `/${path.split('/').map(encodeURIComponent).join('/')}` : ''}`,
   search: (query: string) => `#/search?q=${encodeURIComponent(query)}`,
 };

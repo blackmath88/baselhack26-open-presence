@@ -1,0 +1,36 @@
+// usage: node shoot.cjs <baseUrl> <outDir> <prefix>
+const { chromium } = require('playwright')
+const [,, base, out, prefix] = process.argv
+const Q = encodeURIComponent('My Mac cannot see my frame')
+;(async () => {
+  const browser = await chromium.launch()
+  const errors = []
+  for (const [label, vp] of [['wide', { width: 1440, height: 1000 }], ['narrow', { width: 360, height: 800 }]]) {
+    const ctx = await browser.newContext({ viewport: vp })
+    const page = await ctx.newPage()
+    page.on('pageerror', (e) => errors.push(`${label}: ${e.message}`))
+    page.on('console', (m) => { if (m.type() === 'error') errors.push(`${label} console: ${m.text()}`) })
+    await page.goto(base + '/')
+    await page.getByRole('button', { name: 'Kai' }).click()
+    await page.waitForSelector('#commons-q')
+    await page.screenshot({ path: `${out}/${prefix}-${label}-1-arrive.png`, fullPage: false })
+    await page.goto(`${base}/#/search?q=${Q}`)
+    await page.waitForSelector('.commons-hits li')
+    await page.waitForTimeout(400)
+    await page.screenshot({ path: `${out}/${prefix}-${label}-2-results.png`, fullPage: false })
+    await page.locator('.commons-hits a').first().click()
+    await page.waitForSelector('.commons-record')
+    await page.waitForTimeout(400)
+    await page.screenshot({ path: `${out}/${prefix}-${label}-3-account.png`, fullPage: false })
+    await page.screenshot({ path: `${out}/${prefix}-${label}-3-account-full.png`, fullPage: true })
+    const sw = await page.evaluate(() => [document.documentElement.scrollWidth, window.innerWidth])
+    console.log(label, 'account url', page.url(), 'scrollWidth/innerWidth', sw.join('/'))
+    await page.goBack(); await page.waitForSelector('.commons-hits li')
+    console.log(label, 'back ->', page.url())
+    await page.reload(); await page.waitForSelector('.commons-hits li', { timeout: 10000 })
+    console.log(label, 'reload kept results:', await page.locator('.commons-hits li').count())
+    await ctx.close()
+  }
+  console.log('page errors:', errors.length ? errors : 'none')
+  await browser.close()
+})().catch((e) => { console.error(e); process.exit(1) })

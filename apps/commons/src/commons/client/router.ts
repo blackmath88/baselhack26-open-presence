@@ -1,7 +1,8 @@
 /**
  * Hash routes: every entrance has a URL that survives reload and the back
- * button, with no server routing. `#/problems/<id>`, `#/contributions/<id>`,
- * `#/threads/<id>`, `#/repo[/path][?object=issue/99]`, `#/search?q=…`.
+ * button, with no server routing. `#/problems/<id>[?q=…&passage=…]`, `#/contributions/<id>`,
+ * `#/threads/<id>`, `#/repo[/path][?object=issue/99]`, `#/search?q=…`,
+ * `#/compare?ids=a,b[&q=…]`.
  */
 import { useEffect, useState } from 'react'
 
@@ -9,7 +10,11 @@ export type Route =
   | { view: 'home' }
   | { view: 'search'; query: string }
   | { view: 'repo'; path: string; object?: string; type?: 'issue' | 'pull' | 'discussion' }
-  | { view: 'problem'; problemId: string }
+  /** `query` is the situation the reader searched for, carried so the record can show it and lead back. */
+  /** `passage`: the evidence passage selected on the record. */
+  | { view: 'problem'; problemId: string; query?: string; passage?: string }
+  /** Up to two records side by side; `query` keeps the situation they were found for. */
+  | { view: 'compare'; ids: string[]; query?: string }
   | { view: 'contribution'; contributionId: string }
   | { view: 'thread'; contributionId: string }
 
@@ -24,7 +29,11 @@ export function parseRoute(hash: string): Route {
     const type = params.get('type')
     return { view: 'repo', path: rest.join('/'), ...(params.get('object') ? { object: params.get('object')! } : {}), ...(type === 'issue' || type === 'pull' || type === 'discussion' ? { type } : {}) }
   }
-  if (head === 'problems' && rest[0]) return { view: 'problem', problemId: rest[0] }
+  if (head === 'problems' && rest[0]) return { view: 'problem', problemId: rest[0], ...(params.get('q') ? { query: params.get('q')! } : {}), ...(params.get('passage') ? { passage: params.get('passage')! } : {}) }
+  if (head === 'compare') {
+    const ids = (params.get('ids') ?? '').split(',').map((x) => x.trim()).filter(Boolean)
+    return { view: 'compare', ids: [...new Set(ids)].slice(0, 2), ...(params.get('q') ? { query: params.get('q')! } : {}) }
+  }
   if (head === 'contributions' && rest[0]) return { view: 'contribution', contributionId: rest[0] }
   if (head === 'threads' && rest[0]) return { view: 'thread', contributionId: rest[0] }
   return { view: 'home' }

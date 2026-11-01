@@ -11,6 +11,7 @@ import { appLinks } from '../../commons/contracts'
 import { commonsApi, type SearchResponse } from '../../commons/client/api'
 import { navigate } from '../../commons/client/router'
 import { actorLabel } from './ContributionCard'
+import { WhyMatched } from './WhyMatched'
 
 const EXAMPLE = 'My Mac cannot see my frame'
 
@@ -49,18 +50,21 @@ export function CommonsFinder({ reader, token, query }: { reader: CommonsReader;
         </div>
       )}
       {hits.length > 0 && (
-        <>
-          <h3 className="phf-section-title">Accounts that may apply <span className="commons-limit">· {hits.length} problem record{hits.length === 1 ? '' : 's'}</span></h3>
-          <ol className="commons-hits">
+        <section className="cx-results" aria-labelledby="cx-results-title">
+          <header className="cx-results-head">
+            <h3 id="cx-results-title" className="phf-section-title">Accounts that may apply</h3>
+            <span className="cx-meta">{hits.length} problem record{hits.length === 1 ? '' : 's'} · ordered by word matches, not by confidence</span>
+          </header>
+          <ol className="commons-hits cx-hit-list">
             {hits.map((h) => {
               const p = reader.problem(h.problemId)
               const quoted = p?.evidence.find((e) => e.quote)
               return (
-                <li key={h.problemId}>
-                  <a className="commons-hit phf-result" href={appLinks.problem(h.problemId)}>
+                <li key={h.problemId} className="cx-hit">
+                  <a className="commons-hit phf-result" href={appLinks.problem(h.problemId, query)}>
                     <span className="phf-result-head">
-                      <strong>{p?.title ?? h.problemId}</strong>
-                      {h.nearMatch && <span className="badge conflict">near-match: conditions differ</span>}
+                      <strong className="cx-hit-title">{p?.title ?? h.problemId}</strong>
+                      {h.nearMatch && <span className="cx-status warn">Near match · conditions differ</span>}
                     </span>
                     {p && (
                       <span className="phf-applies">
@@ -70,16 +74,23 @@ export function CommonsFinder({ reader, token, query }: { reader: CommonsReader;
                       </span>
                     )}
                     {quoted?.quote && (
-                      <span className="phf-result-quote">“{quoted.quote.length > 160 ? `${quoted.quote.slice(0, 157)}…` : quoted.quote}” <span className="commons-limit">— {quoted.source.author === 'unknown' ? 'author unknown' : `@${quoted.source.author}`}, {quoted.source.objectId}</span></span>
+                      <span className="phf-result-quote">
+                        <span className="cx-voice-label">Original words</span>
+                        <span className="cx-quote">“{quoted.quote.length > 160 ? `${quoted.quote.slice(0, 157)}…` : quoted.quote}”</span>
+                        <span className="commons-limit">{quoted.source.author === 'unknown' ? 'author unknown' : `@${quoted.source.author}`} · {quoted.source.objectId}</span>
+                      </span>
                     )}
-                    <span className="commons-why phf-clamp" title={h.explanation}>Why it matched: {h.explanation}</span>
                     <CommunityLine summary={server?.problems.find((s) => s.problemId === h.problemId)?.community} />
                   </a>
+                  <div className="cx-hit-actions">
+                    <WhyMatched hit={h} />
+                    <a className="cx-compare-link" href={appLinks.compare([h.problemId], query)}>Compare with another account</a>
+                  </div>
                 </li>
               )
             })}
           </ol>
-        </>
+        </section>
       )}
       {server && server.contributions.length > 0 && (
         <>
@@ -129,3 +140,4 @@ function CommunityLine({ summary }: { summary: Community | undefined }) {
   ]
   return <span className="commons-limit">Community: {parts.join(' · ')}</span>
 }
+

@@ -1,0 +1,25 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "commons-phase1-find-inspect-2026-11-01",
+  "kind": "finding",
+  "title": "Commons Phase 1: find and inspect the Mac/frame journey end to end",
+  "statement": "Situation, record and selected passage live in the URL; a 'Before you rely on it' panel compares the reader's words with recorded conditions (word comparison, labelled), lists limit, correction passages and unknowns; recorded outcomes are shown with passage links; loading, failed-load/retry, not-found and unknown-passage states keep the situation and way back. New journey smoke (22 checks, added to CI) asserts rendered quotes equal the corpus. No backend or CLI/MCP/HTTP contract change. No human review recorded.",
+  "author": { "name": "Claude Code", "kind": "assistant" },
+  "submitted_at": "2026-11-01T16:30:00Z",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "8125f1e46ce528c3b77ed488c3b7038809c170af",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    { "path": "docs/reports/COMMONS-PHASE1-FIND-INSPECT-2026-11-01.md" },
+    { "path": "evidence/commons-phase1-20261101/" },
+    { "path": "apps/commons/scripts/smoke/journey.mjs" }
+  ],
+  "conditions": [
+    "Builds on the unreviewed Phase 0 finding commons-phase0-checkpoint-2026-11-01; tokens remain provisional.",
+    "Checked in Chromium only; screen reader, touch and other browsers not run.",
+    "The fixed 'Unknown' wording and the word-comparison presentation need human review."
+  ],
+  "proposed_change": { "op": "none" }
+}

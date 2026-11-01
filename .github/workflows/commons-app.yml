@@ -36,3 +36,5 @@ jobs:
         run: bash scripts/smoke/multi-entry.sh
       - name: Browser smoke (CLI → browser → CLI rediscovery; runner Chrome over DevTools, loopback only)
         run: OUT=$RUNNER_TEMP/browser-smoke bash scripts/smoke/browser.sh
+      - name: Journey smoke (situation → search → record → passage → source → back; loopback only)
+        run: OUT=$RUNNER_TEMP/journey-smoke bash scripts/smoke/journey.sh

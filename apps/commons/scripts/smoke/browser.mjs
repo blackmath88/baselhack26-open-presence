@@ -75,8 +75,8 @@ await until('passage response appears', `document.body.innerText.includes('smoke
 check('draft count settles', (await draftCount()) === 1)
 // 5. Search entrance: the problem hit now says people have been here.
 await js(`location.hash = '#/search?q=' + encodeURIComponent('frame charges but no usb data')`)
-await until('search shows community activity on the problem hit', `[...document.querySelectorAll('.commons-hit')].some(a => a.getAttribute('href') === '#/problems/${problemId}' && /Community: \\d+ experience/.test(a.innerText))`)
-log.push('ok   search hit: ' + (await js(`[...document.querySelectorAll('.commons-hit')].find(a => a.getAttribute('href') === '#/problems/${problemId}')?.innerText.split('\\n').find(l => l.startsWith('Community')) ?? ''`)))
+await until('search shows community activity on the problem hit', `[...document.querySelectorAll('.commons-hit')].some(a => a.getAttribute('href').split('?')[0] === '#/problems/${problemId}' && /Community: \\d+ experience/.test(a.innerText))`)
+log.push('ok   search hit: ' + (await js(`[...document.querySelectorAll('.commons-hit')].find(a => a.getAttribute('href').split('?')[0] === '#/problems/${problemId}')?.innerText.split('\\n').find(l => l.startsWith('Community')) ?? ''`)))
 await shot('smoke-3-search')
 // 6. .phf frame: product name, search hits say when they apply, the journey guide follows the passage response.
 check('.phf is the product name', (await js('document.title')).startsWith('.phf') && await js(`!!document.querySelector('.phf-mark')`))

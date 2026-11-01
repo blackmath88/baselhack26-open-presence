@@ -1,0 +1,26 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "commons-phase0-checkpoint-2026-11-01",
+  "kind": "finding",
+  "title": "Commons Phase 0: baseline verified and first Cisco-inspired visual checkpoint on the Mac/frame journey",
+  "statement": "Baseline checks pass at b265422 (typecheck, 197 tests, index, build, three smoke scripts). Search results and the record page for 'My Mac cannot see my frame' now use a provisional token layer, a keyboard-accessible 'Why it matched' built from the ranking's structured matches, and a context bar carrying the situation via optional ?q= on record links. Backend, corpus and CLI/MCP/HTTP contracts unchanged. Proposes keeping the current Vite/hash-router stack for Phase 1. No human review recorded.",
+  "author": { "name": "Claude Code", "kind": "assistant" },
+  "submitted_at": "2026-11-01T14:30:00Z",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "d53aadfe348ac06a7a643c2511e26d525aec883d",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    { "path": "docs/reports/COMMONS-PHASE0-CHECKPOINT-2026-11-01.md" },
+    { "path": "evidence/commons-phase0-20261101/" },
+    { "path": "apps/commons/src/commons-tokens.css" }
+  ],
+  "conditions": [
+    "Tokens are provisional; no Cisco Cloud Control screen was inspected and the PDF workbench uses a different accent (#087E8B).",
+    "Two ATProto suites return early without tools/local-pds; screen reader, touch and non-Chromium checks not run.",
+    "blackmath88/development-practice could not be read from this session; the TanStack recommendation rests on the in-repo PDF workbench only.",
+    "The context packet's cutoff 93a5445 predates this base; used as background only."
+  ],
+  "proposed_change": { "op": "none" }
+}

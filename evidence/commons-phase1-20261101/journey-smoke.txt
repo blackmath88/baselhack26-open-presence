@@ -1,0 +1,22 @@
+ok   search entrance ready
+ok   Enter searches and the URL carries the situation
+ok   first account is the USB data record and its link keeps the situation — 8 hits, #/problems/usb-c-no-data?q=My%20Mac%20cannot%20see%20my%20frame
+ok   Tab reaches Why it matched
+ok   Enter expands the match explanation
+ok   record shows the situation
+ok   fit panel names unstated conditions and unknowns
+ok   record carries its own match explanation
+ok   reported outcomes link to their passages
+ok   every rendered quote is the corpus quote, verbatim — 7 passages
+ok   every interpretation carries the agent label
+ok   passage selected, in the URL, focused and in view
+ok   original source opens GitHub in a new tab — https://github.com/wesbos/photo-frame-dashboard/issues/12#issuecomment-6113789229
+ok   reload keeps situation and selected passage
+ok   back clears the passage, keeps the record
+ok   back again returns to the same results
+ok   unknown passage is reported, not guessed
+ok   unknown record says so and keeps the way back
+ok   failed load shows an error with the situation still on screen
+ok   Try again loads the record
+ok   360 px: selected passage is scrolled into view
+ok   360 px: no horizontal scroll — 360/360
