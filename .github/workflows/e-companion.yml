@@ -1,0 +1,48 @@
+name: e companion release
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, 'feat/**']
+    paths:
+      - 'apps/commons/src/components/E*'
+      - 'apps/commons/src/components/e-*'
+      - 'apps/commons/e-preview/**'
+      - 'apps/commons/vite.e-preview.config.ts'
+      - 'apps/commons/package*.json'
+      - 'apps/commons/test/e-*'
+      - 'docs/design/DOPE-E.md'
+      - '.github/workflows/e-companion.yml'
+  pull_request:
+    paths: ['apps/commons/**', 'docs/design/DOPE-E.md', '.github/workflows/e-companion.yml']
+permissions:
+  contents: read
+concurrency:
+  group: e-release-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: apps/commons
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/commons/package-lock.json
+      - run: npm ci
+      - run: npm run test:e
+      - run: npm run build:e
+      - name: Include deployment and character notes
+        run: |
+          cp e-preview/README.md dist-e/DEPLOYMENT.md
+          cp ../../docs/design/DOPE-E.md dist-e/CHARACTER.md
+          printf '%s\n' "$GITHUB_SHA" > dist-e/SOURCE-COMMIT.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dope-e-static
+          path: apps/commons/dist-e/
+          retention-days: 30
