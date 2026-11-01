@@ -5,15 +5,19 @@ import type { MappingRecipe } from '../../domain/types'
 import { latin1, lineProblem } from '../../adapters/mappingWriter'
 import { makeRecipe, parseRecipe } from '../../adapters/recipe'
 import { changedObjects, parseTwoPoemFixture, type TwoPoemFixture } from '../../adapters/twoPoemFixture'
-import { READING_INFO, artefactFor, lab, mappedLines, previewUrl, selectVariantLine } from './model'
+import { READING_INFO, artefactFor, lab, mappedLines, previewUrl, runsFor, selectVariantLine } from './model'
 import { PageStage } from './Stage'
 import { EvidenceLink } from './Inspector'
+import { RunOutput } from './Readings'
+import type { LiveMeasurement } from '../../adapters/liveRuns'
+import { containsLine } from '../../adapters/poemsResults'
 
 export type Parent = 'visible' | 'other'
 export type Lines = [string, string, string, string]
 
 export interface BuiltVariant {
   recipe: MappingRecipe
+  bytes: Uint8Array
   url: string
   fixture: TwoPoemFixture
   changed: Array<{ number: number; role: string }>
@@ -40,7 +44,7 @@ export function useVariant(from: Parent, lines: Lines | undefined): VariantState
         const fixture = parseTwoPoemFixture(latin1(bytes))
         const changed = changedObjects(latin1(parentBytes), latin1(bytes))
         url = URL.createObjectURL(new Blob([bytes as Uint8Array<ArrayBuffer>], { type: 'application/pdf' }))
-        if (!cancelled) setState({ status: 'ready', variant: { recipe, url, fixture, changed } })
+        if (!cancelled) setState({ status: 'ready', variant: { recipe, bytes, url, fixture, changed } })
       } catch (e) {
         if (!cancelled) setState({ status: 'error', message: (e as Error).message })
       }
@@ -53,14 +57,14 @@ export function useVariant(from: Parent, lines: Lines | undefined): VariantState
 const short = (h: string) => `${h.slice(0, 12)}…`
 
 /** Parent → recipe → your file, with hashes. `expected` is the hash an imported recipe recorded. */
-export function Lineage({ variant, expected }: { variant: BuiltVariant; expected?: string }) {
+export function Lineage({ variant, expected, measuredAt }: { variant: BuiltVariant; expected?: string; measuredAt?: string }) {
   const { recipe, changed } = variant
   return (
     <div className="card panel lineage" aria-label="Lineage">
       <ol className="lineage-steps">
         <li><span className="kind kind-parsed">original</span><strong>{recipe.parent.path.split('/').pop()}</strong><code className="small">{short(recipe.parent.sha256)}</code><span className="small muted">verified against the inventory</span></li>
         <li><span className="kind kind-authored">your recipe</span><strong>4 lines</strong><span className="small muted">rewrites object {variant.fixture.kind === 'type3-mapped' ? variant.fixture.toUnicodeObject : '?'} only</span></li>
-        <li><span className="kind kind-unknown">your file</span><strong>made in this browser</strong><code className="small">{short(recipe.output.sha256)}</code><span className="small muted">{recipe.output.bytes.toLocaleString('en')} bytes · not measured</span></li>
+        <li><span className={`kind ${measuredAt ? 'kind-measured' : 'kind-unknown'}`}>your file</span><strong>made in this browser</strong><code className="small">{short(recipe.output.sha256)}</code><span className="small muted">{recipe.output.bytes.toLocaleString('en')} bytes · {measuredAt ? `measured live ${new Date(measuredAt).toLocaleTimeString()}` : 'not measured'}</span></li>
       </ol>
       <p className="small muted" style={{ margin: '8px 0 0' }}>
         Objects that differ from the original: {changed.map((c) => `${c.number} (${c.role})`).join(', ') || 'none'}; byte offsets after it shift.
@@ -72,7 +76,7 @@ export function Lineage({ variant, expected }: { variant: BuiltVariant; expected
   )
 }
 
-export function VariantDownload({ variant }: { variant: BuiltVariant }) {
+export function VariantDownload({ variant, measured }: { variant: BuiltVariant; measured?: boolean }) {
   const name = `my-two-poems-${variant.recipe.output.sha256.slice(0, 8)}`
   const recipeUrl = useBlobUrl(JSON.stringify(variant.recipe, null, 2) + '\n', 'application/json')
   return (
@@ -81,7 +85,7 @@ export function VariantDownload({ variant }: { variant: BuiltVariant }) {
         <a className="btn primary" href={variant.url} download={`${name}.pdf`}>Download your PDF</a>
         {recipeUrl && <a className="btn" href={recipeUrl} download={`${name}.recipe.json`}>Recipe</a>}
       </div>
-      <span className="small muted">{name}.pdf · {variant.recipe.output.bytes.toLocaleString('en')} bytes · not measured</span>
+      <span className="small muted">{name}.pdf · {variant.recipe.output.bytes.toLocaleString('en')} bytes · {measured ? 'measured live' : 'not measured'}</span>
     </div>
   )
 }
@@ -96,18 +100,26 @@ function useBlobUrl(text: string, type: string): string | null {
   return url
 }
 
-export function VariantStage({ variant, from, line, reveal, onSelect }: { variant: BuiltVariant; from: Parent; line: number | null; reveal: boolean; onSelect: (n: number) => void }) {
+export function VariantStage({ variant, from, line, reveal, onSelect, measurement }: { variant: BuiltVariant; from: Parent; line: number | null; reveal: boolean; onSelect: (n: number) => void; measurement: LiveMeasurement | null }) {
   const fx = variant.fixture
   const lines = fx.kind === 'type3-mapped' ? fx.lines.map((l, i) => ({ drawn: l.drawn, mapped: l.mapped, region: selectVariantLine(fx, variant.recipe.output.sha256, i)!.region })) : []
   const onlyMap = variant.changed.length === 1 && variant.changed[0]!.role === 'ToUnicode character map'
+  const recordedMupdf = runsFor(from)?.mupdf.pixelsSha256
+  const live = measurement?.runs.mupdf
+  const exact = live?.pixelsSha256 != null && live.pixelsSha256 === recordedMupdf
+  const caption = live
+    ? exact
+      ? <><span className="label live">Measured</span><span>Your file, rendered live by MuPDF {live.instrument.version}, gives pixels identical to this recorded picture of the original, so it shows your file exactly.</span></>
+      : <><span className="label">Original's recorded render</span><span>Measured live: your file's MuPDF pixels differ from this picture of the original. Open your download to see it drawn.</span></>
+    : <><span className="label">Original's recorded render</span><span>Your file has not been rendered. {onlyMap ? 'Only its character map differs from the original, so this is the original\'s recorded MuPDF picture;' : 'It differs from the original in more than its character map, so this picture may not match it;'} measure it below, or open your download in a PDF reader.</span></>
   return (
     <PageStage src={previewUrl(from)} label="Your file: page" lines={lines} line={line} reveal={reveal} onSelect={onSelect}
       alt={`Recorded MuPDF render of the original ${READING_INFO[from].label.toLowerCase()} file, standing in for your unrendered file`}
-      caption={<><span className="label">Original's recorded render</span><span>Your file has not been rendered. {onlyMap ? 'Only its character map differs from the original, so this is the original\'s recorded MuPDF picture;' : 'It differs from the original in more than its character map, so this picture may not match it;'} open your download in a PDF reader to see it drawn.</span></>} />
+      caption={caption} />
   )
 }
 
-export function VariantInspector({ variant, line, onClose, headingRef }: { variant: BuiltVariant; line: number; onClose: () => void; headingRef: React.Ref<HTMLHeadingElement> }) {
+export function VariantInspector({ variant, line, onClose, headingRef, measurement }: { variant: BuiltVariant; line: number; onClose: () => void; headingRef: React.Ref<HTMLHeadingElement>; measurement: LiveMeasurement | null }) {
   const fx = variant.fixture
   const sel = selectVariantLine(fx, variant.recipe.output.sha256, line - 1)
   if (!sel || fx.kind !== 'type3-mapped') return null
@@ -125,12 +137,24 @@ export function VariantInspector({ variant, line, onClose, headingRef }: { varia
         <p className="quote alt">{l.mapped}</p>
         <details style={{ marginTop: 8 }}><summary>Show the bytes</summary><pre className="excerpt">{tuLine}</pre></details>
       </section>
-      <section><h3>Readers returned</h3><p className="notice warn small" style={{ margin: 0 }}>Not measured. No PDF engine has read this file. Run <code>pdftotext -layout</code> on your download to see what Poppler returns.</p></section>
+      <section>
+        <h3>Readers returned {measurement && <span className="label live">live</span>}</h3>
+        {measurement ? (
+          <dl className="kv">
+            {[measurement.runs.mupdf, measurement.runs.pdftotext].map((run) => run && [
+              <dt key={`${run.id}-t`}>{run.instrument.engine} {run.instrument.version ?? '(version unknown)'} <span className="muted">({run.instrument.wrapper})</span></dt>,
+              <dd key={`${run.id}-d`}>{containsLine(run.text, l.mapped) ? <span className="mark-yes">“{l.mapped}”</span> : <span className="mark-no">not returned</span>}</dd>,
+            ])}
+          </dl>
+        ) : <p className="notice warn small" style={{ margin: 0 }}>Not measured. No PDF engine has read this file yet. Use <strong>Measure your file</strong>, or run <code>pdftotext -layout</code> on your download.</p>}
+      </section>
       <section>
         <h3>How we know</h3>
         <ol className="chain">
           {sel.correspondences.map((c, i) => (
-            <li key={i}><span className={`kind kind-${c.kind}`}>{c.kind === 'parsed' ? 'parsed from your file' : 'unknown'}</span><span>{c.statement}</span></li>
+            c.kind === 'unknown' && measurement ? (
+              <li key={i}><span className="kind kind-measured">live run</span><span>Measured on this computer at {new Date(measurement.finishedAt).toLocaleTimeString()}: {[measurement.runs.mupdf, measurement.runs.pdftotext].filter(Boolean).map((r) => `${r!.instrument.engine} ${r!.instrument.wrapper} ${containsLine(r!.text, l.mapped) ? 'returned it' : 'did not return it'}`).join('; ')}.</span></li>
+            ) : <li key={i}><span className={`kind kind-${c.kind}`}>{c.kind === 'parsed' ? 'parsed from your file' : 'unknown'}</span><span>{c.statement}</span></li>
           ))}
         </ol>
       </section>
@@ -190,11 +214,23 @@ export function AuthorPanel({ initial, focusLine, onBuild, onImport, legacyUrl }
 }
 
 /** Extracted text has not been measured for a file made here; say so and show how to measure it. */
-export function VariantText({ variant }: { variant: BuiltVariant }) {
+export function VariantText({ variant, measurement, line }: { variant: BuiltVariant; measurement: LiveMeasurement | null; line: number | null }) {
   const fx = variant.fixture
+  if (measurement) {
+    const needle = line !== null && fx.kind === 'type3-mapped' ? fx.lines[line - 1]?.mapped : undefined
+    return (
+      <div className="stage card">
+        <div className="stage-intro"><p>What two PDF readers extracted from <strong>your file</strong>, measured live on this computer. {needle ? 'The selected line is marked.' : 'Select a line to mark it.'}</p></div>
+        <div className="side-by-side">
+          {measurement.runs.mupdf && <RunOutput run={measurement.runs.mupdf} needle={needle} />}
+          {measurement.runs.pdftotext && <RunOutput run={measurement.runs.pdftotext} needle={needle} />}
+        </div>
+      </div>
+    )
+  }
   return (
     <div className="stage card">
-      <div className="stage-intro"><p>No engine has read your file, so there is no extracted text to show. What its character map says, parsed from its bytes:</p></div>
+      <div className="stage-intro"><p>No engine has read your file yet, so there is no extracted text to show; use <strong>Measure your file</strong> below. What its character map says, parsed from its bytes:</p></div>
       <pre className="text-out">{fx.kind === 'type3-mapped' ? fx.lines.map((l) => l.mapped).join('\n') : ''}</pre>
       <p className="small muted" style={{ margin: 0 }}>Measure it yourself: <code>pdftotext -layout my-two-poems-{variant.recipe.output.sha256.slice(0, 8)}.pdf -</code>. The original's runs (<EvidenceLink evidence={{ path: 'evidence/poems-results.json', sourceCommit: lab.data?.source.commit ?? null, pointer: '/runs/other' }} />) show Poppler may reorder lines.</p>
     </div>

@@ -70,7 +70,7 @@ export function parsePoemsResults(input: unknown, opts: { sourceCommit: string |
       const evidence: EvidenceRef = { path: EVIDENCE_PATH, sourceCommit: opts.sourceCommit, pointer: `/runs/${reading}/${key}` }
       return {
         id: `${reading}:${key}`, operation, instrument, inputSha256, command, exitCode, stdout,
-        stderr: str(raw.stderr, `${path}/stderr`), text, pixelsSha256, evidence, origin: 'recorded', limits,
+        stderr: str(raw.stderr, `${path}/stderr`), text, pixelsSha256, evidence, origin: 'recorded', measuredAt: null, limits,
         status: stale ? 'stale-input' : exitCode === 0 ? 'ok' : 'failed',
       }
     }

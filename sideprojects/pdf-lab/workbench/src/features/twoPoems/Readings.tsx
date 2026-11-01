@@ -11,14 +11,14 @@ function highlight(text: string, needle: string | undefined): ReactNode {
   return at < 0 ? text : <>{text.slice(0, at)}<mark>{needle}</mark>{text.slice(at + needle.length)}</>
 }
 
-function RunOutput({ run, needle }: { run: Run; needle: string | undefined }) {
+export function RunOutput({ run, needle }: { run: Run; needle: string | undefined }) {
   const i = run.instrument
   const text = (run.text ?? '').replace(/\f/g, '')
   return (
     <div className="card panel">
       <div className="engine-head">
         <h3>{i.engine} · {i.wrapper}</h3>
-        <span className="label">recorded · exit {run.exitCode}</span>
+        <span className={`label ${run.origin}`}>{run.origin === 'live' ? `live · ${run.measuredAt ? new Date(run.measuredAt).toLocaleTimeString() : ''}` : 'recorded'} · exit {run.exitCode}</span>
       </div>
       <p className="small muted" style={{ marginTop: 0 }}>
         {i.engine} {i.version ?? 'version not recorded'}{i.wrapperVersion ? ` via ${i.wrapper} ${i.wrapperVersion}` : ''} · {i.configuration}

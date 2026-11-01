@@ -51,8 +51,10 @@ export interface Run {
   text: string | null
   pixelsSha256: string | null
   evidence: EvidenceRef
-  /** "recorded": imported from a committed report. Batch A has no live runs. */
-  origin: 'recorded'
+  /** "recorded": imported from a committed report. "live": run just now by the local runner. Never merged. */
+  origin: 'recorded' | 'live'
+  /** When a live run finished; null for recorded runs (their reports carry no execution time). */
+  measuredAt: string | null
   limits: Record<string, number> | null
 }
 
