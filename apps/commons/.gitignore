@@ -22,3 +22,4 @@ dist-e/
 
 # Issued edge contributor credentials; never commit
 .edge-credentials/
+.edge-local/
