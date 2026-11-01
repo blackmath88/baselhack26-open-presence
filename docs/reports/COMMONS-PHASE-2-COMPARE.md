@@ -70,7 +70,7 @@ indexed ("maco").
 | `npx vite build` | pass (existing chunk-size warning) |
 | `bash scripts/smoke/browser.sh` | 3/3 pass; new step 0b chooses two results, opens the comparison, checks the three answers and originals on both sides |
 | `bash scripts/smoke/e2e.sh`, `multi-entry.sh` | pass (multi-entry with the known port-8797 caveat) |
-| `evidence/commons-phase-2/walkthrough.txt` (Playwright, 1440 and 390 px) | 34/34 |
+| `evidence/commons-phase-2/walkthrough.txt` (Playwright, 1440 and 390 px) | 34/34 at Phase 2; 35/35 re-run in Phase 3 after the stale-response check gained a server-checked precondition (see the Phase 3 report) |
 | Phase 1 walkthrough (regression) | 26/26 |
 | `evidence/commons-phase-2/contrast-scan.txt` (compare, chosen results, missing record, record with compare link; dark and light) | 0 text elements below 4.5:1 |
 
