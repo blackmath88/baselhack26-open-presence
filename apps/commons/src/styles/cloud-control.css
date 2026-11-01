@@ -265,6 +265,22 @@
   & .commons-record-status .badge { text-transform: none; }
   & .phf-result.selected { background: var(--cc-hover); box-shadow: inset 3px 0 0 var(--cc-accent); }
 
+  /* Compare: chosen rows, the comparison bar and the aligned table on raised surfaces. */
+  & .phf-hit-row.chosen { background: var(--cc-accent-soft); }
+  & .cc-compare-toggle[aria-pressed="true"] { border-color: var(--cc-accent); color: var(--cc-accent-text); }
+  & .cc-trace summary { color: var(--cc-text-2); }
+  & .cc-match-summary b { color: var(--cc-text); }
+  & .cc-compare-summary .cc-fit { border-top: 0; padding-top: 0; margin-top: 0; }
+  & .cc-compare-bar { background: var(--cc-raised); border-color: var(--cc-accent); }
+  & .cc-page-title { font-weight: 500; letter-spacing: -.015em; color: var(--cc-text); }
+  & .cc-compare-table { background: var(--cc-raised); border-color: var(--cc-border); }
+  & .cc-compare-table th, & .cc-compare-table td { border-top-color: var(--cc-border); color: var(--cc-text); }
+  & .cc-compare-table tbody th { color: var(--cc-text-2); font-weight: 600; }
+  & .cc-compare-name { color: var(--cc-accent-text); }
+  & .cc-chooser span { color: var(--cc-text-2); }
+  & .cc-in-both { color: var(--cc-accent-text); border-color: var(--cc-accent); }
+  & .cc-not-stated { color: var(--cc-text-2); }
+
   /* Composer column, contributions, threads and repository: same surfaces; destination stays prominent. */
   & .commons-draft { gap: 10px; }
   & .commons-draft h3 { font-size: 18px; font-weight: 600; }

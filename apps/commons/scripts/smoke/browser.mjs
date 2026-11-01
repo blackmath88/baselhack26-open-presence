@@ -51,6 +51,13 @@ check('record says why it may fit, what may differ and what is unknown', await j
 await js(`document.querySelector('.cc-crumbs a').click()`)
 await until('back to results re-selects the record', `document.querySelector('.phf-result.selected')?.getAttribute('href') === ${JSON.stringify(firstHit)}`)
 await shot('smoke-0-find-inspect-back')
+// 0b. Compare: choose two results, open the comparison, which keeps both records' original sources in reach.
+await js(`[...document.querySelectorAll('.cc-compare-toggle')].slice(1, 3).forEach((b, i) => setTimeout(() => b.click(), i * 300))`)
+await until('two results chosen', `document.querySelectorAll('.cc-compare-toggle[aria-pressed="true"]').length === 2`)
+await js(`document.querySelector('.cc-compare-bar a.button').click()`)
+await until('comparison names what both state, what differs and what is unknown', `['Stated in both', 'Stated differently', 'Not known here'].every(t => (document.querySelector('.cc-compare-summary')?.innerText ?? '').includes(t))`)
+check('comparison links the originals on both sides', await js(`[...document.querySelectorAll('.cc-compare-table td[data-side] a[target=_blank]')].map(a => a.closest('td').dataset.side).filter((v, i, all) => all.indexOf(v) === i).length === 2`))
+await shot('smoke-0b-compare')
 
 // 1. Repository entrance: the cited thread names the CLI contribution with author and entrance.
 await js(`location.hash = '#/repo?object=issue%2F148'`); await page('Page.reload', {})

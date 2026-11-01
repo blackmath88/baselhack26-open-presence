@@ -82,6 +82,7 @@ const STEP_LABEL: Record<JourneyStep, string> = {
 function currentStep(route: Route, done: JourneyStep[]): JourneyStep {
   if (route.view === 'repo') return 'rediscover'
   if (route.view === 'thread' || route.view === 'contribution') return done.includes('reply') ? 'rediscover' : 'reply'
+  if (route.view === 'compare') return done.includes('contribute') ? 'reply' : 'inspect'
   if (route.view === 'problem') return done.includes('contribute') ? 'reply' : done.includes('inspect') ? 'contribute' : 'inspect'
   return done.includes('reply') ? 'rediscover' : 'find'
 }
@@ -131,7 +132,7 @@ export function EntranceTabs({ route }: { route: Route }) {
   return (
     <nav className="phf-entrances" aria-label="Entrances">
       <span className="phf-entrances-label">Entrances</span>
-      <a className={`phf-tab ${at(['home', 'search'])}`} href={appLinks.search('')} aria-current={at(['home', 'search']) ? 'page' : undefined}><Search size={14} /> Search</a>
+      <a className={`phf-tab ${at(['home', 'search', 'compare'])}`} href={appLinks.search('')} aria-current={at(['home', 'search', 'compare']) ? 'page' : undefined}><Search size={14} /> Search</a>
       <a className={`phf-tab ${at(['repo'])}`} href={appLinks.repository()} aria-current={at(['repo']) ? 'page' : undefined}><FolderGit2 size={14} /> Repository</a>
       {(route.view === 'contribution' || route.view === 'thread') && <span className="phf-tab active" aria-current="page"><MessageSquare size={14} /> Direct link</span>}
       <span className="phf-entrances-note">Also CLI and MCP — one shared Commons.</span>

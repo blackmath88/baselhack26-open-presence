@@ -37,6 +37,13 @@ describe('match basis is a regrouping of the actual hit', () => {
     expect(basis.addedBySearch.map((t) => t.term)).toEqual(expect.arrayContaining(['usb', 'data']))
     expect(basis.unmatched).toEqual(['cannot'])
   })
+  it('shows words as written, not as indexed', () => {
+    const q2 = 'My Mac cannot see my frame'
+    const h2 = reader.search(q2, 8).find((h) => h.problemId === 'reset-after-uboot')!
+    const added = matchBasis(q2, h2).addedBySearch.find((t) => t.term === 'maco')
+    expect(added?.word).toBe('macOS')
+    expect(matchBasis(q2, h2).yourWords.find((t) => t.term === 'frame')?.word).toBe('frame')
+  })
   it('every listed field comes from the hit, and every hit match is listed', () => {
     const listed = [...basis.yourWords, ...basis.onlyWriterVocabulary, ...basis.addedBySearch]
       .flatMap((t) => t.fields.map((f) => `${t.term}:${f}`)).sort()
@@ -50,6 +57,6 @@ describe('a near-match keeps its difference visible', () => {
   const hit = reader.search(q, 8).find((h) => h.problemId === 'wsl-usbipd-ums')!
   it('is flagged by the reader and lists the platform word as unmatched', () => {
     expect(hit.nearMatch).toBe(true)
-    expect(matchBasis(q, hit).unmatched).toContain('mac')
+    expect(matchBasis(q, hit).unmatched).toContain('Mac')
   })
 })

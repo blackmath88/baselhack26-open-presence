@@ -3,13 +3,15 @@
  * button, with no server routing. `#/problems/<id>`, `#/contributions/<id>`,
  * `#/threads/<id>`, `#/repo[/path][?object=issue/99]`, `#/search?q=…`.
  * A problem reached from search carries the situation (`#/problems/<id>?q=…`), and the way back
- * names the result it came from (`#/search?q=…&selected=<id>`).
+ * names the result it came from (`#/search?q=…&selected=<id>`). Up to two records chosen for comparison ride
+ * along as `&compare=a,b`; the comparison itself is `#/compare?a=…&b=…[&q=…]`.
  */
 import { useEffect, useState } from 'react'
 
 export type Route =
   | { view: 'home' }
-  | { view: 'search'; query: string; selected?: string }
+  | { view: 'search'; query: string; selected?: string; compare?: string[] }
+  | { view: 'compare'; a: string; b: string; query?: string }
   | { view: 'repo'; path: string; object?: string; type?: 'issue' | 'pull' | 'discussion' }
   | { view: 'problem'; problemId: string; query?: string }
   | { view: 'contribution'; contributionId: string }
@@ -21,7 +23,13 @@ export function parseRoute(hash: string): Route {
   const params = new URLSearchParams(queryPart)
   const segments = pathPart.split('/').filter(Boolean).map(decodeURIComponent)
   const [head, ...rest] = segments
-  if (head === 'search') return { view: 'search', query: params.get('q') ?? '', ...(params.get('selected') ? { selected: params.get('selected')! } : {}) }
+  if (head === 'search') {
+    const compare = [...new Set((params.get('compare') ?? '').split(',').map((c) => c.trim()).filter(Boolean))].slice(0, 2)
+    return { view: 'search', query: params.get('q') ?? '', ...(params.get('selected') ? { selected: params.get('selected')! } : {}), ...(compare.length ? { compare } : {}) }
+  }
+  if (head === 'compare' && params.get('a') && params.get('b') && params.get('a') !== params.get('b')) {
+    return { view: 'compare', a: params.get('a')!, b: params.get('b')!, ...(params.get('q')?.trim() ? { query: params.get('q')!.trim() } : {}) }
+  }
   if (head === 'repo') {
     const type = params.get('type')
     return { view: 'repo', path: rest.join('/'), ...(params.get('object') ? { object: params.get('object')! } : {}), ...(type === 'issue' || type === 'pull' || type === 'discussion' ? { type } : {}) }
