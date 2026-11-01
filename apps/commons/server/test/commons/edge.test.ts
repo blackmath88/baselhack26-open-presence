@@ -56,6 +56,71 @@ describe('D1 command parity', () => {
     ])).rejects.toThrow('commons_revision_matches')
     expect(sqlite.prepare('SELECT document FROM commons_state').get()?.document).toBe('{"events":[],"metadata":{}}')
   })
+  it('bounds revision retries at eight and does not retry unknown commit errors', async () => {
+    const { db } = database()
+    let attempts = 0
+    const stale: Database = { prepare: db.prepare, async batch() {
+      attempts++
+      throw new Error('CHECK constraint failed: commons_revision_matches')
+    } }
+    await expect(createD1Repository(stale).transaction(async tx => { tx.metadata.changed = true }))
+      .rejects.toThrow('retry budget')
+    expect(attempts).toBe(8)
+    attempts = 0
+    const unknown: Database = { prepare: db.prepare, async batch() { attempts++; throw new Error('network disconnected while using commons_revision_matches') } }
+    await expect(createD1Repository(unknown).transaction(async tx => { tx.metadata.changed = true }))
+      .rejects.toThrow('network disconnected')
+    expect(attempts).toBe(1)
+    expect(await createD1Repository(db).transaction(async tx => tx.metadata)).toEqual({})
+  })
+  it('resolves an ambiguous successful commit by replaying its durable receipt', async () => {
+    const { db } = database()
+    const normal = createCommonsService({ repository: createD1Repository(db) })
+    await normal.importProblems(actor, sources)
+    let attempts = 0
+    const ambiguous: Database = { prepare: db.prepare, async batch(statements) {
+      attempts++
+      await db.batch(statements)
+      throw new Error('connection lost after commit')
+    } }
+    const uncertain = createCommonsService({ repository: createD1Repository(ambiguous) })
+    await expect(uncertain.submitContribution(actor, submission)).rejects.toThrow('connection lost after commit')
+    expect(attempts).toBe(1)
+    const replay = await normal.submitContribution(actor, submission)
+    expect(replay.replayed).toBe(true)
+    expect((await createD1Repository(db).read()).filter(e => e.eventType === 'ContributionAdded' && e.objectId === replay.contribution.id)).toHaveLength(1)
+  })
+  it('does not batch no-op reads and enforces the cap in UTF-8 bytes before SQL', async () => {
+    const { db, sqlite } = database()
+    let batches = 0
+    const counted: Database = { prepare: db.prepare, async batch(statements) { batches++; return db.batch(statements) } }
+    const repo = createD1Repository(counted)
+    expect(await repo.read()).toEqual([])
+    expect(batches).toBe(0)
+    // Under 1 MiB in JS code units, over 1 MiB encoded: exercises the byte bound.
+    await expect(repo.transaction(async tx => { tx.metadata.large = 'é'.repeat(524288) })).rejects.toThrow('Demo capacity reached')
+    expect(batches).toBe(0)
+    expect(sqlite.prepare('SELECT revision FROM commons_state').get()?.revision).toBe(0)
+    const overhead = JSON.stringify({ events: [], metadata: { large: '' } }).length
+    await repo.transaction(async tx => { tx.metadata.large = 'a'.repeat(1024 * 1024 - overhead) })
+    expect(batches).toBe(1)
+    expect(sqlite.prepare('SELECT length(CAST(document AS BLOB)) AS bytes FROM commons_state').get()?.bytes).toBe(1024 * 1024)
+    await expect(repo.transaction(async tx => { tx.metadata.large = String(tx.metadata.large) + 'a' })).rejects.toThrow('Demo capacity reached')
+    expect(batches).toBe(1)
+    expect(sqlite.prepare('SELECT revision FROM commons_state').get()?.revision).toBe(1)
+  })
+  it('rolls back events, metadata and receipts when the final commit statement fails', async () => {
+    const { db, sqlite } = database()
+    const service = createCommonsService({ repository: createD1Repository(db) })
+    await service.importProblems(actor, sources)
+    const before = sqlite.prepare('SELECT * FROM commons_state').get()
+    sqlite.exec("CREATE TRIGGER fail_commit BEFORE DELETE ON commons_commit_guard BEGIN SELECT RAISE(ABORT, 'forced final statement failure'); END")
+    await expect(service.submitContribution(actor, submission)).rejects.toThrow('forced final statement failure')
+    expect(sqlite.prepare('SELECT * FROM commons_state').get()).toEqual(before)
+    expect(sqlite.prepare('SELECT count(*) AS n FROM commons_commit_guard').get()?.n).toBe(0)
+    sqlite.exec('DROP TRIGGER fail_commit')
+    expect((await service.submitContribution(actor, submission)).replayed).toBe(false)
+  })
   it('validates issued identity, expiry and revocation; public reads cannot write', async () => {
     const { db, sqlite } = database(); const code = 'a'.repeat(48)
     sqlite.prepare('INSERT INTO contributor_tokens (token_hash,actor_id,display_name,expires_at) VALUES (?,?,?,?)').run(await tokenHash(code), 'person:alice', 'Alice', '2099-01-01T00:00:00.000Z')
