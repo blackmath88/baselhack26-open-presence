@@ -1,1 +1,5 @@
 .phf-demo/
+
+# Phase 5 raw session data stays private (see docs/research/commons-phase-5/SESSION-SCRIPT.md)
+commons-phase5-P*.json
+commons-phase5-P*.md

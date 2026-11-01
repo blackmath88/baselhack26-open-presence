@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Commons session sheet</title>
+<style>
+  :root { --bg: #fff; --fg: #1b1f24; --muted: #57606a; --line: #d0d7de; --soft: #f6f8fa; --accent: #2b5fc7; --warn: #8a5700; color-scheme: light; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0c1117; --fg: #e6edf3; --muted: #a8b1bb; --line: #393b48; --soft: #181d23; --accent: #8db0f2; --warn: #f2c46d; color-scheme: dark; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.45 system-ui, sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 22px; margin: 8px 0 4px; } h2 { font-size: 17px; margin: 24px 0 8px; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+  .muted { color: var(--muted); font-size: 13px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+  label { display: grid; gap: 4px; font-size: 13px; font-weight: 600; }
+  input, textarea, select, button { font: inherit; color: inherit; }
+  input[type=text], textarea, select { width: 100%; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); }
+  textarea { min-height: 54px; resize: vertical; }
+  button { padding: 6px 12px; border: 1px solid var(--accent); border-radius: 6px; background: transparent; color: var(--accent); cursor: pointer; }
+  button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  fieldset { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin: 0 0 10px; background: var(--soft); }
+  legend { font-weight: 700; padding: 0 4px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin: 6px 0; }
+  .row label { display: inline-flex; gap: 6px; align-items: center; font-weight: 400; }
+  .key { font-size: 13px; color: var(--muted); margin: 2px 0 6px; }
+  .timer { font-variant-numeric: tabular-nums; min-width: 4.5em; display: inline-block; }
+  .bar { position: sticky; top: 0; z-index: 1; background: var(--bg); border-bottom: 1px solid var(--line); padding: 8px 16px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .bar .spacer { flex: 1; }
+  .warn { color: var(--warn); font-weight: 600; }
+  ol#hes { padding-left: 1.2em; } ol#hes li { margin: 4px 0; }
+  .order { font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="bar" role="toolbar" aria-label="Session actions">
+  <button type="button" id="hes-btn" title="Shortcut: Alt+H">Hesitation now</button>
+  <span class="muted" id="current">Current task: none</span>
+  <span class="spacer"></span>
+  <button type="button" id="export-json">Export JSON</button>
+  <button type="button" id="export-md">Export Markdown</button>
+  <button type="button" id="clear">Clear sheet</button>
+</div>
+<main>
+  <h1>Commons session sheet</h1>
+  <p class="muted">Phase 5 observation. This page saves only in this browser. Export to a private folder after each session, then clear it. Use participant codes, never names. Script: SESSION-SCRIPT.md.</p>
+
+  <h2>Session</h2>
+  <div class="grid">
+    <label>Participant code <input type="text" id="code" placeholder="P1" pattern="P[0-9]+" autocomplete="off"></label>
+    <label>Date <input type="text" id="date"></label>
+    <label>Facilitator initials <input type="text" id="facilitator" autocomplete="off"></label>
+    <label>Uses GitHub issues <select id="github"><option value="">—</option><option>often</option><option>sometimes</option><option>never</option></select></label>
+    <label>Screen/audio recording <select id="recording"><option value="">—</option><option>no</option><option>yes, consented</option></select></label>
+    <label>Keep their contribution <select id="keep"><option value="">—</option><option>delete room</option><option>keep, consented</option></select></label>
+    <label>Assistive technology <input type="text" id="at" placeholder="none / screen reader / zoom…"></label>
+  </div>
+  <p id="order-line" class="muted">Enter a code to see the condition order.</p>
+  <p id="code-warn" class="warn" hidden>Use a code like P3. Do not enter a name.</p>
+
+  <div id="tasks"></div>
+
+  <h2>Hesitations</h2>
+  <p class="muted">Press <strong>Hesitation now</strong> (or Alt+H) the moment someone pauses, backtracks or says they are unsure. It is logged against the current task (the one you last touched). Add where it happened.</p>
+  <ol id="hes"></ol>
+
+  <h2>Acceptance questions</h2>
+  <p class="muted">Judge from what the participant did or said, not from what you think they understood. Quote evidence.</p>
+  <div id="accept"></div>
+
+  <h2>Debrief</h2>
+  <div id="debrief"></div>
+
+  <h2>Afterwards</h2>
+  <label>The one thing that surprised you most <textarea id="surprise"></textarea></label>
+</main>
+<script>
+const TASKS = [
+  ['G', 'G1', 'Find (GitHub)', 'Search words, time to first issue judged relevant, dead ends.'],
+  ['G', 'G2', 'Judge (GitHub)', 'Names a differing condition or an unknown?'],
+  ['G', 'G3', 'Voices (GitHub)', 'Separates the author from later readers?'],
+  ['C', 'C1', 'Find', 'Own words; reads "Why it matched"? Top result: "The frame shows no USB data, or no power, on the computer".'],
+  ['C', 'C2', 'Judge', 'Uses Applies to / When / Symptoms, "What may differ", "Not known here", near-match. "I can\'t tell because…" counts.'],
+  ['C', 'C3', 'Voices', 'e3 by @jethrojones (source); grey box = agent record writer, unreviewed.'],
+  ['C', 'C4', 'Original', 'Reaches GitHub comment 6113789229 (original link or trace → Original source).'],
+  ['C', 'C5', 'Unknown', 'E.g. document author not recorded; full text not stored; changes since capture not checked.'],
+  ['C', 'C6', 'Compare', 'Top two for the backup-disk search: same device/route, different symptoms and outcomes; maintainer separates them.'],
+  ['C', 'C7', 'Predict sharing', 'BEFORE the review: local room participants only; not GitHub/ATProto; only shown text and citations; search words stay. Did the review change the prediction?'],
+  ['C', 'C8', 'Rediscover', 'Finds own note (search, permalink, conversation); Kai finds it by search.'],
+]
+const ACCEPT = [
+  ['applicability', 'Explains whether an account applies, and how it may not'],
+  ['voices', 'Distinguishes source author from record writer'],
+  ['unknown', 'Names something the Commons does not know'],
+  ['original', 'Reaches the original context'],
+  ['sharing', 'Predicts what is shared, and with whom, before reading the review'],
+]
+const DEBRIEF = ['Which view next time, and why?', 'A moment you did not trust what you read?', 'Expected to find but did not?', 'Anything surprising about where your note went?']
+const STATUS = ['done', 'with help', 'not done', 'skipped']
+const KEY = 'commons-phase5-sheet'
+const $ = (id) => document.getElementById(id)
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))
+let state = { tasks: {}, accept: {}, debrief: {}, hesitations: [] }
+let current = null
+const timers = {}
+
+function render() {
+  const code = $('code').value.trim()
+  const n = Number((code.match(/^P(\d+)$/) || [])[1])
+  $('code-warn').hidden = !code || /^P\d+$/.test(code)
+  const commonsFirst = n ? n % 2 === 1 : null
+  $('order-line').innerHTML = commonsFirst === null ? 'Enter a code to see the condition order.' : `Order for ${esc(code)}: <span class="order">${commonsFirst ? 'Commons first, then GitHub' : 'GitHub first, then Commons'}</span>`
+  const order = commonsFirst === false ? ['G', 'C'] : ['C', 'G']
+  const box = $('tasks'); box.innerHTML = ''
+  for (const cond of order) {
+    const h = document.createElement('h2'); h.textContent = cond === 'C' ? 'Condition C: the Commons' : 'Condition G: GitHub issue list'; box.append(h)
+    for (const [c, id, name, key] of TASKS.filter((t) => t[0] === cond)) {
+      const t = state.tasks[id] || {}
+      const f = document.createElement('fieldset'); f.dataset.task = id
+      f.innerHTML = `<legend>${id} · ${esc(name)}</legend><p class="key">Full answer contains: ${esc(key)}</p>
+        <div class="row" role="radiogroup" aria-label="${id} outcome">${STATUS.map((s) => `<label><input type="radio" name="st-${id}" value="${s}" ${t.status === s ? 'checked' : ''}> ${s}</label>`).join('')}
+        <button type="button" data-timer="${id}">${timers[id] ? 'Stop' : 'Start'} timer</button> <span class="timer" id="tm-${id}">${fmt(t.seconds || 0)}</span></div>
+        <div class="grid"><label>What they did <textarea data-f="notes">${esc(t.notes || '')}</textarea></label>
+        <label>Verbatim quote <textarea data-f="quote">${esc(t.quote || '')}</textarea></label></div>`
+      box.append(f)
+    }
+  }
+  $('accept').innerHTML = ACCEPT.map(([k, q]) => { const a = state.accept[k] || {}; return `<fieldset data-accept="${k}"><legend>${esc(q)}</legend>
+    <div class="row" role="radiogroup" aria-label="${esc(q)}">${['yes', 'partly', 'no', 'not observed'].map((v) => `<label><input type="radio" name="ac-${k}" value="${v}" ${a.value === v ? 'checked' : ''}> ${v}</label>`).join('')}</div>
+    <label>Evidence <textarea data-f="evidence">${esc(a.evidence || '')}</textarea></label></fieldset>` }).join('')
+  $('debrief').innerHTML = DEBRIEF.map((q, i) => `<label>${esc(q)} <textarea data-debrief="${i}">${esc(state.debrief[i] || '')}</textarea></label>`).join('')
+  renderHes()
+}
+function renderHes() {
+  $('hes').innerHTML = state.hesitations.map((h, i) => `<li>${esc(h.at)} · <strong>${esc(h.task || 'no task')}</strong> <input type="text" aria-label="Where hesitation ${i + 1} happened" data-hes="${i}" value="${esc(h.where || '')}" placeholder="where / what they said"></li>`).join('')
+}
+const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`
+function setCurrent(id) { if (!id) return; current = id; $('current').textContent = `Current task: ${id}` }
+function save() {
+  for (const id of ['code', 'date', 'facilitator', 'github', 'recording', 'keep', 'at', 'surprise']) state[id] = $(id).value
+  try { localStorage.setItem(KEY, JSON.stringify(state)) } catch { /* sheet still works; export before closing */ }
+}
+function load() {
+  try { const raw = localStorage.getItem(KEY); if (raw) state = { ...state, ...JSON.parse(raw) } } catch {}
+  for (const id of ['code', 'date', 'facilitator', 'github', 'recording', 'keep', 'at', 'surprise']) if (state[id] !== undefined) $(id).value = state[id]
+  if (!$('date').value) $('date').value = new Date().toISOString().slice(0, 10)
+}
+
+document.addEventListener('input', (e) => {
+  const el = e.target
+  const f = el.closest('fieldset')
+  if (f?.dataset.task) {
+    const t = (state.tasks[f.dataset.task] ||= {}); setCurrent(f.dataset.task)
+    if (el.type === 'radio') t.status = el.value; else if (el.dataset.f) t[el.dataset.f] = el.value
+  } else if (f?.dataset.accept) {
+    const a = (state.accept[f.dataset.accept] ||= {})
+    if (el.type === 'radio') a.value = el.value; else a.evidence = el.value
+  } else if (el.dataset.debrief !== undefined) state.debrief[el.dataset.debrief] = el.value
+  else if (el.dataset.hes !== undefined) state.hesitations[el.dataset.hes].where = el.value
+  if (el.id === 'code') { save(); render(); $('code').focus(); return }
+  save()
+})
+document.addEventListener('focusin', (e) => setCurrent(e.target.closest('fieldset')?.dataset.task))
+document.addEventListener('click', (e) => {
+  const id = e.target.dataset?.timer
+  if (!id) return
+  setCurrent(id)
+  const t = (state.tasks[id] ||= {})
+  if (timers[id]) { clearInterval(timers[id].iv); t.seconds = (t.seconds || 0) + (Date.now() - timers[id].start) / 1000; delete timers[id]; e.target.textContent = 'Start timer'; $(`tm-${id}`).textContent = fmt(t.seconds); save() }
+  else { const start = Date.now(); timers[id] = { start, iv: setInterval(() => { $(`tm-${id}`).textContent = fmt((t.seconds || 0) + (Date.now() - start) / 1000) }, 500) }; e.target.textContent = 'Stop timer' }
+})
+function hesitate() {
+  state.hesitations.push({ at: new Date().toTimeString().slice(0, 8), task: current, where: '' })
+  save(); renderHes(); $('hes').querySelector('li:last-child input')?.focus()
+}
+$('hes-btn').addEventListener('click', hesitate)
+document.addEventListener('keydown', (e) => { if (e.altKey && e.key.toLowerCase() === 'h') { e.preventDefault(); hesitate() } })
+
+function download(name, text, type) {
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000)
+}
+const fileBase = () => `commons-phase5-${$('code').value.trim()}-${$('date').value}`
+/** Exports carry the code in their name and body, so a name must never get that far. */
+const codeOk = () => { const ok = /^P\d+$/.test($('code').value.trim()); if (!ok) { $('code-warn').hidden = false; $('code').focus() } return ok }
+$('export-json').addEventListener('click', () => { if (!codeOk()) return; save(); download(`${fileBase()}.json`, JSON.stringify({ schema: 'commons-phase5-session/1', ...state }, null, 2), 'application/json') })
+$('export-md').addEventListener('click', () => {
+  if (!codeOk()) return
+  save()
+  const s = state, L = []
+  L.push(`# Session ${s.code || '?'} · ${s.date}`, '', `GitHub use: ${s.github || '—'} · Recording: ${s.recording || '—'} · Contribution: ${s.keep || '—'} · Assistive technology: ${s.at || '—'}`, '')
+  L.push('| Task | Outcome | Time | What they did | Quote |', '| --- | --- | --- | --- | --- |')
+  const cell = (v) => String(v || '').replace(/\|/g, '\\|').replace(/\n/g, ' ')
+  for (const [, id, name] of TASKS) { const t = s.tasks[id] || {}; L.push(`| ${id} ${name} | ${t.status || '—'} | ${t.seconds ? fmt(t.seconds) : '—'} | ${cell(t.notes)} | ${cell(t.quote)} |`) }
+  L.push('', '## Hesitations', ...(s.hesitations.length ? s.hesitations.map((h) => `- ${h.at} · ${h.task || 'no task'} · ${h.where || ''}`) : ['- none logged']))
+  L.push('', '## Acceptance', ...ACCEPT.map(([k, q]) => `- ${q}: **${s.accept[k]?.value || '—'}** ${s.accept[k]?.evidence ? `— ${cell(s.accept[k].evidence)}` : ''}`))
+  L.push('', '## Debrief', ...DEBRIEF.map((q, i) => `- ${q} ${cell(s.debrief[i]) || '—'}`), '', `Surprise: ${s.surprise || '—'}`)
+  download(`${fileBase()}.md`, L.join('\n'), 'text/markdown')
+})
+$('clear').addEventListener('click', () => {
+  if (!confirm('Clear this sheet? Export first if you have not.')) return
+  for (const t of Object.values(timers)) clearInterval(t.iv)
+  try { localStorage.removeItem(KEY) } catch {}
+  location.reload()
+})
+load(); render()
+</script>
+</body>
+</html>
