@@ -41,6 +41,22 @@ npx wrangler@4.45.0 d1 execute phf-commons --local --config wrangler.edge.jsonc 
 npx wrangler@4.45.0 dev --config wrangler.edge.jsonc --var WRITES_ENABLED:true
 ```
 
+Where `wrangler dev` cannot start (observed on the NUC: `uv_interface_addresses` during getLocalHosts, unaffected by `--ip`), serve the same build from the pinned workerd directly. It migrates its own persisted D1 under ignored `.edge-local/` and applies every `.edge-credentials/*.sql`:
+
+```bash
+npm run build:edge
+node scripts/edge/serve-local.mjs 8798
+```
+
+The compatibility date is pinned to `2025-10-11`, the newest date the pinned workerd `1.20251011.0` supports, so local runtime tests and the deployed configuration use the same date. Raise it only together with Wrangler/workerd and rerun the smoke.
+
+Automated checks (no network beyond loopback, isolated temporary storage, cleaned up):
+
+```bash
+npm run smoke:edge                      # real workerd/D1 over HTTP: two contributors, reply, rediscovery, authz, concurrency, rollback, restart persistence, capacity
+EDGE_HARNESS=workerd node test/client/edge-ux.mjs   # two-profile browser journey on real workerd/D1 (needs PLAYWRIGHT_MODULE / CHROMIUM)
+```
+
 Open the local URL; public reading works without a credential. Enter the code to contribute. Generate Bob separately with a different slug and code. Never paste credentials into a repository, logs or issue.
 
 ## Deployment (requires the user's Cloudflare account)
@@ -60,6 +76,13 @@ Revoke a person with `UPDATE contributor_tokens SET revoked = 1 WHERE actor_id =
 Daily limits: 100 mutation requests per contributor and 1,000 globally; failed/preview requests count. Request bodies are streamed with a 32 KiB cap. Budgets do not constitute a billing cap. Credentials expire in 1–30 days. Historical budget rows can be removed by the operator; contributions are retained until deliberate moderation/export/reset. No automatic destructive reset is implemented.
 
 ## Evidence and limitations
+
+Recorded 2026-11-01 on the NUC (Linux, Node 22, workerd 1.20251011.0); full numbers in `apps/commons/scripts/edge/runtime-smoke.results.json` and the run ledger `docs/build/PHF-EDGE-RUN-LEDGER-2026-11-01.md`.
+
+- `npm run smoke:edge` passes repeatedly in real workerd/D1, including disposal and a new runtime on the same D1 directory (document, revision, identities and receipts unchanged; startup import and receipt replays are no-op writes).
+- The two-profile browser journey passes 36 checks on real workerd/D1 across three runtime restarts.
+- **Capacity:** the imported corpus already occupies 219,172 bytes. In the smoke workload the 1 MiB document accepts 83 contributions (1,045,331 bytes); the next write is rejected and rolled back, currently surfacing as HTTP 500 `internal_error`. Treat the release as a small two-person demonstration; normalise storage before wider use.
+- Whole-workerd-process CPU per request (includes D1/runtime; not isolate or billing CPU): search 24–31 ms at baseline and 50–71 ms at 83 contributions; contribute 40–53 ms at baseline and 67–100 ms at the 50th contribution (three runs). Cloudflare free-plan CPU compliance is therefore **not established** and must be measured on a deployment.
 
 - Local SQLite tests exercise the exact migration and SQL batch, real Commons validation, duplicate/concurrent writes, rollback, identity/revocation and two-user HTTP reply/rediscovery after service reconstruction.
 - Typecheck and the edge frontend build must pass. Wrangler dry-run must bundle the Worker.

@@ -1,0 +1,39 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "finding-commons-workerd-persistence-2026-11-01",
+  "kind": "finding",
+  "title": "Real workerd persistence passes; bounded document reaches capacity in the smoke workload",
+  "statement": "Two clean runtime smoke runs pass HTTP contribution/reply/rediscovery, authorization boundaries, concurrency, failed-commit rollback and persistence across disposal and a new Miniflare instance. The repeated-observation fixture reaches 83 contributions at 1045331 bytes and rejects the next write without state loss; 200 contributions cannot be measured under the unchanged 1 MiB cap. Retry detection was narrowed to the named CHECK-failure message.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T21:59:09.210098+00:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "473adcfed1b07ed90fc752f9c7c952b309012c65",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "apps/commons/scripts/edge/runtime-smoke.mjs"
+    },
+    {
+      "path": "apps/commons/scripts/edge/runtime-smoke.results.json"
+    },
+    {
+      "path": "apps/commons/server/test/commons/edge.test.ts"
+    },
+    {
+      "path": "apps/commons/worker/edge/d1-repository.ts"
+    }
+  ],
+  "conditions": [
+    "Local Linux workerd/D1 only; not deployed verification.",
+    "CPU and RSS are whole-workerd-process measurements including D1/runtime, not isolate or billing measurements.",
+    "83 is specific to this corpus and repeated-observation workload with generated proposals and durable receipts; not a general contribution count limit.",
+    "No cap increase or schema rewrite; capacity rejection currently appears as HTTP 500 internal_error.",
+    "The context packet cutoff 93a5445150d0 is an ancestor of the task baseline, not current state."
+  ],
+  "proposed_change": "none"
+}
