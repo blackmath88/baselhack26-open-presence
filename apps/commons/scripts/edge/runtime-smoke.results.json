@@ -1,0 +1,274 @@
+{
+  "schema": "commons.edge-runtime-smoke-report/v1",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "recordedAt": "2026-11-01T21:59:09.210098+00:00",
+  "baselineCommit": "473adcfed1b07ed90fc752f9c7c952b309012c65",
+  "adapterCommit": "a2fa8a9bdb56fa36f119d4e207eb063d1cb18bcc",
+  "packetId": "cp_7cdc6f026054f6d6650d202f",
+  "versions": {
+    "node": "26.8.1",
+    "wrangler": "4.45.0",
+    "miniflare": "4.20251011.1",
+    "workerd": "1.20251011.0"
+  },
+  "commands": {
+    "install": "cd apps/commons && npm ci --offline --no-audit --no-fund",
+    "smokeFromRepositoryRoot": "node apps/commons/scripts/edge/runtime-smoke.mjs",
+    "smokeFromApp": "node scripts/edge/runtime-smoke.mjs",
+    "edgeTestsFromApp": "node node_modules/vitest/vitest.mjs run server/test/commons/edge.test.ts"
+  },
+  "result": {
+    "consecutiveCleanSmokeRuns": 2,
+    "edgeTestsPassed": 10,
+    "edgeTestsFailed": 0,
+    "build": "Each smoke runs npm run build:edge (all three TypeScript checks and Vite), then pinned Wrangler deploy --dry-run --outdir before starting Miniflare.",
+    "temporaryStorage": "Unique mkdtemp directory per run; runtime disposed and directory removed in finally on success or failure."
+  },
+  "coordinatorEdits": {
+    "packageJsonScript": "\"smoke:edge\": \"node scripts/edge/runtime-smoke.mjs\"",
+    "wranglerConfig": "\"compatibility_date\": \"2025-10-11\"",
+    "compatibilityEvidence": "Installed workerd exports compatibilityDate=2025-10-11 and its executable prints workerd 2025-10-11; Miniflare validateCompatibilityDate clamps a later requested date to this value. Smoke asserts this pin and ran at this date.",
+    "observstory": "Copy the proposalForCoordinator object below into .observstory/proposals/finding-commons-workerd-persistence-2026-11-01.json; this worker did not modify coordinator-owned paths or create a review."
+  },
+  "coverage": [
+    "Two independent random 32-byte bearer credentials stored as SHA-256 hashes; no codes printed or written.",
+    "Anonymous search and contribution/thread reads rediscover Alice and Bob with correct identity/displayName and public visibility preview.",
+    "Ordinary contributor review 403; missing credential 401; public reader write 403; revoked and expired credentials 401 for both sign-in and mutation.",
+    "Eleven legacy/publication/sync/resolve POST paths return 404 without modifying Commons state.",
+    "Four identical simultaneous commands yield one new result and three replays; changed payload with that ID returns 409.",
+    "Six distinct simultaneous commands all persist exactly once.",
+    "A D1 trigger fails the final guard-delete statement after the document update; state/revision, events, metadata and receipts roll back and the guard table is empty; retry succeeds after removing trigger.",
+    "Dispose the runtime, construct new Miniflare on the same D1 path, compare the persisted document and identity rows, rediscover both users anonymously and replay both original receipts without changing the revision.",
+    "Four simultaneous first HTTP reads exercise startup import; a separate SQLite test races two independently built import services and verifies one revision and unchanged repeat import."
+  ],
+  "review": {
+    "atomicity": "Real D1 batch rollback verified at the final statement; stale CHECK retries observed through HTTP concurrency.",
+    "retryBound": "Eight attempts retained and tested; focused fix requires CHECK constraint failed: commons_revision_matches rather than any occurrence of the constraint name.",
+    "ambiguousCommit": "Unknown failures propagate without retry; unit test commits then throws and proves the next same-ID request recovers the durable receipt with exactly one contribution.",
+    "callbackEffects": "Callbacks may be replayed; current edge path uses nullCurator and local deterministic curation plus IDs/timestamps, without external network side effects.",
+    "noOpReads": "Anonymous search, startup reimport and receipt replay leave the document and revision unchanged.",
+    "capacity": "UTF-8 byte count tested including multibyte text, exactly 1048576 bytes accepted, one byte more rejected before batch. Real-runtime growth stops on capacity without raising the cap.",
+    "routes": "POST allowlist is enforced before legacy API dispatch; other mutation methods are rejected. Auth/session and participants exceptions do not mutate Commons data."
+  },
+  "measurementNotes": [
+    "Each row is one sampled request, not a distribution or benchmark guarantee; wall time includes localhost HTTP and body consumption.",
+    "CPU uses the difference in summed /proc/<workerd-pid>/task/*/schedstat CPU nanoseconds; this is a process fallback because the deployed-style fetch interface exposes no per-request isolate CPU counter.",
+    "RSS is /proc/<workerd-pid>/status VmRSS in KiB, including the complete local runtime and D1.",
+    "The growth fixture resets only its temporary write_budgets rows to separate document capacity from the 100-per-contributor daily budget. No production limits are changed.",
+    "The two runs target 50 and 200 contributions; the fixture hits capacity at 83 in both, so the final samples are at 83 and no 200-contribution timing is claimed.",
+    "No free-tier compliance, Cloudflare account, deployed D1 latency or live-browser claim."
+  ],
+  "runs": [
+    {
+      "run": 1,
+      "result": "PASS",
+      "compatibilityDate": "2025-10-11",
+      "cpuScope": "Linux /proc workerd all-thread scheduled CPU (includes D1/runtime; not isolate CPU)",
+      "sizes": [
+        {
+          "contributions": 0,
+          "documentBytes": 219172,
+          "workerdProcessRssKiB": 94764
+        },
+        {
+          "contributions": 50,
+          "documentBytes": 669698,
+          "workerdProcessRssKiB": 227088
+        },
+        {
+          "contributions": 83,
+          "documentBytes": 1045331,
+          "workerdProcessRssKiB": 412628
+        }
+      ],
+      "capacity": {
+        "acceptedContributions": 83,
+        "documentBytes": 1045331,
+        "nextContributionStatus": 500,
+        "unavailableTarget": 200
+      },
+      "timings": [
+        {
+          "label": "baseline search",
+          "status": 200,
+          "wallMs": 74.859,
+          "workerdProcessCpuMs": 29.292
+        },
+        {
+          "label": "baseline contribute",
+          "status": 201,
+          "wallMs": 120.222,
+          "workerdProcessCpuMs": 52.757
+        },
+        {
+          "label": "contribution 50",
+          "status": 201,
+          "wallMs": 149.842,
+          "workerdProcessCpuMs": 100.391
+        },
+        {
+          "label": "after 50 search",
+          "status": 200,
+          "wallMs": 96.643,
+          "workerdProcessCpuMs": 79.989
+        },
+        {
+          "label": "after 50 replay",
+          "status": 200,
+          "wallMs": 105.456,
+          "workerdProcessCpuMs": 52.421
+        },
+        {
+          "label": "after 83 search",
+          "status": 200,
+          "wallMs": 120.086,
+          "workerdProcessCpuMs": 70.7
+        },
+        {
+          "label": "after 83 replay",
+          "status": 200,
+          "wallMs": 136.901,
+          "workerdProcessCpuMs": 77.976
+        }
+      ]
+    },
+    {
+      "run": 2,
+      "result": "PASS",
+      "compatibilityDate": "2025-10-11",
+      "cpuScope": "Linux /proc workerd all-thread scheduled CPU (includes D1/runtime; not isolate CPU)",
+      "sizes": [
+        {
+          "contributions": 0,
+          "documentBytes": 219172,
+          "workerdProcessRssKiB": 99092
+        },
+        {
+          "contributions": 50,
+          "documentBytes": 669698,
+          "workerdProcessRssKiB": 262464
+        },
+        {
+          "contributions": 83,
+          "documentBytes": 1045331,
+          "workerdProcessRssKiB": 436796
+        }
+      ],
+      "capacity": {
+        "acceptedContributions": 83,
+        "documentBytes": 1045331,
+        "nextContributionStatus": 500,
+        "unavailableTarget": 200
+      },
+      "timings": [
+        {
+          "label": "baseline search",
+          "status": 200,
+          "wallMs": 28.494,
+          "workerdProcessCpuMs": 23.555
+        },
+        {
+          "label": "baseline contribute",
+          "status": 201,
+          "wallMs": 55.05,
+          "workerdProcessCpuMs": 47.49
+        },
+        {
+          "label": "contribution 50",
+          "status": 201,
+          "wallMs": 82.052,
+          "workerdProcessCpuMs": 77.395
+        },
+        {
+          "label": "after 50 search",
+          "status": 200,
+          "wallMs": 37.54,
+          "workerdProcessCpuMs": 33.609
+        },
+        {
+          "label": "after 50 replay",
+          "status": 200,
+          "wallMs": 42.114,
+          "workerdProcessCpuMs": 38.706
+        },
+        {
+          "label": "after 83 search",
+          "status": 200,
+          "wallMs": 69.729,
+          "workerdProcessCpuMs": 62.078
+        },
+        {
+          "label": "after 83 replay",
+          "status": 200,
+          "wallMs": 70.638,
+          "workerdProcessCpuMs": 64.724
+        }
+      ]
+    }
+  ],
+  "expectedFailureMessagesVerbatim": [
+    "[commons] unhandled route error: Error: D1_ERROR: smoke_forced_commit_failure: SQLITE_CONSTRAINT",
+    "[commons] unhandled route error: Error: Demo capacity reached; export and migrate projections before adding data."
+  ],
+  "resolvedHarnessFailures": [
+    {
+      "failure": "AssertionError [ERR_ASSERTION]: /api/commons/contributions: expected 201, received 500",
+      "resolution": "Initial growth assumed 200 would fit; smoke now asserts capacity rejection preserves state and reports the last accepted count."
+    },
+    {
+      "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+      "resolution": "Initial identity restart assertion compared D1 .all() timing metadata; corrected to compare .results rows only."
+    },
+    {
+      "failure": "The directory specified by the \"assets.directory\" field in your configuration file does not exist:",
+      "resolution": "A preliminary standalone Wrangler dry-run was started before the frontend build completed; the reproducible smoke awaits build:edge before bundling."
+    }
+  ],
+  "remaining": [
+    "Coordinator integrates package script/config and Observstory proposal.",
+    "200-contribution measurement requires a future storage redesign or different workload, not a cap increase.",
+    "Deployment and real Cloudflare CPU/latency validation remain outside this task."
+  ],
+  "proposalForCoordinator": {
+    "schema": "observstory.proposal/v1",
+    "id": "finding-commons-workerd-persistence-2026-11-01",
+    "kind": "finding",
+    "title": "Real workerd persistence passes; bounded document reaches capacity in the smoke workload",
+    "statement": "Two clean runtime smoke runs pass HTTP contribution/reply/rediscovery, authorization boundaries, concurrency, failed-commit rollback and persistence across disposal and a new Miniflare instance. The repeated-observation fixture reaches 83 contributions at 1045331 bytes and rejects the next write without state loss; 200 contributions cannot be measured under the unchanged 1 MiB cap. Retry detection was narrowed to the named CHECK-failure message.",
+    "author": {
+      "name": "Codex",
+      "kind": "assistant"
+    },
+    "submitted_at": "2026-11-01T21:59:09.210098+00:00",
+    "base": {
+      "repository": "blackmath88/baselhack26-open-presence",
+      "commit": "473adcfed1b07ed90fc752f9c7c952b309012c65",
+      "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+    },
+    "evidence": [
+      {
+        "path": "apps/commons/scripts/edge/runtime-smoke.mjs"
+      },
+      {
+        "path": "apps/commons/scripts/edge/runtime-smoke.results.json"
+      },
+      {
+        "path": "apps/commons/server/test/commons/edge.test.ts"
+      },
+      {
+        "path": "apps/commons/worker/edge/d1-repository.ts"
+      }
+    ],
+    "conditions": [
+      "Local Linux workerd/D1 only; not deployed verification.",
+      "CPU and RSS are whole-workerd-process measurements including D1/runtime, not isolate or billing measurements.",
+      "83 is specific to this corpus and repeated-observation workload with generated proposals and durable receipts; not a general contribution count limit.",
+      "No cap increase or schema rewrite; capacity rejection currently appears as HTTP 500 internal_error.",
+      "The context packet cutoff 93a5445150d0 is an ancestor of the task baseline, not current state."
+    ],
+    "proposed_change": "none"
+  }
+}

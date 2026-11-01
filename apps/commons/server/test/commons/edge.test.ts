@@ -41,6 +41,16 @@ describe('D1 command parity', () => {
     expect(results[0].contribution.id).toBe(results[1].contribution.id)
     await expect(b.submitContribution(actor, { ...submission, text: 'changed' })).rejects.toMatchObject({ code: 'conflict' })
   })
+  it('imports the same source snapshot concurrently once and leaves repeat imports unchanged', async () => {
+    const { db, sqlite } = database()
+    const a = createCommonsService({ repository: createD1Repository(db) })
+    const b = createCommonsService({ repository: createD1Repository(db) })
+    await Promise.all([a.importProblems(actor, sources), b.importProblems(actor, sources)])
+    const committed = sqlite.prepare('SELECT revision, document FROM commons_state').get()
+    expect(committed?.revision).toBe(1)
+    await createCommonsService({ repository: createD1Repository(db) }).importProblems(actor, sources)
+    expect(sqlite.prepare('SELECT revision, document FROM commons_state').get()).toEqual(committed)
+  })
   it('preserves independent simultaneous writes, rollback and restart state', async () => {
     const { db } = database()
     const a = createD1Repository(db), b = createD1Repository(db)
