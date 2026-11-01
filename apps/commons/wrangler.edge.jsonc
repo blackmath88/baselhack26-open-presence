@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "phf-commons", "main": "worker/edge/index.ts",
-  "compatibility_date": "2026-09-07", "compatibility_flags": ["nodejs_compat"],
+  "compatibility_date": "2025-10-11", "compatibility_flags": ["nodejs_compat"],
   "d1_databases": [{ "binding": "DB", "database_name": "phf-commons", "database_id": "REPLACE_WITH_CREATED_DATABASE_ID", "migrations_dir": "worker/edge/migrations" }],
   "vars": { "WRITES_ENABLED": "false" },
   "assets": { "directory": "./dist", "binding": "ASSETS", "not_found_handling": "single-page-application", "run_worker_first": ["/api/*", "/health", "/mcp*"] }
