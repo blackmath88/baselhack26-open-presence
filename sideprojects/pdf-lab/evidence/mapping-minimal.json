@@ -1,0 +1,608 @@
+{
+  "kind": "minimized-mapping-observation",
+  "date": "2026-10-31",
+  "versions": {
+    "ghostscript": "10.08.0",
+    "mupdf": "1.26.11",
+    "pymupdf": "1.26.6",
+    "poppler": "pdftotext version 26.08.0"
+  },
+  "limits": {
+    "wall_seconds": 10,
+    "cpu_seconds": 8,
+    "memory_MiB": 768,
+    "output_MiB": 4
+  },
+  "settings": {
+    "dpi": 72,
+    "SOURCE_DATE_EPOCH": "1793473800",
+    "source_code": "41",
+    "glyph_name": "mark"
+  },
+  "checks": {
+    "existing_31_pdfs_preserved": true,
+    "source_only_cmap_object_changes": true,
+    "source_extraction_matches_both_engines": true
+  },
+  "rewrite_all_byte_identical": false,
+  "rows": [
+    {
+      "case": "identity",
+      "mapping": "A",
+      "source_sha256": "6904c5cf7cd7d4dd321ce7507e5d42e6eb4b0bf86513676b63ac9387c8f170a0",
+      "rewrite_run": {
+        "command": [
+          "gs",
+          "-q",
+          "-dSAFER",
+          "-dBATCH",
+          "-dNOPAUSE",
+          "-sDEVICE=pdfwrite",
+          "-dCompatibilityLevel=1.7",
+          "-dAutoRotatePages=/None",
+          "-dOmitInfoDate=true",
+          "-dOmitID=true",
+          "-sOutputFile=/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/identity-rewrite.pdf",
+          "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/identity-source.pdf"
+        ],
+        "state": "accepted",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "states": {
+        "source": {
+          "file": "output/mapping-minimal/identity-source.pdf",
+          "bytes": 1368,
+          "sha256": "6904c5cf7cd7d4dd321ce7507e5d42e6eb4b0bf86513676b63ac9387c8f170a0",
+          "structure": {
+            "pages": 1,
+            "fonts": [
+              {
+                "key": "/G",
+                "subtype": "/Type3",
+                "has_tounicode": true,
+                "glyph_count": 1,
+                "tounicode_sha256": "ad140c818de88c2ca1825f44932f62828a4af3b34fa746a9a9cbd64ae6cdbd4c",
+                "tounicode_stream": "/CIDInit /ProcSet findresource begin\n12 dict begin\nbegincmap\n/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def\n/CMapName /Minimal def\n/CMapType 2 def\n1 begincodespacerange\n<00> <FF>\nendcodespacerange\n1 beginbfchar\n<41> <0041>\nendbfchar\nendcmap\nCMapName currentdict /CMap defineresource pop\nend\nend"
+              }
+            ],
+            "has_annotations": false,
+            "has_open_action": false
+          },
+          "mupdf": {
+            "command": [
+              "/tmp/pdf-nuc-check/bin/python",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+              "--worker",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/identity-source.pdf",
+              "/tmp/tmp7c25gdap/m.png"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "{\"text\": \"A\\n\", \"pixels_sha256\": \"cf60e9fdcb7fa097930733abed1d70bf659bf4e476aef39ced056887d7055d55\", \"width\": 200, \"height\": 200, \"repaired\": false}\n",
+            "stderr": "",
+            "observation": {
+              "text": "A\n",
+              "pixels_sha256": "cf60e9fdcb7fa097930733abed1d70bf659bf4e476aef39ced056887d7055d55",
+              "width": 200,
+              "height": 200,
+              "repaired": false
+            }
+          },
+          "poppler": {
+            "command": [
+              "pdftotext",
+              "-layout",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/identity-source.pdf",
+              "-"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "A\n\f",
+            "stderr": ""
+          },
+          "poppler_render": {
+            "command": [
+              "pdftoppm",
+              "-r",
+              "72",
+              "-singlefile",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/identity-source.pdf",
+              "/tmp/tmp7c25gdap/p"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "render_observations": {
+            "mupdf": {
+              "pixels_sha256": "cf60e9fdcb7fa097930733abed1d70bf659bf4e476aef39ced056887d7055d55",
+              "changed_pixels": 0,
+              "total_pixels": 40000,
+              "max_channel_error": 0,
+              "mean_absolute_channel_error": 0.0
+            },
+            "poppler": {
+              "pixels_sha256": "72e99d7fc5cc4ee17c24ada39494a244b1f82c4cf539040fed1a302b4e087f1e",
+              "changed_pixels": 0,
+              "total_pixels": 40000,
+              "max_channel_error": 0,
+              "mean_absolute_channel_error": 0.0
+            }
+          }
+        },
+        "rewrite": {
+          "file": "output/mapping-minimal/identity-rewrite.pdf",
+          "bytes": 3001,
+          "sha256": "f0ac270a0e69c970645590567b19097a3443ad1a82208c5643d2a224127f7dfb",
+          "structure": {
+            "pages": 1,
+            "fonts": [
+              {
+                "key": "/R11",
+                "subtype": "/Type3",
+                "has_tounicode": true,
+                "glyph_count": 1,
+                "tounicode_sha256": "fcee022b9ec13c7c3f1176b1eb32f2bc14933433f6deaf655acf9de4b12c055f",
+                "tounicode_stream": "/CIDInit /ProcSet findresource begin\n12 dict begin\nbegincmap\n/CMapType 2 def\n/CMapName/R14 def\n1 begincodespacerange\n<00><ff>\nendcodespacerange\n1 beginbfrange\n<41><41><0041>\nendbfrange\nendcmap\nCMapName currentdict /CMap defineresource pop\nend end\n"
+              }
+            ],
+            "has_annotations": false,
+            "has_open_action": false
+          },
+          "mupdf": {
+            "command": [
+              "/tmp/pdf-nuc-check/bin/python",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+              "--worker",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/identity-rewrite.pdf",
+              "/tmp/tmp7c25gdap/m.png"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "{\"text\": \"A\\n\", \"pixels_sha256\": \"c135fa6125d79062d3d1586ea91517c9b0773f37f5cd0951e652e3fe69788f68\", \"width\": 200, \"height\": 200, \"repaired\": false}\n",
+            "stderr": "",
+            "observation": {
+              "text": "A\n",
+              "pixels_sha256": "c135fa6125d79062d3d1586ea91517c9b0773f37f5cd0951e652e3fe69788f68",
+              "width": 200,
+              "height": 200,
+              "repaired": false
+            }
+          },
+          "poppler": {
+            "command": [
+              "pdftotext",
+              "-layout",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/identity-rewrite.pdf",
+              "-"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "A\n\f",
+            "stderr": ""
+          },
+          "poppler_render": {
+            "command": [
+              "pdftoppm",
+              "-r",
+              "72",
+              "-singlefile",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/identity-rewrite.pdf",
+              "/tmp/tmp7c25gdap/p"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "render_observations": {
+            "mupdf": {
+              "pixels_sha256": "c135fa6125d79062d3d1586ea91517c9b0773f37f5cd0951e652e3fe69788f68",
+              "changed_pixels": 16512,
+              "total_pixels": 40000,
+              "max_channel_error": 16,
+              "mean_absolute_channel_error": 0.17613333333333334
+            },
+            "poppler": {
+              "pixels_sha256": "d12708f075609cefb7a793409970f35098bdcd0b813946b7b5397209f1076ad3",
+              "changed_pixels": 15600,
+              "total_pixels": 40000,
+              "max_channel_error": 1,
+              "mean_absolute_channel_error": 0.13
+            }
+          }
+        }
+      }
+    },
+    {
+      "case": "single",
+      "mapping": "Z",
+      "source_sha256": "3c3cdd28934313f99d8063ce4ed9ac03540fae6f26cce981347845f9f9ec225d",
+      "rewrite_run": {
+        "command": [
+          "gs",
+          "-q",
+          "-dSAFER",
+          "-dBATCH",
+          "-dNOPAUSE",
+          "-sDEVICE=pdfwrite",
+          "-dCompatibilityLevel=1.7",
+          "-dAutoRotatePages=/None",
+          "-dOmitInfoDate=true",
+          "-dOmitID=true",
+          "-sOutputFile=/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/single-rewrite.pdf",
+          "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/single-source.pdf"
+        ],
+        "state": "accepted",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "states": {
+        "source": {
+          "file": "output/mapping-minimal/single-source.pdf",
+          "bytes": 1368,
+          "sha256": "3c3cdd28934313f99d8063ce4ed9ac03540fae6f26cce981347845f9f9ec225d",
+          "structure": {
+            "pages": 1,
+            "fonts": [
+              {
+                "key": "/G",
+                "subtype": "/Type3",
+                "has_tounicode": true,
+                "glyph_count": 1,
+                "tounicode_sha256": "6e7e41ffe3cfa1dc2094935604fba88b468dbe2e9cda0210c674ee2807536a98",
+                "tounicode_stream": "/CIDInit /ProcSet findresource begin\n12 dict begin\nbegincmap\n/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def\n/CMapName /Minimal def\n/CMapType 2 def\n1 begincodespacerange\n<00> <FF>\nendcodespacerange\n1 beginbfchar\n<41> <005A>\nendbfchar\nendcmap\nCMapName currentdict /CMap defineresource pop\nend\nend"
+              }
+            ],
+            "has_annotations": false,
+            "has_open_action": false
+          },
+          "mupdf": {
+            "command": [
+              "/tmp/pdf-nuc-check/bin/python",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+              "--worker",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/single-source.pdf",
+              "/tmp/tmp7c25gdap/m.png"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "{\"text\": \"Z\\n\", \"pixels_sha256\": \"cf60e9fdcb7fa097930733abed1d70bf659bf4e476aef39ced056887d7055d55\", \"width\": 200, \"height\": 200, \"repaired\": false}\n",
+            "stderr": "",
+            "observation": {
+              "text": "Z\n",
+              "pixels_sha256": "cf60e9fdcb7fa097930733abed1d70bf659bf4e476aef39ced056887d7055d55",
+              "width": 200,
+              "height": 200,
+              "repaired": false
+            }
+          },
+          "poppler": {
+            "command": [
+              "pdftotext",
+              "-layout",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/single-source.pdf",
+              "-"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "Z\n\f",
+            "stderr": ""
+          },
+          "poppler_render": {
+            "command": [
+              "pdftoppm",
+              "-r",
+              "72",
+              "-singlefile",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/single-source.pdf",
+              "/tmp/tmp7c25gdap/p"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "render_observations": {
+            "mupdf": {
+              "pixels_sha256": "cf60e9fdcb7fa097930733abed1d70bf659bf4e476aef39ced056887d7055d55",
+              "changed_pixels": 0,
+              "total_pixels": 40000,
+              "max_channel_error": 0,
+              "mean_absolute_channel_error": 0.0
+            },
+            "poppler": {
+              "pixels_sha256": "72e99d7fc5cc4ee17c24ada39494a244b1f82c4cf539040fed1a302b4e087f1e",
+              "changed_pixels": 0,
+              "total_pixels": 40000,
+              "max_channel_error": 0,
+              "mean_absolute_channel_error": 0.0
+            }
+          }
+        },
+        "rewrite": {
+          "file": "output/mapping-minimal/single-rewrite.pdf",
+          "bytes": 3001,
+          "sha256": "eac82ce53c3a600260025a8dd8c78baab55fa0f1d9e24092360c2ab41e4e8871",
+          "structure": {
+            "pages": 1,
+            "fonts": [
+              {
+                "key": "/R11",
+                "subtype": "/Type3",
+                "has_tounicode": true,
+                "glyph_count": 1,
+                "tounicode_sha256": "dacc3bf526cc7122392cf2aee1cf663285e94fe80be1bbc8b83d14f34bf71360",
+                "tounicode_stream": "/CIDInit /ProcSet findresource begin\n12 dict begin\nbegincmap\n/CMapType 2 def\n/CMapName/R14 def\n1 begincodespacerange\n<00><ff>\nendcodespacerange\n1 beginbfrange\n<41><41><005a>\nendbfrange\nendcmap\nCMapName currentdict /CMap defineresource pop\nend end\n"
+              }
+            ],
+            "has_annotations": false,
+            "has_open_action": false
+          },
+          "mupdf": {
+            "command": [
+              "/tmp/pdf-nuc-check/bin/python",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+              "--worker",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/single-rewrite.pdf",
+              "/tmp/tmp7c25gdap/m.png"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "{\"text\": \"Z\\n\", \"pixels_sha256\": \"c135fa6125d79062d3d1586ea91517c9b0773f37f5cd0951e652e3fe69788f68\", \"width\": 200, \"height\": 200, \"repaired\": false}\n",
+            "stderr": "",
+            "observation": {
+              "text": "Z\n",
+              "pixels_sha256": "c135fa6125d79062d3d1586ea91517c9b0773f37f5cd0951e652e3fe69788f68",
+              "width": 200,
+              "height": 200,
+              "repaired": false
+            }
+          },
+          "poppler": {
+            "command": [
+              "pdftotext",
+              "-layout",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/single-rewrite.pdf",
+              "-"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "Z\n\f",
+            "stderr": ""
+          },
+          "poppler_render": {
+            "command": [
+              "pdftoppm",
+              "-r",
+              "72",
+              "-singlefile",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/single-rewrite.pdf",
+              "/tmp/tmp7c25gdap/p"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "render_observations": {
+            "mupdf": {
+              "pixels_sha256": "c135fa6125d79062d3d1586ea91517c9b0773f37f5cd0951e652e3fe69788f68",
+              "changed_pixels": 16512,
+              "total_pixels": 40000,
+              "max_channel_error": 16,
+              "mean_absolute_channel_error": 0.17613333333333334
+            },
+            "poppler": {
+              "pixels_sha256": "d12708f075609cefb7a793409970f35098bdcd0b813946b7b5397209f1076ad3",
+              "changed_pixels": 15600,
+              "total_pixels": 40000,
+              "max_channel_error": 1,
+              "mean_absolute_channel_error": 0.13
+            }
+          }
+        }
+      }
+    },
+    {
+      "case": "multiple",
+      "mapping": "SEA",
+      "source_sha256": "f289ac060e6b9f3b84233aa5370f526f3d12602386b7d3c53aead4dfb1064b27",
+      "rewrite_run": {
+        "command": [
+          "gs",
+          "-q",
+          "-dSAFER",
+          "-dBATCH",
+          "-dNOPAUSE",
+          "-sDEVICE=pdfwrite",
+          "-dCompatibilityLevel=1.7",
+          "-dAutoRotatePages=/None",
+          "-dOmitInfoDate=true",
+          "-dOmitID=true",
+          "-sOutputFile=/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/multiple-rewrite.pdf",
+          "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/multiple-source.pdf"
+        ],
+        "state": "accepted",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "states": {
+        "source": {
+          "file": "output/mapping-minimal/multiple-source.pdf",
+          "bytes": 1376,
+          "sha256": "f289ac060e6b9f3b84233aa5370f526f3d12602386b7d3c53aead4dfb1064b27",
+          "structure": {
+            "pages": 1,
+            "fonts": [
+              {
+                "key": "/G",
+                "subtype": "/Type3",
+                "has_tounicode": true,
+                "glyph_count": 1,
+                "tounicode_sha256": "61202558048c7904a6cac0fcb9e808d509da0822d4c77f7b10122293ca588970",
+                "tounicode_stream": "/CIDInit /ProcSet findresource begin\n12 dict begin\nbegincmap\n/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def\n/CMapName /Minimal def\n/CMapType 2 def\n1 begincodespacerange\n<00> <FF>\nendcodespacerange\n1 beginbfchar\n<41> <005300450041>\nendbfchar\nendcmap\nCMapName currentdict /CMap defineresource pop\nend\nend"
+              }
+            ],
+            "has_annotations": false,
+            "has_open_action": false
+          },
+          "mupdf": {
+            "command": [
+              "/tmp/pdf-nuc-check/bin/python",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+              "--worker",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/multiple-source.pdf",
+              "/tmp/tmp7c25gdap/m.png"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "{\"text\": \"SEA\\n\", \"pixels_sha256\": \"cf60e9fdcb7fa097930733abed1d70bf659bf4e476aef39ced056887d7055d55\", \"width\": 200, \"height\": 200, \"repaired\": false}\n",
+            "stderr": "",
+            "observation": {
+              "text": "SEA\n",
+              "pixels_sha256": "cf60e9fdcb7fa097930733abed1d70bf659bf4e476aef39ced056887d7055d55",
+              "width": 200,
+              "height": 200,
+              "repaired": false
+            }
+          },
+          "poppler": {
+            "command": [
+              "pdftotext",
+              "-layout",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/multiple-source.pdf",
+              "-"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "SEA\n\f",
+            "stderr": ""
+          },
+          "poppler_render": {
+            "command": [
+              "pdftoppm",
+              "-r",
+              "72",
+              "-singlefile",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/multiple-source.pdf",
+              "/tmp/tmp7c25gdap/p"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "render_observations": {
+            "mupdf": {
+              "pixels_sha256": "cf60e9fdcb7fa097930733abed1d70bf659bf4e476aef39ced056887d7055d55",
+              "changed_pixels": 0,
+              "total_pixels": 40000,
+              "max_channel_error": 0,
+              "mean_absolute_channel_error": 0.0
+            },
+            "poppler": {
+              "pixels_sha256": "72e99d7fc5cc4ee17c24ada39494a244b1f82c4cf539040fed1a302b4e087f1e",
+              "changed_pixels": 0,
+              "total_pixels": 40000,
+              "max_channel_error": 0,
+              "mean_absolute_channel_error": 0.0
+            }
+          }
+        },
+        "rewrite": {
+          "file": "output/mapping-minimal/multiple-rewrite.pdf",
+          "bytes": 2988,
+          "sha256": "cf2986270047d0196fdb4a7c878bc69dab787d38fac2ddb087862e7d8f4cd1e5",
+          "structure": {
+            "pages": 1,
+            "fonts": [
+              {
+                "key": "/R11",
+                "subtype": "/Type3",
+                "has_tounicode": true,
+                "glyph_count": 1,
+                "tounicode_sha256": "af61ebb0b4811b12870bb35b9d9d3945632f44dcfc07db22bc93fc00702d1afa",
+                "tounicode_stream": "/CIDInit /ProcSet findresource begin\n12 dict begin\nbegincmap\n/CMapType 2 def\n/CMapName/R14 def\n1 begincodespacerange\n<00><ff>\nendcodespacerange\nendcmap\nCMapName currentdict /CMap defineresource pop\nend end\n"
+              }
+            ],
+            "has_annotations": false,
+            "has_open_action": false
+          },
+          "mupdf": {
+            "command": [
+              "/tmp/pdf-nuc-check/bin/python",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/check-transforms.py",
+              "--worker",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/multiple-rewrite.pdf",
+              "/tmp/tmp7c25gdap/m.png"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "{\"text\": \"A\\n\", \"pixels_sha256\": \"c135fa6125d79062d3d1586ea91517c9b0773f37f5cd0951e652e3fe69788f68\", \"width\": 200, \"height\": 200, \"repaired\": false}\n",
+            "stderr": "",
+            "observation": {
+              "text": "A\n",
+              "pixels_sha256": "c135fa6125d79062d3d1586ea91517c9b0773f37f5cd0951e652e3fe69788f68",
+              "width": 200,
+              "height": 200,
+              "repaired": false
+            }
+          },
+          "poppler": {
+            "command": [
+              "pdftotext",
+              "-layout",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/multiple-rewrite.pdf",
+              "-"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "A\n\f",
+            "stderr": ""
+          },
+          "poppler_render": {
+            "command": [
+              "pdftoppm",
+              "-r",
+              "72",
+              "-singlefile",
+              "/home/nuc/orca/workspaces/blackmath88__baselhack26-open-presence/nuc-20261031-pdf/sideprojects/pdf-lab/output/mapping-minimal/multiple-rewrite.pdf",
+              "/tmp/tmp7c25gdap/p"
+            ],
+            "state": "accepted",
+            "exit_code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "render_observations": {
+            "mupdf": {
+              "pixels_sha256": "c135fa6125d79062d3d1586ea91517c9b0773f37f5cd0951e652e3fe69788f68",
+              "changed_pixels": 16512,
+              "total_pixels": 40000,
+              "max_channel_error": 16,
+              "mean_absolute_channel_error": 0.17613333333333334
+            },
+            "poppler": {
+              "pixels_sha256": "d12708f075609cefb7a793409970f35098bdcd0b813946b7b5397209f1076ad3",
+              "changed_pixels": 15600,
+              "total_pixels": 40000,
+              "max_channel_error": 1,
+              "mean_absolute_channel_error": 0.13
+            }
+          }
+        }
+      }
+    }
+  ],
+  "not_run": [
+    "other Ghostscript versions/settings",
+    "spec conformance adjudication",
+    "native viewer copy/paste"
+  ]
+}

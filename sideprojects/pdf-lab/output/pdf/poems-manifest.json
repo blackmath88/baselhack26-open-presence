@@ -1,0 +1,22 @@
+[
+  {
+    "file": "01-poem-visible.pdf",
+    "sha256": "d1b7c5f91e16f4981d2b9c5ab7f3663fcc29ef67e997b5982b883c575c1b6c6b",
+    "bytes": 3157
+  },
+  {
+    "file": "01-poem-other.pdf",
+    "sha256": "3cad603f64fdac1684515dbc9bd834562dcaa5449cb3d073af86d76ee6036964",
+    "bytes": 3193
+  },
+  {
+    "file": "01-poem-direct.pdf",
+    "sha256": "10c24cf3cb81ef360bfed3dda21995caa106c797525e828c9b0c8f0966b72b1d",
+    "bytes": 3272
+  },
+  {
+    "file": "01-poem-raster.pdf",
+    "sha256": "d7e48073b03dfa1ece2e5335c22f6957f3352de3444d40429ca4afff6ad3cc36",
+    "bytes": 69711
+  }
+]

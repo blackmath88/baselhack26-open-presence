@@ -1,6 +1,38 @@
 # Working cabinet 003
 31 October 2026. Nine exhibit families, 23 generated PDFs, a local cabinet with live byte inspection, deterministic recipes and recorded observations.
 
+## A01 — two poems, one visible page
+
+A01 adds four specimens to the existing cabinet (27 PDFs total). Open `index.html#poems` for the actual-file selector, mapping reveal and browser control that builds a downloadable PDF from four custom lines. [Recipe and measured limitations](TWO-POEMS.md).
+
+```sh
+python3 lab.py poems
+python3 check-poems.py
+node test-poems.js
+```
+
+This focused route preserves the earlier 23 artifacts. MuPDF 1.26.11 and Poppler 26.08.0 render the two mapped versions identically within each engine and extract the intended different strings. Poppler joins/reorders mapped lines; lineation and native copy/paste remain unqualified. Raster extraction is empty in both engines. A real Chromium workbench smoke downloaded a custom PDF and verified its extraction in both engines and pixel identity in MuPDF. See `evidence/poems-results.json` and `evidence/poems-browser-results.json`. No deployment implied.
+
+## A01 — which poem survives a new file?
+
+```sh
+python3 check-transforms.py
+```
+
+This reads the current A01 fixtures without rebuilding them. Four clone/rewrite derivatives, their own manifest, raw extraction and pixel differences form the [transformation notebook](TRANSFORMATION-NOTEBOOK.md). A pypdf clone preserves the readings and pixels. Ghostscript 10.08.0 pdfwrite collapses both different maps to the same output bytes: both extractors return A–D instead of verse. Poppler pixels remain equal; MuPDF changes 3,043 pixels at 72 dpi. The gallery's `#poem-journey` control selects actual artifacts and measured renders/difference masks, then reveals extraction. Physical printing and native viewer copy/paste remain unrun.
+
+## A01 — minimized mapping loss
+
+```sh
+python3 minimize-mapping.py
+```
+
+[One glyph, three maps](MAPPING-MINIMAL.md) reduces the rewrite observation to seven-object PDFs. Ghostscript 10.08.0 preserves the A and nonidentity Z controls, while SEA becomes A in both extractors. Raw source/output CMaps and two-engine render measurements are recorded separately; six small experimental PDFs live in `output/mapping-minimal/`. Existing cabinet and transformation artifacts are unchanged. Open the minimization drawer in `#poem-journey`. This is a bounded observation, not a universal mapping-length rule or bug verdict.
+
+## A01 — pinned source audit
+
+`audit-mapping.py --source-dir /path/to/pinned/files` checks the already recorded minimized results against hashes and a byte-length path from upstream Ghostscript 10.08.0 source. It does not run a PDF tool. See [download recipe and confidence limits](MAPPING-SOURCE-AUDIT.md). The notebook's minimization drawer shows the inferred byte gate beside observed CMap entries. This is static inference matched to observations, not binary tracing or a universal character-count limit.
+
 ## Start here
 From `sideprojects/pdf-lab`:
 

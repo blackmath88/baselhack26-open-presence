@@ -5,3 +5,19 @@
 .layer-switches{gap:2rem;padding:1rem}.layer-switches label{font-size:1.4rem;cursor:pointer}.layer-switches input{width:1.3rem;height:1.3rem;accent-color:#08764f}
 .bitmap-circuit{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin:2rem 0}.bitmap-circuit section{min-width:0}.bitmap-circuit h3{font:600 .9rem monospace;min-height:2.5em}.bits{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;max-width:220px}.bit{display:grid;place-items:center;aspect-ratio:1;border:1px solid #c7d2e2;background:#e6ebf2;color:#35435a;font:600 1rem monospace;padding:0;min-width:0;border-radius:3px}.bit.on{background:#08764f;color:white}.bits button{cursor:pointer}.bits button:hover{outline:2px solid #3264e8}.bits button:focus-visible{outline:3px solid #ff7a18;outline-offset:2px}
 @media(max-width:800px){.render-comparison{grid-template-columns:1fr}.render-comparison figure{max-width:520px}.bitmap-circuit{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+#poems select { display: block; max-width: 100%; margin: .6rem 0 1rem; padding: .7rem; font: inherit; }
+#poem-status { overflow-wrap: anywhere; }
+#poem-extraction { max-height: 32rem; overflow: auto; white-space: pre-wrap; }
+#poem-bend label { display: block; margin: .5rem 0; }
+#poem-bend input { display: block; box-sizing: border-box; width: 100%; padding: .5rem; font: inherit; }
+.journey-controls { display: flex; flex-wrap: wrap; gap: 1rem; align-items: end; }
+.journey-controls label { font-size: .9rem; }
+.journey-controls select { display: block; max-width: 100%; padding: .6rem; margin-top: .3rem; }
+.journey-renders { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+#journey-hashes { overflow-wrap: anywhere; }
+#journey-extraction { max-height: 28rem; overflow: auto; }
+@media(max-width:600px) { .journey-renders { grid-template-columns: 1fr; } }
+.minimal-renders { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0; }
+.minimal-renders figure { width: 228px; max-width: 100%; }
+#minimal-cmaps { max-height: 32rem; overflow: auto; }

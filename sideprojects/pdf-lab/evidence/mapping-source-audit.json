@@ -1,0 +1,101 @@
+{
+  "kind": "static-source-inference-matched-to-observation",
+  "date": "2026-10-31",
+  "source_tag": "ghostpdl-10.08.0",
+  "source_commit": "05631c2cba4e578fdd6bd25cae6f0939436de848",
+  "sources": [
+    {
+      "path": "pdf/pdf_font3.c",
+      "sha256": "4956cb69af72b7fc177384503e9cc8696cf43dc12df3ba146b6877415d3230a5",
+      "lines": [
+        140,
+        157
+      ],
+      "url": "https://github.com/ArtifexSoftware/ghostpdl/blob/05631c2cba4e578fdd6bd25cae6f0939436de848/pdf/pdf_font3.c#L140-L157"
+    },
+    {
+      "path": "pdf/pdf_font.c",
+      "sha256": "454fe1a098debe96a044bd1b6a5e1baa4726c4935a807b1826aeb64e782041db",
+      "lines": [
+        2036,
+        2245
+      ],
+      "url": "https://github.com/ArtifexSoftware/ghostpdl/blob/05631c2cba4e578fdd6bd25cae6f0939436de848/pdf/pdf_font.c#L2036-L2245"
+    },
+    {
+      "path": "devices/vector/gdevpdte.c",
+      "sha256": "d072783e12e0373ef049b345cf194027f1696129fec921efa4f40dd0f7ea69d7",
+      "lines": [
+        319,
+        443
+      ],
+      "url": "https://github.com/ArtifexSoftware/ghostpdl/blob/05631c2cba4e578fdd6bd25cae6f0939436de848/devices/vector/gdevpdte.c#L319-L443"
+    },
+    {
+      "path": "devices/vector/gdevpdtw.c",
+      "sha256": "be2dc3666d2d5034634366098e3793d47986eff62e1f9eb291db70f2d65ac87f",
+      "lines": [
+        580,
+        634
+      ],
+      "url": "https://github.com/ArtifexSoftware/ghostpdl/blob/05631c2cba4e578fdd6bd25cae6f0939436de848/devices/vector/gdevpdtw.c#L580-L634"
+    }
+  ],
+  "installed_binary_sha256": "7e51297bc0253e2214fe944d0a7f17577757f7f773ff18a39c6a75514587ad88",
+  "installed_package_observed": "Arch ghostscript 10.08.0-1",
+  "binary_source_relationship": "version-matched; no rebuild/debug trace/build attestation",
+  "measurement_basis": {
+    "file": "evidence/mapping-minimal.json",
+    "sha256": "e730df2c02e3b11bec996eac8c33ac738358a8be00f40dc15259c4584716907d"
+  },
+  "interpretation": "The Type3 decode callback reaches the reader; its four-byte ceiling precedes a simple-font writer gate that adds entries only for decoded byte length <= 2. This static path fits these three measured cases.",
+  "inference_scope": "A, Z, SEA BMP destination strings; simple font with Encoding; no universal Unicode-character-count rule",
+  "checks": {
+    "pinned_source_hashes": true,
+    "existing_artifact_hashes": true,
+    "static_gate_matches_all_three_measured_map_entry_counts": true
+  },
+  "reference": {
+    "url": "https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/pdfreference1.4.pdf#page=389",
+    "section": "5.9, printed pages 369\u2013371",
+    "finding": "ToUnicode supports a character code mapping to a sequence of Unicode values; this does not adjudicate the entire fixture or rewrite conformance."
+  },
+  "rows": [
+    {
+      "case": "identity",
+      "mapping": "A",
+      "input_utf16be_bytes": 2,
+      "inferred_reader_return_bytes": 2,
+      "inferred_writer_accepts_entry": true,
+      "observed_output_map_entries": 1,
+      "observed_mupdf_text": "A",
+      "observed_poppler_text": "A"
+    },
+    {
+      "case": "single",
+      "mapping": "Z",
+      "input_utf16be_bytes": 2,
+      "inferred_reader_return_bytes": 2,
+      "inferred_writer_accepts_entry": true,
+      "observed_output_map_entries": 1,
+      "observed_mupdf_text": "Z",
+      "observed_poppler_text": "Z"
+    },
+    {
+      "case": "multiple",
+      "mapping": "SEA",
+      "input_utf16be_bytes": 6,
+      "inferred_reader_return_bytes": 4,
+      "inferred_writer_accepts_entry": false,
+      "observed_output_map_entries": 0,
+      "observed_mupdf_text": "A",
+      "observed_poppler_text": "A"
+    }
+  ],
+  "not_run": [
+    "instrumented Ghostscript trace",
+    "source rebuild",
+    "other versions or encodings",
+    "whole-document conformance validation"
+  ]
+}
