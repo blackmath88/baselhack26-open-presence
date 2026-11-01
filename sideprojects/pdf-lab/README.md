@@ -1,18 +1,29 @@
 # PDF LAB
-31 October 2026 · BaselHack side project · working cabinet 003
+Updated 1 November 2026 · BaselHack side project · Cabinet 003 + A01
 
 **How far can you bend a document before it becomes something else?**
 
 A cabinet of strange PDFs: pictures made from letters, secret interfaces, visible computers, multiple file identities and readers repairing the same broken bytes.
 
-## New research: alternate readings and experimental interpreters
+## Open the cabinet
 
-[Added exploration track](ALTERNATE-READINGS.md): a poem with a second copy/paste reading, steganographic channel studies, owned-animation playback, interactive geometry and custom readers. Includes the [unaltered supplied report](research/2026-10-31-alternate-readings-supplied.txt), eight prior-work leads and six proposed experiment cards. These are queued investigations; Cabinet 003's measured specimen count is unchanged.
+```bash
+cd sideprojects/pdf-lab
+python3 -m http.server 8000 --bind 127.0.0.1
+```
+
+Open http://127.0.0.1:8000/. The cabinet uses actual generated files and recorded measurements. Regeneration and engine requirements: [RUNNING.md](RUNNING.md).
+
+**On main:** 27 source specimens, four transformation derivatives and a separate minimal-mapping experiment directory. [Two poems](TWO-POEMS.md) implements alternate text readings behind the same visible artwork; [the transformation notebook](TRANSFORMATION-NOTEBOOK.md) compares clone, rewrite and raster outcomes. [Minimal mapping](MAPPING-MINIMAL.md) and [source audit](MAPPING-SOURCE-AUDIT.md) retain the measured limits. Live interactive-viewer qualification remains open for the backstage prototype.
+
+## Research: alternate readings and experimental interpreters
+
+[Added exploration track](ALTERNATE-READINGS.md): a poem with a second copy/paste reading, steganographic channel studies, owned-animation playback, interactive geometry and custom readers. Includes the [unaltered supplied report](research/2026-10-31-alternate-readings-supplied.txt), eight prior-work leads and six proposed experiment cards. The two-poem artwork is implemented; the other experiment cards remain queued. Research leads are not verified compatibility claims.
 
 ## Current direction
 Achim redirected PDF LAB on 31 October towards format bending, reverse engineering and playful format abuse. **Artefacts onstage, evidence backstage.** Start with [the format-bending brief](FORMAT-BENDING.md) and [current build plan](PLAN.md).
 
-Proposed opening: **B01 This picture is one letter → B02 The backstage machine → B03 What did the reader repair?** These replace the earlier extraction-first sequence. The first six exhibit families contain thirteen PDFs: the one-letter maze, backstage prototype, repair bench, real PDF/ZIP polyglot, recoverable revision mystery and print-mode reveal. B02 still awaits live interactive-viewer qualification. Cabinet 003 adds layer logic, a bitmap circuit and a colour calculator: nine exhibit families and 23 PDFs total.
+Proposed opening: **B01 This picture is one letter → B02 The backstage machine → B03 What did the reader repair?** These replace the earlier extraction-first sequence. The first six exhibit families contain thirteen PDFs: the one-letter maze, backstage prototype, repair bench, real PDF/ZIP polyglot, recoverable revision mystery and print-mode reveal. B02 still awaits live interactive-viewer qualification. Cabinet 003 adds layer logic, a bitmap circuit and a colour calculator: nine exhibit families and 23 PDFs before the four A01 source specimens were added.
 
 The following evidence model and P-series are retained as supporting research, not the primary experience. The earlier [research prompt](RESEARCH-PROMPT.md) and [review](RESEARCH-REVIEW-2026-10-31.md) reflect the foundational forensic framing; use FORMAT-BENDING.md for current creative priorities.
 

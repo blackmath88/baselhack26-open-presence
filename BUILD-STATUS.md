@@ -1,3 +1,5 @@
+> **Dated build log.** Current integrated state: [1 November review](docs/reports/REPOSITORY-REVIEW-2026-11-01.md) and [DEMO.md](DEMO.md). Branch names, test counts and next actions below are historical checkpoints, not current open work.
+
 # BUILD-STATUS — Multi-entry Commons (continuation of PR #8)
 
 Branch `feat/commons-multi-entry`, based on `feat/commons-brainstorm-integration` @ `e24838f` (PR #8, still open when this started) · 2026-10-31, 16:08–18:10 CET · single Claude session as coordinator, one forked worker for Packet B (ATProto adapter + local PDS), sequential otherwise. Orca was not used for this slice.

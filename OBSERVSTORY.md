@@ -45,12 +45,10 @@ python3 /path/to/observstory/scripts/observstory.py knowledge brief --artifact /
 Selected files are already public in this repository; the view adds paths, short section excerpts and hashes, nothing private.
 
 ## Project memory
-Every first-parent revision of the selected knowledge is retained by the NUC Project Memory host (Knowledge Lab
-branch `feat/project-memory-mvp`): versions, events, history at any revision, reproducible context packets and
+The Project Memory host is merged on [Knowledge Lab main](https://github.com/blackmath88/baselhack26-knowledge-lab). When synced, it retains every first-parent revision of the selected knowledge: versions, events, history at any revision, reproducible context packets and
 receipts. Findings come back as [proposal files](.observstory/proposals/README.md) and count only after a human
 review record. Dated packets for assistants: [docs/memory](docs/memory/README.md). Assistant rules: [AGENTS.md](AGENTS.md).
-The memory page is served on the NUC (loopback, reach it with an SSH tunnel); it is **not** published to Pages by this
-workflow.
+The memory page is a loopback service (use an SSH tunnel for remote access); verify the installed NUC revision and service status separately. It is **not** published to Pages by this workflow.
 
 ## Pages deployment
 The workflow publishes dashboard output from main, excluding pull-request events. Pages was enabled by the owner on 31 October 2026 while the source repository remained private. The published output includes collected repository activity, planning declarations, file paths and commit titles; source-repository visibility does not restrict access to the published dashboard.
@@ -62,7 +60,9 @@ Open replay.html from the artifact or deployed site. Play/pause, pace and scrub 
 
 Inspired by [Crawler Theatre](https://github.com/blackmath88/accessibility-red-team/tree/main/theatre): recorded events → deterministic state → replay. This is a new file-map UI; no crawler renderer or source code was copied. Playback is opt-in, with no automatic motion.
 
-## Graph events: next integration
+## Historical proposal: graph-event integration
+The Project Memory history/replay contract is now implemented separately; see the [current integration review](docs/reports/REPOSITORY-REVIEW-2026-11-01.md). The following earlier proposal remains a research direction for retrieval-graph exports, not a claim that Project Memory is unimplemented.
+
 Repository history and knowledge growth have distinct meanings. The graph is not connected to this replay yet. Knowledge Lab should emit durable JSONL events at ingestion boundaries: source ingested, node added, relationship proposed, relationship confirmed, correction and removal. Every event needs a stable id, timestamp, run id, subject id, evidence references and producer (code/model/human); producer identity is a declaration, not proof of humanity. Store only export-approved fields; raw prompts and private chat logs do not belong in a public dashboard.
 
 Then expose two replay views over their respective logs: repository files in the Observatory, and evidence-linked nodes/edges in the graph. Replay must apply corrections and removals as well as additions. Label model-proposed edges distinctly from source-declared relationships; counts are activity, not truth or quality. Keep private lab runtime logs outside the public export.

@@ -8,7 +8,7 @@ Required: `id` (slug, = file name), `kind` (`finding` | `proposal`), `title`, `s
 (`name`, `kind`: `human` | `assistant`, optional `via`), `submitted_at`, `base` (`repository`, full `commit`,
 optional `context_packet_id`), `evidence` (records as `record` + `version_id`, or `path`), `conditions`,
 optional `proposed_change` (`none`, `set_status`, `add_link`, `end_link`, `add_record`).
-Schema: [observstory schema/proposal-v1.json](https://github.com/blackmath88/observstory/blob/feat/project-memory-mvp/schema/proposal-v1.json).
+Schema: [observstory schema/proposal-v1.json](https://github.com/blackmath88/observstory/blob/main/schema/proposal-v1.json).
 
 Create one with an Observstory checkout:
 
