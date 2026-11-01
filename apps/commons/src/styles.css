@@ -366,3 +366,20 @@ a{color:var(--accent-ink)}
 .cc-kv .cc-items{margin:0;padding-left:1.1em}
 .cc-outgoing{margin:0;padding:6px 10px;border-left:3px solid currentColor;white-space:pre-wrap}
 #phf-composer{scroll-margin-top:72px}
+/* Phase 4: lineage of a passage or a contribution. */
+.cc-lineage{margin:10px 0 4px;padding:12px;border:1px solid var(--line,#d0d7de);border-radius:8px}
+.cc-lineage h4{margin:0 0 8px}
+.cc-lineage-steps{display:flex;gap:0;margin:0 0 10px;padding:0;list-style:none;counter-reset:none}
+.cc-step{flex:1 1 0;min-width:0;position:relative}
+.cc-step button{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:8px;align-items:center;width:100%;height:100%;padding:8px;text-align:left;font:inherit;background:none;border:1px solid transparent;border-radius:6px;cursor:pointer;color:inherit}
+.cc-step-n{grid-row:1 / span 2;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;border:2px solid currentColor;font-size:12px;font-weight:700}
+.cc-step-label{font-size:13px;font-weight:600;overflow-wrap:anywhere}
+.cc-step-state{font-size:12px}
+.cc-step-absent .cc-step-n{border-style:dashed}
+.cc-step button[aria-current=step]{border-color:currentColor}
+.cc-lineage-stage h5{margin:0 0 6px;font-size:15px}
+.cc-stage-state{font-size:12px;font-weight:600;margin-left:6px}
+.cc-lineage-unknown ul{margin:0;padding-left:1.1em;font-size:13px}
+.cc-lineage-stage+.cc-lineage-stage{margin-top:14px;padding-top:12px;border-top:1px solid var(--line,#d0d7de)}
+.cc-link-button{margin-top:8px;padding:0;background:none;border:0;font:inherit;font-size:13px;text-decoration:underline;cursor:pointer;color:inherit}
+@media (max-width:700px){.cc-lineage-steps{flex-direction:column}.cc-step button{padding:6px 8px}}

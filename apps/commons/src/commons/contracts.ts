@@ -261,8 +261,11 @@ export interface CommandReceipt {
  * result to return to); without them a link is exactly the canonical one.
  */
 export const appLinks = {
-  problem: (problemId: string, query?: string) =>
-    `#/problems/${encodeURIComponent(problemId)}${query ? `?q=${encodeURIComponent(query)}` : ''}`,
+  /** `trace` opens one passage's lineage, optionally at one stage. */
+  problem: (problemId: string, query?: string, trace?: { passage: string; stage?: string }) => {
+    const params = [query && `q=${encodeURIComponent(query)}`, trace && `trace=${encodeURIComponent(trace.passage)}`, trace?.stage && `stage=${encodeURIComponent(trace.stage)}`].filter(Boolean)
+    return `#/problems/${encodeURIComponent(problemId)}${params.length ? `?${params.join('&')}` : ''}`
+  },
   contribution: (contributionId: string) => `#/contributions/${encodeURIComponent(contributionId)}`,
   thread: (contributionId: string) => `#/threads/${encodeURIComponent(contributionId)}`,
   repository: (path = '') => `#/repo${path ? `/${path.split('/').map(encodeURIComponent).join('/')}` : ''}`,

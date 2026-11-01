@@ -13,7 +13,7 @@ export type Route =
   | { view: 'search'; query: string; selected?: string; compare?: string[] }
   | { view: 'compare'; a: string; b: string; query?: string }
   | { view: 'repo'; path: string; object?: string; type?: 'issue' | 'pull' | 'discussion' }
-  | { view: 'problem'; problemId: string; query?: string }
+  | { view: 'problem'; problemId: string; query?: string; trace?: string; stage?: string }
   | { view: 'contribution'; contributionId: string }
   | { view: 'thread'; contributionId: string }
 
@@ -34,7 +34,10 @@ export function parseRoute(hash: string): Route {
     const type = params.get('type')
     return { view: 'repo', path: rest.join('/'), ...(params.get('object') ? { object: params.get('object')! } : {}), ...(type === 'issue' || type === 'pull' || type === 'discussion' ? { type } : {}) }
   }
-  if (head === 'problems' && rest[0]) return { view: 'problem', problemId: rest[0], ...(params.get('q')?.trim() ? { query: params.get('q')!.trim() } : {}) }
+  if (head === 'problems' && rest[0]) {
+    const trace = params.get('trace')?.trim()
+    return { view: 'problem', problemId: rest[0], ...(params.get('q')?.trim() ? { query: params.get('q')!.trim() } : {}), ...(trace ? { trace, ...(params.get('stage') ? { stage: params.get('stage')! } : {}) } : {}) }
+  }
   if (head === 'contributions' && rest[0]) return { view: 'contribution', contributionId: rest[0] }
   if (head === 'threads' && rest[0]) return { view: 'thread', contributionId: rest[0] }
   return { view: 'home' }

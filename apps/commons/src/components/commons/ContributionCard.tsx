@@ -10,6 +10,8 @@ import type { CommonsContribution, ModeratedContribution, SourceRef } from '../.
 import { appLinks, isModerated } from '../../commons/contracts'
 import { commonsApi } from '../../commons/client/api'
 import { PublicationPanel } from './PublicationPanel'
+import { Lineage } from './Lineage'
+import { contributionLineage } from '../../commons/client/lineage'
 
 export const safeHref = (url: string) => (/^https:\/\/github\.com\//.test(url) ? url : undefined)
 
@@ -70,6 +72,7 @@ export function ContributionCard({ c, token, actorId, canReview, onReply, onCorr
 }) {
   const [busy, setBusy] = useState(false)
   const [publishing, setPublishing] = useState(false)
+  const [tracing, setTracing] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const moderate = async (action: 'hide' | 'unhide') => {
     setBusy(true)
@@ -123,7 +126,9 @@ export function ContributionCard({ c, token, actorId, canReview, onReply, onCorr
         {onCorrect && <button className="button" onClick={() => onCorrect(c)}><Pencil size={13} /> Correct</button>}
         {own && <button className="button" aria-expanded={publishing} onClick={() => setPublishing((v) => !v)}><Globe size={13} /> {c.publication && c.publication.status !== 'local' ? 'Publication…' : 'Publish publicly…'}</button>}
         {canReview && <button className="button" disabled={busy} onClick={() => void moderate('hide')}><EyeOff size={13} /> Hide locally</button>}
+        <button className="button" aria-expanded={tracing !== null} onClick={() => setTracing(tracing === null ? 'written' : null)}>How this got here</button>
       </div>
+      {tracing !== null && <Lineage id={`lineage-${c.id}`} title="How this contribution got here" stages={contributionLineage(c)} selected={tracing} onSelect={setTracing} />}
       {publishing && own && <PublicationPanel token={token} contribution={c} onChanged={onChanged} />}
       {error && <div className="banner error" role="alert">{error}</div>}
       {children}
