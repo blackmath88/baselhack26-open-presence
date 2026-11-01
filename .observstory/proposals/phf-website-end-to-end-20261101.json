@@ -1,0 +1,40 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "phf-website-end-to-end-20261101",
+  "kind": "proposal",
+  "title": "One .phf website connecting the story and working applications",
+  "statement": "Add an evidence-based landing-page and integration plan. Reuse current apps, unify destination configuration, preserve Observatory URLs and separate local rehearsal from a publicly usable Commons runtime. Cisco implementation is present in open PRs, not current main.",
+  "author": {
+    "name": "ChatGPT / Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T15:45:00+01:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "1e53da9f690d3c4ea192056d858e99cb5403d8cb",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "docs/build/PHF-WEBSITE-END-TO-END.md"
+    },
+    {
+      "path": "apps/commons/src/commons/client/journey.ts"
+    },
+    {
+      "path": "apps/commons/README.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/workbench/scripts/serve.mjs"
+    },
+    {
+      "path": ".github/workflows/observstory.yml"
+    }
+  ],
+  "conditions": [
+    "Code/configuration review only; no new runtime or visual tests claimed.",
+    "Hosting target and public demo access policy require verification during execution.",
+    "No human review or accepted-decision change is recorded."
+  ],
+  "proposed_change": "none"
+}
