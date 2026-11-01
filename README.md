@@ -11,6 +11,8 @@ BaselHack 2026 · Updated 1 November 2026
 
 Start with [the current concept](HUMAN-SIGNAL-CONCEPT.md).
 
+[Shared website and end-to-end integration plan](docs/build/PHF-WEBSITE-END-TO-END.md) — proposed landing page, app navigation and public-runtime delivery.
+
 ## Start here
 
 | Experience | What it does | Open / run |
