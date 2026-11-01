@@ -1,0 +1,7 @@
+node_modules/
+public/lab/
+src/generated/
+src/routeTree.gen.ts
+dist/
+.output/
+.tanstack/

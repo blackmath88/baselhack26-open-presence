@@ -1,0 +1,28 @@
+{
+  "name": "pdf-lab-workbench",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "ingest": "node scripts/ingest.mjs",
+    "dev": "node scripts/ingest.mjs && vite dev",
+    "build": "node scripts/ingest.mjs && vite build",
+    "start": "node scripts/serve.mjs",
+    "typecheck": "node scripts/ingest.mjs && tsc --noEmit",
+    "test": "node scripts/ingest.mjs && vitest run"
+  },
+  "dependencies": {
+    "@tanstack/react-router": "1.170.46",
+    "@tanstack/react-start": "1.169.4",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "typescript": "5.9.3",
+    "vite": "8.3.5",
+    "vitest": "5.0.5"
+  }
+}
