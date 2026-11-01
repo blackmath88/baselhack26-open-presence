@@ -16,7 +16,7 @@ jobs:
       - uses: actions/github-script@v7
         with:
           script: |
-            const candidates = [{"name":"feat/hackathon-event-schedule","sha":"a6c09b7b90c003e3b20e054f5a464feda1a53f5e"},{"name":"fix/activate-reviewed-observatory","sha":"2a806db33fca2b0dd8f7342d2b2ea36efba9cff9"},{"name":"fix/production-knowledge-ref","sha":"238f9cdb9036cf3789bbe1900ce922765bab4c38"}];
+            const candidates = [{"name":"docs/repository-review-2026-11-01","sha":"596bc998d50827a9a1cb5f6f6080e94b655592e1"}];
             const {owner, repo} = context.repo;
             const pulls = await github.paginate(github.rest.pulls.list, {owner,repo,state:'open',per_page:100});
             const mergedPulls = (await github.paginate(github.rest.pulls.list, {owner,repo,state:'closed',per_page:100})).filter(p=>p.merged_at && p.base.ref==='main');
