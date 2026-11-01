@@ -1,0 +1,34 @@
+ok   wide: results show a readable match line
+ok   wide: raw match trace stays reachable
+ok   wide: choice lives in the URL — #/search?q=My%20Mac%20cannot%20see%20my%20frame&compare=reset-after-uboot,ums-drops-during-backup
+ok   wide: a third choice is disabled until one is removed
+ok   wide: choice survives reload
+ok   wide: one shared circumstance, one difference, one unknown
+ok   wide: declared relationship keeps its origin
+ok   wide: unstated fields read Not stated
+ok   wide: original sources reachable from both sides — 8 links
+ok   wide: no horizontal scroll — scrollWidth 1440
+ok   wide: changing B keeps A
+ok   wide: removing A returns to results with B still chosen
+ok   wide: browser back returns to the comparison
+ok   wide: a record offers a comparison with the top result — #/compare?a=usb-c-no-data&b=ums-drops-during-backup&q=My%20Mac%20cannot%20see%20my%20frame
+ok   wide: missing record in a comparison says so and keeps the way back
+ok   wide: no page errors
+ok   narrow: results show a readable match line
+ok   narrow: raw match trace stays reachable
+ok   narrow: choice lives in the URL — #/search?q=My%20Mac%20cannot%20see%20my%20frame&compare=reset-after-uboot,ums-drops-during-backup
+ok   narrow: a third choice is disabled until one is removed
+ok   narrow: choice survives reload
+ok   narrow: one shared circumstance, one difference, one unknown
+ok   narrow: declared relationship keeps its origin
+ok   narrow: unstated fields read Not stated
+ok   narrow: original sources reachable from both sides — 8 links
+ok   narrow: no horizontal scroll — scrollWidth 390
+ok   narrow: changing B keeps A
+ok   narrow: removing A returns to results with B still chosen
+ok   narrow: browser back returns to the comparison
+ok   narrow: a record offers a comparison with the top result — #/compare?a=usb-c-no-data&b=ums-drops-during-backup&q=My%20Mac%20cannot%20see%20my%20frame
+ok   narrow: missing record in a comparison says so and keeps the way back
+ok   narrow: no page errors
+ok   control: the older query shows what people added
+ok   stale contribution results for an older query do not replace the newer query — {"q":"zzqx nothing here","people":false}

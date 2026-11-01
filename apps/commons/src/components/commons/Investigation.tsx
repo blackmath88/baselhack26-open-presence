@@ -19,6 +19,14 @@ export function findHit(reader: CommonsReader, query: string, problemId: string)
   return reader.search(query, 20).find((h) => h.problemId === problemId)
 }
 
+/** From a record: compare it with the top result for the same words, or choose another result to compare. */
+function compareLink(reader: CommonsReader, query: string, problemId: string) {
+  const top = reader.search(query, 8).find((h) => h.problemId !== problemId && !h.nearMatch)
+  return top
+    ? <a href={appLinks.compare(top.problemId, problemId, query)}>Compare with “{reader.problem(top.problemId)?.title ?? top.problemId}”</a>
+    : <a href={appLinks.search(query, undefined, [problemId])}>Choose a result to compare with</a>
+}
+
 export function Investigation({ reader, problemId, query }: { reader: CommonsReader; problemId: string; query?: string }) {
   const problem = reader.problem(problemId)
   const hit = query ? findHit(reader, query, problemId) : undefined
@@ -44,16 +52,17 @@ export function Investigation({ reader, problemId, query }: { reader: CommonsRea
               <div>
                 <h3>Why it may fit</h3>
                 <dl className="cc-terms">
-                  {basis.yourWords.map((t) => <div key={t.term}><dt>“{t.term}”</dt><dd>{where(t)}</dd></div>)}
-                  {basis.onlyWriterVocabulary.map((t) => <div key={t.term}><dt>“{t.term}”</dt><dd>only the {FIELD_LABEL.aliases}, not the source</dd></div>)}
+                  {basis.yourWords.map((t) => <div key={t.term}><dt>“{t.word}”</dt><dd>{where(t)}</dd></div>)}
+                  {basis.onlyWriterVocabulary.map((t) => <div key={t.term}><dt>“{t.word}”</dt><dd>only the {FIELD_LABEL.aliases}, not the source</dd></div>)}
                   {basis.addedBySearch.length > 0 && (
-                    <div><dt>added</dt><dd>the search added {basis.addedBySearch.map((t) => `“${t.term}”`).join(', ')} to your words</dd></div>
+                    <div><dt>added</dt><dd>the search added {basis.addedBySearch.map((t) => `“${t.word}”`).join(', ')} to your words</dd></div>
                   )}
                 </dl>
                 <p className="commons-limit">Your words, and where they matched. Ranked {hit.rank} by lexical field matches, not by confidence.</p>
               </div>
               <div>
                 <h3>What may differ</h3>
+                <p className="cc-fit-action">{compareLink(reader, query, problemId)}</p>
                 {hit.nearMatch ? (
                   <p className="cc-warn"><strong>Near-match.</strong> The reported conditions ({problem?.environment.join('; ')}) name a different platform from your situation. This is not evidence of a fix for your setup.</p>
                 ) : (

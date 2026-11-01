@@ -266,6 +266,8 @@ export const appLinks = {
   contribution: (contributionId: string) => `#/contributions/${encodeURIComponent(contributionId)}`,
   thread: (contributionId: string) => `#/threads/${encodeURIComponent(contributionId)}`,
   repository: (path = '') => `#/repo${path ? `/${path.split('/').map(encodeURIComponent).join('/')}` : ''}`,
-  search: (query: string, selected?: string) =>
-    `#/search?q=${encodeURIComponent(query)}${selected ? `&selected=${encodeURIComponent(selected)}` : ''}`,
+  search: (query: string, selected?: string, compare: string[] = []) =>
+    `#/search?q=${encodeURIComponent(query)}${selected ? `&selected=${encodeURIComponent(selected)}` : ''}${compare.length ? `&compare=${compare.map(encodeURIComponent).join(',')}` : ''}`,
+  compare: (a: string, b: string, query?: string) =>
+    `#/compare?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}${query ? `&q=${encodeURIComponent(query)}` : ''}`,
 };

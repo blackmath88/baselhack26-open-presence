@@ -1,0 +1,15 @@
+const { chromium } = require('playwright')
+const Q = encodeURIComponent('My Mac cannot see my frame')
+;(async () => { const b = await chromium.launch({ executablePath: '/usr/bin/chromium' })
+const s = await (await fetch('http://127.0.0.1:8811/api/auth/session', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ participantId: 'lea' }) })).json()
+for (const [vp, w, h] of [['wide', 1440, 1000], ['narrow', 390, 844]]) {
+  const p = await (await b.newContext({ viewport: { width: w, height: h } })).newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message))
+  await p.goto('http://127.0.0.1:5211/'); await p.evaluate(([t, a]) => localStorage.setItem('br-ai-nstorm.session', JSON.stringify({ token: t, actor: a })), [s.token, s.actor])
+  await p.goto(`http://127.0.0.1:5211/#/search?q=${Q}&compare=reset-after-uboot,ums-drops-during-backup`); await p.reload(); await p.waitForSelector('.cc-compare-bar'); await p.waitForTimeout(600)
+  await p.locator('.phf-hit-row').nth(1).scrollIntoViewIfNeeded(); await p.screenshot({ path: `${process.argv[2]}/p2-results-${vp}.png` })
+  await p.click('.cc-compare-bar a.button'); await p.waitForSelector('.cc-compare-table'); await p.waitForTimeout(400)
+  await p.screenshot({ path: `${process.argv[2]}/p2-compare-${vp}.png`, fullPage: vp === 'wide' })
+  console.log(vp, 'scrollWidth', await p.evaluate(() => document.documentElement.scrollWidth), 'errors', errs.length)
+  if (vp === 'wide') console.log(await p.$eval('.cc-compare-summary', e => e.innerText.replace(/\s+/g, ' ')))
+}
+await b.close() })()

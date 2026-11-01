@@ -10,11 +10,12 @@ import type { CommonsReader } from '../../commons/contracts'
 import { appLinks } from '../../commons/contracts'
 import { commonsApi, type SearchResponse } from '../../commons/client/api'
 import { navigate } from '../../commons/client/router'
+import { MatchSummary } from './MatchSummary'
 import { actorLabel } from './ContributionCard'
 
 const EXAMPLE = 'My Mac cannot see my frame'
 
-export function CommonsFinder({ reader, token, query, selected }: { reader: CommonsReader; token: string; query: string; selected?: string }) {
+export function CommonsFinder({ reader, token, query, selected, compare = [] }: { reader: CommonsReader; token: string; query: string; selected?: string; compare?: string[] }) {
   const [input, setInput] = useState(query)
   const [server, setServer] = useState<SearchResponse | null>(null)
   const [serverError, setServerError] = useState<string | null>(null)
@@ -32,6 +33,10 @@ export function CommonsFinder({ reader, token, query, selected }: { reader: Comm
     commonsApi.search(token, query, 10).then((r) => { if (!cancelled) { setServer(r); setServerError(null) } }, (e) => { if (!cancelled) { setServer(null); setServerError(e instanceof Error ? e.message : 'Contribution search unavailable.') } })
     return () => { cancelled = true }
   }, [token, query])
+  // Records chosen for comparison live in the URL; choosing replaces the history entry rather than adding one.
+  const choose = (next: string[]) => location.replace(appLinks.search(query, undefined, next))
+  const toggle = (id: string) => choose(compare.includes(id) ? compare.filter((c) => c !== id) : [...compare, id].slice(0, 2))
+  const title = (id: string) => reader.problem(id)?.title ?? id
   const examples = [EXAMPLE, 'backup disk disappears on my Mac', 'frame stuck on its boot animation']
   return (
     <section className="commons-finder" aria-label="Find a photo-frame experience">
@@ -62,7 +67,7 @@ export function CommonsFinder({ reader, token, query, selected }: { reader: Comm
               const p = reader.problem(h.problemId)
               const quoted = p?.evidence.find((e) => e.quote)
               return (
-                <li key={h.problemId}>
+                <li key={h.problemId} className={`phf-hit-row${compare.includes(h.problemId) ? ' chosen' : ''}`}>
                   <a className={`commons-hit phf-result${h.problemId === selected ? ' selected' : ''}`} href={appLinks.problem(h.problemId, query)}
                     {...(h.problemId === selected ? { ref: selectedRef, 'aria-current': 'true' as const } : {})}>
                     <span className="phf-result-head">
@@ -79,13 +84,33 @@ export function CommonsFinder({ reader, token, query, selected }: { reader: Comm
                     {quoted?.quote && (
                       <span className="phf-result-quote">“{quoted.quote.length > 160 ? `${quoted.quote.slice(0, 157)}…` : quoted.quote}” <span className="commons-limit">— {quoted.source.author === 'unknown' ? 'author unknown' : `@${quoted.source.author}`}, {quoted.source.objectId}</span></span>
                     )}
-                    <span className="commons-why phf-clamp" title={h.explanation}>Why it matched: {h.explanation}</span>
+                    <span className="commons-why">Why it matched: <MatchSummary query={query} hit={h} /></span>
                     <CommunityLine summary={server?.problems.find((s) => s.problemId === h.problemId)?.community} />
                   </a>
+                  <div className="phf-hit-actions">
+                    <button type="button" className="button cc-compare-toggle" aria-pressed={compare.includes(h.problemId)}
+                      disabled={!compare.includes(h.problemId) && compare.length >= 2} onClick={() => toggle(h.problemId)}>
+                      {compare.includes(h.problemId) ? `Chosen to compare (${compare.indexOf(h.problemId) === 0 ? 'A' : 'B'})` : 'Compare'}
+                    </button>
+                    <details className="cc-trace">
+                      <summary>Match trace</summary>
+                      <p className="commons-limit">{h.explanation}</p>
+                    </details>
+                  </div>
                 </li>
               )
             })}
           </ol>
+          {compare.length > 0 && (
+            <div className="cc-compare-bar" role="region" aria-label="Comparison">
+              <span className="cc-label">Compare</span>
+              <span className="cc-compare-chosen">{compare.map((id, i) => <span key={id}><span className="badge">{i ? 'B' : 'A'}</span> {title(id)}</span>)}</span>
+              {compare.length === 2 ? (
+                <a className="button primary" href={appLinks.compare(compare[0]!, compare[1]!, query)}>Compare these two</a>
+              ) : <span className="commons-limit">Choose one more result.</span>}
+              <button type="button" className="button" onClick={() => choose([])}>Clear</button>
+            </div>
+          )}
         </>
       )}
       {server && server.contributions.length > 0 && (
