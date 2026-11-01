@@ -6,17 +6,23 @@
 import { useCallback, useEffect, useState } from 'react'
 import { CheckCircle2 } from 'lucide-react'
 import { journey } from '../../commons/client/journey'
-import type { CommonsContribution } from '../../commons/contracts'
+import type { CommonsContribution, CommonsReader } from '../../commons/contracts'
 import { appLinks } from '../../commons/contracts'
 import { commonsApi, type ProblemView } from '../../commons/client/api'
 import { Record } from './Record'
 import { ContributionCard, actorLabel } from './ContributionCard'
 import { Composer, type Relation } from './Composer'
 import { ThreadView } from './ThreadView'
+import { Investigation } from './Investigation'
+import { ApiError } from '../../lib/api'
+import { navigation } from '../../commons/client/router'
 
-export function ProblemPanel({ token, problemId, actorId, actorName, canReview, focus, mode, onSubmitted }: {
+export function ProblemPanel({ token, problemId, query, reader, actorId, actorName, canReview, focus, mode, onSubmitted }: {
   token: string
   problemId: string
+  /** The situation typed in search, when the record was reached from results. */
+  query?: string
+  reader: CommonsReader
   actorId: string | null
   actorName?: string
   canReview: boolean
@@ -26,27 +32,45 @@ export function ProblemPanel({ token, problemId, actorId, actorName, canReview, 
   onSubmitted: (roomId: string) => void
 }) {
   const [view, setView] = useState<ProblemView | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<{ message: string; notFound: boolean } | null>(null)
   const [version, setVersion] = useState(0)
   const [composer, setComposer] = useState<{ relation: Relation; parent?: { id: string; label: string } } | null>(null)
   const [citing, setCiting] = useState<string | undefined>(undefined)
   const [recorded, setRecorded] = useState<{ id: string; relation: Relation } | null>(null)
   const openComposer = () => requestAnimationFrame(() => document.getElementById('phf-composer')?.scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }))
   const load = useCallback(() => {
-    commonsApi.problem(token, problemId).then((v) => { setView(v); setError(null) }, (e) => setError(e instanceof Error ? e.message : 'Could not load the problem.'))
+    commonsApi.problem(token, problemId).then((v) => { setView(v); setError(null) }, (e) => setError({ message: e instanceof Error ? e.message : 'Could not load the problem.', notFound: e instanceof ApiError && e.status === 404 }))
   }, [token, problemId])
   useEffect(() => { load() }, [load, version])
   useEffect(() => {
     if (focus && view) document.getElementById(`c-${focus}`)?.scrollIntoView({ block: 'center' })
   }, [focus, view])
-  if (error) return <div className="banner error" role="alert">{error}</div>
-  if (!view) return <div className="empty-state">Loading problem…</div>
+  // A record opens at its top, not at the scroll position of the results it was reached from.
+  useEffect(() => { if (!focus) window.scrollTo(0, 0) }, [problemId, focus])
+  // Arriving from a result link (which unmounts with the results): put keyboard and screen-reader focus on the record.
+  // Not on a fresh load or deep link, where the browser's own starting point is right.
+  const loaded = Boolean(view)
+  useEffect(() => {
+    if (loaded && !focus && navigation.inApp && (!document.activeElement || document.activeElement === document.body)) document.getElementById('commons-record-title')?.focus({ preventScroll: true })
+  }, [loaded, focus])
+  const context = mode === 'problem' && !focus ? <Investigation reader={reader} problemId={problemId} query={query} /> : null
+  if (error) return (
+    <div className="commons-problem">
+      {context}
+      <div className="banner error cc-state" role="alert">
+        {error.notFound ? <>There is no problem record <code>{problemId}</code> in this Commons.</> : <>The record could not be loaded: {error.message}</>}
+        {!error.notFound && <button className="button" onClick={() => { setError(null); load() }}>Try again</button>}
+      </div>
+    </div>
+  )
+  if (!view) return <div className="commons-problem">{context}<div className="empty-state" role="status">Loading the record…</div></div>
   const label = (c: CommonsContribution) => `${c.kind} by ${actorLabel(c.actor)}`
   const reply = (c: CommonsContribution) => { setRecorded(null); setComposer({ relation: 'reply', parent: { id: c.id, label: label(c) } }); openComposer() }
   const correct = (c: CommonsContribution) => { setRecorded(null); setComposer({ relation: 'correction', parent: { id: c.id, label: label(c) } }); openComposer() }
   const refresh = () => setVersion((v) => v + 1)
   return (
     <div className="commons-problem">
+      {context}
       <div className="commons-detail">
         <div>
           <Record problem={view.problem} citations={view.evidenceCitations} shared={view.sharedSources} onCite={(id) => { journey.mark('inspect'); setComposer(null); setRecorded(null); setCiting(id); openComposer() }} />

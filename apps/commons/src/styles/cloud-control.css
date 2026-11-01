@@ -248,6 +248,23 @@
   & .phf-agent-voice .commons-interp { font-size: 14px; color: var(--cc-text); }
   & .commons-cite { margin-top: 12px; }
 
+  /* Investigation context: the way back, your situation, and what the search established. */
+  & .cc-crumbs a { color: var(--cc-accent-text); }
+  & .cc-crumbs a:hover { color: var(--cc-accent-hover); }
+  & .cc-situation { background: var(--cc-raised); border-color: var(--cc-border); }
+  & .cc-label { color: var(--cc-text-2); }
+  & .cc-situation-text { color: var(--cc-text); }
+  & .cc-fit { border-top: 1px solid var(--cc-border); padding-top: 14px; }
+  & .cc-fit h3 { font-size: 13px; font-weight: 600; color: var(--cc-text-2); }
+  & .cc-fit li, & .cc-fit p { color: var(--cc-text); }
+  & .cc-fit b { font-weight: 600; }
+  & .cc-terms dt { color: var(--cc-text); }
+  & .cc-terms dd { color: var(--cc-text-2); }
+  & .cc-warn { color: var(--cc-warning); }
+  & .badge.status-unreviewed { background: var(--cc-warning-soft); border-color: var(--cc-warning); color: var(--cc-warning); }
+  & .commons-record-status .badge { text-transform: none; }
+  & .phf-result.selected { background: var(--cc-hover); box-shadow: inset 3px 0 0 var(--cc-accent); }
+
   /* Composer column, contributions, threads and repository: same surfaces; destination stays prominent. */
   & .commons-draft { gap: 10px; }
   & .commons-draft h3 { font-size: 18px; font-weight: 600; }

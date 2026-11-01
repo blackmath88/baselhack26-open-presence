@@ -21,12 +21,12 @@ export function CommonsHub({ route, token, actorId, actorName, canReview, reader
 }) {
   return (
     <div className="commons-hub">
-      {(route.view === 'home' || route.view === 'search') && <CommonsFinder reader={reader} token={token} query={route.view === 'search' ? route.query : ''} />}
+      {(route.view === 'home' || route.view === 'search') && <CommonsFinder reader={reader} token={token} query={route.view === 'search' ? route.query : ''} {...(route.view === 'search' && route.selected ? { selected: route.selected } : {})} />}
       {route.view === 'repo' && <RepoNavigator token={token} path={route.path} {...(route.object ? { object: route.object } : {})} {...(route.type ? { type: route.type } : {})} />}
-      {route.view === 'problem' && <ProblemPanel key={route.problemId} token={token} problemId={route.problemId} actorId={actorId} actorName={actorName} canReview={canReview} mode="problem" onSubmitted={onSubmitted} />}
+      {route.view === 'problem' && <ProblemPanel key={route.problemId} token={token} problemId={route.problemId} {...(route.query ? { query: route.query } : {})} reader={reader} actorId={actorId} actorName={actorName} canReview={canReview} mode="problem" onSubmitted={onSubmitted} />}
       {(route.view === 'contribution' || route.view === 'thread') && (
         <ContributionLocator token={token} contributionId={route.contributionId}>
-          {(problemId) => <ProblemPanel key={`${route.view}:${route.contributionId}`} token={token} problemId={problemId} actorId={actorId} actorName={actorName} canReview={canReview} focus={route.contributionId} mode={route.view === 'thread' ? 'thread' : 'problem'} onSubmitted={onSubmitted} />}
+          {(problemId) => <ProblemPanel key={`${route.view}:${route.contributionId}`} token={token} problemId={problemId} reader={reader} actorId={actorId} actorName={actorName} canReview={canReview} focus={route.contributionId} mode={route.view === 'thread' ? 'thread' : 'problem'} onSubmitted={onSubmitted} />}
         </ContributionLocator>
       )}
     </div>
