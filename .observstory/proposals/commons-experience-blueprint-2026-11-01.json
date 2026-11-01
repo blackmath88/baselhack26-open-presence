@@ -1,0 +1,33 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "commons-experience-blueprint-2026-11-01",
+  "kind": "proposal",
+  "title": "Commons experience blueprint, Cisco visual north star and phased agent handoff",
+  "statement": "Add an experience-first UX proposal, reference atlas and phased Claude/Codex handoff without replacing accepted concepts or implementation. Record the user's requested Cisco Cloud Control visual north star and preference for Transformer Explainer; exact layouts, tokens, architecture changes and phase execution remain reviewable proposals.",
+  "author": {"name": "Perplexity", "kind": "assistant", "via": "design conversation with repository owner"},
+  "submitted_at": "2026-11-01T12:09:00+01:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "b265422b4614cec676b400e941ae86a1ce67fd8b",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {"path": "HUMAN-SIGNAL-CONCEPT.md"},
+    {"path": "docs/product/VALUE-AND-UX.md"},
+    {"path": "AGENTS.md"},
+    {"path": ".observstory/knowledge.json"},
+    {"path": "docs/memory/context/cp_7cdc6f026054f6d6650d202f.md"},
+    {"path": "docs/product/COMMONS-EXPERIENCE-BLUEPRINT.md"},
+    {"path": "docs/product/COMMONS-REFERENCE-ATLAS.md"},
+    {"path": "docs/build/COMMONS-EXPERIENCE-BUILD-PLAN.md"},
+    {"path": "docs/build/COMMONS-CLAUDE-CODEX-HANDOFF.md"}
+  ],
+  "conditions": [
+    "The inspected context packet cutoff predates the documentation branch; current code and runtime must be verified before implementation.",
+    "References were reviewed through documentation/repository descriptions, not interactively tested in this session.",
+    "The user's visual direction is recorded from the design conversation, not represented as an Observstory human review.",
+    "Exact Cisco screen/theme, starter compatibility, trace availability and production destinations remain unverified.",
+    "No existing accepted plans, application code, human review records or runtime state are changed by this proposal."
+  ],
+  "proposed_change": "none"
+}
