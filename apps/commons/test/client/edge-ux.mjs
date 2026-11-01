@@ -1,4 +1,5 @@
 // npm run build:edge && node test/client/edge-ux.mjs
+// EDGE_HARNESS=workerd runs the same journey against the real Worker bundle in workerd with persisted D1.
 // Use an installed Playwright, or set PLAYWRIGHT_MODULE to its index.mjs; no downloads.
 // Credentials stay in process memory/IPC and the browser's sessionStorage, never artifacts.
 import { fork } from 'node:child_process'
@@ -6,11 +7,12 @@ import { randomBytes } from 'node:crypto'
 import { mkdir, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright')
-const out = resolve('test-results/edge-ux')
+const workerd = process.env.EDGE_HARNESS === 'workerd'
+const out = resolve(workerd ? 'test-results/edge-ux-workerd' : 'test-results/edge-ux')
 await mkdir(out, { recursive: true })
 const log = []
 const check = (label, ok) => { if (!ok) throw new Error(label); log.push(`PASS ${label}`); console.log(`PASS ${label}`) }
-const harness = fork('test/client/edge-harness.ts', [], { execArgv: ['--import', 'tsx'], stdio: ['ignore', 'ignore', 'ignore', 'ipc'] })
+const harness = fork(workerd ? 'test/client/edge-harness-workerd.mjs' : 'test/client/edge-harness.ts', [], { execArgv: ['--import', 'tsx'], stdio: ['ignore', 'ignore', 'ignore', 'ipc'] })
 let sequence = 0
 const control = (body) => new Promise((resolve, reject) => {
   const id = ++sequence
@@ -143,6 +145,11 @@ try {
   await alice.waitForFunction(() => document.querySelector('.phf-voice')?.textContent.includes('Public reader'))
   check('offline logout clears sessionStorage', await alice.evaluate(() => sessionStorage.getItem('phf.edge.session') === null))
   await contexts[0].setOffline(false)
+  await control({ action: 'restart' })
+  await anonymous.goto(`${origin}/#/search?q=edge-ux-saffron`)
+  await anonymous.getByText(reply, { exact: false }).first().waitFor()
+  check('after runtime restart anonymous search still rediscovers both authors', (await text(anonymous)).includes(original) && (await text(anonymous)).includes('Alice') && (await text(anonymous)).includes('Bob'))
+  await shot(anonymous, '11-after-restart-rediscovery')
   await alice.reload()
   await waitFor(alice, '.commons-draft')
   check('logout remains public after reload', (await alice.locator('.phf-voice').innerText()).includes('Public reader'))
