@@ -18,8 +18,11 @@ Start with [the current concept](HUMAN-SIGNAL-CONCEPT.md).
 | **Photo Frame Commons** | Find, inspect, contribute and rediscover through browser, repository navigation, CLI or MCP | [Demo and commands](DEMO.md) · [application](apps/commons/) |
 | **Observatory workspace** | Project knowledge, workstreams, board, timeline and source evidence | [Published workspace](https://blackmath88.github.io/baselhack26-open-presence/) · [guide](OBSERVSTORY.md) |
 | **PDF Lab** | Real PDFs, alternate readings, layer logic, file identities and transformations | [Cabinet and run instructions](sideprojects/pdf-lab/README.md) |
+| **PDF Workbench** | Inspect two readings of one PDF; write and download your own second reading | [Run and demo](sideprojects/pdf-lab/workbench/README.md) |
 | **PDF history** | The optional story of a recognisable page travelling between software and people | [Guide](modules/pdf-history/README.md) · [offline HTML](modules/pdf-history/index.html) |
 | **Project Memory** | Revision history and reproducible collaborator context | [Knowledge Lab](https://github.com/blackmath88/baselhack26-knowledge-lab) · [handoffs](docs/memory/README.md) |
+
+[Three-minute video script and shot plan](docs/pitch/PHF-THREE-MINUTE-VIDEO.md).
 
 The workspace is a generated static snapshot. Commons and Project Memory run locally; opening the published workspace does not start their services.
 
@@ -48,7 +51,7 @@ Prototype sign-in is for local use; do not expose this server publicly. ATProto 
 - Observatory's implemented static frontend preserves unknowns, input mismatches and declared status.
 - Project Memory's contract and durable host are merged in the producer/host repositories. The installed NUC runtime needs separate verification.
 
-The [current integration review](docs/reports/REPOSITORY-REVIEW-2026-11-01.md) records checks and limitations. [BUILD-STATUS.md](BUILD-STATUS.md) retains dated execution history, not a current task queue.
+The [current integration review](docs/reports/PHF-INTEGRATION-2026-11-01.md) records checks and limitations. [BUILD-STATUS.md](BUILD-STATUS.md) retains dated execution history, not a current task queue.
 
 ## Why this experiment
 

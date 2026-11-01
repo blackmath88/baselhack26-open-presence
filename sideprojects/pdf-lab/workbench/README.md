@@ -1,8 +1,8 @@
 # PDF LAB · Workbench
 
 A document-centred workbench around the real PDF LAB specimens and their recorded evidence.
-Batch A of [WORKBENCH-BUILD.md](../WORKBENCH-BUILD.md): consolidate (phase 0), encounter (phase 1) and
-inspect (phase 2), with a stored reading comparison. The [legacy cabinet](../index.html) stays the working
+Batches A and B of [WORKBENCH-BUILD.md](../WORKBENCH-BUILD.md): consolidate, encounter, inspect
+and write your own second reading, with a stored reading comparison. The [legacy cabinet](../index.html) stays the working
 fallback for every exhibit; removing this folder leaves it untouched.
 
 ## Run
@@ -17,7 +17,7 @@ npm run build          # ingest, then vite build → dist/
 npm start              # node scripts/serve.mjs → http://127.0.0.1:3100/ (HOST/PORT to override)
 node scripts/smoke.mjs # production smoke on :3199 (needs a build)
 ```
-Checks: `npm run typecheck` (strict TypeScript) and `npm test` (adapter contract tests).
+Checks: `npm run typecheck` (builds to generate routes, then strict TypeScript) and `npm test` (adapter contract tests).
 Existing legacy tests still run from the parent folder: `node test-poems.js`, `node test-cabinet.js`.
 
 Links to the legacy cabinet go to port 8000 on the same host (the .phf demo contract), or to

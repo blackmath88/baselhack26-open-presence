@@ -1,0 +1,35 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "phf-integration-2026-11-01",
+  "kind": "finding",
+  "title": "Integrated .phf story and demo builds; live runner requires correction",
+  "statement": "Seven PRs merged and combined builds checked. Fresh-checkout Workbench typechecking fixed. Live runner fixture guard accepts modified page dictionaries; hold phase 4 pending correction. No human review recorded.",
+  "author": {
+    "name": "ChatGPT / Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T11:07:00Z",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "3f1029180f8b6e4a20f12a260066f438d63c0855",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "docs/reports/PHF-INTEGRATION-2026-11-01.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/workbench/package.json"
+    },
+    {
+      "path": ".github/workflows/pdf-workbench.yml"
+    }
+  ],
+  "conditions": [
+    "Video capture and final presentation rehearsal remain unverified.",
+    "Runner findings refer to PR #31 head 9b68ac7da7676e9ce773ba92b8097bfb1bd75a23."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
