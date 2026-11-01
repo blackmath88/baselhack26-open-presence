@@ -1,0 +1,42 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "phf-story-build-fit-2026-11-01",
+  "kind": "finding",
+  "title": ".phf naming, three-part story and implementation fit",
+  "statement": "Achim explicitly selected .phf [portable human format], subtitle trust in ai driven webspace, and the past/PDF → future/.phf → present/Observatory story with the middle longest. Documentation records those choices. Source inspection supports the core contribution/inspection/rediscovery mechanism; runtime rehearsal, UI branding and public portability remain distinct. Timing and demo details are assistant proposals, not accepted implementation decisions. Achim subsequently requested a one-hour parallel UI/naming alignment sprint; the repository plan defines four isolated session scopes and integration ownership. No workers were launched by this planning pass.",
+  "author": {
+    "name": "ChatGPT / Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T08:46:21.905Z",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "4c998e90408100de4b04c8af83b0024d9f3c0162",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "docs/pitch/PHF-STORY.md"
+    },
+    {
+      "path": "docs/reports/PHF-STORY-BUILD-FIT-2026-11-01.md"
+    },
+    {
+      "path": "apps/commons/src/commons/contracts.ts"
+    },
+    {
+      "path": "apps/commons/server/test/commons/two-author-roundtrip.test.ts"
+    },
+    {
+      "path": "docs/build/PHF-ONE-HOUR-SPRINT.md"
+    }
+  ],
+  "conditions": [
+    "Hosted knowledge/snapshot could not be read; committed packets are historical and current source was checked separately.",
+    "This pass reviewed source and prior test evidence; it did not run apps or verify NUC services.",
+    "No human review record is created; script/timing/build recommendations remain proposals."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
