@@ -5,6 +5,7 @@
  * through the real Commons service.
  */
 import { ArrowLeft, Check, FolderGit2, MessageSquare, RotateCcw, Search } from 'lucide-react'
+import { EDGE_MODE } from '../../lib/api'
 import type { Participant } from '../../lib/api'
 import type { Route } from '../../commons/client/router'
 import { appLinks } from '../../commons/contracts'
@@ -63,8 +64,8 @@ export function PhfUnavailable({ error }: { error: string | null }) {
     <section className="phf-entry" role="alert" aria-labelledby="phf-down-title">
       <p className="phf-kicker">Photo Frame Commons</p>
       <h1 id="phf-down-title">The Commons service is not reachable.</h1>
-      <p className="phf-lede">Nothing is shown rather than something invented. Start the local service and reload:</p>
-      <pre className="phf-cmd">cd apps/commons{'\n'}npm run dev:server   # API on :8787{'\n'}npm run dev          # this UI on :5173</pre>
+      <p className="phf-lede">{EDGE_MODE ? "The shared service is temporarily unavailable. Your saved drafts stay in this browser. Try again shortly." : "Start the local service and reload:"}</p>
+      {!EDGE_MODE && <pre className="phf-cmd">cd apps/commons{'\n'}npm run dev:server   # API on :8787{'\n'}npm run dev          # this UI on :5173</pre>}
       {error && <p className="phf-note">Reported: {error}</p>}
       <p><a className="button" href={presentationUrl()}><ArrowLeft size={14} /> Back to the presentation</a></p>
     </section>

@@ -28,6 +28,7 @@ export type {
 }
 
 /** Same-origin by default; the Vite dev server proxies /api to the backend. */
+export const EDGE_MODE = import.meta.env.VITE_COMMONS_EDGE === 'true'
 const BASE = import.meta.env.VITE_API_BASE ?? ''
 
 export class ApiError extends Error {
@@ -83,7 +84,7 @@ export const api = {
   participants: () => request<{ participants: Participant[] }>('/api/participants'),
 
   startSession: (participantId: string) =>
-    request<Session>('/api/auth/session', { method: 'POST', body: { participantId } }),
+    request<Session>('/api/auth/session', { method: 'POST', body: EDGE_MODE ? { accessCode: participantId } : { participantId } }),
 
   health: () => request<{ ok: boolean; aiCurator: boolean; curator: string }>('/health'),
 

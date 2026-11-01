@@ -22,7 +22,10 @@
     "typecheck:e": "tsc --noEmit --jsx react-jsx --moduleResolution bundler --module esnext --target es2022 --skipLibCheck --esModuleInterop e-preview/main.tsx",
     "build:e": "npm run typecheck:e && vite build --config vite.e-preview.config.ts",
     "preview:e": "vite preview --config vite.e-preview.config.ts",
-    "test:e": "vitest run test/e-guide.test.ts test/e-behaviour.test.ts test/e-opening.test.ts"
+    "test:e": "vitest run test/e-guide.test.ts test/e-behaviour.test.ts test/e-opening.test.ts",
+    "build:edge": "VITE_COMMONS_EDGE=true npm run build",
+    "dev:edge": "npm run build:edge && npx wrangler dev --config wrangler.edge.jsonc",
+    "deploy:edge": "npm run build:edge && npx wrangler deploy --config wrangler.edge.jsonc"
   },
   "dependencies": {
     "@atproto/api": "^0.30.0",
@@ -48,6 +51,7 @@
     "@types/react-dom": "^19.1.7",
     "tsx": "^4.20.5",
     "typescript": "^5.8.3",
-    "vitest": "^4.1.11"
+    "vitest": "^4.1.11",
+    "wrangler": "4.45.0"
   }
 }

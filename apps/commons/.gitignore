@@ -19,3 +19,6 @@ server/**/*.d.ts
 
 # Standalone E preview build
 dist-e/
+
+# Issued edge contributor credentials; never commit
+.edge-credentials/

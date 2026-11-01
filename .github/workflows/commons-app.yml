@@ -36,3 +36,7 @@ jobs:
         run: bash scripts/smoke/multi-entry.sh
       - name: Browser smoke (CLI → browser → CLI rediscovery; runner Chrome over DevTools, loopback only)
         run: OUT=$RUNNER_TEMP/browser-smoke bash scripts/smoke/browser.sh
+      - name: Edge frontend and Worker bundle
+        run: |
+          npm run build:edge
+          npx wrangler@4.45.0 deploy --dry-run --config wrangler.edge.jsonc

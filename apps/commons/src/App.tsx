@@ -19,9 +19,10 @@ import { TimelineView } from './components/TimelineView'
 import { CurationPanel } from './components/CurationPanel'
 import { SideRail } from './components/SideRail'
 import { ApertureModal } from './components/ApertureModal'
+import { EdgeSignIn } from './components/phf/EdgeSignIn'
 import { ParticipantSwitcher } from './components/ParticipantSwitcher'
 import { createContextPackage, validateContributionPackage } from './lib/aperture'
-import { api } from './lib/api'
+import { api, EDGE_MODE } from './lib/api'
 import { CommonsHub } from './components/commons/CommonsHub'
 import { EGuide } from './components/EGuide'
 import { commonsReader } from './commons/reader'
@@ -163,7 +164,7 @@ export default function App() {
     <div className="app-shell">
       <PhfHeader actorName={room.actor?.displayName} onSwitchVoice={() => setVoiceOpen((v) => !v)} />
 
-      {room.actor && voiceOpen && (
+      {!EDGE_MODE && room.actor && voiceOpen && (
         <ParticipantSwitcher
           participants={room.participants}
           actor={room.actor}
@@ -172,7 +173,7 @@ export default function App() {
         />
       )}
 
-      {room.error && room.participants.length > 0 && (
+      {room.error && (EDGE_MODE || room.participants.length > 0) && (
         <div className="banner error" role="alert">
           {room.error}
         </div>
@@ -191,6 +192,9 @@ export default function App() {
         <PhfEntry participants={room.participants} onSelect={(id) => void room.signIn(id)} busy={room.busy} />
       )}
 
+      {EDGE_MODE && (voiceOpen || !room.actor || room.actor.actorId === 'person:public-reader') && (
+        <EdgeSignIn busy={room.busy} onSignIn={async code => { await room.signIn(code); setVoiceOpen(false) }} />
+      )}
       <EGuide />
 
       {room.actor && room.token && (
@@ -214,7 +218,7 @@ export default function App() {
       )}
 
       {room.actor && (
-        <div className="phf-workbench-toggle">
+        <div className="phf-workbench-toggle" hidden={EDGE_MODE}>
           <button className="button" onClick={() => setWorkbench((v) => !v)} aria-expanded={workbench}>
             <LayoutList size={14} /> {workbench ? 'Hide room workbench' : 'Room workbench (state, map, timeline, curation)'}
           </button>

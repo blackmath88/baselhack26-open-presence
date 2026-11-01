@@ -8,13 +8,13 @@
  */
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
-  api, ApiError,
+  api, ApiError, EDGE_MODE,
   type ActorContext, type ConflictRecord, type ContributionKind, type CurationProposal,
   type MemoryEvent, type OrchestrationMode, type OrchestrationOption, type Participant,
   type ParticipantProposalInput, type ProblemRecord, type ProblemState, type ProblemUpdates,
 } from '../lib/api'
 
-const SESSION_KEY = 'br-ai-nstorm.session'
+const SESSION_KEY = EDGE_MODE ? 'phf.edge.session' : 'br-ai-nstorm.session'
 
 export type Phase = 'connecting' | 'ready' | 'error'
 
@@ -70,7 +70,7 @@ interface StoredSession {
 
 function loadSession(): StoredSession | null {
   try {
-    const raw = localStorage.getItem(SESSION_KEY)
+    const raw = (EDGE_MODE ? sessionStorage : localStorage).getItem(SESSION_KEY)
     return raw ? (JSON.parse(raw) as StoredSession) : null
   } catch {
     return null
@@ -79,8 +79,8 @@ function loadSession(): StoredSession | null {
 
 function saveSession(session: StoredSession | null): void {
   try {
-    if (session) localStorage.setItem(SESSION_KEY, JSON.stringify(session))
-    else localStorage.removeItem(SESSION_KEY)
+    if (session) (EDGE_MODE ? sessionStorage : localStorage).setItem(SESSION_KEY, JSON.stringify(session))
+    else (EDGE_MODE ? sessionStorage : localStorage).removeItem(SESSION_KEY)
   } catch {
     /* private-mode browsers: the session simply does not persist */
   }
@@ -148,7 +148,8 @@ export function useRoom(): Room {
         if (cancelled) return
         setParticipants(roster)
 
-        const stored = loadSession()
+        const restored = loadSession()
+        const stored = EDGE_MODE ? await api.startSession(restored?.token ?? 'public') : restored
         if (!stored) {
           setPhase('ready')
           return
