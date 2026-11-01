@@ -1,12 +1,12 @@
 {
-  "label": "after",
+  "label": "light",
   "ui": "http://127.0.0.1:5211",
-  "qs": "",
+  "qs": "?theme=light",
   "checks": [
     {
       "name": "wide: real search returns records",
       "pass": true,
-      "detail": "8 hits; first The frame shows no USB data, or no power, on the computer"
+      "detail": "9 hits; first The frame shows no USB data, or no power, on the computer"
     },
     {
       "name": "wide: Tab from search moves to a visibly focused control",
@@ -26,7 +26,7 @@
     {
       "name": "narrow: real search returns records",
       "pass": true,
-      "detail": "8 hits; first The frame shows no USB data, or no power, on the computer"
+      "detail": "9 hits; first The frame shows no USB data, or no power, on the computer"
     },
     {
       "name": "narrow: Tab from search moves to a visibly focused control",
@@ -68,7 +68,7 @@
     "search": {
       "body": {
         "ratio": 15.18,
-        "size": "28px",
+        "size": "30px",
         "sample": "What happened with your photo frame?"
       },
       "muted": {
@@ -77,14 +77,19 @@
         "sample": "Photo Frame Commons: agent-written recor"
       },
       "link": {
-        "ratio": 16.29,
+        "ratio": 15.18,
         "size": "16px",
         "sample": ".phf\nportable human format\nHuman context"
       },
       "primary": {
-        "ratio": 5.18,
+        "ratio": 6.66,
         "size": "14px",
         "sample": "Search"
+      },
+      "badge": {
+        "ratio": 5.65,
+        "size": "12px",
+        "sample": "local"
       },
       "why": {
         "ratio": 6.36,
@@ -104,7 +109,7 @@
         "sample": "passage e1"
       },
       "link": {
-        "ratio": 16.29,
+        "ratio": 15.18,
         "size": "16px",
         "sample": ".phf\nportable human format\nHuman context"
       },
@@ -180,6 +185,11 @@
       {
         "href": "#/problems/gadget-error-71",
         "title": "U-Boot's USB gadget never enumerates: the host logs error -71",
+        "near": false
+      },
+      {
+        "href": "#/contributions/contrib_be964ad4-800b-404c-9f8e-a310e9da10f0",
+        "title": "attempt by Kai",
         "near": false
       }
     ],

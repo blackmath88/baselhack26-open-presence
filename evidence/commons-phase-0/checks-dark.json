@@ -1,17 +1,17 @@
 {
   "label": "dark",
   "ui": "http://127.0.0.1:5211",
-  "qs": "?theme=dark",
+  "qs": "",
   "checks": [
     {
       "name": "wide: real search returns records",
       "pass": true,
-      "detail": "8 hits; first The frame shows no USB data, or no power, on the computer"
+      "detail": "9 hits; first The frame shows no USB data, or no power, on the computer"
     },
     {
       "name": "wide: Tab from search moves to a visibly focused control",
       "pass": true,
-      "detail": "BUTTON.button primary outline=solid rgb(165, 192, 255) 2px"
+      "detail": "BUTTON.button primary outline=solid rgb(155, 186, 244) 2px"
     },
     {
       "name": "wide: passage keeps original/agent labels and source link",
@@ -26,12 +26,12 @@
     {
       "name": "narrow: real search returns records",
       "pass": true,
-      "detail": "8 hits; first The frame shows no USB data, or no power, on the computer"
+      "detail": "9 hits; first The frame shows no USB data, or no power, on the computer"
     },
     {
       "name": "narrow: Tab from search moves to a visibly focused control",
       "pass": true,
-      "detail": "BUTTON.button primary outline=solid rgb(165, 192, 255) 2px"
+      "detail": "BUTTON.button primary outline=solid rgb(155, 186, 244) 2px"
     },
     {
       "name": "narrow: passage keeps original/agent labels and source link",
@@ -67,74 +67,79 @@
   "contrast": {
     "search": {
       "body": {
-        "ratio": 16.59,
-        "size": "28px",
+        "ratio": 16.6,
+        "size": "30px",
         "sample": "What happened with your photo frame?"
       },
       "muted": {
-        "ratio": 10.11,
+        "ratio": 7.91,
         "size": "13px",
         "sample": "Photo Frame Commons: agent-written recor"
       },
       "link": {
-        "ratio": 15.14,
+        "ratio": 16.6,
         "size": "16px",
         "sample": ".phf\nportable human format\nHuman context"
       },
       "primary": {
-        "ratio": 8.24,
+        "ratio": 8.69,
         "size": "14px",
         "sample": "Search"
       },
+      "badge": {
+        "ratio": 6.51,
+        "size": "12px",
+        "sample": "local"
+      },
       "why": {
-        "ratio": 9.23,
+        "ratio": 7.07,
         "size": "13px",
         "sample": "Why it matched: Matched aliases: see (wr"
       }
     },
     "record": {
       "body": {
-        "ratio": 15.14,
+        "ratio": 14.85,
         "size": "28px",
         "sample": "The frame shows no USB data, or no power"
       },
       "muted": {
-        "ratio": 9.23,
+        "ratio": 7.29,
         "size": "13px",
         "sample": "passage e1"
       },
       "link": {
-        "ratio": 15.14,
+        "ratio": 16.6,
         "size": "16px",
         "sample": ".phf\nportable human format\nHuman context"
       },
       "primary": {
-        "ratio": 9.47,
+        "ratio": 8.01,
         "size": "14px",
         "sample": "Respond to this passage"
       },
       "badge": {
-        "ratio": 8.22,
+        "ratio": 6.51,
         "size": "12px",
         "sample": "synthesis"
       },
       "quote": {
-        "ratio": 15.14,
+        "ratio": 15.31,
         "size": "16px",
         "sample": "“A USB-C to USB-C cable gave unit C **no"
       },
       "interp": {
-        "ratio": 13.48,
+        "ratio": 13.66,
         "size": "14px",
         "sample": "The frame appears to lack the USB-C CC p"
       },
       "tag": {
-        "ratio": 9.23,
+        "ratio": 7.29,
         "size": "12px",
         "sample": "Original words · source author"
       },
       "source": {
-        "ratio": 9.23,
+        "ratio": 7.29,
         "size": "13px",
         "sample": "author unknown · doc/docs/pf1007l-start-"
       }
@@ -180,6 +185,11 @@
       {
         "href": "#/problems/gadget-error-71",
         "title": "U-Boot's USB gadget never enumerates: the host logs error -71",
+        "near": false
+      },
+      {
+        "href": "#/contributions/contrib_be964ad4-800b-404c-9f8e-a310e9da10f0",
+        "title": "attempt by Kai",
         "near": false
       }
     ],

@@ -1,6 +1,7 @@
 # Commons experience — Phase 0: baseline and first visual checkpoint
 
 1 November 2026 · Claude (assistant, `kind: assistant`) · Self-verified, **not reviewed**. Stops here for human review.
+Status update: owner chose dark default and delegated TanStack (decided below).
 Brief: [COMMONS-CLAUDE-CODEX-HANDOFF.md](../build/COMMONS-CLAUDE-CODEX-HANDOFF.md), Phase 0 of
 [COMMONS-EXPERIENCE-BUILD-PLAN.md](../build/COMMONS-EXPERIENCE-BUILD-PLAN.md).
 
@@ -38,29 +39,39 @@ results" with your situation (Phase 1); "Why it matched" is a real but raw field
 basis is Phase 2); the top hit matches mostly on vocabulary aliases, which a newcomer cannot judge today.
 
 ## Visual checkpoint
-Sources for the direction: blueprint §6 tokens, and the design contract in
-[blackmath88/start-kit `docs/DESIGN.md`](https://github.com/blackmath88/start-kit/blob/main/docs/DESIGN.md) (written from
-the owner's "Cisco Cloud Control: Design Teardown"). **No Cisco screenshot, asset, font or measured token was available
-or used**; all values are proposed starting tokens.
+Reference: Cisco's public Cloud Control documentation screenshots, with approximate colour samples, recorded in
+[COMMONS-CISCO-REFERENCE.md](../product/COMMONS-CISCO-REFERENCE.md). The images are linked, not committed (public repo,
+Cisco's copyright). Also used: the blueprint §6 and the Start Kit design contract. No Cisco logo, icon, font or
+product name is used; values are an interpretation, not Cisco's tokens.
+
+Owner decision (1 November): **dark is the default.**
 
 Changes (`apps/commons`):
-- `src/styles/cloud-control.css` (new): one scoped layer under `:root[data-look="cloud"]`. Light tokens from the blueprint
-  (canvas #F5F7FA, surface #FFF, text #17212B / #526170, border #D7DEE6, accent #146BD1, focus #005FCC); dark tokens from
-  the Start Kit (canvas #0D1218 … accent #86AAFF). Spacing 4–48, radii 6/8/12, controls 40–44 px, body 16/24, metadata
-  ≥ 13 px, page headings 28/36, motion 150 ms (removed under reduced motion).
-  Hierarchy: compact full-width header (identity left, Presentation and Voice right); entrances as a tab bar under it;
-  presenter guide demoted to a quiet strip; the situation question as the page heading; results as one divided inventory
-  panel with accent selection/focus instead of stacked cards; evidence labels in sentence case, original words on a
-  solid rule, agent interpretation on a dashed subtle surface.
-- `src/main.tsx`: review switches read from the query string, never stored — `?look=classic` restores the previous look,
-  `?theme=dark` previews the dark palette. Default is the new light look.
-- `src/App.tsx`: entrance tabs now render before the presenter guide (DOM order = visual order, so keyboard order stays
-  logical). No other component, route, contract or behaviour change.
+- `src/styles/cloud-control.css` (new): one layer scoped to `:root[data-look="cloud"]`.
+  - Dark tokens sampled from the reference: canvas #0C1117 with a faint violet lower-edge glow, raised panels #181D23,
+    selected segment #31343B, borders #2B3038/#393B48, field border #707682, accent #729CEE.
+  - Light counterpart from the blueprint. Spacing 4–48, radii 6/8/12, controls 40–52 px, body 16/24, metadata ≥ 13 px,
+    motion 150 ms (removed under reduced motion).
+  - Hierarchy: compact header on the canvas; entrances as outlined pills, the current one with the reference's
+    blue-to-violet edge; presenter guide as the reference's segmented control; the situation question as the page
+    heading; a prompt-style search field; outlined-accent primary actions; results as one raised panel with divided
+    rows instead of stacked cards; evidence labels in sentence case, original words on a solid rule, agent
+    interpretation on a dashed subtle surface.
+  - Repository, thread, contribution preview, entry and room workbench are made legible on the same tokens; they are
+    not redesigned.
+- `src/main.tsx`: review switches read from the query string, never stored — `?theme=light` for the light counterpart,
+  `?look=classic` for the previous look.
+- `src/App.tsx`: entrance tabs render before the presenter guide (DOM order = visual order for keyboard users). No other
+  component, route, contract or behaviour change.
 - `scripts/smoke/browser.mjs`: one assertion waited for nothing and failed 1 of 3 runs; it now uses the script's own
   `until()` (same condition, fails on timeout).
 
-Evidence in [`evidence/commons-phase-0/`](../../evidence/commons-phase-0/): `before-*` (main), `after-*` (this branch,
-light), `dark-*`, at 1440×1000 and 390×844; `checks-*.json` from `capture.cjs` (Playwright + system Chromium).
+Evidence in [`evidence/commons-phase-0/`](../../evidence/commons-phase-0/):
+- `before-*`: main.
+- `dark-*`: default, covering search, record, passage, focus, entry, repository, thread, preview and workbench.
+- `light-*`: search and record, wide (1440) and narrow (390).
+- `checks-*.json`: from `capture.cjs`.
+- `contrast-scan-*.json`: from `tour.cjs`. Both scripts use Playwright with the system Chromium.
 
 ## Checks (actual results)
 | Command (in `apps/commons`) | main `9e864a5` | this branch |
@@ -71,50 +82,58 @@ light), `dark-*`, at 1440×1000 and 390×844; `checks-*.json` from `capture.cjs`
 | `npx vite build` | pass (chunk-size warning) | pass (same warning) |
 | `bash scripts/smoke/e2e.sh` | pass | not rerun (no server change) |
 | `bash scripts/smoke/multi-entry.sh` | pass, **with a caveat below** | not rerun (no server/CLI change) |
-| `bash scripts/smoke/browser.sh` | pass | 1 fail of 3 before the wait fix; 3/3 pass after |
-| `capture.cjs` journey checks | 11/12 | 11/12 light, 11/12 dark, 11/12 classic |
+| `bash scripts/smoke/browser.sh` | pass | 1 fail of 3 before the wait fix; 3/3 pass after; pass again on the dark default |
+| `capture.cjs` journey checks | 11/12 | 11/12 dark, 11/12 light, 11/12 classic |
+| `tour.cjs` full-page contrast scan (< 4.5:1) | — | 0 elements in entry, repository, thread, preview, workbench, dark and light |
 
-`capture.cjs` checks: real search returns records; Tab moves to a visibly focused control (2 px #005FCC); passage keeps
-original/agent labels and the GitHub source link; reload keeps the record route; no horizontal scroll at 360 px on search
-and record; reduced motion zeroes transitions. The one failing check in every run, including main: Chromium's automatic
-`/favicon.ico` request returns 404 (`index.html` declares no icon). Pre-existing, cosmetic, left alone.
+`capture.cjs` checks:
+- real search returns records;
+- Tab moves to a visibly focused control (2 px focus ring);
+- the passage keeps its original/agent labels and the GitHub source link;
+- reload keeps the record route;
+- no horizontal scroll at 360 px on search and record;
+- reduced motion zeroes transitions.
 
-Measured text contrast (WCAG ratio, computed in the page against the rendered background), light / dark:
-body heading 15.2–16.3 / 15.1–16.6; secondary text 13 px 5.9–6.4 / 9.2–10.1; primary button 5.2 (white on #146BD1) / 8.2;
-badge 5.7 / 8.2; quote 16.3 / 15.1; agent interpretation 14.5 / 13.5; voice tag 6.4 / 9.2. All ≥ 4.5:1 at the sizes used.
-Previous look for reference: secondary 5.8, badge 5.8 at 11 px.
+The one failing check in every run, including main, is Chromium's automatic `/favicon.ico` request returning 404
+(`index.html` declares no icon). It's cosmetic and left alone.
+
+`tour.cjs` measures every visible text element against its rendered background. The first dark run found 16 elements
+below 4.5:1, all workbench and thread labels with hard-coded greys; they were fixed by mapping them to the secondary
+text token. Journey ratios, dark:
+- headings 15.1–16.6
+- secondary text 9.2–10.1
+- outlined primary 8.2–9.5
+- quotes 15.1
+- agent interpretation 13.5
 
 Multi-entry caveat: its "unreachable server → exit code" step printed `exit 0` because an unrelated Commons server from
 another worktree was listening on 127.0.0.1:8797 on this machine. Run directly against a free port, the CLI exits **6**
 as documented. The smoke assumes 8797 is free; it should pick a guaranteed-closed port (not changed here).
 
-Not verified: screen reader pass; Safari/Firefox; the full contribute → reply → rediscover journey visually in the new
-look (covered functionally by the browser smoke, which now runs in the new look by default); room workbench and
-repository views were not reviewed visually (they inherit the tokens through the existing variables); dark theme
-outside the find/inspect journey.
+Not verified:
+- a screen reader pass;
+- Safari and Firefox;
+- the map view's SVG in dark;
+- the workbench's kind-colour dots are faint on dark tints (cosmetic).
 
-## TanStack evaluation
+## TanStack decision
+Owner delegated the decision. **Decision: keep the current Vite + React shell; no TanStack migration now.**
 - `blackmath88/development-practice` points to **Start Kit** for reusable implementation.
-  [`blackmath88/start-kit`](https://github.com/blackmath88/start-kit) states: "build brief ready; application not
-  implemented" — there is no runnable starter, package.json or lockfile to migrate onto. Its useful part today is the
-  design contract, used above.
-- The one real TanStack app in this repo is `sideprojects/pdf-lab/workbench` (TanStack Start 1.169.4, Router 1.170.46,
-  React 19.3.1, Vite 8.3.5). It is a static/client app with file routes and validated search params, no auth or API.
-- Commons constraints: Vite 7 + React 19.1 SPA; hash routes; a separate Node API (`/api`, `/mcp`) with prototype session
-  tokens in `localStorage`; Cloudflare Worker variant for upstream. Adopting TanStack **Start** would bring SSR/server
-  functions that duplicate the existing API and auth boundary, plus a Vite major upgrade.
+  [`blackmath88/start-kit`](https://github.com/blackmath88/start-kit) says "build brief ready; application not
+  implemented": there is no runnable starter, package.json or lockfile to adopt.
+- The one real TanStack app here, `sideprojects/pdf-lab/workbench` (Start 1.169.4, Router 1.170.46, Vite 8), is a
+  static/client app without auth or API.
+- Commons has a separate Node API (`/api`, `/mcp`), prototype session tokens and a CLI/MCP contract. TanStack **Start**
+  would add SSR/server functions that duplicate that boundary, and a Vite major upgrade, for no user-visible gain in
+  Phase 1.
 
-Recommendation: **retain the current shell for Phase 1.** If typed, validated URL state (query, selected record/passage,
-compare set) becomes painful in Phase 1–2, adopt **TanStack Router only** (client-side, hash history) as a bounded
-change, keeping the Node API as is. Revisit Start only after Start Kit exists and a server-rendering need appears.
-Decision belongs to the owner.
+Trigger to revisit: if Phase 1–2 URL state (query, selected record/passage, compare set) outgrows the small hash router,
+adopt **TanStack Router alone** (client-side, hash history), keeping the Node API unchanged. That would be its own
+reviewed change.
 
-## Open decisions for review
-1. Direction: is this light interpretation the right Cloud Control reading, or should Commons default to dark (as the
-   Start Kit palette implies)? A real Cisco screenshot/theme would let tokens be judged against the reference.
-2. Header at 390 px wraps the Voice control to a second row; acceptable, or collapse Voice into a menu?
-3. Keep the `?look=classic` switch until review ends, then delete the classic overrides?
-4. TanStack: agree to "retain now, Router-only later if needed"?
+## Remaining open points
+1. Header at 390 px wraps the Voice control to a second row; acceptable, or collapse Voice into a menu?
+2. Keep the `?look=classic` switch until review ends, then delete it and the classic overrides?
 
 ## Next bounded slice (Phase 1, after approval)
 Situation → real search → account → passage/source → **back to results with the query intact**: carry the query in the
