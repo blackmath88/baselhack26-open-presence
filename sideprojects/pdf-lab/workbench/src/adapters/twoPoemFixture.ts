@@ -99,3 +99,12 @@ export function parseTwoPoemFixture(pdf: string): TwoPoemFixture {
     toUnicodeObject: toUnicode.number, toUnicodeStream: toUnicode.stream, contentObject: content.number, lines,
   }
 }
+
+/** Objects whose bodies differ between two files of this fixture family, with what each one is. */
+export function changedObjects(before: string, after: string): Array<{ number: number; role: string }> {
+  const a = new Map(readObjects(before).map((o) => [o.number, o]))
+  const b = readObjects(after)
+  if (b.length !== a.size) throw new UnsupportedStructure(`object count changed (${a.size} → ${b.length})`)
+  return b.filter((o) => { const p = a.get(o.number); return !p || p.dict !== o.dict || p.stream !== o.stream })
+    .map((o) => ({ number: o.number, role: o.stream?.includes('beginbfchar') ? 'ToUnicode character map' : /\/Type \/Page\b/.test(o.dict) ? 'page' : o.stream ? 'content or glyph stream' : 'dictionary' }))
+}

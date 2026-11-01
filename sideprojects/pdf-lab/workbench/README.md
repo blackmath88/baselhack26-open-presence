@@ -39,6 +39,12 @@ Open directly: `/specimens/a01-two-poems?reading=other&line=2&reveal=true` (also
   visible-mapping and alternate files side by side (identical pixels, different reading); stored MuPDF and
   Poppler renders of the same file.
 - **Original:** download the exact PDF without leaving the page; optionally verify its SHA-256 in the browser.
+- **Write your own (Batch B):** change what the character map says while the drawn poem stays fixed. The browser
+  checks the parent's hash, rewrites only the ToUnicode object, and shows the new file on the same stage with a
+  lineage (original → recipe → your file), the objects that changed, its own inspector and downloads for the PDF and a
+  versioned recipe. The URL carries the four lines, so reload or a shared link rebuilds identical bytes. **Open a
+  recipe…** reads a workbench recipe or a `lab.py poem` JSON locally and reports whether the rebuild matches its hash.
+  Your file is always labelled *not measured*.
 
 ## How it is built
 - `scripts/ingest.mjs` — deterministic, read-only: copies an allowlist (the four poem PDFs, their previews, two
@@ -46,7 +52,7 @@ Open directly: `/specimens/a01-two-poems?reading=other&line=2&reveal=true` (also
   writes `src/generated/lab-data.json`. Both outputs are gitignored. No timestamps; source commit recorded.
 - `src/domain/` — record types (artefact, instrument, run, evidence reference, selection, correspondence) and runtime
   checks. No React, no filesystem.
-- `src/adapters/` — `labData` (inventory and integrity), `poemsResults` (recorded runs, per-instrument versions, stale
+- `src/adapters/` — `mappingWriter` (ported writer), `recipe` (make/read/rebuild recipes), `labData` (inventory and integrity), `poemsResults` (recorded runs, per-instrument versions, stale
   inputs), `poemsTransforms` (stored source renders only), `twoPoemFixture` (static parse of the fixture bytes; rejects
   any structure it was not written for).
 - `src/features/twoPoems/` — the model that composes adapters into selections, and the stage, inspector and views.
@@ -62,4 +68,9 @@ TypeScript 7 (the new native compiler) was available; 5.9 was chosen as the esta
 - The raster control has no stored preview of its own; the stage shows the visible-mapping render its pixels came from.
 - Poppler `pdftoppm`'s version is not in the report and is shown as unknown.
 - Native viewer copy/paste, OCR and print survival were not run (the report's `not_run`).
-- Only A01 has an adapter. New authoring links to the legacy cabinet's working “Bend your own four lines” form.
+- Only A01 has an adapter.
+- Authoring is the lab's narrow writer: four printable-ASCII lines of 1–32 characters, on the two-poem fixture only.
+  `src/adapters/mappingWriter.ts` is a port of `poems.js` `bend()`; `test/writer.test.ts` holds it byte-identical to the
+  legacy writer (40 inputs) and to `lab.py poem` (when Python is available). The legacy files are unchanged.
+- A file you make is never rendered or extracted here. The stage shows the original's recorded render, which is valid
+  only because the object diff shows the character map is the sole change.

@@ -22,6 +22,11 @@ try {
   check('raster deep link states no character map', raster.status === 200 && raster.text.includes('holds no character codes'))
   const bad = await page('/specimens/a01-two-poems?reading=nonsense&line=99&view=x')
   check('invalid search params fall back to defaults', bad.status === 200 && bad.text.includes('Alternate reading'))
+  const mine = encodeURIComponent(JSON.stringify(['ONE', 'TWO', 'THREE', 'FOUR']))
+  const variant = await page(`/specimens/a01-two-poems?reading=mine&from=other&mine=${mine}`)
+  check('variant deep link renders and builds client-side', variant.status === 200 && variant.text.includes('Same picture. Your reading.') && variant.text.includes('Building your file'))
+  const badVariant = await page(`/specimens/a01-two-poems?reading=mine&mine=${encodeURIComponent(JSON.stringify(['ONE', 'TWO', 'THREE', 'é']))}`)
+  check('variant with an invalid line falls back to the original', badVariant.status === 200 && badVariant.text.includes('Two readings. One picture.') && !badVariant.text.includes('Building your file'))
   const unknown = await page('/specimens/02-backstage')
   check('unknown specimen points to the legacy cabinet', unknown.text.includes('does not inspect this specimen yet'), `status ${unknown.status}`)
   for (const a of inventory.artefacts.filter((x) => x.url)) {

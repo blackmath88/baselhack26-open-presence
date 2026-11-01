@@ -15,7 +15,7 @@ export function EvidenceLink({ evidence }: { evidence: EvidenceRef }) {
     : <code className="small">{label}</code>
 }
 
-export const Inspector = forwardRef<HTMLHeadingElement, { reading: Reading; line: number; onClose: () => void }>(function Inspector({ reading, line, onClose }, headingRef) {
+export const Inspector = forwardRef<HTMLHeadingElement, { reading: Reading; line: number; onClose: () => void; onRewrite?: (line: number) => void }>(function Inspector({ reading, line, onClose, onRewrite }, headingRef) {
   const index = line - 1
   const selection = selectLine(reading, index)
   const drawn = drawnLines()[index]
@@ -54,6 +54,7 @@ export const Inspector = forwardRef<HTMLHeadingElement, { reading: Reading; line
             <pre className="excerpt">{tuLine}</pre>
           </details>
         )}
+        {onRewrite && reading !== 'raster' && <p style={{ margin: '10px 0 0' }}><button className="btn" onClick={() => onRewrite(line)}>Rewrite this line…</button></p>}
       </section>
       <section>
         <h3>Readers returned <span className="label">recorded</span></h3>
