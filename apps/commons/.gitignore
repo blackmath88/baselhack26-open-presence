@@ -16,3 +16,6 @@ src/**/*.d.ts
 !src/vite-env.d.ts
 server/**/*.js
 server/**/*.d.ts
+
+# Standalone E preview build
+dist-e/

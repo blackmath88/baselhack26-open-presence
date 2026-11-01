@@ -23,6 +23,7 @@ import { ParticipantSwitcher } from './components/ParticipantSwitcher'
 import { createContextPackage, validateContributionPackage } from './lib/aperture'
 import { api } from './lib/api'
 import { CommonsHub } from './components/commons/CommonsHub'
+import { EGuide } from './components/EGuide'
 import { commonsReader } from './commons/reader'
 import { useRoute } from './commons/client/router'
 import { importedProblemSpaceId } from './commons/contracts'
@@ -189,6 +190,8 @@ export default function App() {
       {room.phase !== 'connecting' && !room.actor && room.participants.length > 0 && (
         <PhfEntry participants={room.participants} onSelect={(id) => void room.signIn(id)} busy={room.busy} />
       )}
+
+      <EGuide />
 
       {room.actor && room.token && (
         <>

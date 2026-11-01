@@ -35,6 +35,19 @@ jobs:
         run: |
           python3 -m json.tool .observstory/event.json > /dev/null
           cp .observstory/event.json observstory/data/event.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/commons/package-lock.json
+      - name: Build live E companion preview
+        working-directory: apps/commons
+        run: |
+          npm ci
+          npx tsc --noEmit --jsx react-jsx --moduleResolution bundler --module esnext --target es2022 --skipLibCheck --esModuleInterop e-preview/main.tsx
+          npx vite build --config vite.e-preview.config.ts
+          mkdir -p ../../observstory/e
+          cp -R dist-e/. ../../observstory/e/
       - name: Save dashboard artifact
         uses: actions/upload-artifact@v4
         with:
