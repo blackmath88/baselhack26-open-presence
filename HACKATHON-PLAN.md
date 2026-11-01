@@ -16,9 +16,9 @@ One person can ask a real photo-frame question, inspect relevant experiences and
 Alongside that, explore a passage-grounded graph in Knowledge Lab. The user experience must remain usable from a local snapshot if the lab is unavailable. Adobe/PDF is an optional presentation, not a prerequisite.
 
 ## Current state
-The local Commons implementation and multi-entry continuation are merged: 18 imported problem rooms, evidence inspection, repository browsing, search, shared contribution history, CLI/MCP and ATProto against an isolated local PDS. Publication and legacy moderation-read repairs are included. Combined checks: 188 tests, typecheck, index reproduction, build and both server smoke scripts pass. See [DEMO.md](DEMO.md) and [integration evidence](evidence/MODERATION-READS-20261031.md).
+The local Commons and its passage/cross-entrance continuation, shared validation, PDF Lab additions, Observatory visual workspace and Project Memory code are merged on main in their respective repositories. [The 1 November review](docs/reports/REPOSITORY-REVIEW-2026-11-01.md) records exact PRs, checks and remaining limits. [DEMO.md](DEMO.md) is the current local run guide.
 
-NOW: build on the consolidated main branch; run the real user journey and address usability gaps. Existing app UI remains the starting point. Knowledge Lab integration, cross-room Map edges, production identity and public activation are separate unfinished work; no live graph-service state or human UX acceptance is claimed.
+Next proposed operational work: verify the NUC installation and installed producer, then curate explicit implementation records for the workspace. Public identity, federation, hosting and human UX acceptance remain separate. The dated work packages and schedule below preserve the original plan; do not rerun completed build prompts as current tasks.
 
 ## Event timetable and project view
 

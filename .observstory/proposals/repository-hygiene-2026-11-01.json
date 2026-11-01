@@ -1,0 +1,35 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "repository-hygiene-2026-11-01",
+  "kind": "finding",
+  "title": "Refresh repository entry points after the merged build",
+  "statement": "README and active guides now distinguish implemented main-branch capabilities from historical plans and unverified installed runtime state. Preserve upstream attribution and historical build evidence; update active schema links to main. No product decision, source claim or human review was accepted by these documentation changes.",
+  "author": {
+    "name": "ChatGPT / Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T07:54:58.118Z",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "c1f5978a62f8b0ed8229dbe8ca7cb035a3140051",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "README.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/README.md"
+    },
+    {
+      "path": "docs/reports/REPOSITORY-REVIEW-2026-11-01.md"
+    }
+  ],
+  "conditions": [
+    "The context packet is historical; current main and hosted knowledge were checked separately.",
+    "Installed NUC service state remains unverified here."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}

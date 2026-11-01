@@ -2,7 +2,7 @@
 
 One shared Commons over the pinned Wes Bos photo-frame corpus, entered through **search**, the **repository
 snapshot**, **direct links**, the **CLI** or **MCP**, and connected to **ATProto** for author-owned publication and
-ingestion. Prototype demo sign-in; **never expose this server publicly.** Integrated on `main` through PR #11, including publication and moderation-read repairs (#13/#14).
+ingestion. Prototype demo sign-in; **never expose this server publicly.** Integrated on `main`, including cross-entrance/passage rediscovery (#18), shared validation and moderation-safe replay (#15), and earlier publication/read repairs. [Current review](docs/reports/REPOSITORY-REVIEW-2026-11-01.md).
 
 ## Install and run
 ```bash

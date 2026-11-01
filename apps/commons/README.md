@@ -1,3 +1,5 @@
+> **Imported upstream documentation.** This file preserves br-ai-nstorm’s original feature history and deployment examples. For Photo Frame Commons in this repository, use [the current demo/run guide](../../DEMO.md) and [integration review](../../docs/reports/REPOSITORY-REVIEW-2026-11-01.md). Commons uses the local Node backend; the upstream Cloudflare examples below do not provide the Commons service.
+
 <!-- BEGIN public-repo-header -->
 <div align="center">
 

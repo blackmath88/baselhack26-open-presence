@@ -1,99 +1,105 @@
-# Open Presence — working name
-BaselHack 2026 · Updated 31 October 2026
-
-**Make the conversation around knowledge discoverable and participatory, even when agents are how we reach it.**
-
-Start with [the current concept](HUMAN-SIGNAL-CONCEPT.md).
-
-**[Open the live Observatory →](https://blackmath88.github.io/baselhack26-open-presence/)** — project direction, event countdown, declared milestones, remaining work and repository activity. The dashboard shows the published snapshot; it is separate from the local Commons app and NUC memory graph.
-
-## The value we deliver
+# Open Presence
+BaselHack 2026 · Updated 1 November 2026 · Working name
 
 **Find experience that fits your situation. Understand its limits. Leave something useful for the next person.**
 
-We help people judge whether someone else's experience applies to their situation, and make their own discoveries available to others. The intended benefit is less repeated investigation and more usable shared experience; it remains to be tested.
+Start with [the current concept](HUMAN-SIGNAL-CONCEPT.md).
+
+## Start here
+
+| Experience | What it does | Open / run |
+| --- | --- | --- |
+| **Photo Frame Commons** | Find, inspect, contribute and rediscover through browser, repository navigation, CLI or MCP | [Demo and commands](DEMO.md) · [application](apps/commons/) |
+| **Observatory workspace** | Project knowledge, workstreams, board, timeline and source evidence | [Published workspace](https://blackmath88.github.io/baselhack26-open-presence/) · [guide](OBSERVSTORY.md) |
+| **PDF Lab** | Real PDFs, alternate readings, layer logic, file identities and transformations | [Cabinet and run instructions](sideprojects/pdf-lab/README.md) |
+| **PDF history** | The optional story of a recognisable page travelling between software and people | [Guide](modules/pdf-history/README.md) · [offline HTML](modules/pdf-history/index.html) |
+| **Project Memory** | Revision history and reproducible collaborator context | [Knowledge Lab](https://github.com/blackmath88/baselhack26-knowledge-lab) · [handoffs](docs/memory/README.md) |
+
+The workspace is a generated static snapshot. Commons and Project Memory run locally; opening the published workspace does not start their services.
+
+## Run Commons locally
+
+Requires Node.js 22 or newer and npm.
+
+```bash
+cd apps/commons
+npm ci
+npm run dev:server   # terminal 1: API and MCP on 127.0.0.1:8787
+```
+
+In a second terminal, run `cd apps/commons && npm run dev`, then open http://localhost:5173.
+Choose a prototype participant and search **“My Mac cannot see my frame”**. Inspect evidence, preview an observation and submit it to the local room. [DEMO.md](DEMO.md) covers repository, CLI/MCP and passage-reply journeys.
+
+Prototype sign-in is for local use; do not expose this server publicly. ATProto publication/ingestion has been exercised against an isolated development PDS, not public federation.
+
+## What works on main
+
+- A pinned public corpus supplies 18 photo-frame problem records with source references and applicability limits.
+- Browser, repository navigation, HTTP, CLI and MCP share one Commons service.
+- Contributions retain authorship, assistance declarations, revisions, sources and exact evidence passages. Replies and shared-source links lead back into discovery.
+- Shared validation and moderation apply across entrances, including command replay.
+- PDF Lab has 27 source specimens, four transformation derivatives and a separate minimal-mapping experiment.
+- Observatory's implemented static frontend preserves unknowns, input mismatches and declared status.
+- Project Memory's contract and durable host are merged in the producer/host repositories. The installed NUC runtime needs separate verification.
+
+The [current integration review](docs/reports/REPOSITORY-REVIEW-2026-11-01.md) records checks and limitations. [BUILD-STATUS.md](BUILD-STATUS.md) retains dated execution history, not a current task queue.
+
+## Why this experiment
 
 Three agreed use cases:
+
 1. **Has someone encountered my situation?** Find a relevant account and see why it matches.
-2. **Does this advice still apply?** Inspect conditions, disagreement and later corrections before choosing a next step.
-3. **We learned something others could use.** Turn a selected observation into a small, attributable contribution.
+2. **Does this advice still apply?** Inspect conditions, disagreement and later corrections.
+3. **We learned something others could use.** Leave a small, attributable contribution.
 
-The photo-frame corpus is the demonstration case. The value is independent of a particular repository. A local draft demonstrates contribution preparation and personal rediscovery; community value requires another person to discover and use a shared contribution.
+The surrounding conversation matters: questions, failed attempts, versions, screenshots, corrections and follow-ups. Authentic means attributable and inspectable here, not certified true or necessarily written without AI. Community value still requires people discovering and using one another's contributions.
 
-See [Value and UX](docs/product/VALUE-AND-UX.md) for proposed interface wording, visible evidence and demo checkpoints. The value framing and use cases were explicitly agreed by Achim; the interface details remain proposals.
-
-## Current build direction — 31 October
-
-Achim requested building the working loop from **br-ai-nstorm's existing application** using the already captured Wes Bos photo-frame corpus. Reuse State / Map / Timeline / Curation first; visual redesign follows a functioning integration.
-
-- [Claude / Orca build plan](docs/build/CLAUDE-ORCA-BUILD.md): pinned inputs, parallel task packets, ownership and acceptance gates.
-- [Launch prompt](docs/build/CLAUDE-ORCA-PROMPT.md): coordinator instructions.
-
-The new plan advances the earlier local-draft-only target to a functioning local shared room with explicit submission and second-session rediscovery. It takes precedence over older static-only implementation suggestions for this build. The historical schedule below remains a proposal, not evidence of completion or a revised deadline. No implementation or worker dispatch is claimed by this documentation update.
-
-## Observatory visual workspace — next implementation
-
-- [Implementation plan](docs/build/OBSERVATORY-VISUAL-WORKSPACE.md) — stable workstreams, timeline, branches, Board and detail; cool premium visual direction.
-- [Codex launch prompt](docs/build/CODEX-VISUAL-WORKSPACE-PROMPT.md).
-- [References and research boundary](docs/design/OBSERVATORY-VISUAL-REFERENCES.md).
-
-This is the agreed next UI direction and a proposed build sequence, not a claim that the redesign is deployed. The reusable frontend lives in `blackmath88/observstory/frontend`; this repository supplies the project declarations and deployment integration.
-
-## Hackathon project management
-- [Project and time plan](HACKATHON-PLAN.md) — milestones, acceptance criteria, Saturday/Sunday targets and scope cuts.
-- [Observstory dashboard and guide](OBSERVSTORY.md) — evidence-backed activity, overlaps and check-ins.
-- [Latest dashboard runs](https://github.com/blackmath88/baselhack26-open-presence/actions/workflows/observstory.yml) — download the dashboard and repository-growth replay. The dashboard is published automatically from `main`.
-
-Suggested schedule times remain planning targets. The supplied event timetable declares hands-off on Sunday, 1 November at 12:00 Europe/Zurich; submission/upload details remain open.
-
-## What we are building
-A real **Photo Frame Commons** pilot around [wesbos/photo-frame-dashboard](https://github.com/wesbos/photo-frame-dashboard): find a relevant experience, inspect its circumstances and original conversation, explore connections, and contribute a short observation back through a reviewable local draft.
-
-The value includes the paratext: questions, failed attempts, versions, screenshots, disagreement, corrections and follow-ups. An answer should retain the context that lets a person judge whether it applies.
-
-Two connected questions:
-- **Discovery:** how do people and agents find situated experience without losing its context?
-- **Community:** how do private AI-assisted investigations become small, useful contributions to shared knowledge?
-
-Authentic means attributable and inspectable here, not certified true or necessarily written without AI.
+[Value and UX](docs/product/VALUE-AND-UX.md) separates the agreed framing from proposed interface details. The demonstration case is [wesbos/photo-frame-dashboard](https://github.com/wesbos/photo-frame-dashboard); we do not modify that upstream repository.
 
 ## Our two repos for these two days
-| Repository | Focus |
+
+| Repository | Responsibility |
 | --- | --- |
-| **This repository** | The photo-frame pilot, discovery/community experience and optional Adobe story |
-| **[Knowledge Lab](https://github.com/blackmath88/baselhack26-knowledge-lab)** | Build and explore a graph for fun; investigate extraction, relationships and retrieval with LightRAG |
+| **This repository** | Commons, public-source corpus, PDF Lab and optional Adobe story |
+| **[Knowledge Lab](https://github.com/blackmath88/baselhack26-knowledge-lab)** | LightRAG retrieval experiment and durable Project Memory host |
 
-The graph is part of the exploration. Its connections must lead back to evidence and disclose how they were proposed. A simpler local index keeps the pilot usable independently of the lab service.
+[Observstory](https://github.com/blackmath88/observstory) supplies the reusable workspace and memory contracts. [Postack Underflow](https://github.com/blackmath88/postack-underflow) and [br-ai-nstorm](https://github.com/blackmath88/br-ai-nstorm) supply prior work and reusable mechanisms.
 
-[Postack Underflow](https://github.com/blackmath88/postack-underflow) and [br-ai-nstorm](https://github.com/blackmath88/br-ai-nstorm) are prior work and reuse sources, not extra weekend delivery repos. **Build the new pilot here**, superseding the earlier suggestion to put it in Postack. Wes's repository stays the external source.
+**Build the new pilot here**, superseding the earlier suggestion to put it in Postack.
 
-## First experience
-**“My Mac cannot see my frame.”**
+## Checks and documentation
 
-Find relevant accounts → inspect hardware and circumstances → follow original contributions → explore source-declared and proposed connections → draft a follow-up → preview its effect.
+From `apps/commons`:
 
-Start with a bounded real corpus and source links. Preserve individual authorship. A short “still fails on this version” should not need to become a polished AI summary.
+```bash
+npm ci --prefix tools/local-pds   # enables the real isolated-PDS test suites
+npm run typecheck
+npm test
+npm run index:check
+npm run build
+bash scripts/smoke/multi-entry.sh
+```
 
-br-ai-nstorm supplies shared sensemaking concepts; ATProto is the candidate portable record layer. Live federation is not an existing capability of this pilot.
+The browser smoke additionally needs Chromium. Exact commands and limitations are in [DEMO.md](DEMO.md).
 
-## Adobe is an optional narrative
+| Document | Use |
+| --- | --- |
+| [Integration review](docs/reports/REPOSITORY-REVIEW-2026-11-01.md) | Merged behavior, checks and remaining work |
+| [Project and time plan](HACKATHON-PLAN.md) | Original work packages, event timetable and scope history |
+| [Observatory guide](OBSERVSTORY.md) | Static publication, declarations and memory boundary |
+| [Shared-service implementation](docs/architecture/MULTI-ENTRY-IMPLEMENTATION.md) | Contracts, entrances and ATProto limits |
+| [Third-party provenance](THIRD_PARTY.md) | Reused sources, revisions and attribution |
 
-[PDF history scrolly module](modules/pdf-history/README.md) — original research, editorial provenance, claim-verification queue and [six-act build plan](modules/pdf-history/PLAN.md). [Edition 02](modules/pdf-history/index.html) is implemented as one offline HTML file; [design and browser checks](modules/pdf-history/DESIGN.md) document the working retro direction and limitations.
+Build prompts under `docs/build/` preserve their original intent. Do not rerun completed prompts as if they were current tasks.
+
+## Adobe and PDF
+
 **“PDF helped us preserve a document when it travelled. What should we preserve when an answer travels through AI?”**
 
-The concept and tool must stand without this framing. Photoshop can introduce the familiar experience; photo-frame contributions are the actual case. PDF preserved form, not truth.
+The concept and tool must stand without this framing. PDF preserved form, not truth. [PDF history](modules/pdf-history/README.md) is the optional narrative; [PDF Lab](sideprojects/pdf-lab/README.md) is the working format-bending cabinet. The lab remains in this repository; extraction to a separate repository has not been performed.
 
-A future name may be a PDF wordplay. Naming and repository renaming are deferred.
+## Remaining boundaries
 
-## Side project: PDF LAB
+Public identity/OAuth, owned ATProto namespace, federation, production Commons authentication and hosting remain separate work. No NUC service state is inferred from a merge or local screenshot. Selected project metadata still needs explicit implementation records if the workspace is to show build progress.
 
-[PDF LAB](sideprojects/pdf-lab/README.md) explores PDF as a creative format and a forensic learning environment: one file, many interpreters. Includes a [build plan](sideprojects/pdf-lab/PLAN.md) and [research/sparring prompt](sideprojects/pdf-lab/RESEARCH-PROMPT.md). Agreed on 31 October: incubate here, then extract to a separate repository after the hackathon. Documentation stage; technical choices remain proposed and this does not replace the main pilot.
-
-## Status and working boundaries
-The local Commons application is implemented in [apps/commons](apps/commons): repository browsing, search, CLI/MCP, shared contributions and isolated-development ATProto publication/ingestion. Start with [DEMO.md](DEMO.md); current evidence is in [BUILD-STATUS.md](BUILD-STATUS.md) and [the integration report](evidence/MODERATION-READS-20261031.md).
-
-PRs #4, #6, #8, #9, #11, #12, #13 and #14 are integrated. Combined local checks: 188 tests, typecheck, deterministic index, build and both server smoke scripts pass; PR #14 CI also passed. These are implementation/check results, not human UX acceptance. Public identity, hosting and federation activation remain separate; do not expose the prototype server publicly. Knowledge Lab's runtime must still be checked before integrating it.
-
-Use source snapshots, explicit attribution, reviewable interpretations and labelled local drafts. Do not publish to participant accounts, modify upstream repositories, ingest private chats or deploy as an incidental part of the prototype. Record licences and source revisions before reuse.
-
-The [earlier business-presence brief](EARLIER-BUSINESS-PRESENCE.md) is preserved for history. Its hotel/booking scenario is not the current build direction. The [official Adobe challenge](https://www.baselhack.ch/challenges/the-post-website-business) remains a presentation constraint to clarify independently of this experiment's purpose.
+The [earlier business-presence brief](EARLIER-BUSINESS-PRESENCE.md) is preserved for history. Its hotel/booking scenario is not the current build direction. Naming and repository renaming remain deferred.
