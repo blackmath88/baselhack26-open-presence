@@ -1,3 +1,4 @@
+/// <reference path="../vite-env.d.ts" />
 /** E — an original pixel-art, optional character in the Commons shell.
  * The Adobe -> "a dope E" pun is narrative; no third-party brand assets are used.
  * Behaviour is event-driven; ambient motion never changes navigation or focus.
