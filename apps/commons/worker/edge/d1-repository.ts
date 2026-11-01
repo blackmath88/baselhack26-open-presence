@@ -1,5 +1,6 @@
 import type { MemoryEvent } from '../../server/domain/events.js'
 import type { TransactionalEventRepository } from '../../server/persistence/repository.js'
+import { DomainError } from '../../server/domain/errors.js'
 
 export interface Statement {
   bind(...values: unknown[]): Statement
@@ -27,7 +28,7 @@ export function createD1Repository(db: Database): TransactionalEventRepository {
       } })
       const next = JSON.stringify(document)
       if (next === row.document) return structuredClone(result)
-      if (new TextEncoder().encode(next).length > 1024 * 1024) throw new Error('Demo capacity reached; export and migrate projections before adding data.')
+      if (new TextEncoder().encode(next).length > 1024 * 1024) throw new DomainError('conflict', 'This demonstration Commons is full. Keep your draft; the operator must export and migrate storage before more can be shared.', { reason: 'capacity' })
       const guard = crypto.randomUUID()
       try {
         await db.batch([

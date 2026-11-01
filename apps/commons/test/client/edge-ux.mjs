@@ -150,6 +150,21 @@ try {
   await anonymous.getByText(reply, { exact: false }).first().waitFor()
   check('after runtime restart anonymous search still rediscovers both authors', (await text(anonymous)).includes(original) && (await text(anonymous)).includes('Alice') && (await text(anonymous)).includes('Bob'))
   await shot(anonymous, '11-after-restart-rediscovery')
+  // A slow session bootstrap must not restore a contributor after the person has already signed out.
+  const racing = await browser.newContext({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' })
+  await racing.addInitScript(session => { if (!sessionStorage.getItem('raced')) { sessionStorage.setItem('raced', '1'); sessionStorage.setItem('phf.edge.session', session) } },
+    JSON.stringify({ token: identities[1].code, actor: { actorId: 'person:bob', displayName: 'Bob', scopes: ['memory:read', 'memory:contribute'] } }))
+  let releaseBootstrap
+  const bootstrapHeld = new Promise(resolve => { releaseBootstrap = resolve })
+  await racing.route('**/api/auth/session', async route => { await bootstrapHeld; await route.continue() }, { times: 1 })
+  const racer = await racing.newPage()
+  await racer.goto(origin)
+  await racer.getByRole('button', { name: 'Read without signing in / sign out' }).click()
+  releaseBootstrap()
+  await racer.waitForResponse(response => response.url().endsWith('/api/auth/session'))
+  await racer.waitForTimeout(500)
+  check('delayed bootstrap cannot undo sign-out', (await racer.locator('.phf-voice').innerText()).includes('Public reader') && await racer.evaluate(() => sessionStorage.getItem('phf.edge.session') === null))
+  await racing.close()
   await alice.reload()
   await waitFor(alice, '.commons-draft')
   check('logout remains public after reload', (await alice.locator('.phf-voice').innerText()).includes('Public reader'))

@@ -73,7 +73,7 @@ Open the local URL; public reading works without a credential. Enter the code to
 
 Revoke a person with `UPDATE contributor_tokens SET revoked = 1 WHERE actor_id = 'person:alice';` using authenticated Wrangler D1 access. Ordinary credentials never receive review scope. An operator can explicitly assign `can_review = 1` to a separate moderator credential. `WRITES_ENABLED=false` disables contribution/review/moderation routes. The sign-in endpoint cannot mint credentials.
 
-Daily limits: 100 mutation requests per contributor and 1,000 globally; failed/preview requests count. Request bodies are streamed with a 32 KiB cap. Budgets do not constitute a billing cap. Credentials expire in 1–30 days. Historical budget rows can be removed by the operator; contributions are retained until deliberate moderation/export/reset. No automatic destructive reset is implemented.
+Daily limits: 100 mutation requests per contributor and 1,000 globally; failed/preview requests count. The contributor bucket is charged first, so an exhausted contributor cannot drain the global allowance (regression in the smoke). Request bodies are streamed with a 32 KiB cap. Budgets do not constitute a billing cap. Credentials expire in 1–30 days. Historical budget rows can be removed by the operator; contributions are retained until deliberate moderation/export/reset. No automatic destructive reset is implemented.
 
 ## Evidence and limitations
 
@@ -81,8 +81,8 @@ Recorded 2026-11-01 on the NUC (Linux, Node 22, workerd 1.20251011.0); full numb
 
 - `npm run smoke:edge` passes repeatedly in real workerd/D1, including disposal and a new runtime on the same D1 directory (document, revision, identities and receipts unchanged; startup import and receipt replays are no-op writes).
 - The two-profile browser journey passes 36 checks on real workerd/D1 across three runtime restarts.
-- **Capacity:** the imported corpus already occupies 219,172 bytes. In the smoke workload the 1 MiB document accepts 83 contributions (1,045,331 bytes); the next write is rejected and rolled back, currently surfacing as HTTP 500 `internal_error`. Treat the release as a small two-person demonstration; normalise storage before wider use.
-- Whole-workerd-process CPU per request (includes D1/runtime; not isolate or billing CPU): search 24–31 ms at baseline and 50–71 ms at 83 contributions; contribute 40–53 ms at baseline and 67–100 ms at the 50th contribution (three runs). Cloudflare free-plan CPU compliance is therefore **not established** and must be measured on a deployment.
+- **Capacity:** the imported corpus already occupies 219,172 bytes. In the smoke workload the 1 MiB document accepts 83–84 contributions (about 1.05 MB; the count depends on the fixture). The next write is rejected and rolled back as HTTP 409 `conflict` with `detail.reason = "capacity"`, and the UI keeps the draft. Treat the release as a small two-person demonstration; normalise storage before wider use.
+- Whole-workerd-process CPU per request (includes D1/runtime; not isolate or billing CPU): search 24–31 ms at baseline and 50–71 ms at 83–84 contributions; contribute 38–53 ms at baseline and 61–100 ms at the 50th contribution (four runs). Cloudflare free-plan CPU compliance is therefore **not established** and must be measured on a deployment.
 
 - Local SQLite tests exercise the exact migration and SQL batch, real Commons validation, duplicate/concurrent writes, rollback, identity/revocation and two-user HTTP reply/rediscovery after service reconstruction.
 - Typecheck and the edge frontend build must pass. Wrangler dry-run must bundle the Worker.

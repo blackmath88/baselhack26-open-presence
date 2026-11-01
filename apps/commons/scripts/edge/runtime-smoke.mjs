@@ -165,6 +165,16 @@ try {
   await db.prepare('DROP TRIGGER smoke_commit_failure').run()
   await call(submitPath, { code: alice, body: failedCommand, status: 201 })
 
+  // An exhausted contributor is refused before the global bucket is charged, so others keep sharing.
+  {
+    const day = new Date().toISOString().slice(0, 10)
+    await db.prepare('DELETE FROM write_budgets').run()
+    await db.prepare('INSERT INTO write_budgets (bucket, used) VALUES (?, 100)').bind(`person:alice:${day}`).run()
+    for (let i = 0; i < 3; i++) await call(submitPath, { code: alice, body: { ...command, commandId: `exhausted-${i}` }, status: 429 })
+    assert.equal(await db.prepare('SELECT used FROM write_budgets WHERE bucket = ?').bind(`global:${day}`).first('used'), null, 'refused actor must not charge the global bucket')
+    await call(submitPath, { code: bob, body: { ...command, commandId: 'after-exhausted-alice', text: 'Bob still shares while Alice is limited' }, status: 201 })
+    await db.prepare('DELETE FROM write_budgets').run()
+  }
   // Grow to exact contribution counts. Reset only the isolated fixture's budgets
   // between requests so the 100/day contributor limit is not confused with capacity.
   const sizes = [{ contributions: 0, documentBytes: baseline.bytes, workerdProcessRssKiB: baselineRssKiB }]
@@ -174,12 +184,12 @@ try {
     while (count < target) {
       await db.prepare('DELETE FROM write_budgets').run()
       const beforeGrowth = await state()
-      const growth = await call(submitPath, { code: count % 2 ? alice : bob, body: { ...command, commandId: `growth-${count}`, text: `Growth measurement observation ${count}` }, status: [201, 500], ...(count === target - 1 ? { label: `contribution ${target}` } : {}) })
+      const growth = await call(submitPath, { code: count % 2 ? alice : bob, body: { ...command, commandId: `growth-${count}`, text: `Growth measurement observation ${count}` }, status: [201, 409], ...(count === target - 1 ? { label: `contribution ${target}` } : {}) })
       if (growth.error) {
-        assert.equal(growth.error, 'internal_error')
+        assert.equal(growth.error, 'conflict'); assert.equal(growth.detail?.reason, 'capacity')
         assert.deepEqual(await state(), beforeGrowth, 'capacity rejection preserves the entire document')
         assert.ok(beforeGrowth.bytes > 1024 * 1024 - 4096, 'failure is at the document capacity boundary')
-        capacity = { acceptedContributions: count, documentBytes: beforeGrowth.bytes, nextContributionStatus: 500, unavailableTarget: target }
+        capacity = { acceptedContributions: count, documentBytes: beforeGrowth.bytes, nextContributionStatus: 409, unavailableTarget: target }
         break
       }
       count++

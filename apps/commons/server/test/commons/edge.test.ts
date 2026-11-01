@@ -108,14 +108,14 @@ describe('D1 command parity', () => {
     expect(await repo.read()).toEqual([])
     expect(batches).toBe(0)
     // Under 1 MiB in JS code units, over 1 MiB encoded: exercises the byte bound.
-    await expect(repo.transaction(async tx => { tx.metadata.large = 'é'.repeat(524288) })).rejects.toThrow('Demo capacity reached')
+    await expect(repo.transaction(async tx => { tx.metadata.large = 'é'.repeat(524288) })).rejects.toThrow('demonstration Commons is full')
     expect(batches).toBe(0)
     expect(sqlite.prepare('SELECT revision FROM commons_state').get()?.revision).toBe(0)
     const overhead = JSON.stringify({ events: [], metadata: { large: '' } }).length
     await repo.transaction(async tx => { tx.metadata.large = 'a'.repeat(1024 * 1024 - overhead) })
     expect(batches).toBe(1)
     expect(sqlite.prepare('SELECT length(CAST(document AS BLOB)) AS bytes FROM commons_state').get()?.bytes).toBe(1024 * 1024)
-    await expect(repo.transaction(async tx => { tx.metadata.large = String(tx.metadata.large) + 'a' })).rejects.toThrow('Demo capacity reached')
+    await expect(repo.transaction(async tx => { tx.metadata.large = String(tx.metadata.large) + 'a' })).rejects.toThrow('demonstration Commons is full')
     expect(batches).toBe(1)
     expect(sqlite.prepare('SELECT revision FROM commons_state').get()?.revision).toBe(1)
   })

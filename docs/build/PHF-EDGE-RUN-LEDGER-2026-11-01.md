@@ -27,4 +27,13 @@ Local/Mistral: Mistral Vibe is configured locally (`mistral-large-4-0-3`), but i
 
 - No Cloudflare deployment, D1 creation, account inspection or public two-device test. `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID` are not configured in this environment.
 - Free-plan CPU compliance has not been measured on Cloudflare. Local measurements are whole-process CPU.
-- Capacity: 83 contributions in the smoke workload. When capacity is exceeded, the request returns HTTP 500 rather than a dedicated status.
+- Capacity: 83–84 contributions in the smoke workload. This is a demonstration-scale limit until storage is normalised.
+- `scripts/smoke/multi-entry.sh` passes, but its "unreachable server" step is not meaningful here: an unrelated process holds 127.0.0.1:8797.
+
+## Independent review (Codex, read-only, `80377a5`) and correction pass
+
+1. MAJOR: an exhausted contributor drained the global write budget. **Fixed:** the actor bucket is now charged first. Regression added to `smoke:edge`.
+2. MAJOR: a delayed session bootstrap could undo a sign-out or a newer login. **Fixed:** an auth generation is shared by bootstrap and sign-in. Browser regression `delayed bootstrap cannot undo sign-out` added; it was confirmed to fail without the fix.
+3. MINOR: capacity overflow returned a generic 500. **Fixed:** it now returns a typed 409 `conflict` with `reason: capacity`.
+
+After the fixes: typecheck passes; 37/37 client and edge tests; `smoke:edge` PASS; browser journey 37/37 on workerd and 37/37 on SQLite; local browser smoke PASS.

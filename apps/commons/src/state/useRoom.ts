@@ -139,9 +139,14 @@ export function useRoom(): Room {
     [],
   )
 
+  // Every sign-in/sign-out bumps this; an older bootstrap or sign-in result must not overwrite a newer choice.
+  const authGeneration = useRef(0)
+
   // Bootstrap: roster, restored session, problem list.
   useEffect(() => {
     let cancelled = false
+    const generation = authGeneration.current
+    const stale = () => cancelled || generation !== authGeneration.current
     void (async () => {
       try {
         if (EDGE_MODE) {
@@ -151,11 +156,12 @@ export function useRoom(): Room {
             next = await api.startSession(restored?.token ?? 'public')
           } catch (err) {
             if (!(err instanceof ApiError) || err.status !== 401) throw err
+            if (stale()) return
             saveSession(null)
             next = await api.startSession('public')
-            if (!cancelled) setError('Your contributor access code is invalid, expired or revoked. You are reading publicly. Enter a valid code to contribute again.')
+            if (!stale()) setError('Your contributor access code is invalid, expired or revoked. You are reading publicly. Enter a valid code to contribute again.')
           }
-          if (cancelled) return
+          if (stale()) return
           setSession(next)
           setPhase('ready')
           return
@@ -180,7 +186,7 @@ export function useRoom(): Room {
         if (first) await loadProblem(stored.token, first)
         else setPhase('ready')
       } catch (err) {
-        if (cancelled) return
+        if (stale()) return
         if (err instanceof ApiError && err.status === 401) {
           saveSession(null)
           setSession(null)
@@ -198,6 +204,7 @@ export function useRoom(): Room {
 
   const signIn = useCallback(
     async (participantId: string) => {
+      const generation = ++authGeneration.current
       setBusy(true)
       setError(null)
       setNotice(null)
@@ -212,6 +219,7 @@ export function useRoom(): Room {
       }
       try {
         const next = await api.startSession(participantId)
+        if (EDGE_MODE && generation !== authGeneration.current) return false
         saveSession(next)
         setSession(next)
         if (EDGE_MODE) {
@@ -228,11 +236,12 @@ export function useRoom(): Room {
         setNotice(`Signed in as ${next.actor.displayName}.`)
         return true
       } catch (err) {
+        if (EDGE_MODE && generation !== authGeneration.current) return false
         setError(message(err))
         setPhase(EDGE_MODE && session ? 'ready' : 'error')
         return false
       } finally {
-        setBusy(false)
+        if (generation === authGeneration.current) setBusy(false)
       }
     },
     [loadProblem, problemId, session],

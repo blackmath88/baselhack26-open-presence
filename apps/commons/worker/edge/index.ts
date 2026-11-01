@@ -42,8 +42,11 @@ export default { async fetch(request: Request, env: EdgeEnv): Promise<Response> 
       const actor = await auth.verify(authorization.replace(/^Bearer /i, ''))
       if (!actor.scopes.includes('memory:contribute')) return json(403, { error: 'forbidden', message: 'A contributor access code is required to share.' })
       // Durable limits; failed commands also consume budget. Limits bound abuse, not billing.
+      // The actor bucket is charged first: an exhausted contributor is rejected before touching the
+      // global bucket and so cannot drain it for others. A request refused by the global limit still
+      // costs its own actor one unit, which only ever affects that actor.
       const day = new Date().toISOString().slice(0, 10)
-      for (const [bucket, limit] of [[`global:${day}`, 1000], [`${actor.actorId}:${day}`, 100]] as const) {
+      for (const [bucket, limit] of [[`${actor.actorId}:${day}`, 100], [`global:${day}`, 1000]] as const) {
         const row = await env.DB.prepare('INSERT INTO write_budgets (bucket, used) VALUES (?, 1) ON CONFLICT(bucket) DO UPDATE SET used = used + 1 WHERE used < ? RETURNING used').bind(bucket, limit).first<{ used: number }>()
         if (!row) return json(429, { error: 'write_budget', message: 'Daily sharing limit reached. Keep your draft.' })
       }
