@@ -1,0 +1,47 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "pdf-workbench-batch-a-2026-11-01",
+  "kind": "proposal",
+  "title": "PDF LAB Workbench Batch A: encounter and inspection of the two poems",
+  "statement": "Implements WORKBENCH-BUILD.md phases 0-2 as a TanStack Start app in sideprojects/pdf-lab/workbench: read-only hashed ingestion, runtime-validated adapters over recorded MuPDF/Poppler runs and fixture bytes, and a specimen page with reveal, line inspector, extracted-text and comparison views and original download. The legacy cabinet is unchanged. Proposed for review; implementation choices in BATCH-A.md are not accepted decisions.",
+  "author": {
+    "name": "Claude",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T11:40:00Z",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "4c998e90408100de4b04c8af83b0024d9f3c0162",
+    "context_packet_id": "cp_49910240c91373d872f079ac"
+  },
+  "evidence": [
+    {
+      "path": "sideprojects/pdf-lab/workbench/BATCH-A.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/workbench/README.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/workbench/test/adapters.test.ts"
+    },
+    {
+      "path": "sideprojects/pdf-lab/workbench/scripts/smoke.mjs"
+    },
+    {
+      "path": "sideprojects/pdf-lab/workbench/evidence/batch-a"
+    },
+    {
+      "path": "sideprojects/pdf-lab/evidence/poems-results.json"
+    }
+  ],
+  "conditions": [
+    "Built on main 4c998e9 with the unmerged blueprint branch (PR #27, 768e8c5) merged in.",
+    "Hosted knowledge retried: resolved_commit 4c998e9, complete true, no diagnostics; generated 2026-11-01T08:03:02Z. The context packet cutoff is older than main.",
+    "All engine output shown is recorded evidence; no engine was run and no historical output was regenerated.",
+    "Checks run locally: strict typecheck, 13 adapter tests, production build and 9-check smoke, legacy test-poems.js and test-cabinet.js, browser walkthrough at 1440/768/390. Not run: test-poems-browser.js, screen reader pass.",
+    "Native viewer copy/paste, OCR and print survival remain unknown."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
