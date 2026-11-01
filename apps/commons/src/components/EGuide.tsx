@@ -4,6 +4,7 @@
  */
 import { useEffect, useReducer, useState } from 'react'
 import { EPixelSprite, type EPose } from './EPixelSprite'
+import { EOpening } from './EOpening'
 import { INITIAL_E_STATE, reduceE, resolveMissionIndex } from './e-behaviour'
 import './e-pixel.css'
 
@@ -46,7 +47,7 @@ const IDLE_CUES: readonly ('blink' | 'look-left' | 'look-right' | 'sleep')[] =
 export function EGuide({ missionIndex = 0 }: { missionIndex?: number }) {
   const [state, dispatch] = useReducer(reduceE, INITIAL_E_STATE)
   const [cueIndex, setCueIndex] = useState(0)
-  const [reduceMotion, setReduceMotion] = useState(true)
+  const [reduceMotion, setReduceMotion] = useState(() => typeof window === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   const [visible, setVisible] = useState(true)
   const mission = SIDE_MISSIONS[resolveMissionIndex(missionIndex, SIDE_MISSIONS.length)]
   const activeMission = SIDE_MISSIONS.find((item) => item.id === state.missionId)
@@ -90,11 +91,11 @@ export function EGuide({ missionIndex = 0 }: { missionIndex?: number }) {
   return (
     <aside className="e-pixel-guide" aria-label="E, the optional dopey guide">
       <div className="e-pixel-character">
-        <EPixelSprite pose={pose} size={64} />
-        <span className="e-pixel-name">a dope E</span>
+        <EOpening pose={pose} size={144} paused={state.paused} reducedMotion={reduceMotion} visible={visible} />
+        <span className="e-pixel-name">a dope e</span>
       </div>
       <div className="e-pixel-content">
-        <p className="e-pixel-intro"><strong>Hi, I'm E.</strong> I'll show you around… unless I get distracted.</p>
+        <p className="e-pixel-intro"><strong>hey. i'm e.</strong> i was going to show you something. wait… what was it?</p>
         {activeMission ? (
           <div className="e-pixel-mission">
             <strong>Oh! A side mission: {activeMission.title}</strong>

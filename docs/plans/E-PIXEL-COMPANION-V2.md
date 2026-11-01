@@ -1,15 +1,17 @@
-# E v2 — original pixel-art companion for Commons
+# e — lowercase, logo-derived companion for Commons
 
-**Status: implementation in progress on a draft branch; this plan is proposed, not approved product direction.**
+**Status: v2 merged in #39; lowercase art and opening updated following the explicit user brief below. Later wandering and presentation stages remain proposed.**
 **Date:** 2026-11-01
 **Starting point:** draft [PR #28](https://github.com/blackmath88/baselhack26-open-presence/pull/28), branch `vibe/e-guide-mascot-992977`.
 **Core concept remains:** [HUMAN-SIGNAL-CONCEPT.md](../../HUMAN-SIGNAL-CONCEPT.md). E and the PDF framing are optional. The Commons must work without them.
 
 ## Experience / editorial vision
 
-**Adobe → “a dope E”.** E is a slightly sleepy, easily distracted letter that visits the Commons and discovers side projects. It is an original geometric capital E with an expressive pixel face; not an Adobe logo or a Mistral character. Borrow only high-level small-scale pixel design principles from [Mistral's brand](https://mistral.ai/brand/), not its character artwork. Comedy is visible in a late blink, a long look, a tiny shuffle and a return to the real story, not continual chatbot text.
+**Adobe → “a dope e”.** The user explicitly requested a joint and a more fucked-up expression, then supplied the Adobe wordmark and clarified: derive the character from its lowercase **e**. Open with a smoke exhale, change colour and shape, finish red-eyed and at leisure. Towelie is the personality reference (spaced-out and distractible); the actual character remains the lowercase e.
 
-Motte (Postack's Archive Moth) is the technical sibling, not a character to transplant: [design](https://github.com/blackmath88/postack-underflow/blob/main/docs/design/ARCHIVE-MOTH.md), [implementation](https://github.com/blackmath88/postack-underflow/tree/main/src/features/motte). Motte is a source-led archivist; E is a distractible moderator. Crucially, do **not** horizontally mirror a capital E to change its facing.
+The previous clean capital pixel E missed that art direction and is superseded. The new SVG uses a broad bowl, enclosed counter, horizontal crossbar and right-side opening. Over 7.6 seconds it goes crisp → joint/inhale → exhale → slouch/colour shift → leisure. Eyes emerge with uneven heavy lids, red/pink whites and mismatched pupils. The e stays readable throughout and is never horizontally mirrored.
+
+Pause/Resume freezes the opening clock and smoke; hidden documents suspend it. Replay restarts the opening. Reduced motion shows the settled character without animated smoke. This is an authored visual gag, not an autonomous text loop.
 
 ## Stack decision for this *draft build*
 
@@ -22,7 +24,7 @@ Motte (Postack's Archive Moth) is the technical sibling, not a character to tran
 
 ## Slice A — Alive (implemented in draft, pending verification)
 
-- Original 32×32 logical E with paired eyes, mouth, warm red/coral/shadow palette.
+- Lowercase logo-derived vector e with red eyes, uneven lids, joint and continuous SVG transform; previous 32×32 capital art superseded.
 - `EPixelSprite` with idle, blink, look-left, look-right, sleep, surprised, excited poses.
 - `reduceE` pure transition model; no unbounded speech loop.
 - EGuide retained as compatibility entry point; mission metadata remains typed.

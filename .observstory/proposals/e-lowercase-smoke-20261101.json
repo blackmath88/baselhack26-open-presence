@@ -1,0 +1,36 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "e-lowercase-smoke-20261101",
+  "kind": "finding",
+  "title": "Restore user-directed lowercase e, joint and smoke opening",
+  "statement": "The capital pixel E missed the earlier explicit joint/toasted direction. User supplied the Adobe wordmark and requested a lowercase e, smoke exhale and colour/shape shift into a red-eyed leisure character. Updated the shared component and live preview with that opening. Walking and presentation choreography remain unbuilt.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T15:46:00+01:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "1e53da9f690d3c4ea192056d858e99cb5403d8cb",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "docs/plans/E-PIXEL-COMPANION-V2.md"
+    },
+    {
+      "path": "docs/reports/E-LOWERCASE-OPENING-2026-11-01.md"
+    },
+    {
+      "path": "apps/commons/src/components/EOpening.tsx"
+    }
+  ],
+  "conditions": [
+    "User explicitly supplied the lowercase logo reference and smoke/red-eyes brief in the current conversation.",
+    "No human review record authored.",
+    "Static visual check and builds/tests do not establish browser motion/accessibility verification."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
