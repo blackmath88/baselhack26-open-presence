@@ -68,11 +68,23 @@ const q = (params: Record<string, string | number | boolean | undefined>) => {
   return str ? `?${str}` : ''
 }
 const flagStr = (flags: Flags, key: string): string | undefined => (typeof flags[key] === 'string' ? (flags[key] as string) : undefined)
-const flagNum = (flags: Flags, key: string): number | undefined => (flagStr(flags, key) !== undefined ? Number(flagStr(flags, key)) : undefined)
+const flagNum = (flags: Flags, key: string): number | undefined => {
+  if (flags[key] === undefined) return undefined
+  const value = flagStr(flags, key)
+  if (value === undefined || !value.trim() || !Number.isFinite(Number(value))) throw new CliError(2, `--${key} needs a finite number.`)
+  return Number(value)
+}
 
 function draftFromFlags(flags: Flags): Record<string, unknown> {
   const file = flagStr(flags, 'file')
-  const base: Record<string, unknown> = file ? JSON.parse(readFileSync(file, 'utf8')) : {}
+  let base: Record<string, unknown> = {}
+  if (file) {
+    try {
+      const parsed: unknown = JSON.parse(readFileSync(file, 'utf8'))
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('Expected a JSON object.')
+      base = parsed as Record<string, unknown>
+    } catch (error) { throw new CliError(2, `Invalid draft file: ${error instanceof Error ? error.message : String(error)}`) }
+  }
   const set = (key: string, value: unknown) => { if (value !== undefined) base[key] = value }
   set('problemId', flagStr(flags, 'problem') ?? flagStr(flags, 'problemId'))
   set('text', flagStr(flags, 'text'))

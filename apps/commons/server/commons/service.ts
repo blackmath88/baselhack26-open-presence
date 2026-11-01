@@ -4,8 +4,11 @@
  * command receipts; reads fold the same log. Network I/O (ATProto) happens
  * outside transactions and is reconciled back in through receipts.
  */
+import { withheldObjectIds, referencesWithheld } from './read-boundary.js'
+import { visibleRoomEvents } from './read-view.js'
+import { parseOperation } from './operation-schemas.js'
 import type {
-  CommonsContribution, ImportedProblem, ModeratedContribution, Ref, ReviewCommand, SubmitContributionCommand, SubmitContributionCommandV2,
+  CommonsContribution, ImportedProblem, ModeratedContribution, Ref, ReviewCommand, SubmitContributionCommandV2,
 } from '../../src/commons/contracts.js'
 import { COMMONS_SCHEMA_VERSION, SUBMIT_ENTRANCES, importedProblemSpaceId, isModerated } from '../../src/commons/contracts.js'
 import type { ActorContext } from '../auth/actor-context.js'
@@ -25,7 +28,6 @@ import { DOMAIN_KIND_FOR } from './projection.js'
 import { createOutboxDrainer, enqueue, prepareIntent, type PublicationDeps } from './publication.js'
 import { browse, contextPacket, findContribution, loadCommons, prepareContribution, problemView, searchAll, threadView, type LoadedCommons } from './queries.js'
 import { resolveExternal, syncAuthor, type IngestDeps } from './ingestion.js'
-import { visibleRoomEvents } from './read-view.js'
 
 export interface CommonsServiceOptions {
   repository: TransactionalEventRepository
@@ -52,6 +54,9 @@ async function command<T extends object>(tx: RepositoryTransaction, actor: Actor
   const prior = metadata.commands[commandId]
   if (prior) {
     if (prior.hash !== hash) throw conflictError('commandId was already used with different input.')
+    const events = await tx.repository.read()
+    const withheld = withheldObjectIds(events, metadata)
+    if ((input as { type?: string }).type !== 'moderate' && referencesWithheld(prior.outcome, withheld)) throw forbidden('Contribution is withheld by moderation or remote availability.')
     return { ...(structuredClone(prior.outcome) as T), replayed: true }
   }
   const outcome = await work()
@@ -100,7 +105,8 @@ export function createCommonsService(options: CommonsServiceOptions) {
       return read(actor, ctx => prepareContribution(ctx.loaded, ctx.metadata, input))
     },
 
-    async submitContribution(actor: ActorContext, input: SubmitContributionCommand | SubmitContributionCommandV2) {
+    async submitContribution(actor: ActorContext, input: unknown) {
+      input = parseOperation('submit_contribution', input)
       authorize(actor, SCOPE_CONTRIBUTE)
       if (!input || typeof input !== 'object') throw invalid('Invalid contribution command.')
       const { entrance, ...snapshot } = structuredClone(input) as SubmitContributionCommandV2
@@ -138,6 +144,7 @@ export function createCommonsService(options: CommonsServiceOptions) {
     },
 
     async review(actor: ActorContext, input: ReviewCommand) {
+      input = parseOperation('review', input)
       authorize(actor, SCOPE_REVIEW)
       if (!input || typeof input !== 'object') throw invalid('Invalid review command.')
       const snapshot = structuredClone(input)
@@ -194,16 +201,16 @@ export function createCommonsService(options: CommonsServiceOptions) {
       return repository.transaction(async tx => {
         const roomId = id.startsWith('commons:') ? id : importedProblemSpaceId(id)
         const allHistory = await tx.repository.read()
-        const rawHistory = allHistory.filter(e => e.problemId === roomId)
+        const history = allHistory.filter(e => e.problemId === roomId)
         const metadata = commonsMetadata(tx)
-        const history = visibleRoomEvents(allHistory, metadata).filter(e => e.problemId === roomId)
-        const state = project(history)
+        const visibleHistory = visibleRoomEvents(allHistory, metadata).filter(e => e.problemId === roomId)
+        const state = project(visibleHistory)
         if (!state) throw notFound('Room', id)
         const source = metadata.sources[roomId.slice('commons:'.length)]
         const edgeProvenance = (proposalId?: string) => proposalId && metadata.edges[proposalId]
           ? metadata.edges[proposalId] : { origin: 'machine-proposal' as const, evidenceIds: [] }
         return {
-          ...state, version: rawHistory.length, history, source: source ? structuredClone(source) : null,
+          ...state, version: history.length, history: visibleHistory, source: source ? structuredClone(source) : null,
           proposals: state.proposals.map(p => ({ ...p, ...edgeProvenance(p.id) })),
           relations: state.relations.map(r => ({ ...r, ...edgeProvenance(r.fromProposalId), reviewedBy: r.createdBy })),
           contributions: state.contributions.map(c => ({ ...c, submission: metadata.submissions[c.id] ?? null })),
@@ -213,16 +220,20 @@ export function createCommonsService(options: CommonsServiceOptions) {
 
     // --- multi-entry reads -------------------------------------------------
     search(actor: ActorContext, input: { query: string; limit?: number; include?: Array<'problems' | 'contributions'> }) {
+      input = parseOperation('search', input)
       text(input?.query, 'query')
       return read(actor, ctx => searchAll(ctx.loaded, ctx.metadata, input))
     },
     browseRepository(actor: ActorContext, input: Parameters<typeof browse>[2] = {}) {
+      input = parseOperation('browse_repository', input)
       return read(actor, ctx => browse(ctx.loaded, ctx.metadata, input))
     },
     getProblem(actor: ActorContext, id: string) {
+      id = parseOperation('get_problem', { problemId: id }).problemId
       return read(actor, ctx => problemView(ctx.loaded, ctx.metadata, text(id, 'problemId')))
     },
     getContribution(actor: ActorContext, id: string): Promise<(CommonsContribution | ModeratedContribution) & { problemTitle?: string }> {
+      id = parseOperation('get_contribution', { contributionId: id }).contributionId
       return read(actor, ctx => {
         const c = findContribution(ctx.loaded, text(id, 'contributionId'))
         const title = ctx.metadata.sources[c.problemId]?.title
@@ -230,9 +241,11 @@ export function createCommonsService(options: CommonsServiceOptions) {
       })
     },
     getThread(actor: ActorContext, id: string) {
+      id = parseOperation('get_thread', { contributionId: id }).contributionId
       return read(actor, ctx => threadView(ctx.loaded, ctx.metadata, text(id, 'contributionId')))
     },
     getContext(actor: ActorContext, input: { problemId?: string; contributionId?: string; budget?: number }) {
+      input = parseOperation('get_context', input)
       return read(actor, ctx => contextPacket(ctx.loaded, ctx.metadata, input, clock.now()))
     },
     listProblems(actor: ActorContext) {
@@ -260,6 +273,8 @@ export function createCommonsService(options: CommonsServiceOptions) {
 
     // --- local moderation (affects every projection) ------------------------
     async moderate(actor: ActorContext, input: { commandId: string; contributionId?: string; authorId?: string; action: 'hide' | 'unhide' | 'block' | 'unblock'; reason?: string }) {
+      input = parseOperation('moderate', input)
+      text(input.action === 'hide' || input.action === 'unhide' ? input.contributionId : input.authorId, 'moderation target')
       authorize(actor, SCOPE_REVIEW)
       const snapshot = structuredClone(input)
       return repository.transaction(tx => command(tx, actor, snapshot.commandId, { type: 'moderate', command: snapshot }, async () => {
@@ -282,6 +297,7 @@ export function createCommonsService(options: CommonsServiceOptions) {
 
     // --- publication -----------------------------------------------------------
     async preparePublication(actor: ActorContext, input: { contributionId: string }) {
+      input = parseOperation('prepare_publication', input)
       authorize(actor, SCOPE_CONTRIBUTE)
       const contributionId = text(input?.contributionId, 'contributionId')
       // Network (login) happens before the transaction, never inside it.
@@ -292,6 +308,7 @@ export function createCommonsService(options: CommonsServiceOptions) {
       })
     },
     async publishContribution(actor: ActorContext, input: { intentId: string }) {
+      input = parseOperation('publish_contribution', input)
       authorize(actor, SCOPE_CONTRIBUTE)
       const intentId = text(input?.intentId, 'intentId')
       const queued = await repository.transaction(async tx => {
@@ -309,6 +326,7 @@ export function createCommonsService(options: CommonsServiceOptions) {
       return drain()
     },
     getPublication(actor: ActorContext, contributionId: string) {
+      contributionId = parseOperation('get_publication', { contributionId }).contributionId
       return read(actor, ctx => {
         const id = text(contributionId, 'contributionId')
         if (!ctx.loaded.contributions.has(id)) throw notFound('Contribution', id)
@@ -318,10 +336,12 @@ export function createCommonsService(options: CommonsServiceOptions) {
 
     // --- ingestion ---------------------------------------------------------------
     async syncAuthor(actor: ActorContext, input: { did: string; maxPages?: number }) {
+      input = parseOperation('sync_author', input)
       authorize(actor, SCOPE_CONTRIBUTE)
       return syncAuthor(repository, ingestDeps, text(input?.did, 'did'), { ...(input.maxPages ? { maxPages: input.maxPages } : {}) })
     },
     async resolveExternal(actor: ActorContext, input: { uri: string }) {
+      input = parseOperation('resolve_external', input)
       authorize(actor, SCOPE_CONTRIBUTE)
       const uri = text(input?.uri, 'uri')
       if (!uri.startsWith('at://')) throw invalid('uri must be an at:// URI.')

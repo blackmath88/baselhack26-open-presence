@@ -88,3 +88,20 @@ Turn 6 (22:18–): search → problem rediscovery. Problem hits from search (HTT
 CI: the Commons app workflow now runs `browser.sh`. Run 41243526771 on `b69cc7d` succeeded, and the browser step actually ran on the runner's Chrome (`PASS browser smoke` in the log; it did not skip).
 
 Turn 6, final increment (22:29–22:32): `getProblem` returns `sharedSources`, the other problem records whose evidence cites the same issue or doc, each with the count of contributions there. It is derived and labelled 'not a reviewed relationship'. The browser shows it as **Shares cited sources with**, the record is asserted unchanged, and `browser.sh` checks the section. Checks: typecheck; 193 tests; index byte-identical; build; e2e.sh; multi-entry.sh; browser.sh PASS.
+
+## NUC continuation — adapter consistency and moderation repair (2026-10-31)
+
+Starting base: PR #11 head `dacc9741877040836d103992e8861c36f29ae167`, including PR #13's publication destination/retry repairs. This differs from the takeover document's `0175fa9`; the original M0–M5 build is preserved. Continuation branch: `blackmath88/commons-adapter-consistency`, stacked on `feat/commons-multi-entry` (PR #11), PR #11 is now based on main after its earlier dependencies were integrated by the separate session.
+
+Ownership checked before edits: Claude's original checkout was clean at `0175fa9`; its multi-entry transcript ended at a usage limit. Orca reported no attached or unverifiable terminals for that checkout or its packet worktrees. Claude processes in the parent clones directory were preserved; its existing Vite preview on :5173 was left running. Work took place in a separate Orca-created continuation worktree, directly in foreground Codex, with no workers dispatched and no paid API calls.
+
+Repairs and consistency:
+- Reproduced legacy room/body leakage with a failing regression before the repair. Ordinary legacy problem, history, compact overview, update, curation and orchestration reads now fold a moderation-filtered event view. Commons room reads use the same filter. Hidden/blocked/deleted/invalid contributions and dependent proposal/edge/evaluation events are omitted; persisted events remain intact. Submission replay refuses a saved outcome that references withheld objects. Moderation command replay remains idempotent.
+- MCP discovery uses the same runtime operation schemas enforced by the Commons service. HTTP rejects invalid JSON types instead of silently converting them; numeric/enumeration bounds apply to HTTP/CLI as well as MCP. Preview retains its existing `ok:false` validation response; invalid commands use domain `invalid` (HTTP 422, CLI exit 2; MCP uses its protocol's error result).
+- Session attribution remains authoritative; untrusted extra identity fields are stripped before receipt hashing. Operation names, tool names, room/contribution identifiers and underlying log are preserved. Existing valid durable command receipts are retained.
+
+PR #14 landed concurrently at `86ec1a9` after this work began; its complete-log moderation reader is preserved as the single shared reader, with this continuation adding schema validation and receipt replay protection. Local integration resolves the overlap without merging any remote PR.
+
+Validation and exact handoff: `evidence/CODEX-NUC-ADAPTER-CONSISTENCY.md`. No public account writes, remote PR merge, deployment, OAuth, namespace activation or original-build restart. Remaining review is bounded independent review of this continuation; activation/product follow-ups above remain separate.
+
+Final combined checkpoint after preserving PR #14: typecheck, **18 files / 192 tests** (isolated PDS executed), index reproduction, production build and both local-server smoke scripts pass. Draft continuation: PR #15. Existing chunk-size warning remains; independent review is still outstanding.

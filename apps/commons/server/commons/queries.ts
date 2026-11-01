@@ -4,6 +4,7 @@
  * command. Nothing here invents an answer: context packets list sources,
  * revisions, omissions and the fact that record interpretations are unreviewed.
  */
+import { operationSchemas } from './operation-schemas.js'
 import type {
   AssistanceDeclaration, CommonsContribution, CommonsContributionKind, ImportedProblem, ModeratedContribution, SearchHit, SourceRef, SubmitContributionCommandV2,
 } from '../../src/commons/contracts.js'
@@ -349,7 +350,9 @@ export interface PreparedContribution {
 export function prepareContribution(loaded: LoadedCommons, metadata: CommonsMetadata, raw: unknown): PreparedContribution {
   const errors: string[] = []
   const warnings: string[] = []
-  const input = (raw && typeof raw === 'object' ? raw : {}) as Record<string, unknown>
+  const parsed = operationSchemas.prepare_contribution.safeParse(raw)
+  if (!parsed.success) errors.push(...parsed.error.issues.map(i => `${i.path.join('.') || 'input'}: ${i.message}`))
+  const input = (parsed.success ? parsed.data : raw && typeof raw === 'object' ? raw : {}) as Record<string, unknown>
   const problemId = typeof input.problemId === 'string' ? input.problemId.trim() : ''
   const source = metadata.sources[problemId]
   const destination = {
