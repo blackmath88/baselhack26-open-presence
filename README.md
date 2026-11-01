@@ -11,7 +11,7 @@ BaselHack 2026 · Updated 1 November 2026
 
 Start with [the current concept](HUMAN-SIGNAL-CONCEPT.md).
 
-[Shared website and end-to-end integration plan](docs/build/PHF-WEBSITE-END-TO-END.md) — proposed landing page, app navigation and public-runtime delivery.
+[Shared website and end-to-end integration plan](docs/build/PHF-WEBSITE-END-TO-END.md) — implemented story/navigation foundation and remaining public-runtime delivery.
 
 ## Open the story
 
@@ -30,6 +30,9 @@ Open http://127.0.0.1:8001/. The launcher builds the applications and keeps demo
 [Run, verify and configure hosting](apps/story/README.md).
 
 ## Start here
+
+**[Module directory: locations, public links and local runtimes](MODULES.md)** — includes current integration status.
+
 
 | Experience | What it does | Open / run |
 | --- | --- | --- |

@@ -1,0 +1,32 @@
+name: Clean verified merged branches
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/cleanup-merged-branches.yml']
+permissions:
+  contents: write
+  pull-requests: read
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const {owner, repo} = context.repo;
+            const candidates = [{"pr":43,"ref":"feat/phf-connected-story","sha":"1a84b5d096c80b270a7885f9a84b9145adf224aa"},{"pr":42,"ref":"feat/e-deployable-vision","sha":"68a9de35b959a4bdc927cdf1e027d2ed41db8261"},{"pr":41,"ref":"feat/lowercase-e-smoke","sha":"806ea7533b323308771076c0236c667ca15cb62f"},{"pr":40,"ref":"docs/phf-website-end-to-end","sha":"8ecb8c1a1cc64ab051f2b32edabc173a3f2f8a3d"},{"pr":39,"ref":"fix/e-v2-integrated-preview","sha":"546b16b25fac5d7e54bf5421847efd5d74ed61a2"},{"pr":33,"ref":"docs/commons-experience-blueprint","sha":"d53aadfe348ac06a7a643c2511e26d525aec883d"},{"pr":32,"ref":"fix/phf-integration-hygiene","sha":"e9aafc9b09b158c43c22e66b7f9e369924c38ac6"},{"pr":30,"ref":"feat/pdf-workbench-batch-b","sha":"1b96128b557df1e97039da98545d731f2cb0bdc6"},{"pr":29,"ref":"feat/pdf-workbench-batch-a","sha":"f8d65b3ba4f7a9875f73d5ddd96e5ce279f8e2f2"},{"pr":27,"ref":"docs/pdf-workbench-build-blueprint","sha":"768e8c52635937ab897bdaa3f14e01d32ac98542"},{"pr":23,"ref":"docs/phf-three-part-story","sha":"283a85a602b4f7d562ee6c8bc9f417886de8ff42"},{"pr":26,"ref":"docs/pdf-lab-workbench-ux-2026-11-01","sha":"9594563174ea856a551b95836182cd16d1531766"},{"pr":25,"ref":"feat/phf-core-demo","sha":"002d50ee8a667bb7d89fad4b19dc99eeeca8fc5f"},{"pr":24,"ref":"feat/phf-pdf-opening","sha":"d2f9458bcedca2bcddc22ce33436757f4330c2c5"},{"pr":35,"ref":"feat/commons-cisco-phase0","sha":"3a8893635fba4d2675774e6c04763718e6ed3148"},{"pr":36,"ref":"feat/commons-phase-1-find-inspect","sha":"51ebc58fb2469977be935cfbab9d203f7b800659"},{"pr":37,"ref":"feat/commons-phase-2-compare","sha":"2050786f553a5a2a0921f30edcc43ba8a68d116c"}];
+            const open = await github.paginate(github.rest.pulls.list, {owner, repo, state: 'open'});
+            for (const c of candidates) {
+              const {data: pr} = await github.rest.pulls.get({owner, repo, pull_number: c.pr});
+              if (!pr.merged || pr.head.repo?.full_name !== owner + '/' + repo || pr.head.ref !== c.ref || pr.head.sha !== c.sha || c.ref === 'main' || open.some(p => p.head.ref === c.ref || p.base.ref === c.ref)) {
+                core.info('Preserved ' + c.ref); continue;
+              }
+              let ref;
+              try { ref = (await github.rest.git.getRef({owner, repo, ref: 'heads/' + c.ref})).data; }
+              catch (e) { if (e.status === 404) { core.info('Already absent ' + c.ref); continue; } throw e; }
+              if (ref.object.sha !== c.sha) { core.info('Preserved moved branch ' + c.ref); continue; }
+              await github.rest.git.deleteRef({owner, repo, ref: 'heads/' + c.ref});
+              core.info('Deleted merged branch ' + c.ref);
+            }
