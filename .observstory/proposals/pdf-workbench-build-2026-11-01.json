@@ -1,0 +1,44 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "pdf-workbench-build-2026-11-01",
+  "kind": "proposal",
+  "title": "Build a modular TanStack PDF workbench around existing specimens and evidence",
+  "statement": "Achim requested a modular TanStack Start workbench with a clean modern Cisco-inspired shell. This blueprint maps the supplied research and PR #26 to existing PDF Lab code, preserving the creative experiment plan and defining phases 0–7 plus a bounded Claude Batch A for encounter and inspection. Documentation only; no worker launched.",
+  "author": {
+    "name": "ChatGPT / Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T09:51:53.755Z",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "4c998e90408100de4b04c8af83b0024d9f3c0162",
+    "context_packet_id": "cp_49910240c91373d872f079ac"
+  },
+  "evidence": [
+    {
+      "path": "sideprojects/pdf-lab/WORKBENCH-BUILD.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/CLAUDE-WORKBENCH.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/research/2026-11-01-workbench-direction.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/poems.js"
+    },
+    {
+      "path": "sideprojects/pdf-lab/evidence/poems-results.json"
+    }
+  ],
+  "conditions": [
+    "Detailed technical contracts remain proposed; the current user request supplies the product/visual direction.",
+    "Hosted knowledge and snapshot were inaccessible; their current commit/completeness/diagnostics are unknown. Historical packet cutoff is older than inspected main.",
+    "PR #26 remains open at 9594563174ea856a551b95836182cd16d1531766; PR #23 narrative remains open at 283a85a602b4f7d562ee6c8bc9f417886de8ff42.",
+    "Source inspection only. No engine tests, application implementation, remote worker launch or deployment performed.",
+    "The two repeated supplied reports were condensed with attribution; not archived verbatim. Only TanStack overview and Cisco inventory references were independently read in this pass."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
