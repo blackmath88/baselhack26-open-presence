@@ -12,7 +12,9 @@ cd sideprojects/pdf-lab
 python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-Open http://127.0.0.1:8000/. The cabinet uses actual generated files and recorded measurements. Regeneration and engine requirements: [RUNNING.md](RUNNING.md).
+**Presenting?** Open http://127.0.0.1:8000/opening.html — a guided 60-second path through the paired-poem experiment (read → reveal → live mechanism → rewrite → bridge to .phf). Keys: → / Space next, ← back, C cabinet. Deep links `#step-1`…`#step-6`; `?return=<url>` sets the "Back to the presentation" target (default: same host on :8001 when served on :8000). Walkthrough: `NODE_PATH=/path/to/node_modules node test-opening-browser.js [--shots]`.
+
+Open http://127.0.0.1:8000/ for the full cabinet. The cabinet uses actual generated files and recorded measurements. Regeneration and engine requirements: [RUNNING.md](RUNNING.md).
 
 **On main:** 27 source specimens, four transformation derivatives and a separate minimal-mapping experiment directory. [Two poems](TWO-POEMS.md) implements alternate text readings behind the same visible artwork; [the transformation notebook](TRANSFORMATION-NOTEBOOK.md) compares clone, rewrite and raster outcomes. [Minimal mapping](MAPPING-MINIMAL.md) and [source audit](MAPPING-SOURCE-AUDIT.md) retain the measured limits. Live interactive-viewer qualification remains open for the backstage prototype.
 

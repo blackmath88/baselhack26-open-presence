@@ -46,3 +46,6 @@ Explore early Acrobat / 1990s–early-2000s document UI: title bars, menus, font
 [Scrollies](https://github.com/blackmath88/scrollies) supplies narrative-interface reasoning, not an imported theme or runtime. See the inspected references in [PROCESS.md](PROCESS.md). No source code or assets have been copied. Inspect licences before future reuse.
 
 No publication or change to the core pilot is part of this module.
+
+## Into the lab
+Chapter 06 links to the [PDF Lab guided opening](../../sideprojects/pdf-lab/opening.html), part 1 of the .phf presentation: one visible page, two measured readings. Historical research here is unchanged.

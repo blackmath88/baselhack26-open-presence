@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PDF Lab — What survives when a document travels?</title>
+<meta name="description" content="A 60-second guided opening into PDF Lab's paired-poem experiment: one visible page, two readings.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Crect width=%2216%22 height=%2216%22 rx=%223%22 fill=%22%23245bdd%22/%3E%3C/svg%3E"><link rel="stylesheet" href="opening.css"><script src="opening.js" defer></script></head>
+<body>
+<a class="skip" href="#stage">Skip to the opening</a>
+<header class="bar"><a class="brand" href="index.html" title="Open the full cabinet">PDF<span>LAB</span></a>
+<span class="where">Part 1 of .phf · the past</span>
+<a class="cabinet-link" href="index.html">Full cabinet ↗</a></header>
+
+<main id="stage" tabindex="-1">
+
+<section class="scene scene-title" data-scene="1" aria-labelledby="s1-title">
+<p class="eyebrow">PDF LAB / A01 / A 60-SECOND OPENING</p>
+<h1 id="s1-title">What survives when<br>a document <em>travels?</em></h1>
+<p class="lede">A PDF promises that what you see is what arrives. Here is one real file from our cabinet. Read it first.</p>
+<button class="go" type="button" data-next>Show me the page <span aria-hidden="true">→</span></button>
+<p class="keys">Keys: <kbd>→</kbd> or <kbd>Space</kbd> next · <kbd>←</kbd> back · <kbd>C</kbd> cabinet</p>
+</section>
+
+<section class="scene scene-read" data-scene="2" aria-labelledby="s2-title" hidden>
+<div class="copy"><p class="eyebrow">1 · READ WITH YOUR EYES</p>
+<h2 id="s2-title">Four lines<br>about a lamp.</h2>
+<p>This is the page a person sees. Read the verse out loud if you like.</p>
+<p class="fine">Recorded MuPDF 1.26.11 rendering of the actual file, 72 dpi. Open the PDF itself to check: <a class="file" href="output/pdf/01-poem-other.pdf">01-poem-other.pdf ↗</a></p></div>
+<figure class="page"><img src="evidence/previews/01-poem-other.webp" width="612" height="792" alt="The rendered page: title 'A lamp beside the rain' and four lines — I leave a lamp beside the rain. The window gathers little seas. A moth rehearses being flame. Dark gives each wing a name."></figure>
+</section>
+
+<section class="scene scene-reveal" data-scene="3" aria-labelledby="s3-title" hidden>
+<div class="copy wide"><p class="eyebrow">2 · NOW LET A MACHINE READ THE SAME FILE</p>
+<h2 id="s3-title">Same file. Same pixels.<br><em>Another poem.</em></h2></div>
+<div class="duel">
+<figure class="page small"><figcaption><strong>What you see</strong> · recorded render</figcaption><img src="evidence/previews/01-poem-other.webp" width="612" height="792" alt="The rendered page with the visible lamp poem"></figure>
+<div class="reading" aria-live="polite">
+<div class="reading-head"><strong>What a reader extracts</strong>
+<div class="engines" role="group" aria-label="Extraction engine"><button type="button" data-engine="mupdf" aria-pressed="true">MuPDF 1.26.11</button><button type="button" data-engine="poppler" aria-pressed="false">Poppler 26.08.0</button></div></div>
+<ol class="pairs" id="pairs"><li class="loading">Loading recorded extraction…</li></ol>
+<p class="fine" id="reveal-scope">Recorded extraction from <code>evidence/poems-results.json</code>. Both engines render identical pixels for the visible and alternate files (within each engine).</p>
+</div></div>
+</section>
+
+<section class="scene scene-how" data-scene="4" aria-labelledby="s4-title" hidden>
+<div class="copy"><p class="eyebrow">3 · THE MECHANISM</p>
+<h2 id="s4-title">One drawing.<br>One separate<br>character map.</h2>
+<p>Each line is a single <strong>Type 3 glyph</strong>. Its drawing procedure paints the words you saw. A separate <code>/ToUnicode</code> stream tells software which text that glyph <em>means</em>. We wrote a different poem there.</p>
+<p class="fine">No hidden layer, no invisible text, no JavaScript. The visible and alternate files differ only in that stream (and byte offsets). This is an authored experiment, not encryption — both readings are plainly in the file.</p></div>
+<div class="bytes">
+<div class="bytes-head"><span class="badge live" id="live-badge">LIVE</span> <span id="live-status">Reading the actual PDF bytes in your browser…</span></div>
+<ol class="map" id="map"></ol>
+<p class="fine mono" id="live-hash"></p>
+<p class="fine"><a href="poems.py">Glyph &amp; mapping source</a> · <a href="TWO-POEMS.md">Recipe &amp; limits</a></p>
+</div>
+</section>
+
+<section class="scene scene-travel" data-scene="5" aria-labelledby="s5-title" hidden>
+<div class="copy"><p class="eyebrow">4 · LET THE FILE TRAVEL</p>
+<h2 id="s5-title">Rewrite it once.<br>The picture stays.<br><em>The reading collapses.</em></h2>
+<p>We passed the file through one ordinary rewrite: <strong>Ghostscript 10.08.0 pdfwrite</strong>. It still looks like the same poem.</p>
+<dl class="facts" id="travel-facts"><div><dt>Poppler pixels changed</dt><dd>…</dd></div><div><dt>MuPDF pixels changed</dt><dd>…</dd></div><div><dt>Text extracted afterwards</dt><dd>…</dd></div></dl>
+<p class="fine">Measured once in a bounded local run; other rewrite tools and settings were not run. <a href="output/transforms/poem-other-rewrite.pdf">Rewritten PDF ↗</a> · <a href="TRANSFORMATION-NOTEBOOK.md">Transformation notebook</a></p></div>
+<figure class="page"><img src="evidence/previews/01-poem-other-rewrite-poppler.webp" width="612" height="792" alt="Recorded Poppler render of the rewritten file: the same lamp poem, visually unchanged"><figcaption>Recorded Poppler render after the rewrite · 72 dpi</figcaption></figure>
+</section>
+
+<section class="scene scene-bridge" data-scene="6" aria-labelledby="s6-title" hidden>
+<p class="eyebrow">PDF preserved the look. It never promised the meaning — or who stands behind it.</p>
+<h2 id="s6-title" class="bridge">What should survive when an answer travels through <em>AI?</em></h2>
+<div class="exits">
+<a class="go" id="return-link" href="../../presentation/">Back to the presentation <span aria-hidden="true">→</span></a>
+<a class="ghost" href="index.html#poems">Explore the full cabinet</a>
+<button class="ghost" type="button" data-restart>Replay the opening</button>
+</div>
+<p class="fine">Next: <strong>.phf</strong> — human context that travels with the answer.</p>
+</section>
+
+<details class="scope" id="scope"><summary>What this opening does and does not claim</summary>
+<ul>
+<li><span class="badge rec">RECORDED</span> Renders, extractions and pixel counts come from committed runs: MuPDF 1.26.11 (PyMuPDF 1.26.6), Poppler 26.08.0, Ghostscript 10.08.0. See <a href="evidence/poems-results.json">poems-results.json</a> and <a href="evidence/poems-transforms.json">poems-transforms.json</a>.</li>
+<li><span class="badge live">LIVE</span> The character map in step 3 is parsed by this page from the actual PDF bytes, with a SHA-256 checked against the recorded hash. It is not a PDF viewer.</li>
+<li>Not run: native viewer copy/paste, screen readers, OCR, physical printing, other rewrite tools. Poppler joins and reorders the mapped lines. No claim that every reader behaves this way, and no claim of forgery or a viewer defect.</li>
+</ul></details>
+</main>
+
+<nav class="controls" aria-label="Opening steps">
+<button type="button" class="nav-btn" data-prev aria-label="Previous step">←</button>
+<ol class="dots" id="dots"></ol>
+<button type="button" class="nav-btn" data-next aria-label="Next step">→</button>
+</nav>
+<noscript><p class="noscript">This guided opening needs JavaScript. The <a href="index.html#poems">cabinet</a> and <a href="TWO-POEMS.md">recipe</a> work without it.</p></noscript>
+</body></html>
