@@ -96,6 +96,19 @@ export function ECompanion({ baseUrl = DEFAULT_BASE, missionIndex = 0, surface =
   }, [paused, reduced])
   useEffect(() => { if (paused || reduced) activeAnimation.current?.cancel() }, [paused, reduced])
 
+  useEffect(() => {
+    if (!open) return
+    const escape = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+      event.preventDefault()
+      event.stopPropagation()
+      setOpen(false)
+      trigger.current?.focus()
+    }
+    document.addEventListener('keydown', escape, true)
+    return () => document.removeEventListener('keydown', escape, true)
+  }, [open])
+
   const add = (text: string, question?: string) => setMessages(old => [...old, ...(question ? [{ role: 'you' as const, text: question }] : []), { role: 'e' as const, text }].slice(-20))
   const startDrag = (event: ReactPointerEvent<HTMLButtonElement>) => {
     if (event.button !== 0) return
