@@ -19,3 +19,5 @@ server/**/*.d.ts
 
 # Standalone E preview build
 dist-e/
+
+dist-companion/
