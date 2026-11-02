@@ -52,3 +52,14 @@ test('PDF opening defaults return to a real story chapter',()=>{
   assert.equal(returnTarget(new URL('https://blackmath88.github.io/baselhack26-open-presence/pdf-lab/opening.html')),'https://blackmath88.github.io/baselhack26-open-presence/story/#past');
   assert.equal(returnTarget(new URL('http://127.0.0.1:8000/opening.html')),'http://127.0.0.1:8001/#past');
 });
+
+import { injectCompanion } from './companion.mjs';
+test('persistent companion injection is additive, relative and idempotent',()=>{
+  const html='<html><body><main id="keep">Existing experience</main><script src="app.js"></script></body></html>';
+  const injected=injectCompanion(html,'../companion/');
+  assert.ok(injected.includes('<main id="keep">Existing experience</main>'));
+  assert.ok(injected.includes('src="app.js"'));
+  assert.ok(injected.includes('src="../companion/companion.js"'));
+  assert.equal(injectCompanion(injected,'../companion/'),injected);
+  assert.equal(injectCompanion('not an HTML document','./'), 'not an HTML document');
+});
