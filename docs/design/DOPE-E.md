@@ -53,3 +53,9 @@ The inserted letter e uses the canonical `E_GLYPH_PATH`, and the surviving e use
 Deployment/refactoring changes preserve the selected shape, colours, expression, props and timing. Intentional future changes to those features should show a before/after visual checkpoint and cite this contract. Build/test success alone does not establish visual fidelity or motion quality.
 
 Persistent placement and user dragging are implemented in the shared companion. Free walking and three-minute presentation choreography remain future work. See [the persistent companion plan](../build/E-PERSISTENT-COMPANION.md).
+
+## Small companion idle cycle
+
+User request, 2 November 2026: remove the “move e” text underneath the character and animate blinking, coughing and smoke blowing. The character is now the visible control: no label, grip or tooltip underneath it. Drag directly, or focus e and use arrows/Home; movement instructions remain available to assistive technology.
+
+A quiet 24-second cycle uses two brief blinks, an 850ms two-jolt cough, a slow 5.2-second bubbly exhale and a glance. Rest separates actions. Expressions and body motion extend the selected e; its silhouette, colours and settled personality remain intact. Pause, reduced motion and hidden tabs stop the cycle. No sound or continuous React animation-frame loop is added.
