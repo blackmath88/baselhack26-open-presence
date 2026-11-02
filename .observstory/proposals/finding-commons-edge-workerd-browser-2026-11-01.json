@@ -1,0 +1,38 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "finding-commons-edge-workerd-browser-2026-11-01",
+  "kind": "finding",
+  "title": "Hosted Commons two-profile browser journey passes on real workerd/D1 across restarts",
+  "statement": "The production edge frontend served by the real Worker bundle in workerd with persisted D1 passes 36 browser checks in three isolated contexts (Alice, Bob, anonymous): read-only entrance, code sign-in, contribution, reply, anonymous rediscovery with authorship and public destination labels, failed-submission draft retention, revocation/expiry recovery, offline logout, service-unavailable recovery and no credential leakage. The runtime is disposed and restarted three times on the same D1 directory, and anonymous rediscovery of both contributions is rechecked after restart. The NUC Commons server and any network beyond loopback were not used.",
+  "author": {
+    "name": "Claude Code (coordinator)",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T22:10:00+00:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "473adcfed1b07ed90fc752f9c7c952b309012c65",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "apps/commons/test/client/edge-ux.mjs"
+    },
+    {
+      "path": "apps/commons/test/client/edge-harness-workerd.mjs"
+    },
+    {
+      "path": "apps/commons/test/client/edge-harness.ts"
+    },
+    {
+      "path": "docs/build/PHF-EDGE-RUN-LEDGER-2026-11-01.md"
+    }
+  ],
+  "conditions": [
+    "Local Linux workerd 1.20251011.0 via Miniflare, compatibility date 2025-10-11; not a Cloudflare deployment.",
+    "Headless Chromium contexts on one machine, not two physical devices.",
+    "Screenshots are local evidence under ignored test-results/ and are not committed.",
+    "Unreviewed assistant finding; only a human review record can accept it."
+  ],
+  "proposed_change": "none"
+}

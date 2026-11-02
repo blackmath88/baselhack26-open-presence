@@ -3,6 +3,7 @@
  * the repository to what people added, and how far each conversation went.
  * Shared by the problem record (per evidence item) and the repository navigator.
  */
+import { EDGE_MODE } from '../../lib/api'
 import { appLinks } from '../../commons/contracts'
 import { actorLabel } from './ContributionCard'
 
@@ -23,6 +24,7 @@ export function CitingList({ contributions, label = 'Contributions citing this' 
       {contributions.map((c) => (
         <li key={c.contributionId}>
           <a href={c.link}>{c.kind} by {actorLabel(c.actor)}</a>
+          {EDGE_MODE && <span className="badge">Public on this Commons</span>}
           <span className="commons-limit"> · via {c.entrance} · {c.createdAt.slice(0, 10)} · cites {c.cited.join(', ')}{c.evidenceIds?.length ? ` (passage ${c.evidenceIds.join(', ')})` : ''}</span>
           {c.otherProblem
             ? <span className="commons-limit"> · in another problem: <a href={appLinks.problem(c.problemId)}>{c.problemId}</a></span>

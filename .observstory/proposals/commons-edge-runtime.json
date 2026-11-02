@@ -1,0 +1,33 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "commons-edge-runtime",
+  "kind": "finding",
+  "title": "Bounded Commons Worker/D1 implementation",
+  "statement": "Implements current Commons HTTP service on a separate Worker entrypoint with atomic optimistic D1 commits and issued contributor credentials. Public deployment and free-tier CPU performance remain unverified. PDF browser migration and Observatory annotations remain separate follow-ups.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T22:45:00+01:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "564f1d492a94deb23fd5d6407007df45f0a5772d",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "apps/commons/worker/edge/index.ts"
+    },
+    {
+      "path": "apps/commons/server/test/commons/edge.test.ts"
+    },
+    {
+      "path": "docs/build/PHF-EDGE-RUNTIME.md"
+    }
+  ],
+  "conditions": [
+    "Verify actual Cloudflare account and deployment before linking public story.",
+    "Measure CPU and normalize persistence before exceeding bounded demo scope."
+  ],
+  "proposed_change": "none"
+}

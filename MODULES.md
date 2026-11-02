@@ -37,3 +37,7 @@ static material; it does not start their servers. The public story labels this b
 - #31 remains blocked: live PDF execution needs stricter fixture validation and verified resource isolation.
 - Observatory #17 and Knowledge Lab #6 remain drafts; their proposed capabilities are not claimed as shipped.
 - Branch maintenance only targets an explicit list of merged PR heads. It preserves moved heads and branches referenced by open PRs.
+
+### Commons edge deployment candidate
+
+A separate Worker + D1 adapter is available; see [setup, scope and verification](docs/build/PHF-EDGE-RUNTIME.md). This is not a claim of public hosting. Build with `npm run build:edge` in `apps/commons`; use `wrangler.edge.jsonc`, not the inherited Worker configuration.

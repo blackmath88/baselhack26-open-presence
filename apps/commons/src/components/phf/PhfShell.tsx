@@ -5,6 +5,7 @@
  * through the real Commons service.
  */
 import { ArrowLeft, Check, FolderGit2, MessageSquare, RotateCcw, Search } from 'lucide-react'
+import { EDGE_MODE } from '../../lib/api'
 import type { Participant } from '../../lib/api'
 import type { Route } from '../../commons/client/router'
 import { appLinks } from '../../commons/contracts'
@@ -24,7 +25,7 @@ export function PhfHeader({ actorName, onSwitchVoice }: { actorName?: string; on
         </span>
       </a>
       {actorName && (
-        <button className="phf-voice" onClick={onSwitchVoice} aria-label={`Acting as ${actorName}. Switch participant`}>
+        <button className="phf-voice" onClick={onSwitchVoice} aria-label={`Acting as ${actorName}. ${EDGE_MODE ? 'Manage contributor session' : 'Switch participant'}`}>
           <span className="phf-voice-label">Voice</span> {actorName}
         </button>
       )}
@@ -63,8 +64,8 @@ export function PhfUnavailable({ error }: { error: string | null }) {
     <section className="phf-entry" role="alert" aria-labelledby="phf-down-title">
       <p className="phf-kicker">Photo Frame Commons</p>
       <h1 id="phf-down-title">The Commons service is not reachable.</h1>
-      <p className="phf-lede">Nothing is shown rather than something invented. Start the local service and reload:</p>
-      <pre className="phf-cmd">cd apps/commons{'\n'}npm run dev:server   # API on :8787{'\n'}npm run dev          # this UI on :5173</pre>
+      <p className="phf-lede">{EDGE_MODE ? "The shared service is temporarily unavailable. Your saved drafts stay in this browser. Try again shortly." : "Start the local service and reload:"}</p>
+      {!EDGE_MODE && <pre className="phf-cmd">cd apps/commons{'\n'}npm run dev:server   # API on :8787{'\n'}npm run dev          # this UI on :5173</pre>}
       {error && <p className="phf-note">Reported: {error}</p>}
       <p><a className="button" href={presentationUrl()}><ArrowLeft size={14} /> Back to the presentation</a></p>
     </section>
@@ -135,7 +136,7 @@ export function EntranceTabs({ route }: { route: Route }) {
       <a className={`phf-tab ${at(['home', 'search', 'compare'])}`} href={appLinks.search('')} aria-current={at(['home', 'search', 'compare']) ? 'page' : undefined}><Search size={14} /> Search</a>
       <a className={`phf-tab ${at(['repo'])}`} href={appLinks.repository()} aria-current={at(['repo']) ? 'page' : undefined}><FolderGit2 size={14} /> Repository</a>
       {(route.view === 'contribution' || route.view === 'thread') && <span className="phf-tab active" aria-current="page"><MessageSquare size={14} /> Direct link</span>}
-      <span className="phf-entrances-note">Also CLI and MCP — one shared Commons.</span>
+      <span className="phf-entrances-note">{EDGE_MODE ? 'Commons HTTP API available; remote MCP unavailable in this release.' : 'Also CLI and MCP — one shared Commons.'}</span>
     </nav>
   )
 }

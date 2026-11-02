@@ -1,0 +1,37 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "finding-commons-edge-ux-local-browser",
+  "kind": "finding",
+  "title": "Hosted Commons identity and public attribution verified locally",
+  "statement": "The production edge frontend was exercised through the real edge HTTP adapter backed by SQLite with isolated Alice, Bob and anonymous browser contexts. Contribution, reply, public rediscovery, expiry/revocation recovery, session reload, offline logout and failed-draft retention passed; this is local browser evidence, not a deployed or workerd browser result.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-01T21:57:31.314147+00:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "473adcfed1b07ed90fc752f9c7c952b309012c65",
+    "context_packet_id": "cp_49910240c91373d872f079ac"
+  },
+  "evidence": [
+    {
+      "path": "apps/commons/test/client/edge-ux.mjs"
+    },
+    {
+      "path": "apps/commons/test/client/edge-harness.ts"
+    },
+    {
+      "path": "apps/commons/test/client/edge-ui.test.ts"
+    },
+    {
+      "path": "apps/commons/test-results/edge-ux/checks.txt"
+    }
+  ],
+  "conditions": [
+    "Unreviewed assistant finding; only a human review record can accept it.",
+    "Evidence is local SQLite-backed browser coverage; public deployment, Cloudflare D1/workerd browser parity and two physical devices were not verified.",
+    "Checked-in context packet cutoff 93a5445150d0 is an ancestor of task baseline 473adcf and was treated as historical orientation."
+  ],
+  "proposed_change": "none"
+}
