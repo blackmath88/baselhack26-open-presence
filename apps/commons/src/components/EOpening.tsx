@@ -3,26 +3,26 @@ import { EPixelSprite, E_GLYPH_PATH, type EPose } from './EPixelSprite'
 import './e-opening.css'
 
 export const E_OPENING_MS = 7600
-export const E_WORDMARK_MS = 21200
+export const E_WORDMARK_MS = 14200
 const clamp = (value: number) => Math.max(0, Math.min(1, value))
 const ease = (value: number) => { const t = clamp(value); return t * t * (3 - 2 * t) }
 
 export function wordmarkFrame(elapsed: number) {
   const time = Math.max(0, Number.isFinite(elapsed) ? elapsed : 0)
   return {
-    stage: time < 1500 ? 'wordmark' : time < 3400 ? 'space' : time < 4800 ? 'dobe' : time < 6500 ? 'morph' : time < 8000 ? 'dope' : time < 9300 ? 'lowercase' : time < 10600 ? 'phrase' : time < 12100 ? 'turn' : time < 13300 ? 'inhale' : time < 15900 ? 'exhale' : time < 19400 ? 'fold' : time < E_WORDMARK_MS ? 'become' : 'leisure',
-    phrase: time < 3400 ? 'Adobe' : time < 6500 ? 'A dobe e' : time < 9300 ? 'A dope e' : 'a dope e',
-    spacing: ease((time - 1500) / 1900),
-    echo: ease((time - 2300) / 1100),
-    bToP: ease((time - 4800) / 1700),
-    lowercase: ease((time - 8000) / 1300),
-    turn: ease((time - 10600) / 1500),
-    progress: ease((time - 13300) / 7900),
-    departure: ease((time - 15900) / 3500),
-    centre: ease((time - 19400) / 1800),
-    smoking: time >= 12100,
-    smoke: time >= 13300 && time < 19400,
-    cloud: clamp((time - 13300) / 6100),
+    stage: time < 700 ? 'wordmark' : time < 1700 ? 'space' : time < 2500 ? 'dobe' : time < 3300 ? 'morph' : time < 4100 ? 'dope' : time < 4700 ? 'lowercase' : time < 5400 ? 'phrase' : time < 6100 ? 'turn' : time < 6800 ? 'inhale' : time < 10000 ? 'exhale' : time < 12900 ? 'fold' : time < E_WORDMARK_MS ? 'become' : 'leisure',
+    phrase: time < 1700 ? 'Adobe' : time < 3300 ? 'A dobe e' : time < 4700 ? 'A dope e' : 'a dope e',
+    spacing: ease((time - 700) / 1000),
+    echo: ease((time - 1200) / 500),
+    bToP: ease((time - 2500) / 800),
+    lowercase: ease((time - 4100) / 600),
+    turn: ease((time - 5400) / 700),
+    progress: ease((time - 6800) / 7400),
+    departure: ease((time - 10000) / 2900),
+    centre: ease((time - 12900) / 1300),
+    smoking: time >= 6100,
+    smoke: time >= 6800 && time < 12900,
+    cloud: clamp((time - 6800) / 6100),
     time,
   }
 }
@@ -48,7 +48,7 @@ export function EWordmarkScene({ elapsed, size = 740, reducedMotion = false, pos
   const facing = .12 + .88 * Math.abs(Math.cos(f.turn * Math.PI))
   const positions = [155 - f.spacing * 120, 249 - f.spacing * 59, 339 - f.spacing * 62, 426 - f.spacing * 62, 510 - f.spacing * 59]
   const eX = 510 + f.spacing * 100 - f.centre * 280
-  const fold = (index: number) => ease((f.time - 15900 - index * 180) / 2700)
+  const fold = (index: number) => ease((f.time - 10000 - index * 180) / 2180)
   const letter = (index: number, content: ReactNode, opacity = 1) => {
     const t = fold(index)
     const travel = ease(t / .75)
