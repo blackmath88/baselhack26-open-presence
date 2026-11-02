@@ -23,7 +23,7 @@ function Preview() {
     <a href="https://blackmath88.github.io/baselhack26-open-presence/">← Project Observatory</a>
     <p className="preview-kicker">.phf · portable human format</p>
     <h1>a dope e.</h1>
-    <p className="preview-lede">The word you know. The e you haven’t met.</p>
+    <p className="preview-lede">Adobe. A dobe e. A dope e. a dope e. Watch the whole meaning find its way into one letter.</p>
     <section className="wordmark-film" aria-label="The evolution of e">
       <EOpening variant="wordmark" size={740} paused={paused} reducedMotion={reducedMotion} visible={visible} />
       <button className="button" type="button" onClick={() => setPaused(v => !v)} aria-pressed={paused}>{paused ? 'Resume' : 'Pause'}</button>
