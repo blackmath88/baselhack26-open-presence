@@ -1,4 +1,5 @@
 /** Lowercase logo-derived e. Kept under the existing export for integration compatibility. */
+export const E_GLYPH_PATH = 'M83 49H30C33 66 56 68 78 57V76C68 82 57 85 45 85C20 85 7 68 7 45C7 21 22 7 45 7C70 7 83 24 83 45ZM30 34H60C58 25 54 22 46 22C38 22 32 26 30 34Z'
 export type EPose = 'idle' | 'blink' | 'look-left' | 'look-right' | 'sleep' | 'surprised' | 'excited'
 export const E_POSES: readonly EPose[] = ['idle', 'blink', 'look-left', 'look-right', 'sleep', 'surprised', 'excited']
 
@@ -13,7 +14,7 @@ export function EPixelSprite({ pose = 'idle', size = 64, progress = 1, smoking =
     <ellipse cx="48" cy="91" rx="31" ry="3" fill="#231323" opacity=".09" />
     <g transform={`translate(${t * 3} ${t * 6}) rotate(${t * 8} 46 78) skewX(${-t * 7}) scale(1 ${1 - t * .08})`}>
       {/* Broad bowl, closed counter, horizontal crossbar and open right mouth: lowercase e. */}
-      <path fillRule="evenodd" d="M83 49H30C33 66 56 68 78 57V76C68 82 57 85 45 85C20 85 7 68 7 45C7 21 22 7 45 7C70 7 83 24 83 45ZM30 34H60C58 25 54 22 46 22C38 22 32 26 30 34Z" fill={`rgb(${red},${Math.round(13+t*29)},${Math.round(t*67)})`} />
+      <path fillRule="evenodd" d={E_GLYPH_PATH} fill={`rgb(${red},${Math.round(13+t*29)},${Math.round(t*67)})`} />
       <path d="M16 57C21 72 31 77 44 78" stroke="#ff8b6b" strokeWidth="2.3" opacity={t * .5} fill="none" strokeLinecap="round" />
       {/* Eyes gradually emerge, redden and disagree about how awake they are. */}
       <g opacity={Math.min(1, t * 3)}>

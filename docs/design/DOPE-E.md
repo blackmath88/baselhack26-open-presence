@@ -24,20 +24,27 @@
 
 Replay explicitly restarts it. Pause freezes clock and smoke. Hidden documents suspend both. Reduced motion shows the settled e without moving smoke. E never steals focus or opens a side mission automatically; Hide/Restore stays available.
 
-## Wordmark evolution film (11.6 seconds)
+## Wordplay and absorption film (21.2 seconds)
 
-On 2 November 2026 the user requested an additional opening: start with the full Adobe-like wordmark, have e turn around, blow out smoke and become itself while the other letters disappear. This extends the selected character; it does not replace its final design.
+User extension, 2 November 2026: make the word joke clearer through widening spacing and **Adobe → A dobe e → A dope e → a dope e**, with a visible b-to-p transition. Add large white bubbly smoke/dust; backgrounds may change for visibility. The other letters should fold into e, so e carries the whole phrase's meaning.
 
 | Time | Beat |
 | --- | --- |
-| 0–1.8 s | Full authored Adobe-like wordmark |
-| 1.8–3.6 s | e swivels edge-on and back toward the viewer; never mirrored |
-| 3.6–4.6 s | Joint / inhale |
-| 4.6–6.6 s | Exhale and begin becoming the character |
-| 6.6–8.6 s | Adob letters fade and drift away |
-| 8.6–11.6 s | e settles alone in the centre, in its selected leisure pose |
+| 0–1.5 s | Adobe-like wordmark |
+| 1.5–3.4 s | Spacing widens; an e echo makes **A dobe e** |
+| 3.4–4.8 s | Hold **A dobe e** |
+| 4.8–6.5 s | b’s upper stem slides down into the p descender |
+| 6.5–8 s | Hold **A dope e** |
+| 8–9.3 s | Capital A becomes lowercase a |
+| 9.3–10.6 s | Hold **a dope e** |
+| 10.6–13.3 s | e turns, then joint/inhale |
+| 13.3–15.9 s | Broad white bubbly exhale rolls left across the words |
+| 15.9–19.4 s | Letters rotate, fold and shrink into e’s bowl |
+| 19.4–21.2 s | e centres and grows slightly; the background clears to light |
 
-The public preview leads with this film (`EOpening variant="wordmark"`). The compact Commons companion retains its 7.6-second opening. Both render the same EPixelSprite and retain pause, replay, visibility suspension and reduced-motion behaviour. Reduced motion skips the film and shows e alone, settled.
+The public preview leads with this film (`EOpening variant="wordmark"`). A dark blue stage makes the white smoke readable; the settled character retains its selected red-eyed/slouched appearance on light. Smoke puffs, tracking, morph and letter absorption use the same clock, so Pause freezes all of them and Replay restarts the whole sequence. Reduced motion skips directly to e alone without smoke. The compact Commons opening remains 7.6 seconds.
+
+The inserted letter e uses the canonical `E_GLYPH_PATH`, and the surviving e uses the existing EPixelSprite; this does not introduce a competing character drawing. The earlier 11.6-second film from PR #49 is superseded by this explicit user-requested choreography.
 
 ## Implementation boundary
 

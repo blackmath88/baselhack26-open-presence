@@ -33,4 +33,4 @@ Confirm crisp → inhale → exhale → melt → leisure, Replay, Pause/Resume, 
 
 ## Wordmark film
 
-The preview leads with `EOpening variant="wordmark"`: full wordmark → e turns → exhale → other letters disappear → selected e alone. Duration: 11.6 seconds. Its Pause and Replay controls act on the same clock as the scene. The compact Commons character remains available under “Try e in the Commons”.
+The preview leads with `EOpening variant="wordmark"`: Adobe → A dobe e → A dope e → a dope e → e turns and exhales white bubble smoke → letters fold into e → selected e alone. Duration: 21.2 seconds. Its Pause and Replay controls act on the same clock as the scene. The compact Commons character remains available under “Try e in the Commons”.
