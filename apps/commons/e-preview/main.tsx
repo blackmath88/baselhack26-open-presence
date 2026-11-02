@@ -28,12 +28,12 @@ function Preview() {
       <EOpening variant="wordmark" size={740} paused={paused} reducedMotion={reducedMotion} visible={visible} />
       <button className="button" type="button" onClick={() => setPaused(v => !v)} aria-pressed={paused}>{paused ? 'Resume' : 'Pause'}</button>
     </section>
-    <details className="companion-controls"><summary>Try e in the Commons</summary>
-    <EGuide key={missionIndex} missionIndex={missionIndex} />
+    <EGuide missionIndex={missionIndex} surface="auto" />
+    <details className="companion-controls"><summary>e’s side quest settings</summary>
     <label className="preview-select">Side mission <select value={missionIndex} onChange={e => setMissionIndex(Number(e.target.value))}><option value={0}>PDF Lab</option><option value={1}>PDF history</option></select></label>
     </details>
     <section aria-labelledby="poses"><h2 id="poses">Seven expressions</h2><div className="pose-grid">{E_POSES.map(pose => <figure key={pose}><EPixelSprite pose={pose} size={112} smoking /><figcaption>{pose.replaceAll('-', ' ')}</figcaption></figure>)}</div></section>
-    <p className="preview-note">Live component preview · the same E component used in Commons. Side missions currently open repository sources. The opening now exhales smoke and shifts into a slouched, red-eyed e. Walking and presentation choreography are still planned. This page does not connect to the Commons backend.</p>
+    <p className="preview-note">Live component preview · the same E component used in Commons. Side missions open the published PDF experiences. The opening now exhales smoke and shifts into a slouched, red-eyed e. The persistent e can be moved with its handle or keyboard arrows. Closing its bubble keeps e visible. This page does not connect to the Commons backend.</p>
     <a href="https://github.com/blackmath88/baselhack26-open-presence/blob/main/docs/design/DOPE-E.md">Character vision and deployment guide ↗</a>
   </main>
 }
