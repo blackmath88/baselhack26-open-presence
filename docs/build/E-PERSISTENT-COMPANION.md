@@ -6,11 +6,11 @@ Explicit user direction, 2 November 2026: “e has an orchestrated place, wherev
 
 - Shared React/TypeScript portal, mounted once per document. A fixed layer captures pointer events only on e and its conversation, preserving the underlying page.
 - Curated page contexts: character preview, Commons (including comparison), .phf story, PDF Lab, PDF history and Observatory. Contexts select safe authored anchors and a preferred docking side. On narrow screens e docks within the viewport.
-- e repositions near visible anchors after scrolling settles or a hash/route changes. User dragging overrides authored placement until “Return to e’s place” or Home on the move handle.
-- Drag e itself or its labelled handle; keyboard arrows move, Shift+arrows moves farther. Positions are clamped and stored as fractions in localStorage; unavailable/corrupt storage falls back safely.
+- e repositions near visible anchors after scrolling settles or a hash/route changes. User dragging overrides authored placement until “Return to e’s place” or Home while e is focused.
+- Drag e directly; focus the character and use keyboard arrows to move, Shift+arrows to move farther. There is no visible grip or text below e. Positions are clamped and stored as fractions in localStorage; unavailable/corrupt storage falls back safely.
 - No Hide, Dismiss or Restore action in the persistent companion. Close/Escape closes only the conversation and returns focus to e. Position reset and Pause/Resume remain available.
 - Small authored panel: Explain this, Show me around, Side quest and a bounded page-question response. It is labelled an authored guide. No LLM/backend or external submission is connected. Messages live only in memory for this document; Commons hash navigation keeps the component and messages alive. Full-page navigation remounts it, restoring position and pause state only.
-- Calm blink and slow smoke via sparse pose changes/CSS. Dragging writes the compositor transform directly; native Web Animations API handles authored movement. No perpetual per-frame React loop for the companion.
+- A quiet 24-second cycle: double blink, short two-jolt cough with a tiny puff, slow 5.2-second exhale, sideways glance and rest. Sparse cue boundaries drive SVG expressions and CSS body/smoke animation. Paused, reduced-motion and hidden-document states cancel pending cues. Dragging writes the compositor transform directly; native Web Animations API handles authored movement. No perpetual per-frame React loop for the companion.
 - Shared IIFE/CSS bundle embeds the same React character into the hosted static story, PDF pages and Observatory. Commons and the e preview import it directly; no duplicated character artwork.
 - Wordmark film shortened to 14.2 seconds. Its white-smoke window remains 6.1 seconds. The compact historical opening remains 7.6 seconds, but the persistent companion starts as the approved settled e.
 

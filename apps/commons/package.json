@@ -22,7 +22,7 @@
     "typecheck:e": "tsc --noEmit --jsx react-jsx --moduleResolution bundler --module esnext --target es2022 --skipLibCheck --esModuleInterop e-preview/main.tsx",
     "build:e": "npm run typecheck:e && vite build --config vite.e-preview.config.ts",
     "preview:e": "vite preview --config vite.e-preview.config.ts",
-    "test:e": "vitest run test/e-guide.test.ts test/e-behaviour.test.ts test/e-opening.test.ts test/e-companion.test.ts",
+    "test:e": "vitest run test/e-guide.test.ts test/e-behaviour.test.ts test/e-opening.test.ts test/e-companion.test.ts test/e-idle.test.ts",
     "build:companion": "npm run typecheck && vite build --config vite.companion.config.ts"
   },
   "dependencies": {

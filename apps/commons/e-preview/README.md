@@ -37,6 +37,8 @@ The preview leads with `EOpening variant="wordmark"`: Adobe → A dobe e → A d
 
 ## Persistent overlay
 
-The character remains above the page. Drag it or use arrows on its move handle; Home/“Return to e’s place” restores authored placement. Closing the conversation never hides e. The panel is an authored page guide, not an LLM connection.
+The character remains above the page. Drag it or focus e and use arrow keys; Home/“Return to e’s place” restores authored placement. Closing the conversation never hides e. The panel is an authored page guide, not an LLM connection.
 
 `npm run build:companion` produces `dist-companion/companion.js` and `companion.css`. Load both on a static page (script with `defer`), or mount the React ECompanion once. The downloadable release includes these assets under `companion/`. Authored placement and behaviour: `docs/build/E-PERSISTENT-COMPANION.md` in the repository.
+
+The small companion has no text label underneath it. It idles through blinking, a tiny cough and a slow smoke exhale; Pause and reduced motion stop those cues.

@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from 'react'
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent as ReactKeyboardEvent, type PointerEvent as ReactPointerEvent } from 'react'
 import { createPortal } from 'react-dom'
 import { EPixelSprite, type EPose } from '../components/EPixelSprite'
 import { authoredPosition, BODY_SIZE, clampPosition, pageContext, replyTo, restorePosition, type Point } from './model'
+import { startIdleCycle } from './idle'
 import './companion.css'
 
 const POSITION_KEY = 'phf.e.position.v1'
@@ -22,6 +23,7 @@ export function ECompanion({ baseUrl = DEFAULT_BASE, missionIndex = 0, surface =
   const [open, setOpen] = useState(false)
   const [paused, setPaused] = useState(() => read(PAUSE_KEY) === 'true')
   const [reduced, setReduced] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches)
+  const [visible, setVisible] = useState(() => !document.hidden)
   const [pose, setPose] = useState<EPose>('idle')
   const [draft, setDraft] = useState('')
   const [messages, setMessages] = useState<{ role: 'you' | 'e'; text: string }[]>([])
@@ -85,15 +87,15 @@ export function ECompanion({ baseUrl = DEFAULT_BASE, missionIndex = 0, surface =
     return () => { removeEventListener('resize', update); removeEventListener('scroll', update); if (pendingFrame.current !== null) window.clearTimeout(pendingFrame.current); pendingFrame.current = null; activeAnimation.current?.cancel() }
   }, [context, findAnchor, place])
   useEffect(() => {
-    if (paused || reduced) { setPose('idle'); return }
-    let reset: ReturnType<typeof setTimeout>
-    const timer = setInterval(() => {
-      if (document.hidden || drag.current) return
-      setPose('blink')
-      reset = setTimeout(() => setPose('idle'), 240)
-    }, 9000)
-    return () => { clearInterval(timer); clearTimeout(reset) }
-  }, [paused, reduced])
+    const update = () => setVisible(!document.hidden)
+    document.addEventListener('visibilitychange', update)
+    return () => document.removeEventListener('visibilitychange', update)
+  }, [])
+  useEffect(() => {
+    setPose('idle')
+    if (paused || reduced || !visible) return
+    return startIdleCycle(setPose, () => !document.hidden && !drag.current)
+  }, [paused, reduced, visible])
   useEffect(() => { if (paused || reduced) activeAnimation.current?.cancel() }, [paused, reduced])
 
   useEffect(() => {
@@ -138,20 +140,21 @@ export function ECompanion({ baseUrl = DEFAULT_BASE, missionIndex = 0, surface =
     setPoint(pointRef.current)
     if (d.moved) { save(); if (event.currentTarget === trigger.current) suppressClick.current = true }
   }
+  const moveWithKeys = (event: ReactKeyboardEvent<HTMLButtonElement>) => {
+        if (event.key === 'Home') { event.preventDefault(); returnHome(); return }
+        const step = event.shiftKey ? 32 : 12
+        const moves: Record<string, Point> = { ArrowLeft: { x: -step, y: 0 }, ArrowRight: { x: step, y: 0 }, ArrowUp: { x: 0, y: -step }, ArrowDown: { x: 0, y: step } }
+        if (moves[event.key]) { event.preventDefault(); const d = moves[event.key]; place({ x: pointRef.current.x + d.x, y: pointRef.current.y + d.y }); save() }
+  }
   const panelLeft = Math.min(Math.max(12, point.x - 220), Math.max(12, innerWidth - 348))
   const panelAbove = point.y > (innerHeight - BODY_SIZE) / 2
   const panelStyle: CSSProperties = { left: panelLeft, maxHeight: Math.max(60, panelAbove ? point.y - 20 : innerHeight - point.y - BODY_SIZE - 20), ...(panelAbove ? { bottom: innerHeight - point.y + 8 } : { top: point.y + BODY_SIZE + 8 }) }
 
   return createPortal(<div className="phf-e-layer" data-e-companion="persistent">
-    <div ref={host} className="phf-e-dock" data-paused={paused || reduced} style={{ transform: `translate(${point.x}px,${point.y}px)` }}>
-      <button ref={trigger} type="button" className="phf-e-character" aria-label="Talk with e" aria-expanded={open} aria-controls="phf-e-panel" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag} onLostPointerCapture={endDrag} title="Drag e, or tap to talk" onClick={event => { if (suppressClick.current && event.detail !== 0) { suppressClick.current = false; return }; setOpen(v => !v) }}><EPixelSprite size={96} pose={pose} smoking /></button>
+    <div ref={host} className="phf-e-dock" data-paused={paused || reduced || !visible} data-cue={pose} style={{ transform: `translate(${point.x}px,${point.y}px)` }}>
+      <button ref={trigger} type="button" className="phf-e-character" aria-label="Talk with e" aria-expanded={open} aria-controls="phf-e-panel" aria-description="Drag to move, or use arrow keys. Home returns to e’s place." aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown Home" onKeyDown={moveWithKeys} onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag} onLostPointerCapture={endDrag} onClick={event => { if (suppressClick.current && event.detail !== 0) { suppressClick.current = false; return }; setOpen(v => !v) }}><EPixelSprite size={96} pose={pose} smoking /></button>
       <span className="phf-e-puff" aria-hidden="true" />
-      <button type="button" className="phf-e-drag" aria-label="Move e. Drag or use arrow keys. Home returns to e’s place." onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag} onLostPointerCapture={endDrag} onKeyDown={event => {
-        if (event.key === 'Home') { event.preventDefault(); returnHome(); return }
-        const step = event.shiftKey ? 32 : 12
-        const moves: Record<string, Point> = { ArrowLeft: { x: -step, y: 0 }, ArrowRight: { x: step, y: 0 }, ArrowUp: { x: 0, y: -step }, ArrowDown: { x: 0, y: step } }
-        if (moves[event.key]) { event.preventDefault(); const d = moves[event.key]; place({ x: pointRef.current.x + d.x, y: pointRef.current.y + d.y }); save() }
-      }}>⠿ <span>move e</span></button>
+
     </div>
     {open && <section id="phf-e-panel" className="phf-e-panel" aria-label="Conversation with e" style={panelStyle} onKeyDown={event => { if (event.key === 'Escape') { setOpen(false); trigger.current?.focus() } }}>
       <header><div><strong>hey. i’m e.</strong><small>{context.title} · authored page guide</small></div><button type="button" aria-label="Close conversation" onClick={() => { setOpen(false); trigger.current?.focus() }}>×</button></header>

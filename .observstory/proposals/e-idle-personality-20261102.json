@@ -1,0 +1,36 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "e-idle-personality-20261102",
+  "kind": "finding",
+  "title": "Animate the small e and remove its visible move label",
+  "statement": "User requested blinking, coughing and smoke-blowing cycles with no text underneath e. Removed the move grip/tooltip, transferred keyboard movement to e itself and added sparse idle cues plus CSS/SVG expressions. Dragging, authored placement, no hiding and the selected character are preserved.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-02T14:06:36.676428+00:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "f49ad1c5535a19edc5f675810334b4eeabbe9a22",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "apps/commons/src/companion/idle.ts"
+    },
+    {
+      "path": "apps/commons/src/companion/ECompanion.tsx"
+    },
+    {
+      "path": "docs/reports/E-IDLE-PERSONALITY-2026-11-02.md"
+    }
+  ],
+  "conditions": [
+    "Visible label removal does not remove accessible keyboard movement.",
+    "Paused, hidden and reduced-motion states stop cues.",
+    "No LLM connection or human review authored."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}

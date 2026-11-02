@@ -34,7 +34,7 @@ export function pageContext(path: string, hash: string): PageContext {
 }
 export function replyTo(question: string, context: PageContext): string {
   if (/smok|joint|word|adobe|dope|\be\b/i.test(question)) return 'Adobe → A dobe e → A dope e → a dope e. The letters fold into me so one little e carries the whole joke. You can move me; Pause stops my motion.'
-  if (/move|drag|place|position/i.test(question)) return 'Drag my handle, or focus it and use the arrow keys. Return to e’s place resumes the authored position for this page.'
+  if (/move|drag|place|position/i.test(question)) return 'Drag me, or focus me and use the arrow keys. Return to e’s place resumes the authored position for this page.'
   if (/explain|what|page|help|this|pdf|source|evidence/i.test(question)) return context.explanation
   return 'I can explain this page, point you to its main experience or offer a side quest. These are authored guide responses; an AI conversation is not connected yet.'
 }
