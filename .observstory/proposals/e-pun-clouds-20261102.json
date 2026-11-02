@@ -1,0 +1,36 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "e-pun-clouds-20261102",
+  "kind": "finding",
+  "title": "Make the e word joke explicit and absorb the letters in bubble smoke",
+  "statement": "User requested Adobe \u2192 A dobe e \u2192 A dope e \u2192 a dope e, wide tracking, visible b-to-p morph, white bubbly smoke and other letters folding into e. Implemented the film on a contrast-controlled stage while preserving the selected final character.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-02T10:53:10.038873+00:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "0be27ff870a2f1efa14730cf5802e8ed99c493bb",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "apps/commons/src/components/EOpening.tsx"
+    },
+    {
+      "path": "docs/design/DOPE-E.md"
+    },
+    {
+      "path": "docs/reports/E-PUN-CLOUDS-2026-11-02.md"
+    }
+  ],
+  "conditions": [
+    "Current user brief explicitly extends the prior film.",
+    "Static visual checks and timing tests do not establish interactive browser QA.",
+    "No human review record authored."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
