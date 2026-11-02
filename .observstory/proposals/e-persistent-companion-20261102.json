@@ -1,0 +1,44 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "e-persistent-companion-20261102",
+  "kind": "finding",
+  "title": "Persistent e with authored placement, user movement and no Hide",
+  "statement": "User explicitly requested an orchestrated place for e, user movement and no hiding. Implemented the shared React portal with authored page contexts, bounded dragging/keyboard movement, remembered manual placement, return-to-place, Pause and an authored conversation panel whose closure leaves e visible. Added static-page embed composition and a quicker 14.2-second film retaining the full slow-smoke window.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-02T11:57:22.866809+00:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "c027ef82938bf8827c68751f75e991bade367a4b",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "docs/build/E-PERSISTENT-COMPANION.md"
+    },
+    {
+      "path": "apps/commons/src/companion/ECompanion.tsx"
+    },
+    {
+      "path": "apps/commons/src/companion/model.ts"
+    },
+    {
+      "path": "scripts/site/package-public.mjs"
+    },
+    {
+      "path": "apps/commons/test/e-companion.test.ts"
+    }
+  ],
+  "conditions": [
+    "Latest user direction supersedes earlier Hide/Restore proposals.",
+    "Conversation is authored guidance; no LLM connection or external submission added.",
+    "Manual placement and Pause persist per origin; message history is per document.",
+    "Published knowledge resolves c027ef8, 15/15 selected sources read, no diagnostics; historical packet is older.",
+    "No human review record authored."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}

@@ -22,29 +22,29 @@
 | 4.7–7.6 s | Slouch and melt into the final expression |
 | After 7.6 s | Leisure; opening does not loop |
 
-Replay explicitly restarts it. Pause freezes clock and smoke. Hidden documents suspend both. Reduced motion shows the settled e without moving smoke. E never steals focus or opens a side mission automatically; Hide/Restore stays available.
+Replay explicitly restarts it. Pause freezes clock and smoke. Hidden documents suspend both. Reduced motion shows the settled e without moving smoke. E never steals focus or opens a side mission automatically; The current persistent companion has no Hide/Dismiss action; closing its conversation keeps the character visible.
 
-## Wordplay and absorption film (21.2 seconds)
+## Wordplay and absorption film (14.2 seconds)
 
 User extension, 2 November 2026: make the word joke clearer through widening spacing and **Adobe → A dobe e → A dope e → a dope e**, with a visible b-to-p transition. Add large white bubbly smoke/dust; backgrounds may change for visibility. The other letters should fold into e, so e carries the whole phrase's meaning.
 
 | Time | Beat |
 | --- | --- |
-| 0–1.5 s | Adobe-like wordmark |
-| 1.5–3.4 s | Spacing widens; an e echo makes **A dobe e** |
-| 3.4–4.8 s | Hold **A dobe e** |
-| 4.8–6.5 s | b’s upper stem slides down into the p descender |
-| 6.5–8 s | Hold **A dope e** |
-| 8–9.3 s | Capital A becomes lowercase a |
-| 9.3–10.6 s | Hold **a dope e** |
-| 10.6–13.3 s | e turns, then joint/inhale |
-| 13.3–15.9 s | Broad white bubbly exhale rolls left across the words |
-| 15.9–19.4 s | Letters rotate, fold and shrink into e’s bowl |
-| 19.4–21.2 s | e centres and grows slightly; the background clears to light |
+| 0–0.7 s | Adobe-like wordmark |
+| 0.7–1.7 s | Spacing widens; an e echo makes **A dobe e** |
+| 1.7–2.5 s | Hold **A dobe e** |
+| 2.5–3.3 s | b’s upper stem slides down into the p descender |
+| 3.3–4.1 s | Hold **A dope e** |
+| 4.1–4.7 s | Capital A becomes lowercase a |
+| 4.7–5.4 s | Hold **a dope e** |
+| 5.4–6.8 s | e turns, then joint/inhale |
+| 6.8–10 s | Broad white bubbly exhale rolls left across the words |
+| 10–12.9 s | Letters rotate, fold and shrink into e’s bowl |
+| 12.9–14.2 s | e centres and grows slightly; the background clears to light |
 
 The public preview leads with this film (`EOpening variant="wordmark"`). A dark blue stage makes the white smoke readable; the settled character retains its selected red-eyed/slouched appearance on light. Smoke puffs, tracking, morph and letter absorption use the same clock, so Pause freezes all of them and Replay restarts the whole sequence. Reduced motion skips directly to e alone without smoke. The compact Commons opening remains 7.6 seconds.
 
-The inserted letter e uses the canonical `E_GLYPH_PATH`, and the surviving e uses the existing EPixelSprite; this does not introduce a competing character drawing. The earlier 11.6-second film from PR #49 is superseded by this explicit user-requested choreography.
+The inserted letter e uses the canonical `E_GLYPH_PATH`, and the surviving e uses the existing EPixelSprite; this does not introduce a competing character drawing. The earlier films from #49/#50 are superseded by the user-requested quicker word transitions. The full 6.1-second smoke window is preserved.
 
 ## Implementation boundary
 
@@ -52,4 +52,4 @@ The inserted letter e uses the canonical `E_GLYPH_PATH`, and the surviving e use
 
 Deployment/refactoring changes preserve the selected shape, colours, expression, props and timing. Intentional future changes to those features should show a before/after visual checkpoint and cite this contract. Build/test success alone does not establish visual fidelity or motion quality.
 
-Walking, spatial navigation and three-minute presentation choreography remain future work. They should extend this character, not replace it.
+Persistent placement and user dragging are implemented in the shared companion. Free walking and three-minute presentation choreography remain future work. See [the persistent companion plan](../build/E-PERSISTENT-COMPANION.md).

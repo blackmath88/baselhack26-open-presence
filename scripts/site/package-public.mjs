@@ -1,6 +1,7 @@
+import { injectCompanion } from './companion.mjs';
 // Compose into the existing Observatory artifact. Never replace its root or data.
-import { mkdirSync, readdirSync, copyFileSync, readFileSync, writeFileSync } from 'node:fs';
-import { resolve, dirname, extname, join } from 'node:path';
+import { mkdirSync, readdirSync, copyFileSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { resolve, dirname, extname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
@@ -38,3 +39,15 @@ for(const file of ['pdf-lab/index.html','pdf-lab/opening.html','pdf-history/inde
 console.log('Published assets composed without changing Observatory root.');
 
 if(profile==='local') copy(join(out,'pdf-history/index.html'),join(out,'story/pdf-history/index.html'));
+
+// The same React overlay mounts on each public experience. The e preview already mounts it itself.
+const companion = join(root,'apps/commons/dist-companion');
+if (existsSync(join(companion,'companion.js'))) {
+  for (const name of ['companion.js','companion.css']) copy(join(companion,name),join(out,'companion',name));
+  for (const file of ['index.html','story/index.html','pdf-lab/index.html','pdf-lab/opening.html','pdf-history/index.html']) {
+    const target=join(out,file);
+    if (!existsSync(target)) continue;
+    const prefix=relative(dirname(target),join(out,'companion')).split('\\').join('/')+'/';
+    writeFileSync(target,injectCompanion(readFileSync(target,'utf8'),prefix));
+  }
+} else console.log('Companion bundle absent; run npm run build:companion to include the overlay.');

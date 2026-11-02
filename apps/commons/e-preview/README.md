@@ -29,8 +29,14 @@ Keep the existing `<EGuide />` integration. `EOpening` and `EPixelSprite` are sh
 
 ## Release check
 
-Confirm crisp → inhale → exhale → melt → leisure, Replay, Pause/Resume, Hide/Restore, mobile layout and the OS reduced-motion setting in a browser. Automated tests cover the behaviour reducer and opening timeline; the static build is not a substitute for that visual check.
+Confirm crisp → inhale → exhale → melt → leisure, Replay, Pause/Resume, closing the bubble without removing e, mobile layout and the OS reduced-motion setting in a browser. Automated tests cover the behaviour reducer and opening timeline; the static build is not a substitute for that visual check.
 
 ## Wordmark film
 
-The preview leads with `EOpening variant="wordmark"`: Adobe → A dobe e → A dope e → a dope e → e turns and exhales white bubble smoke → letters fold into e → selected e alone. Duration: 21.2 seconds. Its Pause and Replay controls act on the same clock as the scene. The compact Commons character remains available under “Try e in the Commons”.
+The preview leads with `EOpening variant="wordmark"`: Adobe → A dobe e → A dope e → a dope e → e turns and exhales white bubble smoke → letters fold into e → selected e alone. Duration: 14.2 seconds (word transitions quicker, smoke still 6.1 seconds). Its Pause and Replay controls act on the same clock as the scene. The compact Commons character remains available under “Try e in the Commons”.
+
+## Persistent overlay
+
+The character remains above the page. Drag it or use arrows on its move handle; Home/“Return to e’s place” restores authored placement. Closing the conversation never hides e. The panel is an authored page guide, not an LLM connection.
+
+`npm run build:companion` produces `dist-companion/companion.js` and `companion.css`. Load both on a static page (script with `defer`), or mount the React ECompanion once. The downloadable release includes these assets under `companion/`. Authored placement and behaviour: `docs/build/E-PERSISTENT-COMPANION.md` in the repository.

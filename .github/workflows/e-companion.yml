@@ -6,6 +6,8 @@ on:
     paths:
       - 'apps/commons/src/components/E*'
       - 'apps/commons/src/components/e-*'
+      - 'apps/commons/src/companion/**'
+      - 'apps/commons/vite.companion.config.ts'
       - 'apps/commons/e-preview/**'
       - 'apps/commons/vite.e-preview.config.ts'
       - 'apps/commons/package*.json'
@@ -36,6 +38,8 @@ jobs:
       - run: npm ci
       - run: npm run test:e
       - run: npm run build:e
+      - run: npm run build:companion
+      - run: cp -R dist-companion dist-e/companion
       - name: Include deployment and character notes
         run: |
           cp e-preview/README.md dist-e/DEPLOYMENT.md

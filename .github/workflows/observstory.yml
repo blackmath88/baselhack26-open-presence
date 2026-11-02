@@ -48,6 +48,7 @@ jobs:
           npx vite build --config vite.e-preview.config.ts
           mkdir -p ../../observstory/e
           cp -R dist-e/. ../../observstory/e/
+          npm run build:companion
       - name: Build .phf story and publish PDF experiments
         run: |
           node --test scripts/site/site.test.mjs
