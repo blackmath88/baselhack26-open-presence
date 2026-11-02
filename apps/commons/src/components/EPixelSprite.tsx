@@ -1,13 +1,13 @@
 /** Lowercase logo-derived e. Kept under the existing export for integration compatibility. */
 export const E_GLYPH_PATH = 'M83 49H30C33 66 56 68 78 57V76C68 82 57 85 45 85C20 85 7 68 7 45C7 21 22 7 45 7C70 7 83 24 83 45ZM30 34H60C58 25 54 22 46 22C38 22 32 26 30 34Z'
-export type EPose = 'idle' | 'blink' | 'look-left' | 'look-right' | 'sleep' | 'surprised' | 'excited'
-export const E_POSES: readonly EPose[] = ['idle', 'blink', 'look-left', 'look-right', 'sleep', 'surprised', 'excited']
+export type EPose = 'idle' | 'blink' | 'look-left' | 'look-right' | 'sleep' | 'surprised' | 'excited' | 'cough' | 'exhale'
+export const E_POSES: readonly EPose[] = ['idle', 'blink', 'look-left', 'look-right', 'sleep', 'surprised', 'excited', 'cough', 'exhale']
 
 export function EPixelSprite({ pose = 'idle', size = 64, progress = 1, smoking = false, smoke = false }: {
   pose?: EPose; size?: number; progress?: number; smoking?: boolean; smoke?: boolean
 }) {
   const t = Math.max(0, Math.min(1, progress))
-  const closed = pose === 'blink' || pose === 'sleep'
+  const closed = pose === 'blink' || pose === 'sleep' || pose === 'cough'
   const shift = pose === 'look-left' ? -2 : pose === 'look-right' ? 2 : 0
   const red = Math.round(238 - t * 57)
   return <svg className="e-pixel-sprite" viewBox="-4 -26 124 130" width={size} height={size} aria-hidden="true" focusable="false">
@@ -27,7 +27,7 @@ export function EPixelSprite({ pose = 'idle', size = 64, progress = 1, smoking =
           <path d="M24 10Q34 5 44 12L44 17Q34 13 24 16Z" fill="#a72c40" />
           <path d="M47 13Q56 8 67 13L66 20Q57 15 48 20Z" fill="#a72c40" />
         </>}
-        <path d={pose === 'surprised' ? 'M59 51q8-5 8 2q0 7-7 2Z' : pose === 'excited' ? 'M51 53q9 9 18-1' : 'M53 54q9 4 15-2'} stroke="#472033" strokeWidth="2.5" fill={pose === 'surprised' ? '#472033' : 'none'} strokeLinecap="round" />
+        <path d={pose === 'exhale' ? 'M58 51q7-3 7 2q0 5-7 1Z' : pose === 'cough' ? 'M54 50q9-4 10 3q-1 7-9 2Z' : pose === 'surprised' ? 'M59 51q8-5 8 2q0 7-7 2Z' : pose === 'excited' ? 'M51 53q9 9 18-1' : 'M53 54q9 4 15-2'} stroke="#472033" strokeWidth="2.5" fill={pose === 'surprised' || pose === 'cough' || pose === 'exhale' ? '#472033' : 'none'} strokeLinecap="round" />
       </g>
       {smoking && <g className="e-joint" transform="rotate(-11 65 54)">
         <path d="M65 52L96 57L95 62L65 56Z" fill="#f8f0df" stroke="#bba58e" strokeWidth=".8" />
