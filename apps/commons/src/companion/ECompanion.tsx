@@ -30,7 +30,7 @@ export function ECompanion({ baseUrl = DEFAULT_BASE, missionIndex = 0, surface =
   const activeAnimation = useRef<Animation | null>(null)
   const pendingFrame = useRef<number | null>(null)
   const base = new URL(baseUrl, location.href)
-  const sideQuest = missionIndex % 2 ? (import.meta.env.VITE_PHF_HISTORY_URL || new URL('pdf-history/', base).href) : (import.meta.env.VITE_PHF_PDF_URL || new URL('pdf-lab/', base).href)
+  const sideQuest = (context.id === 'pdf' || missionIndex % 2 === 1) ? (import.meta.env.VITE_PHF_HISTORY_URL || new URL('pdf-history/', base).href) : (import.meta.env.VITE_PHF_PDF_URL || new URL('pdf-lab/', base).href)
 
   const place = useCallback((next: Point, animate = false) => {
     const p = clampPosition(next, viewport())
