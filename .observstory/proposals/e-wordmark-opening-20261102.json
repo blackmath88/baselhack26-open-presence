@@ -1,0 +1,36 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "e-wordmark-opening-20261102",
+  "kind": "finding",
+  "title": "Wordmark-to-character opening extends selected e",
+  "statement": "User requested full Adobe-like wordmark \u2192 e turns and exhales \u2192 becomes the selected character while other letters disappear. Added a wordmark film using the existing e renderer, preserving the compact opening and final character.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-02T14:40:00+01:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "564f1d492a94deb23fd5d6407007df45f0a5772d",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "apps/commons/src/components/EOpening.tsx"
+    },
+    {
+      "path": "docs/design/DOPE-E.md"
+    },
+    {
+      "path": "docs/reports/E-WORDMARK-OPENING-2026-11-02.md"
+    }
+  ],
+  "conditions": [
+    "Explicit user request extends rather than replaces the selected character.",
+    "Static SVG inspection does not verify interactive motion; no browser QA claimed.",
+    "No human review record authored."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
