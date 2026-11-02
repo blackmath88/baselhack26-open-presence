@@ -24,6 +24,21 @@
 
 Replay explicitly restarts it. Pause freezes clock and smoke. Hidden documents suspend both. Reduced motion shows the settled e without moving smoke. E never steals focus or opens a side mission automatically; Hide/Restore stays available.
 
+## Wordmark evolution film (11.6 seconds)
+
+On 2 November 2026 the user requested an additional opening: start with the full Adobe-like wordmark, have e turn around, blow out smoke and become itself while the other letters disappear. This extends the selected character; it does not replace its final design.
+
+| Time | Beat |
+| --- | --- |
+| 0–1.8 s | Full authored Adobe-like wordmark |
+| 1.8–3.6 s | e swivels edge-on and back toward the viewer; never mirrored |
+| 3.6–4.6 s | Joint / inhale |
+| 4.6–6.6 s | Exhale and begin becoming the character |
+| 6.6–8.6 s | Adob letters fade and drift away |
+| 8.6–11.6 s | e settles alone in the centre, in its selected leisure pose |
+
+The public preview leads with this film (`EOpening variant="wordmark"`). The compact Commons companion retains its 7.6-second opening. Both render the same EPixelSprite and retain pause, replay, visibility suspension and reduced-motion behaviour. Reduced motion skips the film and shows e alone, settled.
+
 ## Implementation boundary
 
 `EGuide` is the Commons integration. `EOpening` owns the opening clock. `EPixelSprite` is the SVG renderer (legacy export name retained for compatibility; the selected art is smooth vector). `e-preview` uses these same components; never fork a separate character just for deployment.

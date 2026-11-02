@@ -30,3 +30,7 @@ Keep the existing `<EGuide />` integration. `EOpening` and `EPixelSprite` are sh
 ## Release check
 
 Confirm crisp → inhale → exhale → melt → leisure, Replay, Pause/Resume, Hide/Restore, mobile layout and the OS reduced-motion setting in a browser. Automated tests cover the behaviour reducer and opening timeline; the static build is not a substitute for that visual check.
+
+## Wordmark film
+
+The preview leads with `EOpening variant="wordmark"`: full wordmark → e turns → exhale → other letters disappear → selected e alone. Duration: 11.6 seconds. Its Pause and Replay controls act on the same clock as the scene. The compact Commons character remains available under “Try e in the Commons”.
