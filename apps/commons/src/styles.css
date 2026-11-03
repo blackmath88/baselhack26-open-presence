@@ -358,3 +358,11 @@ a{color:var(--accent-ink)}
 .cc-chooser select{width:100%}
 .cc-compare-actions{display:grid;justify-items:start}
 .cc-compare-summary .cc-fit{border-top:0;margin-top:0;padding-top:0}
+/* Phase 3: review-before-submit and read-back key/value lists. */
+.cc-kv{display:grid;gap:2px;margin:0 0 10px;font-size:14px}
+.cc-kv dt{font-size:12px;font-weight:600;margin-top:8px}
+.cc-kv dt:first-child{margin-top:0}
+.cc-kv dd{margin:0;overflow-wrap:anywhere}
+.cc-kv .cc-items{margin:0;padding-left:1.1em}
+.cc-outgoing{margin:0;padding:6px 10px;border-left:3px solid currentColor;white-space:pre-wrap}
+#phf-composer{scroll-margin-top:72px}

@@ -6,7 +6,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import { CheckCircle2 } from 'lucide-react'
 import { journey } from '../../commons/client/journey'
-import type { CommonsContribution, CommonsReader } from '../../commons/contracts'
+import type { CommonsContribution, CommonsReader, ModeratedContribution } from '../../commons/contracts'
+import { isModerated } from '../../commons/contracts'
 import { appLinks } from '../../commons/contracts'
 import { commonsApi, type ProblemView } from '../../commons/client/api'
 import { Record } from './Record'
@@ -36,7 +37,7 @@ export function ProblemPanel({ token, problemId, query, reader, actorId, actorNa
   const [version, setVersion] = useState(0)
   const [composer, setComposer] = useState<{ relation: Relation; parent?: { id: string; label: string } } | null>(null)
   const [citing, setCiting] = useState<string | undefined>(undefined)
-  const [recorded, setRecorded] = useState<{ id: string; relation: Relation } | null>(null)
+  const [recorded, setRecorded] = useState<{ id: string; relation: Relation; replayed: boolean } | null>(null)
   const openComposer = () => requestAnimationFrame(() => document.getElementById('phf-composer')?.scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }))
   const load = useCallback(() => {
     commonsApi.problem(token, problemId).then((v) => { setView(v); setError(null) }, (e) => setError({ message: e instanceof Error ? e.message : 'Could not load the problem.', notFound: e instanceof ApiError && e.status === 404 }))
@@ -93,12 +94,12 @@ export function ProblemPanel({ token, problemId, query, reader, actorId, actorNa
           </section>
         </div>
         <div id="phf-composer" className="phf-composer-col">
-          {recorded && <Recorded id={recorded.id} relation={recorded.relation} problemId={problemId} />}
+          {recorded && <Recorded token={token} id={recorded.id} replayed={recorded.replayed} relation={recorded.relation} problemId={problemId} />}
           {composer ? (
-            <Composer key={`${composer.relation}:${composer.parent?.id ?? ''}`} token={token} actorName={actorName} problem={view} relation={composer.relation} parent={composer.parent ?? null}
-              onSubmitted={(r) => { setRecorded({ id: r.contributionId, relation: composer.relation }); setComposer(null); refresh(); openComposer(); onSubmitted(r.problemId) }} onCancel={() => setComposer(null)} />
+            <Composer key={`${composer.relation}:${composer.parent?.id ?? ''}`} token={token} actorName={actorName} {...(query ? { query } : {})} problem={view} relation={composer.relation} parent={composer.parent ?? null}
+              onSubmitted={(r) => { setRecorded({ id: r.contributionId, relation: composer.relation, replayed: r.replayed }); setComposer(null); refresh(); openComposer(); onSubmitted(r.problemId) }} onCancel={() => setComposer(null)} />
           ) : (
-            <Composer key={`root:${citing ?? ''}`} token={token} actorName={actorName} problem={view} relation="root" {...(citing ? { focusEvidence: citing } : {})} onSubmitted={(r) => { setRecorded({ id: r.contributionId, relation: 'root' }); setCiting(undefined); refresh(); openComposer(); onSubmitted(r.problemId) }} />
+            <Composer key={`root:${citing ?? ''}`} token={token} actorName={actorName} {...(query ? { query } : {})} problem={view} relation="root" {...(citing ? { focusEvidence: citing } : {})} onSubmitted={(r) => { setRecorded({ id: r.contributionId, relation: 'root', replayed: r.replayed }); setCiting(undefined); refresh(); openComposer(); onSubmitted(r.problemId) }} />
           )}
           <p className="commons-limit">
             Deep links: <a href={appLinks.problem(problemId)}>this problem</a> · <a href={appLinks.repository()}>repository</a>. Room version {view.version}.
@@ -109,18 +110,44 @@ export function ProblemPanel({ token, problemId, query, reader, actorId, actorNa
   )
 }
 
-/** After a submission: where it now lives and the next moves of the journey. */
-function Recorded({ id, relation, problemId }: { id: string; relation: Relation; problemId: string }) {
+/** Words to search for to find a contribution again: its first few, without a leading [tag]. */
+export const rediscoveryWords = (text: string) => text.trim().replace(/^\[[^\]]*\]\s*/, '').split(/\s+/).slice(0, 6).join(' ')
+
+/**
+ * After a submission: what the room itself now holds (read back from the server, not echoed
+ * from the form), who can see it, and the ways to find it again from each entrance.
+ */
+function Recorded({ token, id, replayed, relation, problemId }: { token: string; id: string; replayed: boolean; relation: Relation; problemId: string }) {
+  const [held, setHeld] = useState<CommonsContribution | ModeratedContribution | null>(null)
+  const [readError, setReadError] = useState<string | null>(null)
+  useEffect(() => {
+    commonsApi.contribution(token, id).then(setHeld, (e) => setReadError(e instanceof Error ? e.message : 'could not read it back'))
+  }, [token, id])
+  const c = held && !isModerated(held) ? held : null
   return (
-    <div className="phf-recorded" role="status">
-      <p><CheckCircle2 size={16} /> <strong>{relation === 'root' ? 'Recorded in the local shared room.' : 'Added to the conversation. The original stays as it was.'}</strong></p>
-      <p className="commons-limit">It survives reload and is reachable by its own link from any entrance.</p>
+    <section className="phf-recorded" aria-labelledby="cc-recorded-title">
+      <p id="cc-recorded-title" role="status"><CheckCircle2 size={16} aria-hidden="true" /> <strong>{replayed ? 'Already recorded earlier; no duplicate was created.' : relation === 'root' ? 'Recorded in the local shared room.' : 'Added to the conversation. The original stays as it was.'}</strong></p>
+      {readError && <p className="banner error">Recorded, but reading it back failed: {readError}. Its permalink below still works.</p>}
+      {held && isModerated(held) && <p className="cc-warn">The room holds it but withholds it ({held.reason}); others will not see it.</p>}
+      {!held && !readError && <p className="commons-limit" role="status">Reading it back from the room…</p>}
+      {c && (
+        <dl className="cc-kv" aria-label="What the room holds">
+          <dt>Recorded as</dt><dd><code>{c.id}</code> · revision {c.revision} · {new Date(c.createdAt).toLocaleString()}</dd>
+          <dt>Speaks as</dt><dd>{actorLabel(c.actor)} <span className="commons-limit">({c.actor.kind}, confirmed by the server)</span></dd>
+          <dt>Words</dt><dd>{c.text}</dd>
+          <dt>Cites</dt><dd>{c.sourceRefs.map((r) => r.objectId).join(', ') || 'nothing'}{c.evidenceIds?.length ? ` · passages ${c.evidenceIds.join(', ')}` : ''}</dd>
+          <dt>Who can see it</dt><dd>Participants who sign in to this room, through the app, the repository view, the CLI and MCP. {c.publication ? `Publication: ${c.publication.status}.` : 'Not published to ATProto.'}</dd>
+        </dl>
+      )}
+      <p className="phf-kicker">Find it again</p>
       <div className="commons-actions">
+        {c && <a className="button" href={appLinks.search(rediscoveryWords(c.text))}>Search for “{rediscoveryWords(c.text)}”</a>}
         <a className="button" href={appLinks.thread(id)}>Open the conversation</a>
         <a className="button" href={appLinks.contribution(id)}>Permalink</a>
         {relation === 'root' && <a className="button" href={appLinks.problem(problemId)}>Back to the record</a>}
       </div>
+      <p className="commons-limit">From a terminal: <code>npm run commons -- inspect {id}</code></p>
       {relation === 'root' && <p className="commons-limit">Next: switch <strong>Voice</strong> at the top to another participant and reply or correct.</p>}
-    </div>
+    </section>
   )
 }

@@ -1,0 +1,15 @@
+$ COMMONS_API=http://127.0.0.1:8811 BRAINSTORM_PARTICIPANT=kai npm run -s commons -- inspect contrib_4329678b-ad9a-485c-8ea9-3ce8532d0f89   (Kai reads Lea's contribution; first 12 lines)
+{
+  "kind": "observation",
+  "id": "contrib_4329678b-ad9a-485c-8ea9-3ce8532d0f89",
+  "revision": 1,
+  "problemId": "usb-c-no-data",
+  "roomId": "commons:usb-c-no-data",
+  "text": "Kestrelcable kmvy3lgn1 wide: plugging the frame straight into the Mac with a data cable worked",
+  "circumstances": "macOS 15, no hub",
+  "sourceRefs": [
+    {
+      "snapshotId": "commons-001@0bff55ef3fb2",
+      "retrievedAt": "2026-10-29T16:19:22.411Z",
+...
+actor: {'id': 'person:lea', 'kind': 'participant', 'displayName': 'Lea'} | entrance: browser | publication: None
