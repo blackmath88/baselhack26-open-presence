@@ -86,7 +86,13 @@ export function BridgeOverlay({
         </p>
         <div className="row">
           <Button onClick={close}>Zurück zur Werkbank</Button>
-          <Link to="/canvas" className="btn btn-acc">
+          <Link
+            to="/canvas/$investigationId"
+            params={{ investigationId: 'bilderrahmen-mac' }}
+            search={{ von: 'lab' }}
+            state={{ fromLab: true }}
+            className="btn btn-acc"
+          >
             Zur menschlichen Erfahrung
             <LabIcon name="arrow" />
           </Link>

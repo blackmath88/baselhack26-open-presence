@@ -1,9 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate } from "@tanstack/react-router";
+import { useLocation, useNavigate } from "@tanstack/react-router";
 import { labState, views, type LabSearch } from "./state";
+import { DOCK_FLAG, usePresenterReset } from "./presenterReset";
 export function useWorkbench(search: LabSearch) {
   const state = labState(search);
   const navigate = useNavigate();
+  const presenterReset = usePresenterReset();
+  const resetPending = useLocation({ select: (location) => location.state.demoReset });
+  const [resetNotice, setResetNotice] = useState(0);
+  const lastZero = useRef<number | null>(null);
   const root = useRef<HTMLDivElement>(null);
   const [dock, setDock] = useState(false);
   const [bridge, setBridge] = useState(false);
@@ -46,7 +51,7 @@ export function useWorkbench(search: LabSearch) {
       search: (current) => ({
         ...current,
         probe: current.probe === "meine" ? "meine" : "b",
-        ansicht: "seite",
+        ansicht: current.ansicht === undefined ? undefined : "seite",
         durchsicht: 100,
       }),
       replace: true,
@@ -76,7 +81,7 @@ export function useWorkbench(search: LabSearch) {
   useEffect(() => {
     let seen = false;
     try {
-      seen = sessionStorage.getItem("pdf-lab.dock-seen") === "1";
+      seen = sessionStorage.getItem(DOCK_FLAG) === "1";
     } catch {
       /* Optional storage. */
     }
@@ -84,14 +89,28 @@ export function useWorkbench(search: LabSearch) {
       const timer = setTimeout(() => {
         setDock(true);
         try {
-          sessionStorage.setItem("pdf-lab.dock-seen", "1");
+          sessionStorage.setItem(DOCK_FLAG, "1");
         } catch {
           /* Optional storage. */
         }
       }, 500);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [resetNotice]);
+  useEffect(() => {
+    if (!resetPending) return;
+    stopAnimation();
+    setDock(false);
+    setBridge(false);
+    setRawOpen(false);
+    setResetNotice((notice) => notice + 1);
+    lastZero.current = null;
+    // Consume the one-shot history marker so browser back cannot replay a reset.
+    void navigate({
+      to: "/lab", search: {}, replace: true,
+      state: (previous) => ({ ...previous, demoReset: undefined }),
+    });
+  }, [resetPending, navigate, stopAnimation]);
   const recipe = () => {
     update({ fokus: undefined });
     requestAnimationFrame(() => {
@@ -149,11 +168,20 @@ export function useWorkbench(search: LabSearch) {
         update({ vergleich: state.compare ? undefined : 1 });
       else if (key === "f") update({ fokus: state.focus ? undefined : 1 });
       else if (key === "g") setDock((open) => !open);
-      else if (key === "0") reset();
+      else if (key === "0" && !event.repeat) {
+        const now = performance.now();
+        if (lastZero.current !== null && now - lastZero.current <= 2000) {
+          lastZero.current = null;
+          void presenterReset();
+        } else {
+          lastZero.current = now;
+          reset();
+        }
+      }
     };
     window.addEventListener("keydown", keydown);
     return () => window.removeEventListener("keydown", keydown);
-  }, [bridge, state.line, state.compare, state.focus, update, reveal, reset]);
+  }, [bridge, state.line, state.compare, state.focus, update, reveal, reset, presenterReset]);
   return {
     state,
     root,
@@ -165,6 +193,7 @@ export function useWorkbench(search: LabSearch) {
     setRawOpen,
     update,
     reset,
+    resetNotice,
     reveal,
     recipe,
     measure,

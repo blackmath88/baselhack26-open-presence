@@ -30,6 +30,7 @@ export function Workbench({ search }: { search: LabSearch }) {
     setRawOpen,
     update,
     reset,
+    resetNotice,
     reveal,
     recipe,
     measure,
@@ -37,15 +38,21 @@ export function Workbench({ search }: { search: LabSearch }) {
     pulse,
   } = useWorkbench(search);
   const { generated, building, error, urls } = useGenerated(search.rezept);
-  const [toast, setToast] = useState(false);
+  const [toast, setToast] = useState("");
   const notifyGeneration = useRef(false);
   useEffect(() => {
     if (!generated || !notifyGeneration.current) return;
     notifyGeneration.current = false;
-    setToast(true);
-    const timer = setTimeout(() => setToast(false), 2800);
-    return () => clearTimeout(timer);
+    setToast("meine-lesart.pdf erzeugt · noch nicht gemessen");
   }, [generated]);
+  useEffect(() => {
+    if (resetNotice) setToast("Demo zurückgesetzt");
+  }, [resetNotice]);
+  useEffect(() => {
+    if (!toast) return;
+    const timer = setTimeout(() => setToast(""), 2800);
+    return () => clearTimeout(timer);
+  }, [toast, resetNotice]);
   const selected = specimen(
     state.compare && state.probe === "a" ? "b" : state.probe,
     state.reader,
@@ -101,7 +108,7 @@ export function Workbench({ search }: { search: LabSearch }) {
             update={update}
             reveal={reveal}
             reset={() => {
-              setToast(false);
+              setToast("");
               reset();
             }}
           />
@@ -143,7 +150,7 @@ export function Workbench({ search }: { search: LabSearch }) {
         {toast && (
           <>
             <i />
-            meine-lesart.pdf erzeugt · noch nicht gemessen
+            {toast}
           </>
         )}
       </div>

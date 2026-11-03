@@ -34,6 +34,7 @@ export const shell = {
         ['doc', 'PDF Lab'],
         ['graph', 'Observatory'],
         ['doc', '.phf-Export'],
+        ['home', 'Demo zurücksetzen'],
       ] as [IconName, string][],
     },
     {

@@ -11,6 +11,7 @@ import { IconSprite, Icon } from './Icon'
 import { TopBar } from './TopBar'
 import { AppLauncher } from './AppLauncher'
 import { investigationId, shell } from '../../mock/commons'
+import { usePresenterReset } from '../../features/lab/presenterReset'
 import './AppShell.css'
 
 type InvestigationContext = { id: string; setId: (id: string) => void }
@@ -23,6 +24,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [id, setId] = useState(investigationId)
   const [launcher, setLauncher] = useState(false)
   const navigate = useNavigate()
+  const resetDemo = usePresenterReset()
   // Keep copied read links from the existing CLI/API useful after the router migration.
   useEffect(() => {
     const follow = () => {
@@ -58,6 +60,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const openTool = (label: string) => {
     setLauncher(false)
     if (label === 'Start') void navigate({ to: '/' })
+    else if (label === 'Demo zurücksetzen') void resetDemo()
     else if (label === 'Finden') void navigate({ to: '/find' })
     else if (label === 'Vergleichen')
       void navigate({ to: '/find', search: { query: 'frame' } })
@@ -72,6 +75,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       void navigate({
         to: '/canvas/$investigationId',
         params: { investigationId: id },
+        search: {},
       })
   }
   return (
@@ -135,6 +139,7 @@ export function ModeSwitch() {
         <Link
           key={label}
           {...props[i]}
+          search={{}}
           className={`mode ${(i === 0 ? path === '/' : i === 1 ? path.startsWith('/canvas/') : path.startsWith('/actions')) ? 'on' : ''}`}
         >
           <Icon name={icon} />
