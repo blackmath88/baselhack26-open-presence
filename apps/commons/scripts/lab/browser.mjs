@@ -3,6 +3,7 @@ import AxeBuilder from '@axe-core/playwright'
 import { mkdirSync, readFileSync, writeFileSync, rmSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import { resolve } from 'node:path'
+import { verifyDemoTransition } from './demo-transition.mjs'
 
 const base = process.env.LAB_URL ?? 'http://127.0.0.1:5197'
 const out = resolve(process.env.LAB_REPORT_DIR ?? '../../docs/reports/pdf-lab-werkbank')
@@ -132,6 +133,10 @@ try {
   await page.keyboard.press('Escape'); await expect(page.getByRole('dialog')).not.toBeVisible()
   await page.getByRole('button', { name: 'Zur menschlichen Erfahrung', exact: true }).click()
   await page.getByRole('dialog').getByRole('link', { name: 'Zur menschlichen Erfahrung', exact: true }).click()
+  await expect(page).toHaveURL(base + '/canvas/bilderrahmen-mac?von=lab')
+  await expect(page.getByRole('heading', { name: 'Mein Mac erkennt meinen Bilderrahmen nicht.', exact: true })).toBeVisible()
+  // Direct hits retain the existing fallback page and corpus entrance.
+  await page.goto(base + '/canvas')
   await expect(page.getByRole('heading', { name: 'Menschliche Erfahrung', exact: true })).toBeVisible()
   await page.getByRole('link', { name: 'Erfahrungen finden' }).click()
   await expect(page).toHaveURL(/\/find\?query=/)
@@ -146,6 +151,7 @@ try {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   check('reduced motion skips reveal animation and pulses')
   await context.close()
+  await verifyDemoTransition(browser, base, resolve(process.env.DEMO_REPORT_DIR ?? out + '/demo-loop'), process.env.DEMO_CAPTURE === '1')
 
   for (const [label, viewport] of [['desktop', { width: 1440, height: 900 }], ['mobile', { width: 390, height: 844 }]]) {
     const context = await browser.newContext({ viewport, deviceScaleFactor: 2 })

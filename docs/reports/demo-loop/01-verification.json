@@ -1,0 +1,27 @@
+{
+  "testedAt": "2026-11-03T15:53:06.945Z",
+  "base": "http://127.0.0.1:5197",
+  "checks": [
+    "desktop: fresh profile equals P1",
+    "desktop: input/held-key guards, single reset and timeout preserve drafts; double reset restores P1 and removes only usb-c-no-data drafts",
+    "desktop: reset → P1 → R → down twice → F twice → bridge; browser back and arrival link after reload restore the exact lab URL",
+    "desktop: navigation drops von, invalid von is removed from the address, and direct arrival returns to /lab defaults",
+    "desktop: launcher reset from canvas restores P1, announces completion and preserves unrelated drafts",
+    "mobile: fresh profile equals P1",
+    "mobile: input/held-key guards, single reset and timeout preserve drafts; double reset restores P1 and removes only usb-c-no-data drafts",
+    "mobile: reset → P1 → R → down twice → F twice → bridge; browser back and arrival link after reload restore the exact lab URL",
+    "mobile: navigation drops von, invalid von is removed from the address, and direct arrival returns to /lab defaults",
+    "mobile: launcher reset from canvas restores P1, announces completion and preserves unrelated drafts"
+  ],
+  "errors": [],
+  "accessibility": [
+    {
+      "state": "desktop",
+      "violations": []
+    },
+    {
+      "state": "mobile",
+      "violations": []
+    }
+  ]
+}
