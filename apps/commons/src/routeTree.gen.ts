@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ActionsRouteImport } from './routes/actions'
 import { Route as FindRouteImport } from './routes/find'
+import { Route as LabRouteImport } from './routes/lab'
 import { Route as ActionsIndexRouteImport } from './routes/actions.index'
 import { Route as ActionsActionIdRouteImport } from './routes/actions.$actionId'
 import { Route as CanvasInvestigationIdRouteImport } from './routes/canvas.$investigationId'
@@ -29,6 +30,11 @@ const ActionsRoute = ActionsRouteImport.update({
 const FindRoute = FindRouteImport.update({
   id: '/find',
   path: '/find',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LabRoute = LabRouteImport.update({
+  id: '/lab',
+  path: '/lab',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ActionsIndexRoute = ActionsIndexRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/actions': typeof ActionsRouteWithChildren
   '/find': typeof FindRoute
+  '/lab': typeof LabRoute
   '/actions/$actionId': typeof ActionsActionIdRoute
   '/canvas/$investigationId': typeof CanvasInvestigationIdRoute
   '/actions/': typeof ActionsIndexRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/find': typeof FindRoute
+  '/lab': typeof LabRoute
   '/actions/$actionId': typeof ActionsActionIdRoute
   '/canvas/$investigationId': typeof CanvasInvestigationIdRoute
   '/actions': typeof ActionsIndexRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/actions': typeof ActionsRouteWithChildren
   '/find': typeof FindRoute
+  '/lab': typeof LabRoute
   '/actions/$actionId': typeof ActionsActionIdRoute
   '/canvas/$investigationId': typeof CanvasInvestigationIdRoute
   '/actions/': typeof ActionsIndexRoute
@@ -77,6 +86,7 @@ export interface FileRouteTypes {
     | '/'
     | '/actions'
     | '/find'
+    | '/lab'
     | '/actions/$actionId'
     | '/canvas/$investigationId'
     | '/actions/'
@@ -84,6 +94,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/find'
+    | '/lab'
     | '/actions/$actionId'
     | '/canvas/$investigationId'
     | '/actions'
@@ -92,6 +103,7 @@ export interface FileRouteTypes {
     | '/'
     | '/actions'
     | '/find'
+    | '/lab'
     | '/actions/$actionId'
     | '/canvas/$investigationId'
     | '/actions/'
@@ -101,6 +113,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActionsRoute: typeof ActionsRouteWithChildren
   FindRoute: typeof FindRoute
+  LabRoute: typeof LabRoute
   CanvasInvestigationIdRoute: typeof CanvasInvestigationIdRoute
 }
 
@@ -125,6 +138,13 @@ declare module '@tanstack/react-router' {
       path: '/find'
       fullPath: '/find'
       preLoaderRoute: typeof FindRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lab': {
+      id: '/lab'
+      path: '/lab'
+      fullPath: '/lab'
+      preLoaderRoute: typeof LabRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/actions/': {
@@ -168,6 +188,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActionsRoute: ActionsRouteWithChildren,
   FindRoute: FindRoute,
+  LabRoute: LabRoute,
   CanvasInvestigationIdRoute: CanvasInvestigationIdRoute,
 }
 export const routeTree = rootRouteImport

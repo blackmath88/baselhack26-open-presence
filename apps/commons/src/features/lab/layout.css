@@ -1,0 +1,7 @@
+.lab-workbench {
+.wb{display:grid;grid-template-columns:var(--rail-w) var(--left-w) 1fr var(--right-w);grid-template-rows:1fr var(--foot-h);height:100%;transition:grid-template-columns .25s}
+&[data-focus="true"] .wb{grid-template-columns:var(--rail-w) 0 1fr 0}
+&[data-focus="true"] .lp,&[data-focus="true"] .rp{opacity:0;pointer-events:none}
+
+
+}

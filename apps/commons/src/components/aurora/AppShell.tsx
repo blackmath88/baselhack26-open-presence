@@ -62,9 +62,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     else if (label === 'Vergleichen')
       void navigate({ to: '/find', search: { query: 'frame' } })
     else if (label === 'PDF Lab')
-      window.location.assign(
-        'https://blackmath88.github.io/baselhack26-open-presence/pdf-lab/',
-      )
+      void navigate({ to: '/lab' })
     else if (label === 'Observatory')
       window.location.assign(
         'https://blackmath88.github.io/baselhack26-open-presence/',
