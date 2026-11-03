@@ -10,6 +10,11 @@
 .mini-comp{border:1px solid var(--border-strong);border-radius:var(--r-md);padding:10px 12px;color:var(--text-muted);font-size:13px;margin-top:var(--s-3);background:var(--surface-2)}
 .canvas-head{display:flex;align-items:center;gap:var(--s-3);margin-bottom:var(--s-4)}
 .canvas-head h2{font-size:20px;font-weight:600;letter-spacing:-.025em}
+.canvas-title{min-width:0}
+.canvas-title:has(.canvas-arrival){flex:1}
+.canvas-arrival{font-size:var(--fs-sm);color:var(--text-muted);margin-top:var(--s-2);line-height:1.6}
+.canvas-arrival a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:3px}
+@media(max-width:760px){.canvas-head:has(.canvas-arrival){flex-wrap:wrap}.canvas-head:has(.canvas-arrival) .canvas-title{flex-basis:100%}}
 .avatars{display:flex;margin-left:auto}
 .avatars span{width:26px;height:26px;border-radius:50%;border:2px solid var(--bg);margin-left:-6px;display:grid;place-items:center;font-size:10.5px;font-weight:700;color:var(--bg)}
 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s-4)}
