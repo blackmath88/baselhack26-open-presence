@@ -139,3 +139,7 @@ Current measurements are bounded to the engines and checks in RUNNING.md. Intera
 - Affected documents: this README, PLAN.md, RESEARCH-PROMPT.md and the root navigation link.
 - Current-state boundary: source tree inspected at 70d1cfb07647a08756e53fbaef9098700087bd18, complete Git tree listing; source knowledge manifest and coordination declarations read. Published data/knowledge.json and data/snapshot.json could not be fetched. Generated snapshot completeness and diagnostics remain unverified.
 
+
+## Planned mobile-reading exploration
+
+[Where did the page go?](MOBILE-REFLOW.md) compares the original page, mobile reflow and extracted text. Requested as a planning addition on 3 November 2026; implementation and actual mobile-reader observations remain pending.
