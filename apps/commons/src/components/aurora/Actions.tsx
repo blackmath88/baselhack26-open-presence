@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, type ReactNode } from 'react'
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from 'react'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { AppLayout, useInvestigation } from './AppShell'
 import { Badge, Button, Chip, Severity } from './Primitives'
@@ -191,6 +197,10 @@ export function ReviewPlan({ action }: { action: ReviewAction }) {
 export function ActionDetail({ action }: { action: ReviewAction }) {
   const navigate = useNavigate()
   const { setId } = useInvestigation()
+  useEffect(
+    () => setId(action.investigationId),
+    [action.investigationId, setId],
+  )
   const { status, update } = useContext(Reviews)
   return (
     <div className="detail">

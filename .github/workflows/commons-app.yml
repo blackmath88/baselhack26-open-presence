@@ -34,5 +34,7 @@ jobs:
       - run: npx vite build
       - name: CLI smoke (real local server, temp data)
         run: bash scripts/smoke/multi-entry.sh
-      - name: Browser smoke (CLI → browser → CLI rediscovery; runner Chrome over DevTools, loopback only)
-        run: OUT=$RUNNER_TEMP/browser-smoke bash scripts/smoke/browser.sh
+      - name: Install Chromium for the Aurora browser checks
+        run: npx playwright install --with-deps chromium
+      - name: Aurora routes, interactions and real API read smoke (loopback only)
+        run: OUT=$RUNNER_TEMP/aurora-smoke npm run test:aurora
