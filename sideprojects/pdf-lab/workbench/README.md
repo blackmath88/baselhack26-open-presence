@@ -5,6 +5,12 @@ Batches A and B of [WORKBENCH-BUILD.md](../WORKBENCH-BUILD.md): consolidate, enc
 and write your own second reading, with a stored reading comparison. The [legacy cabinet](../index.html) stays the working
 fallback for every exhibit; removing this folder leaves it untouched.
 
+## Aurora integration
+
+Commons now hosts the paired-poem workbench at **http://127.0.0.1:5173/lab** (`apps/commons`: `npm ci && npm run dev`).
+Its UI imports this application's pure model, adapters and narrow PDF writer; its ingest runs this folder's existing
+allowlisted ingest. This standalone app retains its routes and controls. See [Aurora verification](../../../docs/reports/pdf-lab-werkbank/README.md).
+
 ## Run
 ```sh
 cd sideprojects/pdf-lab/workbench

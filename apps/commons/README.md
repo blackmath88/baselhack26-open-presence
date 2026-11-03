@@ -2,6 +2,14 @@
 >
 > Visual source of truth = `src/styles/tokens.css` + the [Aurora mock](../../commons-aurora-port/reference/commons-mock.html). Cisco Cloud Control remains an interaction reference only. See [verification and limitations](../../docs/reports/commons-aurora/README.md). The prior hash UI and Cloud Control skin are retired; find/inspect/compare hash links redirect into `/find`. The standalone e preview and embed remain unchanged.
 
+**PDF Lab · Werkbank** is at `/lab`, using the [workbench mock](../../pdf-lab-workbench-port/reference/pdf-lab-mock.html).
+It imports the existing PDF Lab data/adapters/writer: real recorded pages and readings, whole-line glyph inspection,
+structure, comparison, focus and four-line PDF downloads. Generated readings stay **Neu erzeugt · nicht gemessen**.
+`npm run dev`, `npm run typecheck` and `npm test` ingest the allowlisted fixtures automatically. After `npm run build`,
+run `npm run test:lab` for production browser checks or `npm run capture:lab` to refresh the committed desktop/mobile captures.
+See [the data audit and verification](../../docs/reports/pdf-lab-werkbank/README.md). `/canvas` is an explicit fallback until a
+photo-frame investigation has a real ID; it links into the existing corpus search.
+
 > **Imported upstream documentation.** This file preserves br-ai-nstorm’s original feature history and deployment examples. For Photo Frame Commons in this repository, use [the current demo/run guide](../../DEMO.md) and [integration review](../../docs/reports/REPOSITORY-REVIEW-2026-11-01.md). Commons uses the local Node backend; the upstream Cloudflare examples below do not provide the Commons service.
 
 <!-- BEGIN public-repo-header -->
