@@ -3,9 +3,10 @@
 // the prototype session (stored the way the app stores it), then walks repository → contribution →
 // reply → passage response, asserting what a person would see. Exits non-zero on the first failure.
 import { writeFileSync } from 'node:fs'
+import { debuggerUrl } from './devtools-ready.mjs'
 
 const [, , wsUrl, origin, token, actorJson, outDir, contributionId, problemId, passageId] = process.argv
-const ws = new WebSocket(wsUrl)
+const ws = new WebSocket(debuggerUrl(wsUrl))
 let seq = 0
 const pending = new Map()
 ws.onmessage = (m) => { const d = JSON.parse(m.data); if (d.id && pending.has(d.id)) { pending.get(d.id)(d); pending.delete(d.id) } }

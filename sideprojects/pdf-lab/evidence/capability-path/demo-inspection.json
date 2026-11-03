@@ -1,0 +1,62 @@
+{
+  "schema": "pdf-lab.inspection/v1",
+  "observations": [
+    {
+      "engine": "poppler",
+      "sourceSha256": "decf9c66b5082de09674ffbed6c41b0d4bd2707ac08b03cebae72b6ea4ec2753",
+      "origin": "this_run",
+      "status": "measured",
+      "version": "pdftotext version 26.08.0\nCopyright 2005-2026 The Poppler Developers - http://poppler.freedesktop.org\nCopyright 1996-2011, 2022 Glyph & Cog, LLC",
+      "render_version": "pdftoppm version 26.08.0\nCopyright 2005-2026 The Poppler Developers - http://poppler.freedesktop.org\nCopyright 1996-2011, 2022 Glyph & Cog, LLC",
+      "runs": [
+        {
+          "command": [
+            "pdftotext",
+            "-layout",
+            "/tmp/pdf-lab-capability-1000/e0651bca-4b02-426d-a97d-35dcec24297f/poem.pdf",
+            "-"
+          ],
+          "exit_code": 0,
+          "stdout": "A tide waits under the floor.\nThe house remembers the sea.I open a door in a whisper.Water comes looking for me.\nPDF LAB / A01 - TWO POEMS\n\n\n\nA lamp beside the rain\nRead with your eyes. Then select the four lines and copy.\n\n\n\n\nThe shapes hold one poem. The character map can hold another.\n\nA mapping experiment, not encryption. Both readings are in the source.\n\n\n\n\nOriginal poems / PDF LAB / 2026 - inspect /CharProcs and /ToUnicode.\n\f",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "pdftoppm",
+            "-r",
+            "72",
+            "-f",
+            "1",
+            "-l",
+            "1",
+            "-singlefile",
+            "-png",
+            "/tmp/pdf-lab-capability-1000/e0651bca-4b02-426d-a97d-35dcec24297f/poem.pdf",
+            "/tmp/pdf-lab-capability-1000/e0651bca-4b02-426d-a97d-35dcec24297f/poppler-working"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "engine": "mupdf",
+      "sourceSha256": "decf9c66b5082de09674ffbed6c41b0d4bd2707ac08b03cebae72b6ea4ec2753",
+      "origin": "this_run",
+      "status": "not_run",
+      "reason": "PyMuPDF unavailable in python3; install separately to enable this instrument."
+    }
+  ],
+  "limits": {
+    "wallMs": 10000,
+    "cpuSeconds": 8,
+    "addressSpaceMiB": 768,
+    "fileMiB": 2
+  },
+  "gaps": [
+    "native viewer copy/paste",
+    "physical printing",
+    "other readers"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "capability-path-20261103",
+  "kind": "finding",
+  "title": "Local creative PDF capability path and bounded Commons DevTools readiness repair",
+  "statement": "One versioned two-poems capability now validates a committed example, compiles through the existing writer, measures with available local instruments and retrieves verified PDF bytes via CLI and local stdio. Poppler measured the example; PyMuPDF is unavailable. The Commons harness can continue after readiness exhaustion and pass an empty debugger URL; bounded validated polling repairs that path without attributing the CI failure to e assets.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-03T09:33:43.252289+00:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "458bf107f0b7f073b174d2d1b39b4097287ee9d7",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "sideprojects/pdf-lab/CAPABILITY-PATH-REPORT.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/evidence/capability-path/demo-manifest.json"
+    },
+    {
+      "path": "sideprojects/pdf-lab/evidence/capability-path/demo-inspection.json"
+    },
+    {
+      "path": "sideprojects/pdf-lab/workbench/test/capability-path.test.mjs"
+    },
+    {
+      "path": "sideprojects/pdf-lab/evidence/COMMONS-BROWSER-SMOKE-DIAGNOSIS-2026-11-03.md"
+    },
+    {
+      "path": "apps/commons/scripts/smoke/devtools-ready.test.mjs"
+    }
+  ],
+  "conditions": [
+    "Unreviewed assistant finding; only a human review accepts it.",
+    "Staged inside allowed PDF Lab paths; coordinator must submit to .observstory/proposals/capability-path-20261103.json in an authorized PR.",
+    "27 workbench tests pass; one pre-existing synchronous Python availability test skips in this sandbox, with new asynchronous compatibility coverage passing.",
+    "No full Commons Chrome smoke, CI rerun, actual ChatGPT/Claude client, native PDF viewer or physical printing was tested.",
+    "The CI error is consistent with the harness failure mechanism; exact environmental cause needs original Chrome logs.",
+    "Only owned two-poem fixtures are supported; single-process local storage and manual retention, no remote publication or arbitrary PDF upload sandbox."
+  ],
+  "proposed_change": "none"
+}
