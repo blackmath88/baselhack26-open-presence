@@ -19,3 +19,13 @@
 .lab-workbench .foot .bridge{flex-shrink:0}
 .lab-workbench .box{flex-shrink:0}
 @media(max-width:820px){body:has(.lab-workbench){overflow:auto}.lab-workbench{height:auto}.lab-workbench .stage{grid-column:1;grid-row:1}.lab-workbench .rp{grid-column:1;grid-row:2}.lab-workbench .foot{grid-row:3}.lab-workbench[data-focus="true"] .wb{grid-template-columns:1fr}.lab-workbench .floatbar{white-space:normal;flex-wrap:wrap;justify-content:center;width:100%;overflow:visible}.lab-workbench .seg{flex-wrap:wrap}.lab-workbench .seg button{padding:6px 8px}.lab-workbench .dock{position:static;margin:12px;width:auto}.lab-workbench .bridgecard{padding:32px 20px}.lab-workbench .bridgecard .row{flex-wrap:wrap}}
+
+.lab-workbench .glyph-limit{font-size:11px;color:var(--text-muted);margin-top:6px;line-height:1.5}
+.lab-workbench .map{table-layout:fixed;border-collapse:collapse;width:100%}
+.lab-workbench .map th{font-size:10px;color:var(--text-muted);text-align:left;border-bottom:1px solid var(--border-strong)}
+.lab-workbench .map th:first-child{width:46px}
+.lab-workbench .map td{overflow-wrap:anywhere;vertical-align:top;font-size:11px}
+.lab-workbench .recipe .btn{width:100%;justify-content:center}
+.lab-workbench .recipe-downloads{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--accent-ink)}
+.lab-workbench .primary kbd{color:var(--lab-ref-44);border-color:var(--lab-ref-44)}
+.lab-workbench .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
