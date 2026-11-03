@@ -1,20 +1,99 @@
 .lab-workbench {
-/* Seitenpanels */
-.lp,.rp{overflow:auto;padding:12px;display:flex;flex-direction:column;gap:12px;transition:opacity .2s;min-width:0}
-.lp{padding-left:0}
-.box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px;box-shadow:var(--hairline)}
-.box h6{font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.box h6 .badge{margin-left:auto;text-transform:none;letter-spacing:0}
-.spec{display:flex;align-items:center;gap:10px;width:100%;padding:9px 10px;border-radius:var(--r-sm);text-align:left;color:var(--lab-ref-3);border:1px solid transparent}
-.spec:hover{background:var(--surface-2);color:var(--text)}
-.spec.on{--gb-fill:var(--lab-ref-2);color:var(--text)}
-.spec .thumb{width:26px;height:32px;border-radius:3px;background:var(--paper);flex:none;position:relative;box-shadow:0 2px 6px var(--lab-ref-4)}
-.spec .thumb::after{content:"";position:absolute;inset:8px 5px;background:repeating-linear-gradient(var(--lab-ref-5) 0 1px,transparent 1px 5px)}
-.spec small{display:block;color:var(--text-faint);font-size:var(--fs-xs)}
-.spec.hidden{display:none}
-.reader{display:flex;align-items:center;gap:10px;padding:7px 4px;font-size:var(--fs-sm)}
-.reader input{accent-color:var(--accent);width:15px;height:15px}
-.reader span.r{margin-left:auto}
-
-
+  /* Seitenpanels */
+  .lp,
+  .rp {
+    overflow: auto;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: opacity 0.2s;
+    min-width: 0;
+  }
+  .lp {
+    padding-left: 0;
+  }
+  .box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 14px;
+    box-shadow: var(--hairline);
+  }
+  .box h6 {
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .box h6 .badge {
+    margin-left: auto;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .spec {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 10px;
+    border-radius: var(--r-sm);
+    text-align: left;
+    color: var(--lab-label-ink);
+    border: 1px solid transparent;
+  }
+  .spec:hover {
+    background: var(--surface-2);
+    color: var(--text);
+  }
+  .spec.on {
+    --gb-fill: var(--lab-selected-surface);
+    color: var(--text);
+  }
+  .spec .thumb {
+    width: 26px;
+    height: 32px;
+    border-radius: 3px;
+    background: var(--paper);
+    flex: none;
+    position: relative;
+    box-shadow: 0 2px 6px var(--lab-shadow-soft);
+  }
+  .spec .thumb::after {
+    content: "";
+    position: absolute;
+    inset: 8px 5px;
+    background: repeating-linear-gradient(
+      var(--lab-paper-rule) 0 1px,
+      transparent 1px 5px
+    );
+  }
+  .spec small {
+    display: block;
+    color: var(--text-faint);
+    font-size: var(--fs-xs);
+  }
+  .spec.hidden {
+    display: none;
+  }
+  .reader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 4px;
+    font-size: var(--fs-sm);
+  }
+  .reader input {
+    accent-color: var(--accent);
+    width: 15px;
+    height: 15px;
+  }
+  .reader span.r {
+    margin-left: auto;
+  }
 }

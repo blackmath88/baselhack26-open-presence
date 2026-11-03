@@ -1,13 +1,51 @@
 .lab-workbench {
-/* Brücke */
-.bridgeov{position:fixed;inset:0;z-index:60;display:none;place-items:center;background:var(--lab-ref-37);backdrop-filter:blur(12px)}
-.bridgeov.on{display:grid}
-.bridgecard{max-width:640px;text-align:center;padding:48px 40px}
-.bridgecard .eyebrow{font-size:var(--fs-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:18px}
-.bridgecard h2{font-size:38px;line-height:1.15;font-weight:500;letter-spacing:-.03em;background:linear-gradient(180deg,var(--lab-ref-38) 30%,var(--lab-ref-39) 130%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.bridgecard p{color:var(--text-muted);margin:16px auto 28px;max-width:470px}
-.bridgecard .row{display:flex;gap:10px;justify-content:center}
-
-
-
+  /* Brücke */
+  .bridgeov {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: none;
+    place-items: center;
+    background: var(--lab-overlay);
+    backdrop-filter: blur(12px);
+  }
+  .bridgeov.on {
+    display: grid;
+  }
+  .bridgecard {
+    max-width: 640px;
+    text-align: center;
+    padding: 48px 40px;
+  }
+  .bridgecard .eyebrow {
+    font-size: var(--fs-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    margin-bottom: 18px;
+  }
+  .bridgecard h2 {
+    font-size: 38px;
+    line-height: 1.15;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    background: linear-gradient(
+      180deg,
+      var(--lab-heading-start) 30%,
+      var(--lab-heading-end) 130%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bridgecard p {
+    color: var(--text-muted);
+    margin: 16px auto 28px;
+    max-width: 470px;
+  }
+  .bridgecard .row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
 }

@@ -15,6 +15,7 @@ import { Route as FindRouteImport } from './routes/find'
 import { Route as LabRouteImport } from './routes/lab'
 import { Route as ActionsIndexRouteImport } from './routes/actions.index'
 import { Route as ActionsActionIdRouteImport } from './routes/actions.$actionId'
+import { Route as CanvasIndexRouteImport } from './routes/canvas.index'
 import { Route as CanvasInvestigationIdRouteImport } from './routes/canvas.$investigationId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -47,6 +48,11 @@ const ActionsActionIdRoute = ActionsActionIdRouteImport.update({
   path: '/$actionId',
   getParentRoute: () => ActionsRoute,
 } as any)
+const CanvasIndexRoute = CanvasIndexRouteImport.update({
+  id: '/canvas/',
+  path: '/canvas/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CanvasInvestigationIdRoute = CanvasInvestigationIdRouteImport.update({
   id: '/canvas/$investigationId',
   path: '/canvas/$investigationId',
@@ -61,6 +67,7 @@ export interface FileRoutesByFullPath {
   '/actions/$actionId': typeof ActionsActionIdRoute
   '/canvas/$investigationId': typeof CanvasInvestigationIdRoute
   '/actions/': typeof ActionsIndexRoute
+  '/canvas/': typeof CanvasIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -69,6 +76,7 @@ export interface FileRoutesByTo {
   '/actions/$actionId': typeof ActionsActionIdRoute
   '/canvas/$investigationId': typeof CanvasInvestigationIdRoute
   '/actions': typeof ActionsIndexRoute
+  '/canvas': typeof CanvasIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   '/actions/$actionId': typeof ActionsActionIdRoute
   '/canvas/$investigationId': typeof CanvasInvestigationIdRoute
   '/actions/': typeof ActionsIndexRoute
+  '/canvas/': typeof CanvasIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -90,6 +99,7 @@ export interface FileRouteTypes {
     | '/actions/$actionId'
     | '/canvas/$investigationId'
     | '/actions/'
+    | '/canvas/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/actions/$actionId'
     | '/canvas/$investigationId'
     | '/actions'
+    | '/canvas'
   id:
     | '__root__'
     | '/'
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/actions/$actionId'
     | '/canvas/$investigationId'
     | '/actions/'
+    | '/canvas/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -115,6 +127,7 @@ export interface RootRouteChildren {
   FindRoute: typeof FindRoute
   LabRoute: typeof LabRoute
   CanvasInvestigationIdRoute: typeof CanvasInvestigationIdRoute
+  CanvasIndexRoute: typeof CanvasIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -161,6 +174,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ActionsActionIdRouteImport
       parentRoute: typeof ActionsRoute
     }
+    '/canvas/': {
+      id: '/canvas/'
+      path: '/canvas'
+      fullPath: '/canvas/'
+      preLoaderRoute: typeof CanvasIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/canvas/$investigationId': {
       id: '/canvas/$investigationId'
       path: '/canvas/$investigationId'
@@ -190,6 +210,7 @@ const rootRouteChildren: RootRouteChildren = {
   FindRoute: FindRoute,
   LabRoute: LabRoute,
   CanvasInvestigationIdRoute: CanvasInvestigationIdRoute,
+  CanvasIndexRoute: CanvasIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

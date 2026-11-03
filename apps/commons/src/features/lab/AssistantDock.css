@@ -1,9 +1,30 @@
 .lab-workbench {
-/* Gesprächsdock */
-.dock{position:fixed;left:calc(var(--rail-w) + 10px);bottom:calc(var(--foot-h) + 10px);width:330px;background:var(--surface);border:1px solid var(--border-strong);border-radius:var(--r-lg);box-shadow:0 24px 60px var(--lab-ref-10),var(--hairline);padding:16px;display:none;z-index:30}
-.dock.on{display:block}
-.dock .msg p{font-size:14px}
-.dock .acts{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-
-
+  /* Gesprächsdock */
+  .dock {
+    position: fixed;
+    left: calc(var(--rail-w) + 10px);
+    bottom: calc(var(--foot-h) + 10px);
+    width: 330px;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-lg);
+    box-shadow:
+      0 24px 60px var(--lab-shadow-deep),
+      var(--hairline);
+    padding: 16px;
+    display: none;
+    z-index: 30;
+  }
+  .dock.on {
+    display: block;
+  }
+  .dock .msg p {
+    font-size: 14px;
+  }
+  .dock .acts {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
 }

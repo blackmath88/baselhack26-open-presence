@@ -1,39 +1,178 @@
 .lab-workbench {
-  .sheet.pdf-page { padding:0;aspect-ratio:612/792;container-type:inline-size;background:var(--lab-render-paper);overflow:visible }
-  .pdf-page::after { display:none }
-  .pdf-render { display:block;width:100%;height:auto;border-radius:3px }
-  .pdf-line { position:absolute;border-radius:3px;text-align:left;background:transparent;color:var(--paper-ink) }
-  .pdf-line:hover { background:var(--accent-soft) }
-  .pdf-line.is-sel { background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent) }
-  .pdf-line .no { position:absolute;right:calc(100% + 10px);top:0;font:11px var(--mono);color:var(--lab-paper-muted) }
-  .read-overlay { position:absolute;inset:0;display:flex;align-items:center;flex-wrap:wrap;align-content:center;background:var(--lab-render-paper);color:var(--lab-read-ink);font-family:Arial,sans-serif;font-size:3.595cqw;line-height:1;opacity:var(--read-opacity);text-align:left;white-space:pre }
-  .pdf-line:focus-visible { outline-color:var(--lab-read-ink);outline-offset:2px }
-  .glyph-code { position:absolute;top:100%;left:0;font:10px var(--mono);color:var(--lab-paper-muted);background:var(--lab-render-paper);padding:1px 3px }
-  .pdf-line.g::after { display:none }
-  .pdf-line.g.diff { background:var(--warn-soft);outline-color:var(--warn) }
-  .sheet-note { max-width:100%;font-size:10.5px;color:var(--text-muted);text-align:center }
-  .sheetlabel { max-width:100%;flex-wrap:wrap;justify-content:center }
-  .sheetlabel .chip { overflow-wrap:anywhere;white-space:normal }
-  .sheet.analysis-page { padding:12% 9%;min-height:340px }
-  .analysis-page .ln { display:block;width:100%;text-align:left;white-space:normal;line-height:1.8;margin:3px 0;font-size:clamp(13px,1.2vw,17px) }
-  .analysis-page .title { font-size:12px;letter-spacing:.09em;color:var(--lab-paper-muted);font-weight:500 }
-  .page-note { font:11px/1.5 var(--font);color:var(--lab-paper-muted);margin-top:20px }
-  .tree .n { width:calc(100% - 14px);flex-wrap:wrap;text-align:left;min-width:0 }
-  .tree .lvl2 { width:calc(100% - 34px) }
-  .tree .lvl3 { width:calc(100% - 54px) }
-  .tree .n small { white-space:normal;color:var(--lab-paper-muted) }
-  .readstrip .ln { display:block;white-space:normal;width:100%;text-align:left;margin:3px 0 }
-  .readstrip b { font:600 11px var(--font);text-transform:uppercase;letter-spacing:.05em;color:var(--text) }
-  .missing { padding:20px;font:13px var(--font) }
-  .table.cmp { gap:18px }
-  .cmp .sheetwrap { flex-shrink:0 }
-  .cmp .pdf-page { aspect-ratio:612/792 }
-  .table { scrollbar-gutter:stable; }
-  @media(max-width:820px) {
-    .sheetwrap { width:min(100%,400px);zoom:1 }
-    .table.cmp { flex-direction:column;align-items:center }
-    .cmp .sheetwrap { width:min(100%,400px) }
-    .table { overflow-x:hidden }
-    .pdf-line .no { display:none }
+  .sheet.pdf-page {
+    padding: 0;
+    aspect-ratio: 612/792;
+    container-type: inline-size;
+    background: var(--lab-render-paper);
+    overflow: visible;
+  }
+  .pdf-page::after {
+    display: none;
+  }
+  .pdf-render {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 3px;
+  }
+  .pdf-line {
+    position: absolute;
+    border-radius: 3px;
+    text-align: left;
+    background: transparent;
+    color: var(--paper-ink);
+  }
+  .pdf-line:hover {
+    background: var(--accent-soft);
+  }
+  .pdf-line.is-sel {
+    background: var(--accent-soft);
+    box-shadow: inset 3px 0 0 var(--accent);
+  }
+  .pdf-line .no {
+    position: absolute;
+    right: calc(100% + 10px);
+    top: 0;
+    font: 11px var(--mono);
+    color: var(--lab-paper-muted);
+  }
+  .read-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
+    background: var(--lab-render-paper);
+    color: var(--lab-read-ink);
+    font-family: Arial, sans-serif;
+    font-size: 3.595cqw;
+    line-height: 1;
+    opacity: var(--read-opacity);
+    text-align: left;
+    white-space: pre;
+  }
+  .pdf-line:focus-visible {
+    outline-color: var(--lab-read-ink);
+    outline-offset: 2px;
+  }
+  .glyph-code {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    font: 10px var(--mono);
+    color: var(--lab-paper-muted);
+    background: var(--lab-render-paper);
+    padding: 1px 3px;
+  }
+  .pdf-line.g::after {
+    display: none;
+  }
+  .pdf-line.g.diff {
+    background: var(--warn-soft);
+    outline-color: var(--warn);
+  }
+  .sheet-note {
+    max-width: 100%;
+    font-size: 10.5px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+  .sheetlabel {
+    max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .sheetlabel .chip {
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+  .sheet.analysis-page {
+    padding: 12% 9%;
+    min-height: 340px;
+  }
+  .analysis-page .ln {
+    display: block;
+    width: 100%;
+    text-align: left;
+    white-space: normal;
+    line-height: 1.8;
+    margin: 3px 0;
+    font-size: clamp(13px, 1.2vw, 17px);
+  }
+  .analysis-page .title {
+    font-size: 12px;
+    letter-spacing: 0.09em;
+    color: var(--lab-paper-muted);
+    font-weight: 500;
+  }
+  .page-note {
+    font: 11px/1.5 var(--font);
+    color: var(--lab-paper-muted);
+    margin-top: 20px;
+  }
+  .tree .n {
+    width: calc(100% - 14px);
+    flex-wrap: wrap;
+    text-align: left;
+    min-width: 0;
+  }
+  .tree .lvl2 {
+    width: calc(100% - 34px);
+  }
+  .tree .lvl3 {
+    width: calc(100% - 54px);
+  }
+  .tree .n small {
+    white-space: normal;
+    color: var(--lab-paper-muted);
+  }
+  .readstrip .ln {
+    display: block;
+    white-space: normal;
+    width: 100%;
+    text-align: left;
+    margin: 3px 0;
+  }
+  .readstrip b {
+    font: 600 11px var(--font);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text);
+  }
+  .missing {
+    padding: 20px;
+    font: 13px var(--font);
+  }
+  .table.cmp {
+    gap: 18px;
+  }
+  .cmp .sheetwrap {
+    flex-shrink: 0;
+  }
+  .cmp .pdf-page {
+    aspect-ratio: 612/792;
+  }
+  .table {
+    scrollbar-gutter: stable;
+  }
+  @media (max-width: 820px) {
+    .sheetwrap {
+      width: min(100%, 400px);
+      zoom: 1;
+    }
+    .table.cmp {
+      flex-direction: column;
+      align-items: center;
+    }
+    .cmp .sheetwrap {
+      width: min(100%, 400px);
+    }
+    .table {
+      overflow-x: hidden;
+    }
+    .pdf-line .no {
+      display: none;
+    }
   }
 }
