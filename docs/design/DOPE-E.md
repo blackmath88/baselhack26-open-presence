@@ -59,3 +59,9 @@ Persistent placement and user dragging are implemented in the shared companion. 
 User request, 2 November 2026: remove the “move e” text underneath the character and animate blinking, coughing and smoke blowing. The character is now the visible control: no label, grip or tooltip underneath it. Drag directly, or focus e and use arrows/Home; movement instructions remain available to assistive technology.
 
 A quiet 24-second cycle uses two brief blinks, an 850ms two-jolt cough, a slow 5.2-second bubbly exhale and a glance. Rest separates actions. Expressions and body motion extend the selected e; its silhouette, colours and settled personality remain intact. Pause, reduced motion and hidden tabs stop the cycle. No sound or continuous React animation-frame loop is added.
+
+## Backwards baseball cap
+
+User-approved extension, 3 November 2026: a small, crooked navy baseball cap worn backwards, with a visible front adjustment strap and a brim behind the head. The cap emerges with transformation progress; the initial clean logo stays bare. It shares the character’s body transform and preserves the lowercase silhouette, visible eyes, joint and idle cues.
+
+Handoff: shared EPixelSprite updated; 19 companion tests, preview build and companion build/typechecking passed. No animation timing changes. Browser motion QA remains open. Source: explicit user approval in this conversation; character contract above. Existing idle cycle and no-label behaviour are already on main.
