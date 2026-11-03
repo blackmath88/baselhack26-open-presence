@@ -56,6 +56,10 @@
     outline-color: var(--lab-read-ink);
     outline-offset: 2px;
   }
+  .pdf-line.is-sel .read-overlay {
+    background-image: linear-gradient(var(--accent-soft), var(--accent-soft));
+    box-shadow: inset 3px 0 0 var(--accent);
+  }
   .glyph-code {
     position: absolute;
     top: 100%;

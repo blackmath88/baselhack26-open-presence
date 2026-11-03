@@ -6,6 +6,10 @@
     height: 100%;
     transition: grid-template-columns 0.25s;
   }
+  /* An input must have its final width before Chromium inserts text after focus mode. */
+  .wb:has(.rp:focus-within) {
+    transition: none;
+  }
   &[data-focus="true"] .wb {
     grid-template-columns: var(--rail-w) 0 1fr 0;
   }

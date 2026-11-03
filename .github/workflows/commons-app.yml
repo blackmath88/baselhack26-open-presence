@@ -6,9 +6,9 @@ name: Commons app
 on:
   push:
     branches: [main, 'feat/**']
-    paths: ['apps/commons/**', '.github/workflows/commons-app.yml']
+    paths: ['apps/commons/**', 'sideprojects/pdf-lab/**', '.github/workflows/commons-app.yml']
   pull_request:
-    paths: ['apps/commons/**', '.github/workflows/commons-app.yml']
+    paths: ['apps/commons/**', 'sideprojects/pdf-lab/**', '.github/workflows/commons-app.yml']
 
 concurrency:
   group: commons-app-${{ github.ref }}
@@ -38,3 +38,5 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Aurora routes, interactions and real API read smoke (loopback only)
         run: OUT=$RUNNER_TEMP/aurora-smoke npm run test:aurora
+      - name: PDF Lab production interactions, downloads, URL state and accessibility
+        run: LAB_REPORT_DIR=$RUNNER_TEMP/pdf-lab-smoke npm run test:lab

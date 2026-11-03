@@ -61,11 +61,10 @@ export function RecipeEditor({
               value={text}
               maxLength={32}
               required
-              onChange={(e) =>
-                setLines((old) =>
-                  old.map((v, j) => (i === j ? e.target.value : v)),
-                )
-              }
+              onChange={(e) => {
+                const value = e.currentTarget.value;
+                setLines((old) => old.map((v, j) => (i === j ? value : v)));
+              }}
             />
           </label>
         ))}

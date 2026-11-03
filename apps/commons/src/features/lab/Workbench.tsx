@@ -12,6 +12,7 @@ import {
 } from "./Controls";
 import "./workbench.css";
 import "./RealPage.css";
+import "@fontsource/newsreader/latin-400.css";
 import { LineInspector } from "./LineInspector";
 import { RecipeEditor } from "./RecipeEditor";
 import { useGenerated } from "./useGenerated";
