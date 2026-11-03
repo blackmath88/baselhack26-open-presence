@@ -30,3 +30,5 @@ input,textarea,select{font:inherit;color:inherit}
 .skip-link{position:fixed;top:0;left:16px;z-index:100;transform:translateY(-150%);padding:8px;background:var(--surface)}
 .skip-link:focus{transform:translateY(0)}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+.shell{height:100%}

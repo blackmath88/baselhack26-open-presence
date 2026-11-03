@@ -1,8 +1,8 @@
 
 .topbar{height:var(--topbar-h);display:flex;align-items:center;gap:var(--s-3);padding:0 var(--s-4);
-  background:linear-gradient(var(--detail-1),var(--detail-2));border-bottom:1px solid var(--detail-3);position:relative;z-index:5}
+  background:linear-gradient(var(--topbar-top),var(--topbar-bottom));border-bottom:1px solid var(--topbar-border);position:relative;z-index:5}
 .brand{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:600;letter-spacing:-.025em;white-space:nowrap}
-.brand-mark{width:24px;height:24px;border-radius:7px;background:var(--accent-grad);display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--brand-ink);box-shadow:0 0 16px var(--detail-5)}
+.brand-mark{width:24px;height:24px;border-radius:7px;background:var(--accent-grad);display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--brand-ink);box-shadow:0 0 16px var(--brand-glow)}
 .sep{width:1px;height:24px;background:var(--border-strong);margin:0 var(--s-2)}
 .ws{display:flex;align-items:center;gap:6px;font-weight:600;padding:6px 8px;border-radius:var(--r-sm);white-space:nowrap}
 .ws:hover{background:var(--surface-2)}
@@ -17,5 +17,5 @@
 .util{display:flex;gap:4px;margin-left:auto}
 .util button{position:relative;padding:8px;border-radius:var(--r-pill);color:var(--text-muted)}
 .util button:hover{color:var(--text);background:var(--surface-2)}
-.dot{position:absolute;top:7px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--crit);box-shadow:0 0 0 2px var(--bg),0 0 8px var(--detail-7)}
+.dot{position:absolute;top:7px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--crit);box-shadow:0 0 0 2px var(--bg),0 0 8px var(--notification-glow)}
 

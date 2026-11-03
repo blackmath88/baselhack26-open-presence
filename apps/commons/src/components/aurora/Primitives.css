@@ -1,7 +1,7 @@
 
 .chip{display:inline-flex;align-items:center;gap:4px;font-size:var(--fs-xs);font-weight:500;padding:2px 8px;border-radius:var(--r-pill);background:var(--surface-3);color:var(--text-muted);border:1px solid var(--border)}
 .badge{font-size:var(--fs-xs);font-weight:600;padding:2px 8px;border-radius:var(--r-pill);border:1px solid transparent}
-.b-ok{background:var(--ok-soft);color:var(--ok);border-color:var(--detail-10)} .b-warn{background:var(--warn-soft);color:var(--warn);border-color:var(--detail-11)}
-.b-crit{background:var(--crit-soft);color:var(--crit);border-color:var(--detail-12)} .b-violet{background:var(--violet-soft);color:var(--violet);border-color:var(--detail-13)}
-.b-acc{background:var(--accent-soft);color:var(--accent-ink);border-color:var(--detail-14)}
+.b-ok{background:var(--ok-soft);color:var(--ok);border-color:var(--ok-border)} .b-warn{background:var(--warn-soft);color:var(--warn);border-color:var(--warn-border)}
+.b-crit{background:var(--crit-soft);color:var(--crit);border-color:var(--crit-border)} .b-violet{background:var(--violet-soft);color:var(--violet);border-color:var(--violet-border)}
+.b-acc{background:var(--accent-soft);color:var(--accent-ink);border-color:var(--accent-border)}
 
