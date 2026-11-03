@@ -1,0 +1,37 @@
+/* Additional values present in the approved mock, absent from the supplied base tokens. */
+:root {
+  --detail-1: rgba(7,9,13,.85);
+  --detail-2: rgba(7,9,13,.55);
+  --detail-3: rgba(255,255,255,.06);
+  --brand-ink: #06100F;
+  --detail-5: rgba(61,214,198,.35);
+  --tab-fill: #10191B;
+  --detail-7: rgba(242,109,109,.6);
+  --detail-8: rgba(0,0,0,.4);
+  --text-secondary: #C9D0DA;
+  --detail-10: rgba(111,217,138,.22);
+  --detail-11: rgba(242,179,91,.22);
+  --detail-12: rgba(242,109,109,.22);
+  --detail-13: rgba(169,155,250,.22);
+  --detail-14: rgba(61,214,198,.22);
+  --ghost-fill: #0D1517;
+  --ghost-hover: #122023;
+  --button-ink: #05100F;
+  --detail-18: rgba(255,255,255,.35);
+  --white: #fff;
+  --hero-end: #B9EEE7;
+  --detail-21: rgba(0,0,0,.35);
+  --detail-22: rgba(61,214,198,.08);
+  --avatar-ink: #120c25;
+  --detail-24: rgba(127,232,220,.45);
+  --detail-25: rgba(61,214,198,.07);
+  --text-table: #D3D9E1;
+  --detail-27: rgba(255,255,255,.015);
+  --action-fill: #111A1C;
+  --detail-29: rgba(242,109,109,.45);
+  --warning-ink: #2a1c00;
+  --detail-31: rgba(242,179,91,.35);
+  --detail-32: rgba(61,214,198,.3);
+  --detail-33: rgba(7,9,13,.88);
+  --rose: #F2A0B8;
+}
