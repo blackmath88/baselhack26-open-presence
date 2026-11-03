@@ -1,7 +1,6 @@
-> **.phf — portable human format.** The browser UI in this folder is the .phf demo: **Photo Frame Commons**, a
-> real-source demonstration. Journey: find → inspect → contribute → reply → rediscover. Run with `npm run dev:server`
-> and `npm run dev`, open `http://<demo-host>:5173/`. "Presentation" links to port 8001 on the same host unless
-> `VITE_PHF_PRESENTATION_URL` is set. Room workbench views (state, map, timeline, curation) are one click away.
+> **.phf Commons · Aurora.** TanStack Start v1, React 19 and TypeScript; plain component CSS and local Geist fonts. Run `npm ci` and `npm run dev` (Node 22.12+). `/`, `/canvas/schwamm-zitat`, `/actions` and `/actions/zuschreibung-14` reproduce the supplied German mock without a backend. **Finden** (`/find`) uses the preserved real corpus, match explanations and comparison module; when an existing prototype session is present, it also reads the existing API (`npm run dev:server`). No new auth or backend endpoints. Review approval/discard is local preview state, with no source mutation.
+>
+> Visual source of truth = `src/styles/tokens.css` + the [Aurora mock](../../commons-aurora-port/reference/commons-mock.html). Cisco Cloud Control remains an interaction reference only. See [verification and limitations](../../docs/reports/commons-aurora/README.md). The prior hash UI and Cloud Control skin are retired; find/inspect/compare hash links redirect into `/find`. The standalone e preview and embed remain unchanged.
 
 > **Imported upstream documentation.** This file preserves br-ai-nstorm’s original feature history and deployment examples. For Photo Frame Commons in this repository, use [the current demo/run guide](../../DEMO.md) and [integration review](../../docs/reports/REPOSITORY-REVIEW-2026-11-01.md). Commons uses the local Node backend; the upstream Cloudflare examples below do not provide the Commons service.
 

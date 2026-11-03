@@ -1,0 +1,50 @@
+[
+  {
+    "view": "desktop-assistant",
+    "width": 2880,
+    "height": 1800,
+    "changedPercent": 2.33,
+    "threshold": 0.15,
+    "includeAntialiasing": false
+  },
+  {
+    "view": "desktop-canvas",
+    "width": 2880,
+    "height": 1800,
+    "changedPercent": 3.24,
+    "threshold": 0.15,
+    "includeAntialiasing": false
+  },
+  {
+    "view": "desktop-actions",
+    "width": 2880,
+    "height": 1800,
+    "changedPercent": 4.06,
+    "threshold": 0.15,
+    "includeAntialiasing": false
+  },
+  {
+    "view": "desktop-app-launcher",
+    "width": 2880,
+    "height": 1800,
+    "changedPercent": 0.72,
+    "threshold": 0.15,
+    "includeAntialiasing": false
+  },
+  {
+    "view": "mobile-assistant",
+    "width": 780,
+    "height": 1688,
+    "changedPercent": 5.94,
+    "threshold": 0.15,
+    "includeAntialiasing": false
+  },
+  {
+    "view": "mobile-canvas",
+    "width": 780,
+    "height": 1688,
+    "changedPercent": 5.12,
+    "threshold": 0.15,
+    "includeAntialiasing": false
+  }
+]
