@@ -1,0 +1,20 @@
+{
+  "testedAt": "2026-11-03T14:02:20.111Z",
+  "base": "http://127.0.0.1:5197",
+  "checks": [
+    "real initial specimen, unknown run date, one-time assistant introduction",
+    "reveal, four view shortcuts, real whole-line glyph and linked selection",
+    "reader selection changes real run metadata; raw data exposes the original ToUnicode object",
+    "comparison/focus reload, dock shortcut, Escape and reset clear the URL",
+    "real PDF and recipe downloads agree by SHA-256; URL rebuild is byte-identical and unmeasured",
+    "accessible bridge, explicit canvas fallback, real corpus entrance and in-app PDF Lab navigation",
+    "reduced motion skips reveal animation and pulses",
+    "desktop eight reference states; no page overflow",
+    "mobile eight reference states; no page overflow"
+  ],
+  "errors": [],
+  "optionalServiceErrors": [
+    "502 http://127.0.0.1:5197/api/commons/search?q=Mac%20USB%20frame&limit=10"
+  ],
+  "generatedPdfSha256": "decf9c66b5082de09674ffbed6c41b0d4bd2707ac08b03cebae72b6ea4ec2753"
+}

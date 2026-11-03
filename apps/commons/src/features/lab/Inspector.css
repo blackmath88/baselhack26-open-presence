@@ -1,0 +1,145 @@
+.lab-workbench {
+  /* Inspektor */
+  .chain {
+    display: flex;
+    flex-direction: column;
+  }
+  .step {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 10px;
+    position: relative;
+    padding-bottom: 12px;
+  }
+  .step::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 22px;
+    bottom: 0;
+    width: 1px;
+    background: var(--border-strong);
+  }
+  .step:last-child::before {
+    display: none;
+  }
+  .step .k {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    border: 1px solid var(--lab-step-border);
+    display: grid;
+    place-items: center;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--accent-ink);
+  }
+  .step .lbl {
+    font-size: var(--fs-xs);
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-weight: 600;
+  }
+  .step .val {
+    margin-top: 3px;
+    color: var(--text);
+    font-size: 14px;
+  }
+  .step .val.serif {
+    font-family: var(--serif);
+    font-size: 17px;
+  }
+  .step .val.mono {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--lab-code-ink);
+  }
+  .step .val mark {
+    background: var(--warn-soft);
+    color: var(--warn);
+  }
+  .map {
+    width: 100%;
+    font-size: 12px;
+    margin-top: 6px;
+  }
+  .map td,
+  .map th {
+    padding: 5px 6px;
+  }
+  .map td {
+    font-family: var(--mono);
+  }
+  .map .arrow {
+    color: var(--text-faint);
+  }
+  details {
+    margin-top: 4px;
+  }
+  details summary {
+    cursor: pointer;
+    color: var(--accent-ink);
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    list-style: none;
+  }
+  details summary::before {
+    content: "▸ ";
+  }
+  details[open] summary::before {
+    content: "▾ ";
+  }
+  details pre {
+    margin-top: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    padding: 10px;
+    overflow: auto;
+    line-height: 1.6;
+  }
+  .recipe label {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .recipe label span {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    width: 14px;
+  }
+  .recipe input {
+    flex: 1;
+    min-width: 0;
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-sm);
+    color: var(--text);
+    font: inherit;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    padding: 7px 9px;
+    outline: 0;
+  }
+  .recipe input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--lab-input-ring);
+  }
+  .recipe .row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .hint {
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+    margin-top: 8px;
+  }
+}

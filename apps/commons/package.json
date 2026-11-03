@@ -4,7 +4,7 @@
   "version": "0.4.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "npm run lab:ingest && vite",
     "dev:server": "tsx server/http/server.ts",
     "dev:cloudflare": "npm run build && npx wrangler@latest dev",
     "mcp": "tsx server/mcp/stdio.ts",
@@ -25,7 +25,12 @@
     "test:e": "vitest run test/e-guide.test.ts test/e-behaviour.test.ts test/e-opening.test.ts test/e-companion.test.ts test/e-idle.test.ts",
     "build:companion": "npm run typecheck && vite build --config vite.companion.config.ts",
     "test:aurora": "bash scripts/smoke/browser.sh",
-    "capture:aurora": "node scripts/aurora/capture.mjs && node scripts/aurora/compare-screens.mjs"
+    "capture:aurora": "node scripts/aurora/capture.mjs && node scripts/aurora/compare-screens.mjs",
+    "lab:ingest": "node scripts/lab/ingest.mjs",
+    "pretypecheck": "npm run lab:ingest",
+    "pretest": "npm run lab:ingest",
+    "test:lab": "bash scripts/lab/browser.sh",
+    "capture:lab": "LAB_CAPTURE=1 LAB_REPORT_DIR=../../docs/reports/pdf-lab-werkbank bash scripts/lab/browser.sh"
   },
   "dependencies": {
     "@atproto/api": "^0.30.0",
@@ -35,6 +40,7 @@
     "@atproto/syntax": "^0.7.7",
     "@fontsource/geist": "^5.3.0",
     "@fontsource/geist-mono": "^5.3.0",
+    "@fontsource/newsreader": "5.3.0",
     "@modelcontextprotocol/node": "2.1.2",
     "@modelcontextprotocol/server": "^2.0.0",
     "@tanstack/react-router": "^1.170.46",

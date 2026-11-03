@@ -5,9 +5,21 @@ Updated 1 November 2026 · BaselHack side project · Cabinet 003 + A01
 
 A cabinet of strange PDFs: pictures made from letters, secret interfaces, visible computers, multiple file identities and readers repairing the same broken bytes.
 
-## Modern workbench build
+## Aurora workbench
 
-Achim requested a modular TanStack Start application with a clean, document-centred, Cisco-inspired shell. [Build blueprint and phases](WORKBENCH-BUILD.md) · [Claude execution brief](CLAUDE-WORKBENCH.md) · [Supplied research synthesis](research/2026-11-01-workbench-direction.md). Start with a polished encounter and inspection slice over the existing two-poem evidence. The workbench is planned, not implemented; the current cabinet remains the working product.
+The document-centred workbench now lives inside Commons at **http://127.0.0.1:5173/lab**.
+From `apps/commons`, run `npm ci` and `npm run dev`. The [supplied reference](../../pdf-lab-workbench-port/reference/pdf-lab-mock.html)
+defines the frame and interactions; the content comes from real paired-poem PDFs and recorded reader evidence.
+Read → reveal → inspect a line → bridge to Commons is the main path. Page, extracted text, real whole-line glyphs,
+structure, comparison, focus and four-line PDF generation are available. State and generated recipes survive URL reload.
+
+[Verification and captures](../../docs/reports/pdf-lab-werkbank/README.md) · [Step 0 data audit](../../docs/reports/pdf-lab-werkbank/STEP-0.md).
+The [standalone Workbench](workbench/README.md) remains operational and supplies the shared adapters and narrow writer.
+The [cabinet](index.html) remains available for every exhibit. All measurements shown are recorded; newly generated files
+are explicitly **not measured**. Missing timestamps, per-letter boxes and OCR results are not invented.
+
+Earlier planning: [build blueprint](WORKBENCH-BUILD.md) · [research synthesis](research/2026-11-01-workbench-direction.md).
+The user-selected Aurora mock supersedes the earlier Cisco-inspired visual direction.
 
 ## Open the cabinet
 

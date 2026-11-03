@@ -1,0 +1,186 @@
+@import "../../styles/lab/tokens.css";
+@import "./layout.css";
+@import "./ToolRail.css";
+@import "./Panels.css";
+@import "./Stage.css";
+@import "./Inspector.css";
+@import "./EvidenceStrip.css";
+@import "./AssistantDock.css";
+@import "./BridgeOverlay.css";
+@import "./Motion.css";
+
+.lab-workbench {
+  height: calc(100% - var(--topbar-h));
+  --text-faint: var(--text-muted);
+}
+.lab-workbench .box h6 {
+  margin-top: 0;
+}
+.lab-workbench .wb {
+  min-height: 0;
+}
+.lab-workbench .spec small {
+  overflow-wrap: anywhere;
+}
+.lab-workbench .stage {
+  padding-bottom: 0;
+}
+.lab-workbench .foot {
+  overflow: visible;
+  gap: 10px;
+}
+.lab-workbench .foot .m {
+  min-width: 0;
+  white-space: normal;
+  font-size: 11px;
+}
+.lab-workbench .foot .bridge {
+  flex-shrink: 0;
+}
+.lab-workbench .box {
+  flex-shrink: 0;
+}
+@media (max-width: 820px) {
+  body:has(.lab-workbench) {
+    overflow: auto;
+  }
+  .lab-workbench {
+    height: auto;
+  }
+  .lab-workbench .stage {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .lab-workbench .rp {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .lab-workbench .foot {
+    grid-row: 3;
+  }
+  .lab-workbench[data-focus="true"] .wb {
+    grid-template-columns: 1fr;
+  }
+  .lab-workbench .floatbar {
+    white-space: normal;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    overflow: visible;
+  }
+  .lab-workbench .seg {
+    flex-wrap: wrap;
+  }
+  .lab-workbench .seg button {
+    padding: 6px 8px;
+  }
+  .lab-workbench .dock {
+    position: static;
+    margin: 12px;
+    width: auto;
+  }
+  .lab-workbench .bridgecard {
+    padding: 32px 20px;
+  }
+  .lab-workbench .bridgecard .row {
+    flex-wrap: wrap;
+  }
+}
+
+.lab-workbench .glyph-limit {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+.lab-workbench .map {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+}
+.lab-workbench .map th {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-align: left;
+  border-bottom: 1px solid var(--border-strong);
+}
+.lab-workbench .map th:first-child {
+  width: 46px;
+}
+.lab-workbench .map td {
+  overflow-wrap: anywhere;
+  vertical-align: top;
+  font-size: 11px;
+}
+.lab-workbench .recipe .btn {
+  width: 100%;
+  justify-content: center;
+}
+.lab-workbench .recipe-downloads {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--accent-ink);
+}
+.lab-workbench .primary kbd {
+  color: var(--lab-button-ink);
+  border-color: var(--lab-button-ink);
+}
+.lab-workbench .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.lab-workbench dialog.bridgeov {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--text);
+}
+.lab-workbench dialog.bridgeov[open] {
+  display: grid;
+}
+.lab-workbench dialog.bridgeov::backdrop {
+  background: transparent;
+}
+.lab-workbench .dock .who {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.lab-workbench .dock .who time {
+  margin-left: auto;
+  font-weight: 400;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+.lab-workbench .dock .av {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent-grad);
+}
+.lab-workbench[data-focus="true"] .lp,
+.lab-workbench[data-focus="true"] .rp {
+  padding: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+.lab-workbench .tbtn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.lab-workbench .foot a:focus-visible {
+  outline-offset: 2px;
+}

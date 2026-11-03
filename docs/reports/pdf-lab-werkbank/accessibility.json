@@ -1,0 +1,30 @@
+[
+  {
+    "state": "desktop-start",
+    "violations": []
+  },
+  {
+    "state": "desktop-glyphs",
+    "violations": []
+  },
+  {
+    "state": "desktop-generated",
+    "violations": []
+  },
+  {
+    "state": "desktop-bridge",
+    "violations": []
+  },
+  {
+    "state": "mobile-glyphs",
+    "violations": []
+  },
+  {
+    "state": "mobile-generated",
+    "violations": []
+  },
+  {
+    "state": "mobile-bridge",
+    "violations": []
+  }
+]
