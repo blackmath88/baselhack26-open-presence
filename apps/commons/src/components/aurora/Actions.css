@@ -26,3 +26,14 @@
 .approve{display:flex;gap:var(--s-2);align-items:center;padding:var(--s-3) var(--s-4);border:1px solid var(--border-strong);border-radius:var(--r-md);background:var(--surface);margin-top:var(--s-3);box-shadow:var(--shadow-card)}
 .approve span{color:var(--text-muted);font-size:var(--fs-sm);margin-right:auto}
 
+.subtabs button{padding:8px 0;color:var(--text-muted)}
+.filters select{width:100%;min-width:0;border:0;appearance:none;background:transparent;outline:0;font:inherit;cursor:pointer}
+.filters select option{background:var(--surface)}
+.filters label{min-width:0}
+.detail-h>.sev{width:22px;height:22px}
+.sec h5>.i{vertical-align:-3px;color:var(--accent-ink)}
+.sec td:first-child{color:var(--accent-ink);font-weight:600}
+.plan-editor{width:100%;min-height:140px;padding:var(--s-3);border:1px solid var(--border-strong);border-radius:var(--r-md);background:var(--surface-2);resize:vertical}
+.table-scroll{max-width:100%;overflow-x:auto}
+.card,.grid>*{min-width:0}
+@media(max-width:760px){.approve{flex-wrap:wrap}.approve>span{flex-basis:100%}.metarow{flex-wrap:wrap}.detail-h .right{margin-left:0}.detail-h h2{font-size:23px}}

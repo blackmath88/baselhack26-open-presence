@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from '@tanstack/react-router'
 import { IconSprite, Icon } from './Icon'
 import { TopBar } from './TopBar'
 import { AppLauncher } from './AppLauncher'
+import { commonsReader } from '../../commons/reader'
 import { investigationId, shell } from '../../mock/commons'
 import './AppShell.css'
 
@@ -16,6 +17,10 @@ export function AppShell({children}: {children: ReactNode}) {
   const openTool = (label: string) => {
     setLauncher(false)
     if (label === 'Start') void navigate({to: '/'})
+    else if (label === 'Finden') void navigate({to: '/find'})
+    else if (label === 'Vergleichen') void navigate({to: '/find', search: {compare: commonsReader.problems().slice(0,2).map(p => p.postackId)}})
+    else if (label === 'PDF Lab') window.location.assign('https://blackmath88.github.io/baselhack26-open-presence/pdf-lab/')
+    else if (label === 'Observatory') window.location.assign('https://blackmath88.github.io/baselhack26-open-presence/')
     else if (label === 'Prüfen') void navigate({to: '/actions'})
     else void navigate({to: '/canvas/$investigationId', params: {investigationId: id}})
   }

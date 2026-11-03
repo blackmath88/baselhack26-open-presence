@@ -1,3 +1,2 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { AppLayout } from '../components/aurora/AppShell'
-export const Route = createFileRoute('/actions')({component: () => <AppLayout aside="Offen"><h1>Zuschreibung widersprüchlich</h1></AppLayout>})
+import { createFileRoute, Outlet } from '@tanstack/react-router'
+export const Route = createFileRoute('/actions')({component:Outlet})

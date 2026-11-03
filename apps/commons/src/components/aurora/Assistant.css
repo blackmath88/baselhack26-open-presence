@@ -20,3 +20,6 @@
 .disclaimer{text-align:center;color:var(--text-faint);font-size:var(--fs-sm);margin-top:var(--s-6)}
 .disclaimer a{color:var(--accent-ink);font-weight:600;text-decoration:none}
 
+.composer input{min-width:0}
+.composer .row>.i{color:var(--text-muted)}
+.send:disabled{cursor:default}
