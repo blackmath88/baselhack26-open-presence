@@ -29,6 +29,15 @@ export function EPixelSprite({ pose = 'idle', size = 64, progress = 1, smoking =
         </>}
         <path d={pose === 'exhale' ? 'M58 51q7-3 7 2q0 5-7 1Z' : pose === 'cough' ? 'M54 50q9-4 10 3q-1 7-9 2Z' : pose === 'surprised' ? 'M59 51q8-5 8 2q0 7-7 2Z' : pose === 'excited' ? 'M51 53q9 9 18-1' : 'M53 54q9 4 15-2'} stroke="#472033" strokeWidth="2.5" fill={pose === 'surprised' || pose === 'cough' || pose === 'exhale' ? '#472033' : 'none'} strokeLinecap="round" />
       </g>
+      {/* Backwards cap emerges with the character; the clean opening stays logo-like. */}
+      <g className="e-cap" opacity={t} transform="rotate(-9 46 2)">
+        <path d="M66-4Q88-10 96-2Q94 4 72 5Z" fill="#17243b" stroke="#101a2c" strokeWidth="1.4" />
+        <path d="M17 4Q17-18 44-19Q69-18 73 3L66 7Q44 1 23 8Z" fill="#243650" stroke="#101a2c" strokeWidth="1.5" />
+        <path d="M44-17Q57-13 58 2M23 3Q44-2 68 3" fill="none" stroke="#425778" strokeWidth="1.2" />
+        <path d="M30 3Q42-7 54 2L53 8Q42 3 31 9Z" fill="#ad3044" stroke="#101a2c" strokeWidth="1.2" />
+        <path d="M29 6L49 4L50 8L30 10Z" fill="#536984" stroke="#17243b" strokeWidth="1" />
+        <g fill="#b8c7d6"><circle cx="34" cy="7" r=".8"/><circle cx="39" cy="6.6" r=".8"/><circle cx="44" cy="6.1" r=".8"/></g>
+      </g>
       {smoking && <g className="e-joint" transform="rotate(-11 65 54)">
         <path d="M65 52L96 57L95 62L65 56Z" fill="#f8f0df" stroke="#bba58e" strokeWidth=".8" />
         <path d="M88 56L96 57L95 62L87 60Z" fill="#8f6a57" />
