@@ -43,12 +43,15 @@ Everything uses the captured `wesbos/photo-frame-dashboard` snapshot at `0bff55e
 3. Canvas: Die Erfahrung → Passt das zu meiner Situation? → Was später ergänzt wurde → Worauf dieser Beitrag aufbaut. (PHF-EXPERIENCE)
 4. Eigene Beobachtung ergänzen → Prüfungen: Vorschau, Zuschreibung, Ziel, Teilen. Submit to the shared room as Kai. (PHF-EXPERIENCE, CONTEXT-BLOCK)
 5. Switch to Lea; reply with a question or correction; the original stays inspectable. (PHF-EXPERIENCE)
-6. Rediscovery of Kai's contribution through CLI or MCP — **required or optional: open, ask Achim**.
+6. Rediscovery of Kai's contribution through the CLI, on screen in a second terminal — **required step, decided by Achim on 3 November 2026**. MCP is named in the runbook, not demonstrated.
 7. Last Prüfung: Observatory — what this build itself left behind. (BRIDGE, PHF-EXPERIENCE)
+
+## Decisions already made
+
+- **Rediscovery (step 6) is required**: Achim decided on 3 November 2026. Brief 4 rehearses it on screen and adds a CLI smoke check.
 
 ## Decisions this set does not make
 
-- **Rediscovery (step 6)**: the briefs mark it as a switch. Achim decides whether it is a rehearsed step or a backup for questions.
 - **Aurora tokens**: unchanged by every brief. A brief that needs a colour not in `tokens.css` or `supplemental/tokens.css` stops and asks.
 - **Merging**: PR 57 and PR 59 are open. The briefs stack on PR 59; Achim decides merge order.
 - **Downloadable .phf file**: out of scope. Context travels as Commons records.

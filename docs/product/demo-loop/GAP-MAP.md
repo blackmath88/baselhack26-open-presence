@@ -20,7 +20,7 @@
 | 14 | Prüfungen: preview, attribution, destination, share | mock (local state, „Plan freigeben“); real `prepareContribution` + `submit` exist server-side | `Actions.tsx`, `queries.ts` | Brief 3 |
 | 15 | Participant switch in Aurora | missing in Aurora; real gate exists (`ParticipantSwitcher`, Kai/Lea) | old UI | Brief 4 |
 | 16 | Second participant's reply / correction | real server-side (`parentId`, `contradictsId`); no Aurora UI | API, CLI | Brief 4 |
-| 17 | Rediscovery via CLI / MCP | real (`npm run commons -- search`, MCP tools) | `scripts/commons/cli.ts`, `server/mcp` | Brief 4 as a switch; **decision open** |
+| 17 | Rediscovery via CLI / MCP | real (`npm run commons -- search`, MCP tools) | `scripts/commons/cli.ts`, `server/mcp` | Brief 4 (required, on screen) |
 | 18 | Observatory finale item | missing; data present in `.observstory/*.json`; topbar link leaves the app | `TopBar.tsx` | Brief 5 |
 | 19 | Visible cards and selection in the URL with presenter reset | real on `/lab`; missing on canvas | `state.ts` | Brief 2 (canvas params), Brief 1 (reset) |
 | 20 | Statistics only where records support them | mock tiles (23 / 15 / 4 / 2) on `schwamm-zitat` | `mock/commons.ts` | Brief 2 (none on `bilderrahmen-mac`; mock untouched) |

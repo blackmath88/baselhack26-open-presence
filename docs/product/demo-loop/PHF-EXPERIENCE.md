@@ -106,12 +106,9 @@ Participant switch is the existing prototype gate (`ParticipantSwitcher`, in-mem
 
 Lea's reply (staged): kind `question`, parent = Kai's contribution: „Welches macOS? Bei mir half der Hub nur mit eigenem Netzteil.“ Unterstützung: Ohne KI. It appears in card 3 under Kai's entry and in card 4 under Antworten. Kai's contribution does not change.
 
-## 6. Rediscovery (open decision)
+## 6. Rediscovery (required step, decided 3 November 2026)
 
-Two scopes, Achim picks one:
-
-- **A · required step**: a second terminal, `BRAINSTORM_PARTICIPANT=Lea npm run commons -- search "USB-A Kabel Hub"`, shows Kai's contribution with author, entrance and cited `issue/12`. Rehearsed; the terminal is on screen. 20 seconds.
-- **B · optional**: same command in the runbook, shown only if asked. The UI's „so findest du es wieder“ line after submit already names the command.
+A second terminal is on screen. `BRAINSTORM_PARTICIPANT=Lea npm run commons -- search "USB-A Kabel Hub"` shows Kai's contribution with author, entrance and cited `issue/12`; `npm run commons -- thread <id>` shows both voices. Rehearsed, about 20 seconds. The UI's „so findest du es wieder“ line after submit names the same command, so the presenter can read it off the screen.
 
 MCP through a real agent is not part of either scope unless rehearsed separately (pitch story rule).
 
