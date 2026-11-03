@@ -1,0 +1,7 @@
+{
+  "schema": "pdf-lab.project/v1",
+  "capability": "two-poems",
+  "version": 1,
+  "parameters": { "lines": ["A tide waits under the floor.", "The house remembers the sea.", "I open a door in a whisper.", "Water comes looking for me."] },
+  "inspections": ["poppler", "mupdf"]
+}

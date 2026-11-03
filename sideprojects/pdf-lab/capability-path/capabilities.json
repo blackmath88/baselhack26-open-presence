@@ -1,0 +1,36 @@
+{
+  "schema": "pdf-lab.capabilities/v1",
+  "version": 1,
+  "limits": { "requestBytes": 16384, "artifactBytes": 2097152, "renderBytes": 8388608, "maxRenders": 100, "childTimeoutMs": 10000 },
+  "projectSchema": {
+    "type": "object", "additionalProperties": false,
+    "required": ["schema", "capability", "version", "parameters", "inspections"],
+    "properties": {
+      "schema": { "const": "pdf-lab.project/v1" },
+      "capability": { "type": "string" },
+      "version": { "type": "integer" },
+      "parameters": { "type": "object" },
+      "inspections": { "type": "array", "maxItems": 2, "uniqueItems": true, "items": { "enum": ["poppler", "mupdf"] } }
+    }
+  },
+  "modules": [{
+    "id": "two-poems", "version": 1, "kind": "generator",
+    "title": "One drawn poem, another extracted reading",
+    "description": "Reuses poems.js bend(), also used by the legacy cabinet. Only the ToUnicode mapping changes; the four drawn lines remain fixed.",
+    "adapterId": "poems-bend", "exampleId": "two-poems",
+    "availability": "available", "dependencies": ["Node.js", "authored poem fixture"],
+    "safetyProfile": "owned fixture only; no uploads, actions, code or user paths",
+    "outputs": ["application/pdf", "application/json", "image/png when measured"],
+    "inputSchema": {
+      "type": "object", "additionalProperties": false, "required": ["lines"],
+      "properties": { "lines": { "type": "array", "minItems": 4, "maxItems": 4,
+        "items": { "type": "string", "minLength": 1, "maxLength": 32, "pattern": "^[ -~]+$" }
+      } }
+    }
+  }],
+  "unexposed": [
+    { "source": "lab.py bend / build.picture", "reason": "Seed and mapping exist; outside this one-path adapter." },
+    { "source": "weird.py lock/bitmap/colour_program", "reason": "Existing specimens; no reviewed request adapter in this release." },
+    { "source": "transforms.js", "reason": "Selects recorded evidence; not a new rendering engine." }
+  ]
+}

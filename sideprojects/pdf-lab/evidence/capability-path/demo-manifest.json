@@ -1,0 +1,52 @@
+{
+  "schema": "pdf-lab.render/v1",
+  "renderId": "e0651bca-4b02-426d-a97d-35dcec24297f",
+  "status": "generated",
+  "inspectionStatus": [
+    {
+      "engine": "poppler",
+      "status": "measured"
+    },
+    {
+      "engine": "mupdf",
+      "status": "not_run"
+    }
+  ],
+  "capability": "two-poems",
+  "version": 1,
+  "parentSha256": "3cad603f64fdac1684515dbc9bd834562dcaa5449cb3d073af86d76ee6036964",
+  "generator": {
+    "path": "poems.js",
+    "sha256": "95bef5a1fa65af474de151e6af8773ccefa7e614bdb9100c84e8524b1c893a37"
+  },
+  "artifacts": [
+    {
+      "id": "poem.pdf",
+      "mediaType": "application/pdf",
+      "path": "/tmp/pdf-lab-capability-1000/e0651bca-4b02-426d-a97d-35dcec24297f/poem.pdf",
+      "sha256": "decf9c66b5082de09674ffbed6c41b0d4bd2707ac08b03cebae72b6ea4ec2753",
+      "size": 3125
+    },
+    {
+      "id": "project.json",
+      "mediaType": "application/json",
+      "path": "/tmp/pdf-lab-capability-1000/e0651bca-4b02-426d-a97d-35dcec24297f/project.json",
+      "sha256": "5c943ba0a4ce75d7997384c7fc79482ff0d1992d7a8945fc5855623cf78d1b23",
+      "size": 326
+    },
+    {
+      "id": "poppler.png",
+      "mediaType": "image/png",
+      "path": "/tmp/pdf-lab-capability-1000/e0651bca-4b02-426d-a97d-35dcec24297f/poppler.png",
+      "sha256": "e8b7f1524a0bdd4f281befa579c217973a8756db144f0d1ed6c3da5bf1b4909b",
+      "size": 48728
+    },
+    {
+      "id": "evidence.json",
+      "mediaType": "application/json",
+      "path": "/tmp/pdf-lab-capability-1000/e0651bca-4b02-426d-a97d-35dcec24297f/evidence.json",
+      "sha256": "dbc0049cb005ac071d8695ba0213cfc524bc5294d9bae3f4badc8e4d70462748",
+      "size": 2324
+    }
+  ]
+}

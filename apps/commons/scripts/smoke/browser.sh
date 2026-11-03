@@ -21,7 +21,7 @@ echo "contribution $CID"
 SESSION=$(curl -s -X POST http://127.0.0.1:8796/api/auth/session -H 'content-type: application/json' -d '{"participantId":"lea"}')
 TOKEN=$(echo "$SESSION" | python3 -c "import sys,json;print(json.load(sys.stdin)['token'])")
 ACTOR=$(echo "$SESSION" | python3 -c "import sys,json;print(json.dumps(json.load(sys.stdin)['actor']))")
-WS=$(curl -s http://127.0.0.1:9336/json/version | python3 -c "import sys,json;print(json.load(sys.stdin)['webSocketDebuggerUrl'])")
+WS=$(node scripts/smoke/devtools-ready.mjs http://127.0.0.1:9336/json/version) || { echo "DevTools startup failed; logs in $S" >&2; exit 1; }
 echo "== browser (Lea)"
 timeout 120 node scripts/smoke/browser.mjs "$WS" http://127.0.0.1:5196 "$TOKEN" "$ACTOR" "$OUT" "$CID" $PROBLEM $PASSAGE || { echo "browser leg failed; logs in $S"; exit 1; }
 echo "== CLI (Kai) rediscovers the browser contributions"
