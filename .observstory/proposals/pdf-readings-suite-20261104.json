@@ -1,0 +1,38 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "pdf-readings-suite-20261104",
+  "kind": "proposal",
+  "title": "Test alternate PDF readings across reader operations",
+  "statement": "Extend the existing cabinet checks one operation at a time, beginning with native clipboard comparison against A01 and the booking-policy control.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-04T13:51:22.539887+00:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "1077ce95e761cd39684d95da296306d9e0178c3e",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "sideprojects/pdf-lab/READINGS-TEST-SUITE.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/experiments/booking-policy/evidence.json"
+    },
+    {
+      "path": "sideprojects/pdf-lab/TRANSFORMATION-NOTEBOOK.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/WEIRD-MACHINES.md"
+    }
+  ],
+  "conditions": [
+    "Authored fixtures in the recorded environment only. No model or native clipboard trials.",
+    "Historical packet cutoff 93a5445150d0; published knowledge and snapshot feeds unavailable."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
