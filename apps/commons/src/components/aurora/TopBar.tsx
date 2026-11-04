@@ -9,7 +9,7 @@ export function TopBar({
   onLauncher: () => void;
   onTool: (label: string) => void;
 }) {
-  const isLab = useLocation({ select: (s) => s.pathname === "/lab" });
+  const isLab = useLocation({ select: (s) => s.pathname.replace(/\/$/, "") === "/lab" });
   const items = isLab
     ? shell.pinned.filter(([, label]) =>
         ["Start", "Finden", "PDF Lab", "Observatory"].includes(label),

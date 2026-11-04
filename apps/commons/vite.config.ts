@@ -6,6 +6,10 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [
     tanstackStart({
+      ...(process.env.PHF_PAGES_BUILD === '1' && {
+        prerender: { enabled: true, autoStaticPathsDiscovery: false, crawlLinks: false },
+        pages: ['/lab', '/find', '/actions', '/canvas', '/canvas/bilderrahmen-mac', '/canvas/schwamm-zitat'].map(path => ({ path })),
+      }),
       spa: { enabled: true, prerender: { outputPath: '/index.html' } },
     }),
     react(),
