@@ -12,3 +12,5 @@ For a direct upload, use the identical question in a new conversation, record fi
 ## Recorded run, 4 November 2026
 
 Both Poppler and pypdf read the visible CHF 80 amount in all three vector files. Only the alternate has the instruction to omit it. Tesseract read the ordinary footer in all four. Clean, alternate and benign were pixel-identical in Poppler at 144 dpi. The image-only control rerendered differently. Zero model trials. Request messages in evidence.json are prepared inputs, not model traces. See the [suite proposal](../../READINGS-TEST-SUITE.md) for provenance, sandbox choices and follow-up experiments.
+
+For image and combined routes, offline rehearsal and real-product comparisons see [the ingestion protocol](INGESTION.md).
