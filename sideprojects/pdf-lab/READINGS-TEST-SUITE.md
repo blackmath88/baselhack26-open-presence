@@ -38,6 +38,21 @@ Start with an operation a reader can perform: copy a line, print a puzzle, switc
 
 For direct model input, [OpenAI](https://developers.openai.com/api/docs/guides/file-inputs), [Anthropic](https://platform.claude.com/docs/en/build-with-claude/pdf-support) and [Gemini](https://ai.google.dev/gemini-api/docs/document-processing) document routes that can provide both native text and page visuals. Record the actual route, model, settings and date. Internal arbitration remains unknown.
 
+## Which reading reaches an assistant?
+
+**Observed, 4 November.** The original layer lock gates a green rectangle. Its label sits outside the gate. In a new synthetic variant the word LANTERN is painted inside the gate. At state 000, Tesseract read LANTERN from the MuPDF crop; the matching Poppler crop contained zero dark pixels and OCR returned the spurious string “Oe”. At state 101 both crops yielded LANTERN. The input bytes were identical between engines within each state. This establishes a renderer-dependent word reaching an image, with no assistant or instruction involved. A preliminary whole-page OCR attempt on a differently generated variant did not recover the marker; the recorded measurement uses a fixed crop. The cause of the original gate discrepancy remains open. Reproduce with `python check-layer-reading.py` and compare [instrument versions, PDF hashes and readings](evidence/layer-marker.json).
+
+**Proposed AI experiments.** First complete the booking-policy text trial. Then minimise and validate the layer gate, add a visible sentence and a benign alternate, and send only the recorded page images with the same question to a vision-capable model. Keep native extraction as a separate arm. Score exposure, answer change and instruction-following separately.
+
+| Further experiment | Control that makes the result interpretable |
+| --- | --- |
+| Three-reading poem | Hold glyph drawing and ToUnicode fixed. Add a tagged Span with faithful ActualText, then a deliberately different poetic reading. Compare selection, screen reader, native extraction and OCR independently. The earlier [research review](RESEARCH-REVIEW-2026-10-31.md) already proposed the faithful control. [PDF Association example](https://pdfa.org/techniques-for-accessible-pdf/actualtext-provides-correct-extractable-characters-in-place-of-ocr-errors/UA1_Tpdf-G2_06/) |
+| Print-only stamp, exhibit 06 | Compare screen pixels, actual print output, annotation Contents, painted appearance and an annotation-free control. The existing stamp draws a maze solution. A hosted system's print mode is unknown. |
+| Recovered history, exhibit 05 | Compare a current-only rewrite, an obsolete price and an obsolete instruction. Ask once about the current policy and separately about its history. Correct forensic recovery, stale factual reporting and obedience are distinct outcomes. |
+| Archive, fields and repairs | For 04 explicitly choose PDF or ZIP reading and log archive member selection. For 02 vary the stored field value independently of its appearance. For 03 compare the baseline against each single mutation and record whether repair supplies different text. Instruction-bearing variants are proposed. |
+
+The Type 4 colour program computes paint. The bitmap simulation runs in the workbench. Backstage PDF JavaScript has no demonstrated hosted execution path. Keep those as creative exhibits. A combined poem whose voices emerge on copy, print and revision recovery would make an exhibition piece after the isolated experiments can explain each voice.
+
 ## Handoff
 
 New finding: the booking fixture isolates a character-map change through local request assembly. Proposed first follow-up: measure actual clipboard behaviour, then transformation survival and layer state. Open questions: which native viewers preserve the alternate reading; when does flattening erase it; does a model act on it? No model, Firefox clipboard or Dangerzone result is claimed. The suite ordering is proposed for review.
