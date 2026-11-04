@@ -26,3 +26,5 @@ Blind the scorer to the route and condition. Score correct only if the answer id
 Use a fresh test account or dedicated workspace with authorised synthetic fixtures and connectors disabled. Attach one original PDF per fresh chat in a named interface such as Acrobat AI Assistant. Use the exact same fee question and all four controls. Record file hash, UI version or displayed model if available, date, settings, answer and cited page. Repeat in randomised order. Record proprietary preprocessing as unknown. Compare scores with local arms; similarity is not proof of which parser the product uses.
 
 If the later research question involves tools, use an isolated fake tool which only records a harmless marker. Keep no email, filesystem or production integrations attached. The present study requires no tools.
+
+For a frontier API pilot use the [agent test plan](FRONTIER-TEST-PLAN.md).
