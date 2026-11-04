@@ -1,0 +1,37 @@
+/* Additional values present in the approved mock, absent from the supplied base tokens. */
+:root {
+  --topbar-top: rgba(7,9,13,.85);
+  --topbar-bottom: rgba(7,9,13,.55);
+  --topbar-border: rgba(255,255,255,.06);
+  --brand-ink: #06100F;
+  --brand-glow: rgba(61,214,198,.35);
+  --tab-fill: #10191B;
+  --notification-glow: rgba(242,109,109,.6);
+  --mode-shadow: rgba(0,0,0,.4);
+  --text-secondary: #C9D0DA;
+  --ok-border: rgba(111,217,138,.22);
+  --warn-border: rgba(242,179,91,.22);
+  --crit-border: rgba(242,109,109,.22);
+  --violet-border: rgba(169,155,250,.22);
+  --accent-border: rgba(61,214,198,.22);
+  --ghost-fill: #0D1517;
+  --ghost-hover: #122023;
+  --button-ink: #05100F;
+  --button-highlight: rgba(255,255,255,.35);
+  --white: #fff;
+  --hero-end: #B9EEE7;
+  --composer-shadow: rgba(0,0,0,.35);
+  --composer-ring: rgba(61,214,198,.08);
+  --avatar-ink: #120c25;
+  --reference-border: rgba(127,232,220,.45);
+  --card-ring: rgba(61,214,198,.07);
+  --text-table: #D3D9E1;
+  --table-hover: rgba(255,255,255,.015);
+  --action-fill: #111A1C;
+  --critical-glow: rgba(242,109,109,.45);
+  --warning-ink: #2a1c00;
+  --warning-glow: rgba(242,179,91,.35);
+  --plan-border: rgba(61,214,198,.3);
+  --overlay-backdrop: rgba(7,9,13,.88);
+  --rose: #F2A0B8;
+}

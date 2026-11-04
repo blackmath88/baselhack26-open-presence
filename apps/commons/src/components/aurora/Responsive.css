@@ -1,0 +1,15 @@
+
+@media (max-width:1100px){.app .c-4,.app .c-6,.app .c-8{grid-column:span 12}.overlay .ov-cols{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:760px){
+  body{overflow:auto}
+  .app{grid-template-columns:1fr;height:auto}
+  .brand span.full,.sep,.ws span{display:none}
+  main{padding:var(--s-4)}
+  .app .hero{padding-top:var(--s-5)} .app .hero h1{font-size:34px} .app .hero p{font-size:15px;flex-wrap:wrap}
+  .app .composer{margin-top:var(--s-5)}
+  .app .sugg{grid-template-columns:1fr}
+  .app .tiles{grid-template-columns:repeat(2,1fr)}
+  .overlay .ov-cols{grid-template-columns:1fr}
+  .app .panel{max-height:340px}
+  .app .panel[data-view=assistant]{display:none}
+}

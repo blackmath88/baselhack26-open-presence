@@ -1,1 +1,6 @@
 .phf-demo/
+**/node_modules/
+**/dist/
+**/.tanstack/
+**/.output/
+**/.wrangler/

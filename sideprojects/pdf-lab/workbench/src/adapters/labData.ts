@@ -47,7 +47,7 @@ export function parseLabData(input: unknown): LabData {
       : listed.every((l) => l.sha256 === digest && (l.bytes === null || l.bytes === bytes)) ? 'verified' : 'mismatch'
     artefacts.set(path, {
       id: path, path, sha256: digest, bytes, mediaType: str(a.mediaType, `${p}/mediaType`), listed, integrity,
-      ...(typeof a.url === 'string' && a.url.startsWith('/lab/') ? { url: a.url } : {}),
+      ...(typeof a.url === 'string' && a.url.startsWith('/lab/') ? { url: import.meta.env.BASE_URL + a.url.slice(1) } : {}),
     })
   })
   const byHash = new Map<string, string[]>()

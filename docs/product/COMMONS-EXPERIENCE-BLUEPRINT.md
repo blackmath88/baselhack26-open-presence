@@ -2,6 +2,8 @@
 
 1 November 2026 · Author: Perplexity (assistant) · Status: proposal for human review; no implementation or usability-test claim.
 
+Updated 3 November 2026: the requested Aurora visual specification supersedes the earlier visual proposals below; other product research retains its original status.
+
 ## 1. Context and product thesis
 
 Read HUMAN-SIGNAL-CONCEPT.md and VALUE-AND-UX.md first. This document extends the current Photo Frame Commons / Human Signal direction; it does not replace either document, rename the product, or revive the historical business-presence scenario.
@@ -21,7 +23,7 @@ Most consequential unknown: can a newcomer choose a sensible next step and expla
 ## 2. Requirements, evidence and proposal status
 
 User requirements from the 1 November design conversation:
-- Cisco Cloud Control is the visual look-and-feel north star throughout, not one optional aesthetic among several.
+- Visual source of truth = `apps/commons/src/styles/tokens.css` + the Aurora mock (`commons-aurora-port/reference/commons-mock.html`). Cisco Cloud Control remains an interaction reference only.
 - Clean, modern, transparent; the app works while educating and revealing relevant architecture.
 - Transformer Explainer is a particularly liked interaction/build reference.
 - Preserve the concept and references and prepare a phased Claude/Codex handoff in this repository.
@@ -46,7 +48,7 @@ Three depths of one object:
 2. Understand: why this matched, what is interpreted, what sharing means.
 3. Inspect: actual records, relationship origin, revisions and processing evidence.
 
-RegExr supplies linked input/result/explanation; Diffusion Explainer supplies readable process depth; OpenRefine supplies preview and reversible exploration; Speedscope supplies selected-object context; Transformer Explainer supplies coordinated levels. These are interaction references. Cisco Cloud Control remains the visual north star. See COMMONS-REFERENCE-ATLAS.md.
+RegExr supplies linked input/result/explanation; Diffusion Explainer supplies readable process depth; OpenRefine supplies preview and reversible exploration; Speedscope supplies selected-object context; Transformer Explainer supplies coordinated levels. These are interaction references. Cisco Cloud Control remains an interaction reference only. See COMMONS-REFERENCE-ATLAS.md.
 
 ## 4. Storyboard and layout
 
@@ -121,20 +123,17 @@ Visible: the saved/submitted contribution with real status, attribution and link
 - Use semantic headings, quotation/source distinctions, textual status in addition to colour, adequate contrast and touch targets. Respect reduced motion. Avoid inaccessible diagram-only explanations.
 - Narrow screens use one reading flow; compare stacks with repeated labels; contextual inspectors become inline sections or accessible dialogs. No horizontal page scroll at 360 CSS px.
 
-## 6. Visual principles: Cisco Cloud Control north star
+## 6. Visual principles: Aurora
 
-Interpret the user's chosen reference as disciplined operational clarity: restrained shell, clear surface hierarchy, precise selection/status, readable detail and generous but purposeful spacing. This is a product-specific interpretation, not a claim to Cisco's private styles or exact tokens. The exact preferred Cisco screen/theme still needs a screenshot or accessible reference capture.
+Visual source of truth = `apps/commons/src/styles/tokens.css` + the Aurora mock (`commons-aurora-port/reference/commons-mock.html`). Cisco Cloud Control remains an interaction reference only.
 
-Proposed starting tokens for visual review, not reverse-engineered Cisco values:
-- Light canvas #F5F7FA; surface #FFFFFF; subtle surface #EEF2F6; text #17212B; secondary text #526170; divider #D7DEE6; active accent #146BD1; focus #005FCC.
-- Semantic starting colours: success #18734A, warning #8A5700, error #B42318. Always pair with text/icon; verify contrast in real combinations before release.
-- Spacing scale 4/8/12/16/24/32/48 px; controls approximately 40-44 px high; surface radii 8-12 px. Body 16/24 px; compact metadata no smaller than 13/18 px as a default; heading 28-32 px. Use existing suitable font assets or system sans, not a new font download requirement.
-- Opaque reading surfaces; translucency only where hierarchy remains clear. Transparency primarily means inspectable information and consequences, not glass everywhere.
-- Fine dividers and low elevation. Avoid nested card grids, arbitrary gradients, oversized pills and floating windows. Use elevation for temporary detail, not every paragraph.
-- Active selection combines accent, outline and clear label. Focus remains distinguishable from selection. Status must not resemble an action.
-- Motion 120-180 ms as a provisional range; only reveal continuity or consequence, never imply work that did not happen. Reduced motion removes nonessential transitions.
-
-Review one real result, detail, comparison and contribution preview against the chosen Cisco reference. No generic SaaS dashboard, Cisco branding copy or transplant of infrastructure navigation. Keep evidence and limitations prominent, not tiny decorative metadata.
+- Reproduce the approved dark shell, glacier-turquoise-to-indigo aurora, film grain, gradient borders, evidence-card grid, stat tiles and plain SVG charts. These replace the earlier light/cool-white surfaces and restrictions on dashboard metrics.
+- Copy the supplied base tokens verbatim. Reference-only values omitted from the supplied file are named in `apps/commons/src/styles/supplemental/tokens.css`; component CSS contains no literal colours.
+- Load Geist and Geist Mono locally with Fontsource. German UI copy comes from the mock, collected in `src/mock/commons.ts`.
+- Keep the assistant, canvas and review modes route-driven. An action and its composer continuation reuse the same investigation ID; references highlight and scroll to the related card.
+- Preserve keyboard focus, labelled icon controls, text contrast of at least 4.5:1 and reduced-motion behavior. Use the brighter existing text token for metadata where the reference's faint text misses that threshold.
+- At 390 px, hide the assistant thread panel and keep table overflow inside keyboard-accessible regions, never on the page.
+- Compare Playwright captures at 1440×900 and 390×844 against `commons-aurora-port/reference/screens/`. See `docs/reports/commons-aurora/` for evidence and remaining limits.
 
 ## 7. Architecture, roadmap and handoff
 
@@ -142,8 +141,8 @@ See ../build/COMMONS-EXPERIENCE-BUILD-PLAN.md and ../build/COMMONS-CLAUDE-CODEX-
 
 ## 8. Open questions and risks
 
-- Exact Cisco screenshot/theme; the visual north star is confirmed, exact tokens are proposed.
-- Actual TanStack starter location, versions and migration value; development-practice is a method, not evidence of a ready app starter.
+- Aurora is the visual specification for this port; later visual changes require a new brief.
+- The Aurora implementation uses TanStack Start v1 with React 19, based on the official basic starter. Existing API/corpus contracts stay unchanged.
 - Which retrieval explanations and lineage steps are really available?
 - Which current shared/publication destinations are exercised and appropriate?
 - Does progressive disclosure hide crucial limitations? Test recognition, difference, source/interpretation distinction and privacy understanding.
@@ -152,6 +151,6 @@ See ../build/COMMONS-EXPERIENCE-BUILD-PLAN.md and ../build/COMMONS-CLAUDE-CODEX-
 
 ## 9. Source and decision basis
 
-Internal: HUMAN-SIGNAL-CONCEPT.md; docs/product/VALUE-AND-UX.md; AGENTS.md; .observstory/knowledge.json; apps/commons/src/App.tsx; apps/commons/src/components/commons/CommonsHub.tsx and ProblemPanel.tsx; apps/commons/src/styles.css, as inspected during this conversation. These observations must be rechecked at implementation time.
+Internal: HUMAN-SIGNAL-CONCEPT.md; docs/product/VALUE-AND-UX.md; AGENTS.md; .observstory/knowledge.json; the pre-Aurora `apps/commons/src/App.tsx` (removed in this migration); apps/commons/src/components/commons/CommonsHub.tsx and ProblemPanel.tsx; apps/commons/src/styles.css, as inspected during this conversation. These observations must be rechecked at implementation time.
 
 External evidence and review limitations are recorded in COMMONS-REFERENCE-ATLAS.md. User direction is recorded from the 1 November design conversation, not represented as a formal repository review. Accepted decisions, proposals, implemented behaviour and tested results must remain separate.

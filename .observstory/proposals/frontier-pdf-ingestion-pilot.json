@@ -1,0 +1,28 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "frontier-pdf-ingestion-pilot",
+  "kind": "proposal",
+  "title": "Run a bounded frontier PDF ingestion pilot",
+  "statement": "Compare direct PDF, native text and page images on booking-policy fixtures; separately score visual recognition on layer-lock renders.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-04T14:43:05.726719+00:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "60db1de09ce63d9fe2deffab32f17211f4242a7f",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "sideprojects/pdf-lab/experiments/booking-policy/FRONTIER-TEST-PLAN.md"
+    }
+  ],
+  "conditions": [
+    "Execution is deferred to the testing agent. Require authorised provider access and a spending ceiling. No frontier model result at handoff."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}

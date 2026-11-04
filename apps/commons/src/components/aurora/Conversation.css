@@ -1,0 +1,5 @@
+.msg p + p{margin-top:var(--s-2)}
+.ref{display:inline;text-align:left;font:inherit;line-height:inherit}
+.mini-comp{display:block;width:100%;min-width:0}
+.mini-comp::placeholder{color:var(--text-muted);opacity:1}
+textarea.mini-comp{resize:none;line-height:1.45;height:60px}

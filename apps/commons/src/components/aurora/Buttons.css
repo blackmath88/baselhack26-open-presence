@@ -1,0 +1,8 @@
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:var(--r-md);font-weight:600;border:1px solid var(--border-strong);background:var(--surface-2);box-shadow:var(--hairline)}
+.btn:hover{background:var(--surface-hover)}
+.btn-ghost-acc{--gb-fill:var(--ghost-fill);color:var(--accent-ink)}
+.btn-ghost-acc:hover{--gb-fill:var(--ghost-hover)}
+.btn-acc{background:var(--accent-grad);border-color:transparent;color:var(--button-ink);box-shadow:inset 0 1px 0 var(--button-highlight),0 6px 18px var(--accent-border)}
+.btn-acc:hover{filter:brightness(1.06);background:var(--accent-grad)}
+

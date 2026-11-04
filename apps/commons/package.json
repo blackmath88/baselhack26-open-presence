@@ -4,7 +4,7 @@
   "version": "0.4.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "npm run lab:ingest && vite",
     "dev:server": "tsx server/http/server.ts",
     "dev:cloudflare": "npm run build && npx wrangler@latest dev",
     "mcp": "tsx server/mcp/stdio.ts",
@@ -23,7 +23,14 @@
     "build:e": "npm run typecheck:e && vite build --config vite.e-preview.config.ts",
     "preview:e": "vite preview --config vite.e-preview.config.ts",
     "test:e": "vitest run test/e-guide.test.ts test/e-behaviour.test.ts test/e-opening.test.ts test/e-companion.test.ts test/e-idle.test.ts",
-    "build:companion": "npm run typecheck && vite build --config vite.companion.config.ts"
+    "build:companion": "npm run typecheck && vite build --config vite.companion.config.ts",
+    "test:aurora": "bash scripts/smoke/browser.sh",
+    "capture:aurora": "node scripts/aurora/capture.mjs && node scripts/aurora/compare-screens.mjs",
+    "lab:ingest": "node scripts/lab/ingest.mjs",
+    "pretypecheck": "npm run lab:ingest",
+    "pretest": "npm run lab:ingest",
+    "test:lab": "bash scripts/lab/browser.sh",
+    "capture:lab": "LAB_CAPTURE=1 LAB_REPORT_DIR=../../docs/reports/pdf-lab-werkbank bash scripts/lab/browser.sh"
   },
   "dependencies": {
     "@atproto/api": "^0.30.0",
@@ -31,24 +38,36 @@
     "@atproto/identity": "^0.5.20",
     "@atproto/lexicon": "^0.7.17",
     "@atproto/syntax": "^0.7.7",
+    "@fontsource/geist": "^5.3.0",
+    "@fontsource/geist-mono": "^5.3.0",
+    "@fontsource/newsreader": "5.3.0",
     "@modelcontextprotocol/node": "2.1.2",
     "@modelcontextprotocol/server": "^2.0.0",
-    "@vitejs/plugin-react": "^5.0.0",
+    "@tanstack/react-router": "^1.170.46",
+    "@tanstack/react-start": "^1.169.4",
+    "@vitejs/plugin-react": "^6.2.1",
     "d3": "^7.9.0",
     "lucide-react": "^0.468.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "vite": "^7.1.3",
+    "vite": "^8.3.5",
     "zod": "^4.1.5"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@modelcontextprotocol/client": "^2.0.0",
+    "@playwright/test": "^1.64.1",
     "@types/d3": "^7.4.3",
     "@types/node": "^24.3.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
+    "pixelmatch": "^8.0.0",
+    "pngjs": "^7.0.0",
     "tsx": "^4.20.5",
     "typescript": "^5.8.3",
     "vitest": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   }
 }

@@ -1,16 +1,29 @@
 import { defineConfig } from 'vite'
+import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import react from '@vitejs/plugin-react'
 
-/**
- * The dev server proxies `/api` and `/mcp` to the backend, so the browser makes
- * same-origin requests and there is no CORS story to get wrong in development.
- */
+// Based on TanStack/router examples/react/start-basic. The existing API owns data/auth.
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    tanstackStart({
+      ...(process.env.PHF_PAGES_BUILD === '1' && {
+        prerender: { enabled: true, autoStaticPathsDiscovery: false, crawlLinks: false },
+        pages: ['/lab', '/find', '/actions', '/canvas', '/canvas/bilderrahmen-mac', '/canvas/schwamm-zitat'].map(path => ({ path })),
+      }),
+      spa: { enabled: true, prerender: { outputPath: '/index.html' } },
+    }),
+    react(),
+  ],
   server: {
     proxy: {
-      '/api': { target: process.env.BRAINSTORM_API ?? 'http://localhost:8787', changeOrigin: true },
-      '/mcp': { target: process.env.BRAINSTORM_API ?? 'http://localhost:8787', changeOrigin: true },
+      '/api': {
+        target: process.env.BRAINSTORM_API ?? 'http://localhost:8787',
+        changeOrigin: true,
+      },
+      '/mcp': {
+        target: process.env.BRAINSTORM_API ?? 'http://localhost:8787',
+        changeOrigin: true,
+      },
     },
   },
 })

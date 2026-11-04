@@ -1,0 +1,52 @@
+.lab-workbench {
+  /* Belegleiste */
+  .foot {
+    grid-column: 2/5;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0 16px;
+    border-top: 1px solid var(--lab-footer-rule);
+    background: linear-gradient(
+      var(--lab-footer-top),
+      var(--lab-footer-bottom)
+    );
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  &[data-focus="true"] .foot {
+    grid-column: 2/5;
+  }
+  .st {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+    font-weight: 500;
+  }
+  .st i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ok);
+    box-shadow: 0 0 8px var(--lab-measured-glow);
+  }
+  .st.gen i {
+    background: var(--warn);
+    box-shadow: 0 0 8px var(--lab-unmeasured-glow);
+  }
+  .foot .m {
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .foot a {
+    color: var(--accent-ink);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .foot .bridge {
+    margin-left: auto;
+  }
+}

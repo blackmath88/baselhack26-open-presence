@@ -2,13 +2,15 @@
 
 1 November 2026 · Perplexity (assistant) · Design research input, not an implementation dependency list.
 
+Updated 3 November 2026 for the requested Aurora port. The earlier research remains interaction context.
+
 ## Evidence limits and hierarchy
 
 Original documentation, author explanations and repository descriptions were inspected during the design conversation. No reference was interactively tested in this session; do not describe these as usability findings. Features below are documented behaviour, while borrow/avoid recommendations are design interpretations. Recheck current behaviour and licences before reusing code. Do not install these projects simply because they are listed.
 
-Visual north star for every phase: Cisco Cloud Control. Interaction north stars: coordinated views, inspectable mechanisms, contextual learning and clear consequences. Interaction references must not introduce competing visual skins.
+Visual source of truth = `apps/commons/src/styles/tokens.css` + the Aurora mock (`commons-aurora-port/reference/commons-mock.html`). Cisco Cloud Control remains an interaction reference only. Interaction references inform coordinated views, inspectable mechanisms, contextual learning and clear consequences. They do not supply a competing visual skin.
 
-## Cisco Cloud Control: visual shell and hierarchy
+## Cisco Cloud Control: interaction reference
 
 Documentation: https://www.cisco.com/c/en/us/td/docs/ai/cisco-cloud-control/collections/cisco-cloud-control-documentation.html
 Inventory: https://cloud.cisco.com/docs/en/cisco-cloud-control-inventory/cisco-cloud-control-inventory.html
@@ -17,9 +19,9 @@ Original source repository: none established; do not imply the product is open s
 
 Documented: centralised infrastructure inventory and topology; linked tenants can contribute inventory/topology data to a tenant group.
 Inspect: overview-to-object detail, navigation/context, status and surface hierarchy using accessible screenshots/docs or authorised product access.
-Match: user's explicitly selected look and feel.
-Borrow: a product-specific interpretation of operational clarity, restrained chrome and readable contextual depth. Avoid: infrastructure-management IA, health dashboards, branding or invented private tokens.
-Try/study: obtain the user's preferred screenshot/theme, annotate surface and selection roles, compare one implemented Commons workflow against it. Current evidence does not establish exact visual fidelity.
+Match: overview-to-detail continuity and context-preserving navigation.
+Borrow: operational clarity and readable contextual depth. The Aurora evidence-card grid, statistics and SVG charts are part of the approved mock. Do not borrow Cisco branding, assets or private tokens.
+Visual review uses the supplied Aurora desktop/mobile captures; Cisco screenshots are historical interaction research.
 
 ## Transformer Explainer: coordinated working explanation
 
@@ -102,6 +104,6 @@ Commons transfer: browser/CLI/MCP reach consistent records; View record is conte
 
 ## Synthesis and evaluation
 
-Recommended blend: experience-first reading + RegExr explanation links + Diffusion/Transformer process depth + OpenRefine preview + Speedscope contextual relationships, all expressed in the Cisco-inspired visual system.
+Recommended blend: experience-first reading + RegExr explanation links + Diffusion/Transformer process depth + OpenRefine preview + Speedscope contextual relationships, all expressed in the Aurora visual system.
 
 Study interactions, not screenshots alone. Record actual observations separately after testing. Test the proposed Commons design against a simpler account view: can someone recognise applicability, explain a mismatch, distinguish source/interpretation, reach evidence and correctly predict what sharing exposes? Do not infer time savings or community impact from a successful demo.

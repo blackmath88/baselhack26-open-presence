@@ -49,10 +49,21 @@ jobs:
           mkdir -p ../../observstory/e
           cp -R dist-e/. ../../observstory/e/
           npm run build:companion
+      - name: Build and stage the dark Commons Werkbank
+        working-directory: apps/commons
+        env:
+          PHF_PAGES_BUILD: '1'
+        run: |
+          npm run lab:ingest
+          npx vite build --base="/${GITHUB_REPOSITORY#*/}/commons/"
+          test -s dist/client/lab/index.html
+          test -s dist/client/lab/output/pdf/01-poem-visible.pdf
+          mkdir -p ../../observstory/commons
+          cp -R dist/client/. ../../observstory/commons/
       - name: Build .phf story and publish PDF experiments
         run: |
           node --test scripts/site/site.test.mjs
-          node scripts/site/package-public.mjs observstory
+          PHF_WORKBENCH_URL="https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/commons/lab/" node scripts/site/package-public.mjs observstory
       - name: Save dashboard artifact
         uses: actions/upload-artifact@v4
         with:

@@ -1,0 +1,25 @@
+
+.hero{max-width:1100px;margin:0 auto;padding-top:9vh;text-align:center}
+.hero h1{font-size:var(--fs-hero);font-weight:500;letter-spacing:-.035em;line-height:1.1;
+  background:linear-gradient(180deg,var(--white) 30%,var(--hero-end) 130%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--text-muted);font-size:18px;margin:var(--s-3) 0 var(--s-5);display:flex;justify-content:center;align-items:center;gap:8px}
+.hero p b{color:var(--text);font-weight:600}
+.hero p svg{color:var(--accent)}
+.composer{margin:9vh auto 0;max-width:1100px;text-align:left;border:1px solid var(--border-strong);border-radius:16px;background:var(--surface);padding:var(--s-4) var(--s-4) var(--s-3);box-shadow:var(--hairline),0 20px 50px var(--composer-shadow)}
+.composer:focus-within{--gb-fill:var(--surface);border:1px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,var(--accent-grad) border-box;box-shadow:0 0 0 4px var(--composer-ring),0 20px 50px var(--composer-shadow)}
+.composer .row{display:flex;gap:10px;align-items:center}
+.composer input{flex:1;background:none;border:0;outline:0;color:var(--text);font:inherit;font-size:17px;letter-spacing:-.01em}
+.composer input::placeholder{color:var(--text-muted)}
+.composer .foot{display:flex;justify-content:flex-end;align-items:center;gap:var(--s-3);margin-top:var(--s-3)}
+.sel{color:var(--accent-ink);font-weight:600;display:flex;align-items:center;gap:4px}
+.send{width:34px;height:34px;border-radius:9px;background:var(--accent-grad);color:var(--button-ink);display:grid;place-items:center;box-shadow:inset 0 1px 0 var(--button-highlight)}
+.send svg{stroke-width:2.2}
+.sugg{max-width:1100px;margin:var(--s-5) auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-3)}
+.sugg button{text-align:left;padding:14px 16px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--text);min-height:68px;font-weight:500;box-shadow:var(--hairline)}
+.sugg button:hover{border-color:var(--border-strong);background:var(--surface-2);transform:translateY(-1px)}
+.disclaimer{text-align:center;color:var(--text-muted);font-size:var(--fs-sm);margin-top:var(--s-6)}
+.disclaimer a{color:var(--accent-ink);font-weight:600;text-decoration:none}
+
+.composer input{min-width:0}
+.composer .row>.i{color:var(--text-muted)}
+.send:disabled{cursor:default}

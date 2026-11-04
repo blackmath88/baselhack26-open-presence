@@ -19,7 +19,7 @@ Start with [the current concept](HUMAN-SIGNAL-CONCEPT.md).
 the published PDF experiments, Observatory and e. Commons and Workbench still require their Node runtimes;
 the hosted story labels that boundary.
 
-Run the connected local experience (Node.js 22+ and npm):
+Run the connected local experience (Node.js 22.12+ and npm):
 
 ~~~bash
 node scripts/site/rehearse.mjs
@@ -36,7 +36,7 @@ Open http://127.0.0.1:8001/. The launcher builds the applications and keeps demo
 
 | Experience | What it does | Open / run |
 | --- | --- | --- |
-| **Photo Frame Commons** | Find, inspect, contribute and rediscover through browser, repository navigation, CLI or MCP | [Demo and commands](DEMO.md) · [application](apps/commons/) |
+| **Photo Frame Commons · Aurora** | German assistant, canvas and reviews; real find/inspect/compare reads. Contributions through existing API, CLI and MCP | [Demo and commands](DEMO.md) · [application](apps/commons/) |
 | **Observatory workspace** | Project knowledge, workstreams, board, timeline and source evidence | [Published workspace](https://blackmath88.github.io/baselhack26-open-presence/) · [guide](OBSERVSTORY.md) |
 | **PDF Lab** | Real PDFs, alternate readings, layer logic, file identities and transformations | [Cabinet and run instructions](sideprojects/pdf-lab/README.md) |
 | **PDF Workbench** | Inspect two readings of one PDF; write and download your own second reading | [Run and demo](sideprojects/pdf-lab/workbench/README.md) |
@@ -49,7 +49,7 @@ The workspace is a generated static snapshot. Commons and Project Memory run loc
 
 ## Run Commons locally
 
-Requires Node.js 22 or newer and npm.
+Requires Node.js 22.12 or newer and npm.
 
 ```bash
 cd apps/commons
@@ -58,7 +58,7 @@ npm run dev:server   # terminal 1: API and MCP on 127.0.0.1:8787
 ```
 
 In a second terminal, run `cd apps/commons && npm run dev`, then open http://localhost:5173.
-Choose a prototype participant and search **“My Mac cannot see my frame”**. Inspect evidence, preview an observation and submit it to the local room. [DEMO.md](DEMO.md) covers repository, CLI/MCP and passage-reply journeys.
+The Aurora mock views work without the API. **Finden** searches the real committed corpus; an existing prototype session enables API search and inspection. Search **“My Mac cannot see my frame”**, inspect a source and select two records to compare. [Aurora verification and scope](docs/reports/commons-aurora/README.md) covers the new browser shell; [DEMO.md](DEMO.md) retains the earlier browser journey and the existing repository/CLI/MCP commands.
 
 Prototype sign-in is for local use; do not expose this server publicly. ATProto publication/ingestion has been exercised against an isolated development PDS, not public federation.
 

@@ -1,0 +1,56 @@
+[
+  {
+    "size": "desktop",
+    "view": "assistant",
+    "overflow": {
+      "page": 1440,
+      "viewport": 1440
+    },
+    "violations": []
+  },
+  {
+    "size": "desktop",
+    "view": "canvas",
+    "overflow": {
+      "page": 1440,
+      "viewport": 1440
+    },
+    "violations": []
+  },
+  {
+    "size": "desktop",
+    "view": "actions",
+    "overflow": {
+      "page": 1440,
+      "viewport": 1440
+    },
+    "violations": []
+  },
+  {
+    "size": "desktop",
+    "view": "app-launcher",
+    "overflow": {
+      "page": 1440,
+      "viewport": 1440
+    },
+    "violations": []
+  },
+  {
+    "size": "mobile",
+    "view": "assistant",
+    "overflow": {
+      "page": 390,
+      "viewport": 390
+    },
+    "violations": []
+  },
+  {
+    "size": "mobile",
+    "view": "canvas",
+    "overflow": {
+      "page": 390,
+      "viewport": 390
+    },
+    "violations": []
+  }
+]

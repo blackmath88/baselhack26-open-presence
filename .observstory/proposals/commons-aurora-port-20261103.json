@@ -1,0 +1,43 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "commons-aurora-port-20261103",
+  "kind": "finding",
+  "title": "Aurora shell migration and preserved Commons read boundary",
+  "statement": "The requested Aurora reference can be implemented with TanStack Start SPA mode while retaining the existing corpus, find/inspect/compare modules, API clients and backend unchanged. The prototype review flow does not write canonical records. Screenshots and verification are recorded for PR review.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-03T13:32:31+01:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "1077ce95e761cd39684d95da296306d9e0178c3e",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "commons-aurora-port/CODEX-PROMPT.md"
+    },
+    {
+      "path": "docs/reports/commons-aurora/STEP-0.md"
+    },
+    {
+      "path": "docs/reports/commons-aurora/README.md"
+    },
+    {
+      "path": "apps/commons/src/routes/__root.tsx"
+    },
+    {
+      "path": "apps/commons/src/components/aurora/Find.tsx"
+    }
+  ],
+  "conditions": [
+    "The context packet predates the inspected main; repository contents were checked directly.",
+    "No human acceptance record is created by this proposal.",
+    "Mock evidence and review state are prototype content. API/CLI/MCP writes remain separate.",
+    "No public deployment, new authentication, multiplayer or backend endpoints are claimed."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}

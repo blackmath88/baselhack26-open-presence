@@ -1,0 +1,10 @@
+.find{display:grid;gap:var(--s-4);max-width:1100px}
+.find h1{font-size:26px}.find h2{font-size:18px}.find h3{font-size:15px;margin-top:var(--s-4)}
+.find-form{display:flex;gap:var(--s-3)}
+.find-form input{flex:1;min-width:0;padding:12px 16px;border:1px solid var(--border-strong);border-radius:var(--r-md);background:var(--surface)}
+.find-results{display:grid;gap:var(--s-3)}
+.find .card p{margin:var(--s-2) 0}.find .card a,.back-link{color:var(--accent-ink)}
+.record dl{display:grid;gap:var(--s-3);margin:var(--s-4) 0}.record dt{color:var(--text-muted)}
+.record dd,.record blockquote{overflow-wrap:anywhere}.record blockquote{border-left:2px solid var(--accent);padding-left:var(--s-3);margin:var(--s-2) 0}
+.compare-selection{display:flex;gap:var(--s-4);align-items:center}
+.comparison td{white-space:normal;min-width:180px;vertical-align:top}

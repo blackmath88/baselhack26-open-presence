@@ -1,0 +1,48 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "demo-1-pdf-transition-20261103",
+  "kind": "finding",
+  "title": "PDF presenter reset and photo-frame arrival are reproducible",
+  "statement": "Brief 1 connects the PDF Lab bridge to the registered bilderrahmen-mac investigation with a transient arrival line. Presenter reset clears the dock flag and only usb-c-no-data root/reply drafts. Desktop and mobile browser checks restore the exact selected lab URL through browser back and the arrival link, including after reload.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-03T15:56:26.993422+00:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "df9bec5f5c081ed23501a3b7d2496a7a4b5b91e7",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "docs/reports/demo-loop/STEP-0.md"
+    },
+    {
+      "path": "docs/reports/demo-loop/README.md"
+    },
+    {
+      "path": "docs/reports/demo-loop/01-verification.json"
+    },
+    {
+      "path": "apps/commons/src/data/investigations.ts"
+    },
+    {
+      "path": "apps/commons/test/demo-reset.test.ts"
+    },
+    {
+      "path": "apps/commons/scripts/lab/demo-transition.mjs"
+    }
+  ],
+  "conditions": [
+    "PR #60 was open at branch creation; the task starts from and targets docs/demo-loop-specs.",
+    "The context packet cutoff predates the branch; current source, concept and knowledge were checked.",
+    "The canvas still has no photo-frame evidence cards. This implements only brief 1, not the subsequent demo-loop work.",
+    "Reset only touches browser-local state. Room records are unchanged; no new PDF measurements are claimed.",
+    "Aurora tokens, dependencies, canvas index, lab parameter validation and standalone Workbench are unchanged.",
+    "This finding is unreviewed and does not accept a project decision."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "pdf-lab-werkbank-20261103",
+  "kind": "finding",
+  "title": "Aurora PDF Lab uses recorded evidence and whole-line Type 3 glyphs",
+  "statement": "The new Commons /lab workbench imports the existing PDF Lab model, adapters and four-line writer. It reconstructs the supplied German UI around the real paired-poem fixture and recorded measurements. The fixture has one glyph per complete line, so letter-level mock mappings cannot be displayed as measurements. Generated files have verified mapping-only changes but no reader run.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-03T14:00:07.921939+00:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "d3f8b6d3cc25050e7e4854cce7a485f53fa4ba9e",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "docs/reports/pdf-lab-werkbank/STEP-0.md"
+    },
+    {
+      "path": "docs/reports/pdf-lab-werkbank/README.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/evidence/poems-results.json"
+    },
+    {
+      "path": "sideprojects/pdf-lab/workbench/src/adapters/twoPoemFixture.ts"
+    },
+    {
+      "path": "apps/commons/src/features/lab/model.ts"
+    },
+    {
+      "path": "apps/commons/test/pdf-lab.test.ts"
+    },
+    {
+      "path": "apps/commons/scripts/lab/browser.mjs"
+    }
+  ],
+  "conditions": [
+    "The current packet cutoff is older than the branch base; current source and knowledge were inspected.",
+    "The user supplied the Aurora workbench reference. Placeholder poems, per-letter IDs, readers and dates were replaced by real source data or explicit missing states.",
+    "Recorded page images are reused; no rendering or extraction engine runs in the UI. Line guides come from placement and declared FontBBox, not measured ink bounds.",
+    "poems-results.json has no run timestamp. Newly generated files remain Neu erzeugt · nicht gemessen, even when an original reference image is shown.",
+    "No photo-frame investigation ID exists on this base. The bridge uses the permitted /canvas fallback, which explicitly reports that absence and links to corpus search.",
+    "The standalone Workbench and legacy cabinet remain operational. This finding is unreviewed and approves no project decision."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}

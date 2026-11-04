@@ -1,0 +1,54 @@
+[
+  {
+    "width": 1440,
+    "check": "Launcher search, Escape, shortcut, focus return and focus trap",
+    "passed": true
+  },
+  {
+    "width": 1440,
+    "check": "Route modes, review → same canvas → assistant composer, reload, reference highlight/scroll",
+    "passed": true
+  },
+  {
+    "width": 1440,
+    "check": "Direct routes, no horizontal page overflow, reduced motion, no JS errors, local fonts",
+    "passed": true
+  },
+  {
+    "width": 1440,
+    "check": "Another selected review carries its own investigation into the composer; no invented evidence",
+    "passed": true
+  },
+  {
+    "width": 390,
+    "check": "Launcher search, Escape, shortcut, focus return and focus trap",
+    "passed": true
+  },
+  {
+    "width": 390,
+    "check": "Route modes, review → same canvas → assistant composer, reload, reference highlight/scroll",
+    "passed": true
+  },
+  {
+    "width": 390,
+    "check": "Direct routes, no horizontal page overflow, reduced motion, no JS errors, local fonts",
+    "passed": true
+  },
+  {
+    "width": 390,
+    "check": "Another selected review carries its own investigation into the composer; no invented evidence",
+    "passed": true
+  },
+  {
+    "check": "Real API search/inspect, source links, unchanged compare module, URL selection and back context",
+    "passed": true
+  },
+  {
+    "check": "Existing hash search links redirect into the TanStack read routes",
+    "passed": true
+  },
+  {
+    "check": "Service outage uses the real committed corpus fallback",
+    "passed": true
+  }
+]

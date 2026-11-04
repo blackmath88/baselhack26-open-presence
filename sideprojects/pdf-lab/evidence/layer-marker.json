@@ -1,0 +1,48 @@
+{
+  "versions": {
+    "mupdf": "1.26.11",
+    "poppler": "pdftoppm version 26.05.0",
+    "tesseract": "tesseract 5.3.4"
+  },
+  "dpi": 144,
+  "crop": [
+    190,
+    620,
+    550,
+    705
+  ],
+  "rows": [
+    {
+      "state": "000",
+      "pdf_sha256": "638fd7dac1f20e836f7282ae5b32e53668349b2547a2a35914b9325da0e2a711",
+      "observations": {
+        "mupdf": {
+          "ocr": "LANTERN",
+          "dark_pixels": 3895,
+          "crop_sha256": "acc0116a17d9f5584e62cbbfc0237b5fd25927aa704181938c7826e5e6defd01"
+        },
+        "poppler": {
+          "ocr": "Oe",
+          "dark_pixels": 0,
+          "crop_sha256": "4e3359a85d06daee6dd262d239beee316f9c96fcc90a5c055388dc9ce1bacf9d"
+        }
+      }
+    },
+    {
+      "state": "101",
+      "pdf_sha256": "c12e97803af17e20f75f32b9348cefcfd3377f50a744dbba1a32352e43c4d051",
+      "observations": {
+        "mupdf": {
+          "ocr": "LANTERN",
+          "dark_pixels": 3895,
+          "crop_sha256": "acc0116a17d9f5584e62cbbfc0237b5fd25927aa704181938c7826e5e6defd01"
+        },
+        "poppler": {
+          "ocr": "LANTERN",
+          "dark_pixels": 2300,
+          "crop_sha256": "b738a8b0b5827890ede940c3b646741e720299bfe82c77b98de2d4578d106afe"
+        }
+      }
+    }
+  ]
+}
