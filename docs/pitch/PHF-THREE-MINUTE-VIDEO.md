@@ -250,3 +250,5 @@ Sources:
 - [Story/plan PR #23](https://github.com/blackmath88/baselhack26-open-presence/pull/23)
 - [PDF opening PR #24](https://github.com/blackmath88/baselhack26-open-presence/pull/24)
 - [.phf UI PR #25](https://github.com/blackmath88/baselhack26-open-presence/pull/25)
+
+Proposed Adobe companion: [One Document. Many Readings.](ONE-DOCUMENT-MANY-READINGS.md) pairs the PDF opening with an inspectable three-scene study.

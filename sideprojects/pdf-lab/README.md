@@ -49,6 +49,10 @@ The following evidence model and P-series are retained as supporting research, n
 
 [Layer lock](output/pdf/07-layer-lock-000.pdf) · [bitmap circuit](output/pdf/08-bitmap-machine.pdf) · [colour program](output/pdf/09-colour-program.pdf). The gallery compares all eight saved layer states across three engines and includes an interactive bitmap half-adder. **A real divergence:** Poppler/PDFium follow the intended gate; this MuPDF build leaves it visible in every state. [Experiment cards, research corrections and next investigations](WEIRD-MACHINES.md) · [raw observations](evidence/weird-results.json).
 
+## Testing alternate readings
+
+[Booking-policy fixtures and measured results](experiments/booking-policy/README.md) · [Test-suite proposal, research and sandbox options](READINGS-TEST-SUITE.md)
+
 ## Open the working cabinet
 
 **New:** [one file, two identities](output/pdf/04-two-identities.pdf) · [who killed object 17?](output/pdf/05-object-17.pdf) · [print me to ruin the puzzle](output/pdf/06-print-to-reveal.pdf).

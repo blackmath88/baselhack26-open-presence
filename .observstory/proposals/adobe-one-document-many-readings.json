@@ -1,0 +1,34 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "adobe-one-document-many-readings",
+  "kind": "proposal",
+  "title": "Present PDF Lab as a three-scene Adobe research exhibition",
+  "statement": "Use Two Poems in the PHF opening and pair the layer observation with a controlled booking-policy ingestion study in a five-minute companion experience.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-04T14:27:15.870435+00:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "edeebe52359e41a0e288c607b85c6912c5cb6661",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "docs/pitch/ONE-DOCUMENT-MANY-READINGS.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/evidence/layer-marker.json"
+    },
+    {
+      "path": "sideprojects/pdf-lab/experiments/booking-policy/INGESTION.md"
+    }
+  ],
+  "conditions": [
+    "Exhibition and offline spread are proposed. Renderer and extraction evidence exists; no live model or Acrobat trial is recorded."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
