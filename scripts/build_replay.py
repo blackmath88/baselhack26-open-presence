@@ -34,7 +34,8 @@ if __name__ == '__main__':
     template = Path('replay/index.html').read_text()
     payload = json.dumps(events).replace('<', '\\u003c').replace('>', '\\u003e').replace('&', '\\u0026')
     (output / 'replay.html').write_text(template.replace('__EVENTS__', payload))
-    index = output / 'index.html'
+    # With `frontend: observatory` the classic map lives at map.html and the app links replay itself.
+    index = output / 'map.html' if (output / 'map.html').exists() else output / 'index.html'
     if index.exists():
         html = index.read_text()
         link = '<nav aria-label="Repository replay" style="padding:12px"><a href="replay.html">Replay repository history ↗</a></nav>'
