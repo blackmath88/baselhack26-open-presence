@@ -1,0 +1,45 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "pdf-mobile-reflow-20261103",
+  "kind": "proposal",
+  "title": "Add the mobile-reflow experiment: Where did the page go?",
+  "statement": "Achim requested adding the mobile-reflow exploration to the PDF Lab plan. Compare original page, actual mobile reflow and extracted text using owned specimens and named evidence. Detailed design remains proposed; no implementation or observed mobile compatibility is claimed. Everyday adoption remains an unverified hypothesis.",
+  "author": {
+    "name": "ChatGPT / Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-03",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "1077ce95e761cd39684d95da296306d9e0178c3e",
+    "snapshot_id": "ks_fbfae21de280190867c2",
+    "context_packet_id": "cp_49910240c91373d872f079ac"
+  },
+  "evidence": [
+    {
+      "path": "sideprojects/pdf-lab/PLAN.md",
+      "blob": "bb5ed9477dec19632ecacbb2a12fa5fbcc3aef35"
+    },
+    {
+      "path": "sideprojects/pdf-lab/WORKBENCH-BUILD.md",
+      "blob": "ce744b064f31bc884b28a85ef9daf4a5dbdc09cb"
+    },
+    {
+      "path": "sideprojects/pdf-lab/MOBILE-REFLOW.md"
+    },
+    {
+      "url": "https://helpx.adobe.com/uk/acrobat/mobile/view-manage-files/liquid-mode.html"
+    },
+    {
+      "url": "https://helpx.adobe.com/acrobat/mobile/get-started/technical-requirements.html"
+    }
+  ],
+  "conditions": [
+    "Implementation and actual mobile-reader observations remain pending.",
+    "Teaching simulations must not be represented as Liquid Mode runs.",
+    "No human review record is authored by this assistant."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}

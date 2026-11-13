@@ -3,6 +3,10 @@
 
 Read [the format-bending brief](FORMAT-BENDING.md). Achim's latest direction prioritises demoscene-like artefacts, reverse engineering and playful format limits. This plan replaces the previous extraction-first sequence. Historical methodology remains in [the research review](RESEARCH-REVIEW-2026-10-31.md) and Git history.
 
+## Added exploration track — mobile reflow, 3 November 2026
+
+Achim requested adding [Where did the page go?](MOBILE-REFLOW.md): compare an original page, actual mobile reflow and extracted text from the same PDF. Start with an owned two-column article, then examine sidebar, caption, table and footnote relationships. The linked brief defines controls, evidence states and acceptance checks. Design and implementation remain proposed; no mobile-reader compatibility result is claimed. Adoption in everyday practice remains an unverified hypothesis. This complements the creative roadmap and existing workbench comparison contracts.
+
 ## Application track — 1 November 2026
 
 The [modular workbench blueprint](WORKBENCH-BUILD.md) adds a TanStack Start shell and phased encounter → inspection → authoring → comparison → import → findings/journeys → deeper instruments. It complements the creative experiment roadmap below and reuses the existing specimens, generators and evidence. [Claude's first batch](CLAUDE-WORKBENCH.md) covers phases 0–2 with stored comparisons; subsequent phases remain planned. [Supplied research](research/2026-11-01-workbench-direction.md) and PR #26 inform the design. No application implementation is claimed by this planning update.
