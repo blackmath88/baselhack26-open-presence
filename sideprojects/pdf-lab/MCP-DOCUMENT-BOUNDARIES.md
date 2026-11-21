@@ -16,3 +16,12 @@ Proposed December research, 21 November 2026. Start with the cabinet’s [paired
 - **Ghostscript.** CVE-2026-125396 describes a SAFER bypass in upstream releases before 10.08.0. For a thumbnail service the first question is whether it invokes Ghostscript at all. Record the distribution package’s fix status as well as the upstream version. [Debian security tracker](https://security-tracker.debian.org/tracker/CVE-2026-125396)
 
 **Evidence target.** One fixture hash, exact consumer versions, expected and observed interpretations, the applicable control, and cleanup of temporary outputs. Findings about an owned reader apply to the recorded configuration. Deployment in Swiss identity or voting services remains unverified. [Cyber December mission](https://github.com/blackmath88/cyber-december27/blob/main/docs/DECEMBER-2026-BOUNTY-MISSION.md)
+
+## Prior cases by processing stage
+
+| Stage | Published evidence | Relevance to the cabinet |
+| --- | --- | --- |
+| Parsing | [iText CVE-2017-9096](https://access.redhat.com/security/cve/cve-2017-9096) concerns external entities in XML processing. | Identify the reader and package revision. A PDF producer string alone cannot establish which service parsed an upload or that anyone received a bounty. |
+| Report generation | Public indexes list USD 25,000 for HackerOne report 2262382, SSRF via Analytics Reports. The payment amount was verified only against secondary records. [Disclosure](https://hackerone.com/reports/2262382) · [Report index](https://cybersixt.com/bounty/programs/security) | The relevant authority is the report generator’s network access. A viewer-side experiment measures a different stage. |
+| Browser viewing | Mozilla’s [CVE-2026-16633 advisory](https://github.com/mozilla/pdf.js/security/advisories/GHSA-hq66-cqwq-w95j) documents script execution in the hosting origin for affected PDF.js builds with scripting enabled and without a CSP blocking the script. | Record the viewer build, configuration, origin and effective CSP before assigning impact. |
+| Extraction for a model | The [split-view study](https://arxiv.org/abs/2606.15020) reports 25 gaps across four families, 16 processing stacks and seven commercial LLM services. Each service exposed 12–21 of the 25 gaps under the authors’ criterion. | The CHF 80 fixture measures which text reaches the next stage. [Issue 66](https://github.com/blackmath88/baselhack26-open-presence/issues/66) separately evaluates whether the answer changes. |
