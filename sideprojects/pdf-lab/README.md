@@ -51,6 +51,8 @@ The following evidence model and P-series are retained as supporting research, n
 
 ## Testing alternate readings
 
+[Proposed MCP document-processing comparisons](MCP-DOCUMENT-BOUNDARIES.md) follow the cabinet specimens through writing, extraction, thumbnail rendering and browser delivery.
+
 [Booking-policy fixtures and measured results](experiments/booking-policy/README.md) · [Test-suite proposal, research and sandbox options](READINGS-TEST-SUITE.md)
 
 ## Open the working cabinet
