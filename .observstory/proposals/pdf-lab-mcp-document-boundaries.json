@@ -1,0 +1,32 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "pdf-lab-mcp-document-boundaries",
+  "kind": "proposal",
+  "title": "Compare PDF interpretation at document processing boundaries",
+  "statement": "Use existing cabinet specimens and benign literal text to distinguish writer, extractor, renderer and browser observations.",
+  "author": {
+    "name": "Codex",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-21",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "f61b470dd7574cfd9eb9ec6ba68325b1508ec559",
+    "context_packet_id": "cp_7cdc6f026054f6d6650d202f"
+  },
+  "evidence": [
+    {
+      "path": "sideprojects/pdf-lab/README.md"
+    },
+    {
+      "path": "sideprojects/pdf-lab/MCP-DOCUMENT-BOUNDARIES.md"
+    }
+  ],
+  "conditions": [
+    "Owned specimens and recorded consumer versions",
+    "External advisories describe upstream products; deployment evidence is separate."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
