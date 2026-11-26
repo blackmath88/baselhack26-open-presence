@@ -1,0 +1,31 @@
+{
+  "schema": "observstory.proposal/v1",
+  "id": "infinite-canvas-foldkit-prototype-20261126",
+  "kind": "proposal",
+  "title": "Add sideprojects/infinite-canvas: a FoldKit prototype of an infinite canvas with rendered Explorer windows",
+  "statement": "A standalone FoldKit (Effect/Elm-architecture) prototype inspired by Scott Tolinski showing a spatial infinite canvas of rendered Explorer windows on the latest Syntax episodes (agent workspaces, Opus 5.5/5.1 context). It lives under sideprojects/ like pdf-lab, is self-contained (own package.json, tests, build), and changes no accepted direction or existing module.",
+  "author": {
+    "name": "Vibe Code",
+    "kind": "assistant"
+  },
+  "submitted_at": "2026-11-26T13:00:00+00:00",
+  "base": {
+    "repository": "blackmath88/baselhack26-open-presence",
+    "commit": "f61b470dd7574cfd9eb9ec6ba68325b1508ec559"
+  },
+  "evidence": [
+    {
+      "path": "sideprojects/infinite-canvas/README.md"
+    },
+    {
+      "path": "sideprojects/infinite-canvas/src/main.ts"
+    }
+  ],
+  "conditions": [
+    "Prototype only: static in-memory file system, no persistence, no live model calls, no public hosting.",
+    "Not wired into MODULES.md, the story launcher, or any published route; adding it there would be a separate human-approved change."
+  ],
+  "proposed_change": {
+    "op": "none"
+  }
+}
